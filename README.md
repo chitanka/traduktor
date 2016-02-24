@@ -39,6 +39,7 @@
 			location ~ \.php$ {
 				fastcgi_split_path_info ^(.+\.php)(/.+)$;
 				fastcgi_pass unix:/var/run/php5-fpm.sock;
+				fastcgi_param SCRIPT_FILENAME $request_filename;
 				fastcgi_index index.php;
 				include fastcgi_params;
 			}
@@ -58,7 +59,15 @@
 
         sudo -u postgres createuser -E -P notabenoid
         sudo -u postgres createdb -O notabenoid notabenoid
+        
+ правим /etc/postgresql/9.4/main/pg_hba.conf, раздел подключений. Необходимо сделать так, чтобы локальное подключение не требовало пароля
+ 	local   all  all trust
         psql -U notabenoid < init.sql
+        
+Изменяем права пользователя notabenoid
+	sudo -u postgres psql template1
+
+	# alter role notabenoid with superuser;
 
 5. Настало время охуительных конфигов! В /protected/config/main.php найдите строки
 
