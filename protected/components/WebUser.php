@@ -254,7 +254,7 @@ class WebUser extends CWebUser {
 			return (time() - strtotime($this->model->cdate)) / (60*60*24) > 180;
 		}
 
-		return (bool) self::$roles[$role][strtolower($this->login)];
+		return in_array(strtolower($this->login), self::$roles[$role]);
 	}
 
 	public static function getRoles($role) {
