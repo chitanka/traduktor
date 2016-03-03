@@ -186,7 +186,9 @@ class BlogController extends Controller {
 		} else {
 			$post = new BlogPost();
 			$post->user_id = Yii::app()->user->id;
-			$post->topics = (int) $_GET["topic"];
+			if(in_array("topic", $_GET)){
+				$post->topics = (int) $_GET["topic"];
+			}
 		}
 
 		if(isset($_POST["BlogPost"])) {

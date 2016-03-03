@@ -10,11 +10,12 @@
 
 	$user = Yii::app()->user;
 
-	if(!is_array($has)) $has = array();
+	if(!isset($has) or !is_array($has)) $has = array();
 	$has = array_merge(array(
 		"edit" => $post->can("edit"),
 		"mytalks" => !$user->isGuest,
-		"bookLink" => true
+		"bookLink" => true,
+		"extra" => ""
 	), $has);
 
 	$T = array();
@@ -25,8 +26,10 @@
 		$T[] = "<a href='/my/comments/rm/?post_id={$post->id}' class='talks'>не показывать</a>";
 	} else {
 		if(!$user->isGuest && $has["mytalks"]) {
-			if(!$post->seen->track) $T[] = "<a href='/my/comments/add?post_id={$post->id}' onclick='return Blog.my({$post->id}, this)' class='talks'>в мои обсуждения</a>";
-			else $T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Пост в ваших обсуждениях' class='talks'>&rarr;</a>";
+			// ! ЗАГЛУШКА !
+			// if(!$post->seen->track) $T[] = "<a href='/my/comments/add?post_id={$post->id}' onclick='return Blog.my({$post->id}, this)' class='talks'>в мои обсуждения</a>";
+			// else $T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Пост в ваших обсуждениях' class='talks'>&rarr;</a>";
+			$T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Пост в ваших обсуждениях' class='talks'>&rarr;</a>";
 		}
 	}
 

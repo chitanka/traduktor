@@ -4,6 +4,9 @@
 	* @var string $h1 = $user->login
 	* @var string $html_insert1 = ""
 	*/
+    // ! ЗАГЛУШКА !
+    $h1 = $user->login;
+    $html_insert1 = "";
 ?>
 <div class="row profile-header">
 

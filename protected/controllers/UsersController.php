@@ -115,7 +115,11 @@ class UsersController extends Controller {
 			$my_mark = null;
 		}
 
-		$dir = $_GET["dir"] == "out" ? "out" : "in";
+		if(in_array("dir", $_GET)){
+			$dir = $_GET["dir"] == "out" ? "out" : "in";
+		} else {
+			$dir = "out";
+		}
 
 		$f = new KarmaMark();
 		if($dir == "out") {
@@ -152,9 +156,11 @@ class UsersController extends Controller {
 			2 => array("book.owner_id = {$user->id}", "там, где {$user->login} &ndash; создатель", "не создал" . $user->sexy() . " ни одного проекта перевода"),
 		);
 
-		$order = (int) $_GET["order"];
+		if(in_array("order", $_GET)) $order = (int) $_GET["order"];
+		else $order = 1;
 		if(!isset($orderOptions[$order])) $order = 1;
-		$status = (int) $_GET["status"];
+		if(in_array("status", $_GET)) $status = (int) $_GET["status"];
+		else $status = 0;
 		if(!isset($statusOptions[$status])) $status = 0;
 
 		$f = new GroupMember();
@@ -209,7 +215,11 @@ class UsersController extends Controller {
 	public function actionComments($id) {
 		$user = $this->loadUser($id);
 
-		$mode = $_GET["mode"];
+		if(in_array("mode", $_GET)){
+			$mode = $_GET["mode"];
+		} else {
+			$mode = "";
+		}
 		if($mode != "tblog" and $mode != "tr") $mode = "blog";
 
 		$c = new CDbCriteria(array("order" => "t.cdate desc"));
@@ -368,6 +378,7 @@ class UsersController extends Controller {
 	public function actionUpic() {
 		/** @var User $user */
 		$user = User::model()->findByPk(Yii::app()->user->id);
+
 
 		if($_GET["do"] == "cancel" && is_array($_SESSION["upicEditor"])) {
 			$tmp_path = $_SERVER["DOCUMENT_ROOT"] . "/i/tmp/upiccut/" . $_SESSION["upicEditor"]["img"]["name"];

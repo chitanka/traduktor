@@ -16,7 +16,7 @@
 <ul class="nav nav-list" id="topics">
 <?php
 	foreach(Yii::app()->params["blog_topics"]["common"] as $k => $v) {
-		if(is_array($topics)) {
+		if(isset($topics) and is_array($topics)) {
 			echo "<li" . (in_array($k, $topics) ? " class='active'" : "") . ">";
 			echo "<input type='checkbox' name='topics[]' value='{$k}'" . (in_array($k, $topics) ? " checked" : "") . " class='c' /> ";
 		} else {
@@ -26,7 +26,7 @@
 		echo "</li>";
 	}
 	echo "<li class='buttons'><button class='btn btn-mini'>Показать</button></li>";
-	echo "<li" . (is_array($topics) && count($topics) == 0 ? " class='active'" : "") . "><a href='/blog?topics=all'>Все</a></li>";
+	echo "<li" . (isset($topics) && is_array($topics) && count($topics) == 0 ? " class='active'" : "") . "><a href='/blog?topics=all'>Все</a></li>";
 ?>
 
 </ul>
@@ -34,7 +34,10 @@
 </form>
 
 <?php
-	if(!Yii::app()->user->isGuest) echo "<p><a href='/blog/edit" . ($topic ? "?topics[]={$topic}" : "") . "'><i class='icon icon-pencil'></i> Написать пост</a></p>";
+	if(!Yii::app()->user->isGuest){
+		// echo "<p><a href='/blog/edit" . ($topic ? "?topics[]={$topic}" : "") . "'><i class='icon icon-pencil'></i> Написать пост</a></p>";
+		echo "<p><a href='/blog/edit/'><i class='icon icon-pencil'></i> Написать пост</a></p>";
+	}
 ?>
 
 </div>

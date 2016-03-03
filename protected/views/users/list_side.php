@@ -26,6 +26,11 @@ function RusEnding($n, $n1, $n2, $n5) {
 	<?php
 		$age = time() - mktime(16, 57, 0, 6, 25, 2008);
 		$NotabenoidAge = floor($age / (60 * 60 * 24));
+		// Просто обманка, чтобы оно открылось
+		$n_users = 1;
+		$n_books = 0;
+		$n_orig = 0;
+		$n_tr = 0;
 	?>
 	<h5>Сухие цифры</h5>
 

@@ -17,7 +17,7 @@ class MyCommentsController extends Controller {
 		$user = Yii::app()->user;
 		$modes = array("p" => "в постах", "o" => "в фрагментах оригинала");
 
-		if(isset($modes[$_GET["mode"]])) {
+		if(in_array("mode", $_GET) and isset($modes[$_GET["mode"]])){
 			$mode = $_GET["mode"];
 		} elseif(isset($_SESSION["my_comments_mode"])) {
 			$mode = $_SESSION["my_comments_mode"];
