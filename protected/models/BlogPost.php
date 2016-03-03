@@ -131,7 +131,13 @@ class BlogPost extends CActiveRecord {
 	// EVENTS
 
 	public function afterFind() {
-		if($this->hasRelated("seen")) $this->n_new_comments = $this->n_comments - $this->seen->n_comments;
+		if($this->hasRelated("seen")){
+			if(isset($this->n_comments) and isset($this->seen->n_comments)){
+				$this->n_new_comments = $this->n_comments - $this->seen->n_comments;
+			} else {
+				$this->n_new_comments = 0;
+			}
+		}
 	}
 
 	public function beforeSave() {

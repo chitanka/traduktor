@@ -24,7 +24,7 @@ class CatalogController extends Controller {
 			$books_dp = null;
 		}
 
-		if($_GET["ajax"]) $this->renderPartial("catalog_ajax", array("tree" => $tree));
+		if(in_array("ajax", $_GET)) $this->renderPartial("catalog_ajax", array("tree" => $tree));
 		else {
 			$this->render("catalog", array("cat" => $cat, "tree" => $tree, "books_dp" => $books_dp));
 		}

@@ -34,7 +34,8 @@
 				if($prev_typ != $V['t']) {
 					if($prev_typ != -1) $html .= "</optgroup>\n";
 
-					$html .= "<optgroup label='" . $this->Types[$V['t']] . "'>\n";
+					// ! ЗАГЛУШКА !
+					// $html .= "<optgroup label='" . $this->Types[$V['t']] . "'>\n";
 					$prev_typ = $V['t'];
 				}
 				$html .= "<option value='{$k}'" . ($k == $default ? " selected='selected'" : "") . ">{$V[$form]}</option>\n";

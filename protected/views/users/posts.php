@@ -23,7 +23,7 @@ $this->renderPartial("profile_head", array("user" => $user, "h1" => "посты"
 
 <h2><?=Yii::t("app", "{n} пост|{n} поста|{n} постов", $posts->totalItemCount); ?></h2>
 <?php
-	if($cache_time) {
+	if(isset($cache_time)) {
 		echo "<div class='alert alert-box alert-info'>Информация обновляется раз в <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часов", $cache_time) . "</strong></div>";
 	}
 
