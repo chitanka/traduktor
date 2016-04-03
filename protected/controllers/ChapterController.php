@@ -622,7 +622,7 @@ class ChapterController extends Controller {
 				->queryScalar(array(":book_id" => $chap->book_id));
 		}
 
-		if(count($_POST["Chapter"]) > 0) {
+		if(isset($_POST["Chapter"]) && count($_POST["Chapter"]) > 0) {
 			if($chap_id == 0) {
 				// Будущий ord
 				if($_GET["placement"] == -1) {
