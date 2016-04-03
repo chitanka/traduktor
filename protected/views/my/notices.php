@@ -7,7 +7,7 @@
 
 	$this->pageTitle = "Оповещения";
 ?>
-<?php if(!$ajax): ?>
+<?php if(isset($ajax) && !$ajax): ?>
 <style type="text/css">
 #Notices {margin:0; padding:0; list-style: none;}
 #Notices li {
@@ -70,7 +70,7 @@ $(N.init);
 <h1>Оповещения</h1>
 <?php endif; ?>
 
-<?php if(!$ajax && $notices_dp->totalItemCount == 0): ?>
+<?php if(isset($ajax) && !$ajax && $notices_dp->totalItemCount == 0): ?>
 <div class="alert alert-info">
 	У вас нет оповещений.
 </div>
@@ -79,7 +79,7 @@ $(N.init);
 <?php
 	$notices = $notices_dp->getData();
 
-	if(!$ajax) $this->widget('bootstrap.widgets.TbPager', array("pages" => $notices_dp->pagination, "header" => "<div class='pagination' style='margin-bottom:0'>"));
+	if(isset($ajax) && !$ajax) $this->widget('bootstrap.widgets.TbPager', array("pages" => $notices_dp->pagination, "header" => "<div class='pagination' style='margin-bottom:0'>"));
 
 	echo "<ul id='Notices'>";
 	foreach($notices as $notice) {
@@ -91,7 +91,7 @@ $(N.init);
 	}
 	echo "</ul>";
 
-	if(!$ajax) $this->widget('bootstrap.widgets.TbPager', array("pages" => $notices_dp->pagination, "header" => "<div class='pagination' style='margin-bottom:0'>"));
+	if(isset($ajax) && !$ajax) $this->widget('bootstrap.widgets.TbPager', array("pages" => $notices_dp->pagination, "header" => "<div class='pagination' style='margin-bottom:0'>"));
 ?>
 
 

@@ -46,7 +46,7 @@ class MyController extends Controller {
 		}
 
 		$crit = new CDbCriteria();
-		if($_GET["new"] == 1) {
+		if(isset($_GET["new"]) && $_GET["new"] == 1) {
 			$crit->addCondition("not seen");
 		}
 		$notices_dp = new CActiveDataProvider(Notice::model()->user(Yii::app()->user->id, false), array(

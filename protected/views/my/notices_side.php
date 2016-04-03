@@ -6,8 +6,8 @@
 <div class="tools">
 	<h5>Оповещения</h5>
 	<ul class="nav nav-pills">
-		<li <?=$_GET["new"] == 1 ? "" : "class='active'"; ?>><a href="/my/notices">все</a></li>
-		<li <?=$_GET["new"] == 1 ? "class='active'" : ""; ?>><a href="?new=1">только непрочитанные</a></li>
+		<li <?=isset($_GET["new"]) && $_GET["new"] == 1 ? "" : "class='active'"; ?>><a href="/my/notices">все</a></li>
+		<li <?=isset($_GET["new"]) && $_GET["new"] == 1 ? "class='active'" : ""; ?>><a href="?new=1">только непрочитанные</a></li>
 	</ul>
 
 	<form method="post" action="/my/notices_rmseen">
