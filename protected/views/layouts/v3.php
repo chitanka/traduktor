@@ -31,29 +31,6 @@ Yii::app()->bootstrap->registerModal();
         });
     </script>
     <![endif]-->
-
-    <style type="text/css">
-        .banner-poll {
-            margin: 5px 0;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #bbb;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, .3) inset;
-            background: #f0f0f0;
-            font-size: 10px;
-        }
-
-        .banner-poll i {
-        }
-
-        .banner-poll b {
-        }
-
-        .banner-poll a {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
 
