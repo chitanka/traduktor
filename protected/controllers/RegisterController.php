@@ -94,7 +94,10 @@ class RegisterController extends Controller {
 
 	public function actionRemind() {
 		if(Yii::app()->request->isPostRequest) {
-			$clue = trim($_POST["clue"]);
+			$clue = "";
+			if(isset($_POST["clue"])) {
+				$clue = trim($_POST["clue"]);
+			}
 			$user = null;
 			if(strpos($clue, "@") !== false) {
 				$user = User::model()->find("LOWER(email) = :email", [":email" => mb_strtolower($clue)]);
