@@ -1,210 +1,275 @@
 <?php
-class MyController extends Controller {
-	public function filters() {
-		return array('accessControl');
-	}
 
-	public function accessRules() {
-		return array(
-			array('allow', 'users' => array('@'),
-				'actions' => array(
-					"info",
-					"notices", "notices_rmseen",
-				),
-			),
-			array('deny', 'users' => array('*')),
-		);
-	}
+class MyController extends Controller
+{
+    public function actionIndex()
+    {
+        echo "/my";
+    }
 
-	public function actionIndex() {
-		echo "/my";
-	}
+    public function actionInfo()
+    {
+        if (!Yii::app()->user->isPaid) {
+            echo "{}";
+            return;
+        }
 
-	public function actionInfo() {
-		if(!Yii::app()->user->isPaid) {
-			echo "{}";
-			return;
-		}
+        echo json_encode(array(
+            "c" => Yii::app()->user->newComments,
+            "n" => Yii::app()->user->newNotices,
+            "m" => Yii::app()->user->newMail
+        ));
+    }
 
-		echo json_encode(array(
-			"c" => Yii::app()->user->newComments,
-			"n" => Yii::app()->user->newNotices,
-			"m" => Yii::app()->user->newMail
-		));
-	}
+    public function actionNotices()
+    {
+        $ajax = $this->removePostNotice();
+        $noticesCriteria = $this->appendNewNoticesCriteria(new CDbCriteria());
+        $notices = $this->getAllNotices($noticesCriteria);
+        $newNoticesIds = $this->extractNotSeenNoticesIds($notices);
+        $this->renderNotices($newNoticesIds, $notices, $ajax);
+        $this->markSeenNoticesAsRead($newNoticesIds);
+    }
 
+    public function actionNotices_rmseen()
+    {
+        $exclude = array();
+        if (is_array($_POST["x"])) {
+            foreach ($_POST["x"] as $id) {
+                $exclude[] = (int)$id;
+            }
+        }
+        $n = Yii::app()->db->createCommand("DELETE FROM notices WHERE user_id = :user_id AND seen" . (count($exclude) > 0 ? " AND id NOT IN('" . join("','", $exclude) . "')" : ""))
+            ->execute(array(":user_id" => Yii::app()->user->id));
 
+        $this->redirect("/my/notices");
+    }
 
-	public function actionNotices() {
-		$ajax = false;
+    /** далее - OBSOLETE; если будешь удалять - сотри соответствующие вьюхи //my/bookmarks и //my/bookmarks_side */
+    public function actionBookmarks()
+    {
+        $typ = $_GET["typ"];
+        if (!isset(Yii::app()->params["bookmark_types"][$typ])) $typ = "b";
 
-		if(isset($_POST["rm"])) {
-			$id = (int) $_POST["rm"];
+        $bookmarks = Bookmark::model()->user(Yii::app()->user->id)->typ($typ)->findAll();
 
-			$n = Yii::app()->db->createCommand("DELETE FROM notices WHERE user_id = :user_id AND id = :id")->execute(array(":user_id" => Yii::app()->user->id, ":id" => $id));
-			$ajax = true;
-		}
+        $this->side_view = array(
+            "bookmarks_side" => array(),
+        );
 
-		$crit = new CDbCriteria();
-		if(isset($_GET["new"]) && $_GET["new"] == 1) {
-			$crit->addCondition("not seen");
-		}
-		$notices_dp = new CActiveDataProvider(Notice::model()->user(Yii::app()->user->id, false), array(
-			"criteria" => $crit,
-			"pagination" => array("pageSize" => 20),
-		));
+        $this->render("bookmarks", array("bookmarks" => $bookmarks, "typ" => $typ));
+    }
 
-		$new_ids = array();
-		foreach($notices_dp->data as $notice) {
-			if(!$notice->seen) $new_ids[] = $notice->id;
-		}
+    public function actionBookmarks_edit()
+    {
+        if (!isset($_POST["Bookmark"])) $this->redirect("/my/bookmarks");
+        $id = (int)$_GET["id"];
 
-		$this->side_view = array("notices_side" => array("new_ids" => $new_ids));
-		$p = array("notices_dp" => $notices_dp);
-		if($ajax) {
-			$p["ajax"] = true;
-			$this->renderPartial("notices", $p);
-		} else {
-			$this->render("notices", $p);
-		}
+        $bookmark = Bookmark::model()->user(Yii::app()->user->id)->findByPk($id);
+        if (!$bookmark) $this->redirect("/my/bookmarks");
 
-		// Отмечаем показанные, как прочитанные
-		if(count($new_ids) > 0) {
-			Yii::app()->db->createCommand("UPDATE notices SET seen = true WHERE user_id = :user_id AND id IN('" . join("','", $new_ids) . "')")->execute(array(":user_id" => Yii::app()->user->id));
-		}
-	}
+        $bookmark->setAttributes($_POST["Bookmark"]);
 
-	public function actionNotices_rmseen() {
-		$exclude = array();
-		if(is_array($_POST["x"])) {
-			foreach($_POST["x"] as $id) {
-				$exclude[] = (int) $id;
-			}
-		}
-		$n = Yii::app()->db->createCommand("DELETE FROM notices WHERE user_id = :user_id AND seen" . (count($exclude) > 0 ? " AND id NOT IN('" . join("','", $exclude) . "')" : ""))
-			->execute(array(":user_id" => Yii::app()->user->id));
+        if (!$bookmark->save()) {
+            Yii::app()->user->setFlash("error", $bookmark->getErrorsString());
+        }
+        $this->redirect("/my/bookmarks");
+    }
 
-		$this->redirect("/my/notices");
-	}
+    public function actionBookmarks_remove()
+    {
+        if (!isset($_POST["id"])) $this->redirect("/my/bookmarks");
 
+        Yii::app()->db->createCommand("DELETE FROM bookmarks WHERE user_id = :user_id AND id = :id")
+            ->execute(array(":user_id" => Yii::app()->user->id, ":id" => (int)$_POST["id"]));
 
+        $this->redirect("/my/bookmarks");
+    }
 
-	/** далее - OBSOLETE; если будешь удалять - сотри соответствующие вьюхи //my/bookmarks и //my/bookmarks_side */
-	public function actionBookmarks() {
-		$typ = $_GET["typ"];
-		if(!isset(Yii::app()->params["bookmark_types"][$typ])) $typ = "b";
+    public function actionBookmarks_ord()
+    {
+        if (!is_array($_POST["b"])) {
+            echo "Неверный запрос";
+            return;
+        }
 
-		$bookmarks = Bookmark::model()->user(Yii::app()->user->id)->typ($typ)->findAll();
+        $sql = "BEGIN;\n";
+        foreach ($_POST["b"] as $ord => $id) {
+            $sql .= sprintf("UPDATE bookmarks SET ord = %d WHERE user_id = %d AND id = %d;\n", $ord, Yii::app()->user->id, $id);
+        }
+        $sql .= "COMMIT;\n";
 
-		$this->side_view = array(
-			"bookmarks_side" => array(),
-		);
+        Yii::app()->db->createCommand($sql)->execute();
 
-		$this->render("bookmarks", array("bookmarks" => $bookmarks, "typ" => $typ));
-	}
+        echo "ok";
+    }
 
-	public function actionBookmarks_edit() {
-		if(!isset($_POST["Bookmark"])) $this->redirect("/my/bookmarks");
-		$id = (int) $_GET["id"];
+    public function actionBookmark_set()
+    {
+        if (!is_array($_POST["B"])) throw new CHttpException(500, "Неверный запрос.");
 
-		$bookmark = Bookmark::model()->user(Yii::app()->user->id)->findByPk($id);
-		if(!$bookmark) $this->redirect("/my/bookmarks");
+        // Есть ли уже такая закладка?
+        $bookmark = Bookmark::model()->findByAttributes(array(
+            "user_id" => Yii::app()->user->id,
+            "typ" => substr($_POST["B"]["typ"], 0, 1),
+            "obj_id" => (int)$_POST["B"]["obj_id"]
+        ));
+        if (!$bookmark) {
+            $bookmark = new Bookmark();
+            $bookmark->user_id = Yii::app()->user->id;
+        }
 
-		$bookmark->setAttributes($_POST["Bookmark"]);
+        $bookmark->setAttributes($_POST["B"]);
+        if ($bookmark->typ == "o") {
+            $orig = Orig::model()->with("chap.book")->findByPk($bookmark->obj_id);
+            if (!$orig) throw new CHttpException(404, "Фрагмент оригинала удалён.");
+            $bookmark->url = $orig->url;
+        } elseif ($bookmark->typ == "c") {
+            $chap = Chapter::model()->with("book")->findByPk($bookmark->obj_id);
+            if (!$chap) throw new CHttpException(404, "Глава удалена");
+            $bookmark->url = $chap->url;
+        } elseif ($bookmark->typ == "b") {
+            $book = Book::model()->findByPk($bookmark->obj_id);
+            if (!$book) throw new CHttpException(404, "Глава удалена");
+            $bookmark->url = $book->url;
+        } else {
+            throw new CHttpException(500, "Неверный запрос. Если вам интересны грязные подробности, то я не знаю, что такое тип закладки '{$bookmark->typ}'.");
+        }
+        if ($bookmark->isNewRecord) {
+            $bookmark->ord = Yii::app()->db->createCommand("SELECT MAX(ord) FROM bookmarks WHERE typ = :typ AND user_id = :user_id")
+                    ->queryScalar(array(":typ" => $bookmark->typ, ":user_id" => Yii::app()->user->id)) + 1;
+        }
 
-		if(!$bookmark->save()) {
-			Yii::app()->user->setFlash("error", $bookmark->getErrorsString());
-		}
-		$this->redirect("/my/bookmarks");
-	}
+        if (!$bookmark->save()) throw new CHttpException(500, $bookmark->getErrorsString());
 
-	public function actionBookmarks_remove() {
-		if(!isset($_POST["id"])) $this->redirect("/my/bookmarks");
+        $json = array("id" => $bookmark->id, "title" => $bookmark->title);
+        echo json_encode($json);
+    }
 
-		Yii::app()->db->createCommand("DELETE FROM bookmarks WHERE user_id = :user_id AND id = :id")
-			->execute(array(":user_id" => Yii::app()->user->id, ":id" => (int) $_POST["id"]));
+    public function actionBookmark_rm()
+    {
+        if (!isset($_POST["id"])) throw new CHttpException(500, "Неверный запрос. Либо что-то сломалось у нас, либо вы желаете странного.");
 
-		$this->redirect("/my/bookmarks");
-	}
+        $ajax = isset($_GET["ajax"]) ? intval($_GET["ajax"]) : intval($_POST["ajax"]);
 
-	public function actionBookmarks_ord() {
-		if(!is_array($_POST["b"])) {
-			echo "Неверный запрос";
-			return;
-		}
+        $c = new CDbCriteria(array(
+            "condition" => "user_id = :user_id",
+            "params" => array(":user_id" => Yii::app()->user->id),
+        ));
+        if (is_array($_POST["id"])) {
+            $c->addInCondition("id", $_POST["id"]);
+        } else {
+            $c->addCondition("id = :id");
+            $c->params[":id"] = (int)$_POST["id"];
+        }
 
-		$sql = "BEGIN;\n";
-		foreach($_POST["b"] as $ord => $id) {
-			$sql .= sprintf("UPDATE bookmarks SET ord = %d WHERE user_id = %d AND id = %d;\n", $ord, Yii::app()->user->id, $id);
-		}
-		$sql .= "COMMIT;\n";
+        Yii::app()->db->createCommand("DELETE FROM bookmarks WHERE {$c->condition}")
+            ->execute($c->params);
 
-		Yii::app()->db->createCommand($sql)->execute();
+        if ($ajax) echo json_encode(array("bm_id" => $_POST["id"]));
+        else $this->redirect("/my/bookmarks");
+    }
 
-		echo "ok";
-	}
+    public function filters()
+    {
+        return array('accessControl');
+    }
 
-	public function actionBookmark_set() {
-		if(!is_array($_POST["B"])) throw new CHttpException(500, "Неверный запрос.");
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'users' => array('@'),
+                'actions' => array(
+                    "info",
+                    "notices", "notices_rmseen",
+                ),
+            ),
+            array('deny', 'users' => array('*')),
+        );
+    }
 
-		// Есть ли уже такая закладка?
-		$bookmark = Bookmark::model()->findByAttributes(array(
-			"user_id" => Yii::app()->user->id,
-			"typ" => substr($_POST["B"]["typ"], 0, 1),
-			"obj_id" => (int) $_POST["B"]["obj_id"]
-		));
-		if(!$bookmark) {
-			$bookmark = new Bookmark();
-			$bookmark->user_id = Yii::app()->user->id;
-		}
+    /**
+     * @return bool
+     */
+    private function removePostNotice()
+    {
+        if (isset($_POST["rm"])) {
+            $id = (int)$_POST["rm"];
 
-		$bookmark->setAttributes($_POST["B"]);
-		if($bookmark->typ == "o") {
-			$orig = Orig::model()->with("chap.book")->findByPk($bookmark->obj_id);
-			if(!$orig) throw new CHttpException(404, "Фрагмент оригинала удалён.");
-			$bookmark->url = $orig->url;
-		} elseif($bookmark->typ == "c") {
-			$chap = Chapter::model()->with("book")->findByPk($bookmark->obj_id);
-			if(!$chap) throw new CHttpException(404, "Глава удалена");
-			$bookmark->url = $chap->url;
-		} elseif($bookmark->typ == "b") {
-			$book = Book::model()->findByPk($bookmark->obj_id);
-			if(!$book) throw new CHttpException(404, "Глава удалена");
-			$bookmark->url = $book->url;
-		} else {
-			throw new CHttpException(500, "Неверный запрос. Если вам интересны грязные подробности, то я не знаю, что такое тип закладки '{$bookmark->typ}'.");
-		}
-		if($bookmark->isNewRecord) {
-			$bookmark->ord = Yii::app()->db->createCommand("SELECT MAX(ord) FROM bookmarks WHERE typ = :typ AND user_id = :user_id")
-				->queryScalar(array(":typ" => $bookmark->typ, ":user_id" => Yii::app()->user->id)) + 1;
-		}
+            Yii::app()->db->createCommand("DELETE FROM notices WHERE user_id = :user_id AND id = :id")->execute(array(":user_id" => Yii::app()->user->id, ":id" => $id));
+            return true;
+        }
+        return false;
+    }
 
-		if(!$bookmark->save()) throw new CHttpException(500, $bookmark->getErrorsString());
+    /**
+     * @return \CDbCriteria
+     */
+    private function appendNewNoticesCriteria($criteria)
+    {
+        if (isset($_GET["new"]) && $_GET["new"] == 1) {
+            $criteria->addCondition("not seen");
+            return $criteria;
+        }
+        return $criteria;
+    }
 
-		$json = array("id" => $bookmark->id, "title" => $bookmark->title);
-		echo json_encode($json);
-	}
+    /**
+     * @param $noticesCriteria
+     *
+     * @return \CActiveDataProvider
+     */
+    private function getAllNotices($noticesCriteria)
+    {
+        $notices_dp = new CActiveDataProvider(Notice::model()->user(Yii::app()->user->id, false), array(
+            "criteria" => $noticesCriteria,
+            "pagination" => array("pageSize" => 20),
+        ));
+        return $notices_dp;
+    }
 
-	public function actionBookmark_rm() {
-		if(!isset($_POST["id"])) throw new CHttpException(500, "Неверный запрос. Либо что-то сломалось у нас, либо вы желаете странного.");
+    /**
+     * @param $notices
+     *
+     * @return array
+     */
+    private function extractNotSeenNoticesIds($notices)
+    {
+        $new_ids = array();
+        foreach ($notices->data as $notice) {
+            if (!$notice->seen) $new_ids[] = $notice->id;
+        }
+        return $new_ids;
+    }
 
-		$ajax = isset($_GET["ajax"]) ? intval($_GET["ajax"]) : intval($_POST["ajax"]);
+    /**
+     * Отметить все увиденные уведомления как прочитанные
+     * @param $newNoticesIds
+     */
+    private function markSeenNoticesAsRead($newNoticesIds)
+    {
+        if (count($newNoticesIds) > 0) {
+            Yii::app()->db->createCommand("UPDATE notices SET seen = true WHERE user_id = :user_id AND id IN('" . join("','", $newNoticesIds) . "')")->execute(array(":user_id" => Yii::app()->user->id));
+        }
+    }
 
-		$c = new CDbCriteria(array(
-			"condition" => "user_id = :user_id",
-			"params" => array(":user_id" => Yii::app()->user->id),
-		));
-		if(is_array($_POST["id"])) {
-			$c->addInCondition("id", $_POST["id"]);
-		} else {
-			$c->addCondition("id = :id");
-			$c->params[":id"] = (int) $_POST["id"];
-		}
-
-		Yii::app()->db->createCommand("DELETE FROM bookmarks WHERE {$c->condition}")
-			->execute($c->params);
-
-		if($ajax) echo json_encode(array("bm_id" => $_POST["id"]));
-		else $this->redirect("/my/bookmarks");
-	}
+    /**
+     * Рендер
+     * @param $newNoticesIds
+     * @param $notices
+     * @param $ajax
+     *
+     * @throws \CException
+     */
+    private function renderNotices($newNoticesIds, $notices, $ajax)
+    {
+        $this->side_view = array("notices_side" => array("new_ids" => $newNoticesIds));
+        $p = array("notices_dp" => $notices);
+        if ($ajax) {
+            $p["ajax"] = true;
+            $this->renderPartial("notices", $p);
+        } else {
+            $this->render("notices", $p);
+        }
+    }
 }
