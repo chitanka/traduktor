@@ -40,11 +40,11 @@
 		if(isset($disable_dot) && !$disable_dot) echo "<a href='#' class='dot b'><i class='i icon-flag'></i></a> ";
 		if(isset($disable_delete) && !$disable_delete and $comment->can("delete")) echo "<a href='#' class='rm b'><i class='i icon-remove'></i></a>  ";
 
-		if(!$disable_rating) {
+		if(isset($disable_rating) && !$disable_rating) {
 			echo "<div class='rating'>";
-			if(!$disable_rater && $comment->can("rate")) echo "<a class='p' href='#'>+</a>";
+			if(!isset($disable_rater) && !$disable_rater && $comment->can("rate")) echo "<a class='p' href='#'>+</a>";
 			echo "<span>" . str_replace("-", "&minus;", $comment->rating) . "</span>";
-			if(!$disable_rater && $comment->can("rate")) echo "<a class='n' href='#'>&minus;</a>";
+			if(!isset($disable_rater) && !$disable_rater && $comment->can("rate")) echo "<a class='n' href='#'>&minus;</a>";
 			echo "</div>";
 		}
 

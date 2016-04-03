@@ -152,7 +152,7 @@
 			echo "<td class='n'>";
 
 			if(!Yii::app()->user->isGuest) {
-				if($o->bookmark->id) {
+				if(!is_null($o->bookmark) && $o->bookmark->id) {
 					$title = "Закладка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
 					$html = "<i class='icon-star'></i>";
 					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b set' title='{$title}'>{$html}</a>";

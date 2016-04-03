@@ -114,7 +114,11 @@ class OrigController extends Controller {
 		$orig = $this->loadOrig($book_id, $chap_id, $orig_id);
 
 		/** @var $comments Comment[] */
-		$comments = Comment::model()->with("author")->orig($orig->id)->newer($orig->seen->seen)->findAll();
+		if (!is_null($orig->seen)) {
+			$comments = Comment::model()->with("author")->orig($orig->id)->newer($orig->seen->seen)->findAll();
+		} else {
+			$comments = Comment::model()->with("author")->orig($orig->id)->findAll();
+		}
 
 		// AUTOFIX
 		$n_comments = 0;

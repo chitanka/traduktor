@@ -157,7 +157,9 @@ class Comment extends CActiveRecord {
 		$comment->author = Yii::app()->user->getModel();
 		$comment->user_id = Yii::app()->user->id;
 		$comment->pid = $this->id;
-		$comment->ip = $_SERVER["HTTP_X_REAL_IP"];
+		if (isset($_SERVER["HTTP_X_REAL_IP"])) {
+			$comment->ip = $_SERVER["HTTP_X_REAL_IP"];
+		}
 		if($this->orig_id) {
 			$comment->orig = $this->orig;
 			$comment->orig_id = $this->orig_id;
