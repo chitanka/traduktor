@@ -35,10 +35,10 @@
 		echo "<a href='#cmt_{$comment->id}' class='a ajax'>#</a> &middot; ";
 
 		// if($comment->can("reply")) ...
-		if(!$disable_reply and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re ajax'>Ответить</a> ";
+		if(isset($disable_reply) && !$disable_reply and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re ajax'>Ответить</a> ";
 
-		if(!$disable_dot) echo "<a href='#' class='dot b'><i class='i icon-flag'></i></a> ";
-		if(!$disable_delete and $comment->can("delete")) echo "<a href='#' class='rm b'><i class='i icon-remove'></i></a>  ";
+		if(isset($disable_dot) && !$disable_dot) echo "<a href='#' class='dot b'><i class='i icon-flag'></i></a> ";
+		if(isset($disable_delete) && !$disable_delete and $comment->can("delete")) echo "<a href='#' class='rm b'><i class='i icon-remove'></i></a>  ";
 
 		if(!$disable_rating) {
 			echo "<div class='rating'>";
@@ -48,11 +48,11 @@
 			echo "</div>";
 		}
 
-		echo $meta_extra;
+		echo isset($meta_extra) ? $meta_extra : "";
 		echo "</div>";
 	}
 
-	if(!$disable_up && $comment->pid && !$comment->isDeleted()) echo "<a href='#cmt_{$comment->pid}' class='up'><i class='i icon-up'></i></a> ";
+	if(isset($disable_up) && !$disable_up && $comment->pid && !$comment->isDeleted()) echo "<a href='#cmt_{$comment->pid}' class='up'><i class='i icon-up'></i></a> ";
 
 	echo "</div>";
 ?>
