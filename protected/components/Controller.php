@@ -4,14 +4,6 @@
  * All controller classes for this application should extend from this base class.
  */
 class Controller extends CController {
-	public function filterUsersOnly($filterChain) {
-		if(Yii::app()->user->isGuest) {
-			throw new CHttpException(403, "Вы должны войти на сайт или зарегистрироваться, чтобы попасть на эту страницу.");
-		}
-
-		$filterChain->run();
-	}
-
 	/**
 	* Макет
 	*/
@@ -37,30 +29,7 @@ class Controller extends CController {
 
 	public $siteArea = "";
 
-	/**
-	* Реклама
-	*/
-	const AD_PLACE_BOTTOM = 1;
-	const AD_PLACE_SIDE = 2;
-	const AD_PLACE_FACE1 = 3;
-	public $ad_deny = array(
-		self::AD_PLACE_BOTTOM => false,
-		self::AD_PLACE_SIDE => false,
-		self::AD_PLACE_FACE1 => false,
-	);
-	private $ad_html = array(
-		self::AD_PLACE_SIDE => <<<TTT
-TTT
-,
-		self::AD_PLACE_BOTTOM => <<<TTT
-TTT
-,
-	);
-	public function ad($place_id) {
-		return "<!-- A: {$place_id} -->" . $this->ad_html[$place_id];
-	}
-
-	public $breadcrumbs=array();
+	public $breadcrumbs = array();
 	public $menu = array();
 
 	public function init() {
@@ -140,5 +109,13 @@ TTT
 			}
 		}
 		return parent::beforeAction($action);
+	}
+
+	public function filterUsersOnly($filterChain) {
+		if(Yii::app()->user->isGuest) {
+			throw new CHttpException(403, "Вы должны войти на сайт или зарегистрироваться, чтобы попасть на эту страницу.");
+		}
+
+		$filterChain->run();
 	}
 }

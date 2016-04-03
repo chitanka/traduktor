@@ -5,8 +5,6 @@
 	*/
 
 	$this->pageTitle = "Поиск";
-	$this->ad_deny[Controller::AD_PLACE_BOTTOM] = true;
-	$this->ad_deny[Controller::AD_PLACE_SIDE] = true;
 ?>
 <style type="text/css">
 ul.search-results {list-style:none; padding:0; margin:0;}
