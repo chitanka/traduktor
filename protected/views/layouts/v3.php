@@ -45,7 +45,6 @@ Yii::app()->bootstrap->registerModal();
             <ul id="header-menu">
                 <li><a href="/catalog/1">ФИЛЬМЫ</a></li>
                 <li><a href="/catalog/2">ТЕКСТЫ</a></li>
-                <li><a href="/catalog/3">ПРОГРАММЫ</a></li>
                 <li><a href="/users">ПЕРЕВОДЧИКИ</a></li>
                 <li><a href="/blog">БЛОГ</a></li>
                 <li><a href="/announces">АНОНСЫ</a></li>
