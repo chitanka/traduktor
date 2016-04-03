@@ -358,7 +358,10 @@ class OrigController extends Controller {
 		$orig = $this->loadOrig($book_id, $chap_id, $orig_id, array("chap.book.membership"));
 		if(!$orig->chap->can("tr")) throw new CHttpException(403, "Вы не можете добавлять свои версии в этом переводе. " . $orig->chap->getWhoCanDoIt("tr"));
 
-		$tr_id = (int) $_GET["tr_id"];
+		$tr_id = 0;
+		if (isset($_GET["tr_id"])) {
+			$tr_id = (int) $_GET["tr_id"];
+		}
 
 		/* Загружаем или создаём версию перевода */
 		if($tr_id == 0) {

@@ -322,8 +322,8 @@ class Orig extends CActiveRecord {
 		usort($trs, array("Translation", "trcmp"));
 
 		// Находим best
+		$max_id = null; $max_rating = null;
 		if($user->ini["t.hlr"] != 0 && count($trs) > 1) {
-			$max_id = null; $max_rating = null;
 			foreach($trs as $tr) {
 				if($max_id === null || $tr->rating >= $max_rating) {
 					$max_id = $tr->id;
