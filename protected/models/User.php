@@ -309,7 +309,7 @@ class User extends CActiveRecord {
 	}
 
 	public function getUpicUrl() {
-		if($this->upic[0] == 0) return "/i/upic/0.jpg";
+		if($this->upic[0] == 0) return "/i/avatar_placeholder.png";
 		return "/i/upic/" . floor($this->id / 1000) . "/" . $this->upicName . ".jpg";
 	}
 
@@ -327,7 +327,7 @@ class User extends CActiveRecord {
 	}
 
 	public function upicCheckDir() {
-		if(!is_dir($this->upicDir)) mkdir($this->upicDir);
+		if(!is_dir($this->upicDir)) mkdir($this->upicDir, 0777, true);
 	}
 
 	/**

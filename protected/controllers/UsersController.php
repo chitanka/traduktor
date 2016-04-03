@@ -379,9 +379,13 @@ class UsersController extends Controller {
 		/** @var User $user */
 		$user = User::model()->findByPk(Yii::app()->user->id);
 
+		$base_tmp_path = $_SERVER["DOCUMENT_ROOT"] . "/i/tmp/upiccut/";
+		if (!file_exists($base_tmp_path) && !is_dir($base_tmp_path)) {
+			mkdir($base_tmp_path, 0777, true);
+		}
 
-		if($_GET["do"] == "cancel" && is_array($_SESSION["upicEditor"])) {
-			$tmp_path = $_SERVER["DOCUMENT_ROOT"] . "/i/tmp/upiccut/" . $_SESSION["upicEditor"]["img"]["name"];
+		if(isset($_GET["do"]) && $_GET["do"] == "cancel" && is_array($_SESSION["upicEditor"])) {
+			$tmp_path = $base_tmp_path . $_SESSION["upicEditor"]["img"]["name"];
 			if(is_file($tmp_path)) unlink($tmp_path);
 
 			unset($_SESSION["upicEditor"]);
