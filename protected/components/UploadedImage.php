@@ -72,7 +72,7 @@ class UploadedImage extends CComponent {
 
 		for($i = -1; $i <= 0; $i++) {
 			$dir = join("/", array_slice($d, 0, $i == 0 ? null : $i));
-			if(!is_dir($dir)) mkdir($dir, 0755);
+			if(!is_dir($dir)) mkdir($dir, 0755, true);
 		}
 	}
 

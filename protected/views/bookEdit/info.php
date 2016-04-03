@@ -62,7 +62,8 @@ $(E.init);
 	<?php echo $form->labelEx($book, "new_img", array("class" => "control-label")); ?>
 	<div class="controls">
 	<?php
-		if($book->img->exists) {
+
+		if(is_object($book->img) && $book->img->exists) {
 			echo "<div id='img_preview'>";
 			echo $book->img->tag;
 			echo "<label class='checkbox'>" . $form->checkBox($book, "rm_img") . " удалить</label>";
