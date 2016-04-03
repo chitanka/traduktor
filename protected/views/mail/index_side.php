@@ -16,7 +16,7 @@
 	<form method="get">
 		<input type="hidden" name="folder" value="<?=$folder; ?>" />
 		<label class="checkbox">
-			<input type="checkbox" name="new" value="1" onclick="this.form.submit()" <?php if($_GET["new"]) echo "checked"; ?>/>
+			<input type="checkbox" name="new" value="1" onclick="this.form.submit()" <?php if(isset($_GET["new"])) echo "checked"; ?>/>
 			только непрочитанные
 		</label>
 	</form>

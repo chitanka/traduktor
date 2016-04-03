@@ -23,7 +23,7 @@ $this->pageTitle = "Почта: " . Mail::$folders[$folder];
 <?php
 if($mail_dp->getTotalItemCount() == 0):
 	echo "<div class='alert alert-info'>";
-	echo "У вас нет " . ($_GET["new"] ? "непрочитанных " : "") . "сообщений в папке &laquo;" . Mail::$folders[$folder] . "&raquo;";
+	echo "У вас нет " . (isset($_GET["new"]) && $_GET["new"] ? "непрочитанных " : "") . "сообщений в папке &laquo;" . Mail::$folders[$folder] . "&raquo;";
 	echo "</div>";
 	return;
 endif

@@ -21,7 +21,7 @@ class MailController extends Controller {
 	}
 
 	public function actionIndex() {
-		if(in_array($_POST["act"], ["rm", "seen", "unseen"])) {
+		if(isset($_POST["act"]) && in_array($_POST["act"], ["rm", "seen", "unseen"])) {
 			if(!is_array($_POST["id"])) $this->redirect("/my/mail");
 
 			$in = "";
@@ -46,10 +46,10 @@ class MailController extends Controller {
 
 		$crit = new CDbCriteria();
 
-		$folder = (int) $_GET["folder"];
+		$folder = isset($_GET["folder"]) ? (int) $_GET["folder"] : null;
 		if(!isset(Mail::$folders[$folder])) $folder = Mail::INBOX;
 
-		if($_GET["new"]) $crit->addCondition("NOT t.seen");
+		if(isset($_GET["new"]) && $_GET["new"]) $crit->addCondition("NOT t.seen");
 
 		$mail_dp = new CActiveDataProvider(Mail::model()->folder(Yii::app()->user->id, $folder)->with("buddy"), array(
 			"pagination" => array("pageSize" => 30),
