@@ -116,7 +116,9 @@ $(P.init);
 <?php if($this->book->can("membership")): ?>
 	<form method="post" action="<?=$book->url("members_manage"); ?>" id="members_manage">
 	<input type="hidden" name="status" value="" />
-	<input type="hidden" name="User_page" value="<?php echo (int) $_GET["User_page"]; ?>" />
+	<?php if(isset($_GET["User_page"])): ?>
+		<input type="hidden" name="User_page" value="<?php echo (int) $_GET["User_page"]; ?>" />
+	<? endif ?>
 <?php endif ?>
 
 <table id="people" class="table table-condensed table-striped">
