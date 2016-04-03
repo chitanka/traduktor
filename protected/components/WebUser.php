@@ -6,7 +6,7 @@ class WebUserIni implements ArrayAccess, Serializable {
 	/* Добавляя новые свойства, обязательно добавить их в global.js CUser() */
 	private $ini = array(
 		"hot.img" => 1,
-		"hot.s_lang" => 1,
+		"hot.s_lang" => 2,
 		"hot.t_lang" => 1,
 
 		"l.bgcolor" => "ffffff",
