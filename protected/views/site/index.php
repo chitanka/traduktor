@@ -56,13 +56,6 @@
 			}
 		?>
 
-		<?php if(0 && !Yii::app()->user->isGuest && Yii::app()->user->ini["poll.done"] < 1): ?>
-		<div class='banner-poll'>
-			<i>Не проходите мимо!</i> &mdash; <b>Старинная забава!</b><br />
-			<a href='site/poll'>Социологический Опрос!</a>
-		</div>
-		<?php endif; ?>
-
 		<div id="f-hot-ini" class="modal hide">
 			<form method="post" class="form-horizontal" action="/site/ini" style="margin:0">
 			<input type="hidden" name="area" value="hot" />

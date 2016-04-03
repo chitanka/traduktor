@@ -48,57 +48,6 @@ class SiteController extends Controller {
 		return $html;
 	}
 
-	public function actionPoll() {
-		$params = [":poll_id" => 1, ":user_id" => Yii::app()->user->id];
-		if($_GET["again"] == 1) {
-			Yii::app()->db->createCommand("DELETE FROM poll_answers WHERE poll_id = :poll_id AND user_id = :user_id")->execute($params);
-		} else {
-			$already = Yii::app()->db->createCommand("SELECT cdate FROM poll_answers WHERE poll_id = :poll_id AND user_id = :user_id")->queryScalar($params);
-
-			if($already) {
-				Yii::app()->user->ini["poll.done"] = 1;
-				Yii::app()->user->ini->save();
-
-				$this->render("poll_already", ["when" => $already]);
-				return;
-			}
-		}
-
-		$Questions = include(Yii::app()->basePath . "/components/polls/1.php");
-
-		if(isset($_POST["answer"]) || isset($_POST["custom"])) {
-			$ok = true;
-			$sql = "";
-			$ip = isset($_SERVER["HTTP_X_REAL_IP"]) ? $_SERVER["HTTP_X_REAL_IP"] : $_SERVER["REMOTE_ADDR"];
-			$params = [":user_id" => Yii::app()->user->id, ":poll_id" => 1, ":ip" => $ip];
-			foreach($Questions as $q) {
-				$id = (int) $q["id"];
-				$answer = trim($_POST["custom"][$id]) != "" ? trim($_POST["custom"][$id]) : $_POST["answer"][$id];
-				if(trim($answer) == "") {
-					Yii::app()->user->setFlash("error", "Так у учёных ничего не получится. Пожалуйста, ответьте на все вопросы.");
-					$ok = false;
-					break;
-				}
-				if($sql != "") $sql .= ", ";
-				$sql .= "(:poll_id, :q_id{$id}, :ip, :user_id, :answer{$id})";
-				$params[":q_id{$id}"] = $id;
-				$params[":answer{$id}"] = $answer;
-			}
-			if($ok) {
-				$sql = "INSERT INTO poll_answers (poll_id, q_id, ip, user_id, answer) VALUES " . $sql;
-				Yii::app()->db->createCommand($sql)->execute($params);
-
-				Yii::app()->user->ini["poll.done"] = 1;
-				Yii::app()->user->ini->save();
-
-				$this->render("poll_thankyou");
-				return;
-			}
-		}
-
-		$this->render("poll", ["Questions" => $Questions]);
-	}
-
 	public function actionIni() {
 		$area = $_POST["area"]; unset($_POST["area"]);
 
