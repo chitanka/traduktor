@@ -68,7 +68,7 @@ $this->pageTitle = "Каталог переводов";
 
 <?php endif; ?>
 
-<?php if (false && $books_dp): ?>
+<?php if ($books_dp): ?>
     <?php
     if ($books_dp->totalItemCount) {
         $books = $books_dp->data;
