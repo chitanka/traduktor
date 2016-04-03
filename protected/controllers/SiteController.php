@@ -80,11 +80,6 @@ class SiteController extends Controller {
 		}
 	}
 
-	public function actionClosed() {
-	    $this->layout = "offline";
-	    $this->render("closed");
-	}
-
 	/**
 	 * @return static[]
 	 */
