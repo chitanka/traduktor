@@ -158,11 +158,8 @@ if(!Yii::app()->user->isGuest):
             <br />
             <a href="/site/help">Справка</a> |
             <a href="/blog?topic=65">Техподдержка</a> |
-			<a href="/site/donate" style="color:#5d7b02;">Сказать &laquo;спасибо!&raquo;</a> |
-
             <a href="mailto:abuse@<?=p()["domain"]; ?>?subj=<?=urlencode($_SERVER["REQUEST_URI"]); ?>">Abuse</a> |
             <a href="mailto:<?=p()["adminEmail"]; ?>">E-mail для справок</a> |
-			<a href="#" onclick="return Chat.toggle()" title="Ctrl + ~">Чат</a>
         </div>
         <div class="span4 sape">
 			&nbsp;
