@@ -12,7 +12,7 @@ class SearchController extends Controller {
 
 		$filter->setAttributes($_GET, true);
 		if($filter->validate()) {
-			if($_GET["from"] == "header" && mb_substr($filter->t, 0, 1) == "@") {
+			if(isset($_GET["from"]) && $_GET["from"] == "header" && mb_substr($filter->t, 0, 1) == "@") {
 				$this->redirect("/users/go?login=" . mb_substr($filter->t, 1));
 			}
 
