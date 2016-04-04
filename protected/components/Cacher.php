@@ -64,4 +64,21 @@ class Cacher
         }
         return $hot;
     }
+
+    /**
+     * @return static[]
+     */
+    public static function getAnnounces()
+    {
+        if (!($announces = Yii::app()->cache->get("announces"))) {
+            $announces = Announce::model()->with("book.cat", "book.owner", "seen")->findAll(array(
+                "condition" => "t.topics BETWEEN 80 AND 89 AND book.ac_read = 'a'",
+                "order" => "t.cdate desc",
+                "limit" => 5,
+            ));
+            Yii::app()->cache->set("announces", $announces, 90);
+            return $announces;
+        }
+        return $announces;
+    }
 }
