@@ -4,32 +4,40 @@ class CatalogController extends Controller
 {
     public function actionIndex($cat_id = 0)
     {
-        list($cat, $branch) = $this->extractBranch($cat_id);
+        $category = $this->getCategoryById($cat_id);
+        $branch = $this->extractBranch($category);
         $tree = $this->getCategoryTree($branch);
-        $books_dp = $this->getBooksByCategory($cat);
+        $books_dp = $this->getBooksByCategory($category);
 
         if (in_array("ajax", $_GET)) $this->renderPartial("catalog_ajax", array("tree" => $tree));
         else {
-            $this->render("catalog", array("cat" => $cat, "tree" => $tree, "books_dp" => $books_dp));
+            $this->render("catalog", array("cat" => $category, "tree" => $tree, "books_dp" => $books_dp));
         }
     }
 
     /**
      * @param $cat_id
      *
-     * @return array
+     * @return static
      */
-    private function extractBranch($cat_id)
+    private function getCategoryById($cat_id)
     {
         $cat_id = (int)$cat_id;
-        if ($cat_id) {
-            $cat = Category::model()->findByPk((int)$cat_id);
-            $branch = $cat->mp;
-            return array($cat, $branch);
-        } else {
-            $cat = $branch = null;
-            return array($cat, $branch);
+        $cat = Category::model()->findByPk((int)$cat_id);
+        return $cat;
+    }
+
+    /**
+     * @param $cat_obj
+     *
+     * @return array
+     */
+    private function extractBranch($cat_obj)
+    {
+        if ($cat_obj) {
+            return $cat_obj->mp;
         }
+        return null;
     }
 
     /**
