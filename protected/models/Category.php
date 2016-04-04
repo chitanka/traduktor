@@ -219,5 +219,10 @@ class Category extends CActiveRecord {
 		$branch = is_null($category) ? null : $category->mp;
 		return self::model()->tree($branch)->with("booksCount")->findAll();
 	}
+
+	public function getBranchesCount()
+	{
+		return count($this->mp);
+	}
 }
 ?>

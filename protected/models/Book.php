@@ -339,4 +339,25 @@ class Book extends CActiveRecord {
 
 		Yii::app()->getClientScript()->registerScript("book_" . $varName, $js, CClientScript::POS_HEAD);
 	}
+
+	/**
+	 * @param Category|null $category
+	 *
+	 * @return \CActiveDataProvider|null
+     */
+    public static function getByCategory($category)
+	{
+		if (is_null($category)) {
+			return null;
+		}
+
+		$branches_count = $category->getBranchesCount();
+		return new CActiveDataProvider(Book::model()->with("cat"), array(
+			"criteria" => array(
+				"condition" => "cat.mp[1:{$branches_count}] = '{$category->mpPacked}'",
+				"order" => "t.s_title",
+			),
+			"pagination" => array("pageSize" => 50)
+		));;
+	}
 }
