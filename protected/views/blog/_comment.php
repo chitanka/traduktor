@@ -31,14 +31,16 @@
 			echo " &ndash; " . Yii::app()->dateFormatter->formatDateTime($comment->cdate, "medium", "short") . " | ";
 
 			// if($comment->can("reply")) ...
-			if(!$disable_reply and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re'>ответить</a> | ";
+			if(isset($disable_reply) && !$disable_reply and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re'>ответить</a> | ";
 
-			if(!$disable_delete and $comment->can("delete")) echo "<a href='#' class='rm'>удалить</a> | ";
+			if(isset($disable_delete) && !$disable_delete and $comment->can("delete")) echo "<a href='#' class='rm'>удалить</a> | ";
 
-			if(!$disable_dot) echo "<a href='#' class='dot'>☼</a> ";
-			if(!$disable_up && $comment->pid) echo "<a href='#cmt_{$comment->pid}' class='up'>▵</a> ";
+			if(isset($disable_dot) && !$disable_dot) echo "<a href='#' class='dot'>☼</a> ";
+			if(isset($disable_up) && !$disable_up && $comment->pid) echo "<a href='#cmt_{$comment->pid}' class='up'>▵</a> ";
 
-		echo $meta_extra;
+		if (isset($meta_extra)){
+			echo $meta_extra;
+		}
 		echo "</div>";
 	}
 

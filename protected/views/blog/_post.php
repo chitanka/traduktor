@@ -61,7 +61,7 @@
 	echo "</span> ";
 
 	echo "<span class='topic'>";
-	echo "<a href='/blog/?topics[]={$post->topics}'>" . Yii::app()->params["blog_topics"][$post->book_id ? "book" : "common"][$post->topics] . "</a>";
+//	echo "<a href='/blog/?topics[]={$post->topics}'>" . Yii::app()->params["blog_topics"][$post->book_id ? "book" : "common"][$post->topics] . "</a>";
 	echo "</span> ";
 
 	if($has["extra"] != "") {
