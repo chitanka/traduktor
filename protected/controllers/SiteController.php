@@ -7,7 +7,7 @@ class SiteController extends Controller {
 		$this->layout = "column1";
 
 		$this->render('index', array(
-			"hot" => $this->getHot(),
+			"hot" => Cacher::getHot(),
 			"searchTop" => Cacher::getSearchTop(),
 			"announces" => $this->getAnnounces(),
 			"blog" => $this->getBlogPosts(),
@@ -44,28 +44,6 @@ class SiteController extends Controller {
 			else
 				$this->render('error', $error);
 		}
-	}
-
-	/**
-	 * @return static[]
-	 */
-	private function getHot()
-	{
-		$hot_key = sprintf("hot.%d.%d.%d", Yii::app()->user->ini["hot.s_lang"], Yii::app()->user->ini["hot.t_lang"], Yii::app()->user->ini["hot.img"]);
-		if (!($hot = Yii::app()->cache->get($hot_key))) {
-			$C = new CDbCriteria(array(
-				"condition" => "t.ac_read = 'a'",
-				"order" => "t.last_tr DESC NULLS LAST",
-			));
-			$C->limit = Yii::app()->user->ini["hot.img"] ? 12 : 36;
-			if (Yii::app()->user->ini["hot.s_lang"]) $C->addCondition("t.s_lang = " . Yii::app()->user->ini["hot.s_lang"]);
-			if (Yii::app()->user->ini["hot.t_lang"]) $C->addCondition("t.t_lang = " . Yii::app()->user->ini["hot.t_lang"]);
-
-			$hot = Book::model()->findAll($C);
-			Yii::app()->cache->set($hot_key, $hot, 60);
-			return $hot;
-		}
-		return $hot;
 	}
 
 	/**
