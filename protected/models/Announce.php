@@ -16,8 +16,9 @@ class Announce extends BlogPost {
 
 	public function safehtml($attr, $params) {
 		$p = new CHtmlPurifier();
-		$p->options = Yii::app()->params["HTMLPurifierOptions"];
-		$p->options["HTML.Allowed"] = "a[href],b,strong,i,em,u,small,sub,sup";
+		$HTMLPurifierOptions = Yii::app()->params["HTMLPurifierOptions"];
+		$HTMLPurifierOptions["HTML.Allowed"] = "a[href],b,strong,i,em,u,small,sub,sup";
+		$p->setOptions($HTMLPurifierOptions);
 		$this->$attr = trim($p->purify($this->$attr));
 	}
 
