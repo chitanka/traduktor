@@ -21,7 +21,7 @@ class UsersController extends Controller {
 			"profile" => "Контакты",
 		);
 		$user = Yii::app()->user;
-		if(appParams()["registerType"] == "INVITE" && !$user->isGuest && $user->id == $_GET["id"]) {
+		if(isRegistrationByInvite() && !$user->isGuest && $user->id == $_GET["id"]) {
 			$this->submenu["invites"] = "Приглашения";
 			if($user->model->n_invites > 0) $this->submenu["invites"] .= " (" . $user->model->n_invites . ")";
 		}
@@ -266,7 +266,7 @@ class UsersController extends Controller {
 	}
 
 	public function actionInvites($id) {
-		if(appParams()["registerType"] != "INVITE") {
+		if(isRegistrationByInvite()) {
 			$this->redirect("/users/{$id}");
 		}
 

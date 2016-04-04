@@ -83,7 +83,7 @@ class Controller extends CController {
 
 	public function beforeAction($action) {
 		$user = Yii::app()->user;
-		if(appParams()["registerType"] == "INVITE") {
+		if(isRegistrationByInvite()) {
 			if(!$user->isGuest) {
 				if(!$user->model->can(User::CAN_LOGIN)) {
 					$user->logout();
