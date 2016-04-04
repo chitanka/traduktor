@@ -35,16 +35,16 @@
 		echo "<a href='#cmt_{$comment->id}' class='a ajax'>#</a> &middot; ";
 
 		// if($comment->can("reply")) ...
-		if(isset($disable_reply) && !$disable_reply and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re ajax'>Ответить</a> ";
+		if(!isset($disable_reply) and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re ajax'>Ответить</a> ";
 
-		if(isset($disable_dot) && !$disable_dot) echo "<a href='#' class='dot b'><i class='i icon-flag'></i></a> ";
-		if(isset($disable_delete) && !$disable_delete and $comment->can("delete")) echo "<a href='#' class='rm b'><i class='i icon-remove'></i></a>  ";
+		if(!isset($disable_dot)) echo "<a href='#' class='dot b'><i class='i icon-flag'></i></a> ";
+		if(!isset($disable_delete) and $comment->can("delete")) echo "<a href='#' class='rm b'><i class='i icon-remove'></i></a>  ";
 
-		if(isset($disable_rating) && !$disable_rating) {
+		if(!isset($disable_rating)) {
 			echo "<div class='rating'>";
-			if(!isset($disable_rater) && !$disable_rater && $comment->can("rate")) echo "<a class='p' href='#'>+</a>";
+			if(!isset($disable_rater) && $comment->can("rate")) echo "<a class='p' href='#'>+</a>";
 			echo "<span>" . str_replace("-", "&minus;", $comment->rating) . "</span>";
-			if(!isset($disable_rater) && !$disable_rater && $comment->can("rate")) echo "<a class='n' href='#'>&minus;</a>";
+			if(!isset($disable_rater) && $comment->can("rate")) echo "<a class='n' href='#'>&minus;</a>";
 			echo "</div>";
 		}
 
@@ -52,7 +52,7 @@
 		echo "</div>";
 	}
 
-	if(isset($disable_up) && !$disable_up && $comment->pid && !$comment->isDeleted()) echo "<a href='#cmt_{$comment->pid}' class='up'><i class='i icon-up'></i></a> ";
+	if(!isset($disable_up) && $comment->pid && !$comment->isDeleted()) echo "<a href='#cmt_{$comment->pid}' class='up'><i class='i icon-up'></i></a> ";
 
 	echo "</div>";
 ?>
