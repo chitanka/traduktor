@@ -39,7 +39,7 @@ Yii::app()->bootstrap->registerModal();
         <a href="/" id="header-logo">
             <img src="/i/logo-v3.gif" width="124" height="130"
                  alt="<?= CHtml::encode(Yii::app()->name); ?>"
-                 title="<?= p()["version"]; ?>"/>
+                 title="<?= appParams()["version"]; ?>"/>
         </a>
         <nav>
             <ul id="header-menu">
@@ -181,8 +181,8 @@ if (!Yii::app()->user->isGuest):
                 <br/>
                 <a href="/site/help">Справка</a> |
                 <a href="/blog?topic=65">Техподдержка</a> |
-                <a href="mailto:abuse@<?= p()["domain"]; ?>?subj=<?= urlencode($_SERVER["REQUEST_URI"]); ?>">Abuse</a> |
-                <a href="mailto:<?= p()["adminEmail"]; ?>">E-mail для справок</a> |
+                <a href="mailto:abuse@<?= appParams()["domain"]; ?>?subj=<?= urlencode($_SERVER["REQUEST_URI"]); ?>">Abuse</a> |
+                <a href="mailto:<?= appParams()["adminEmail"]; ?>">E-mail для справок</a> |
             </div>
         </div>
     </div>

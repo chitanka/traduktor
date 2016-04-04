@@ -8,7 +8,7 @@ function prr($obj, $title = '') {
     echo "\n<pre>" . ($title != '' ? "<b>{$title}</b>\n" : "") . htmlspecialchars(print_r($obj, true)) . "</pre>\n";
 }
 
-function p() {
+function appParams() {
     return Yii::app()->params;
 }
 

@@ -24,7 +24,7 @@ class RegisterController extends Controller {
 		$user = new User("register");
 		$user->lang = 1;
 
-		if(p()["registerType"] == "INVITE") {
+		if(appParams()["registerType"] == "INVITE") {
 			/** Магия с инвайтами */
 			$invite = RegInvite::model()->findByAttributes([
 				"from_id" => (int) $u,
@@ -72,7 +72,7 @@ class RegisterController extends Controller {
 				$duration = 3600 * 24 * 30;
 				Yii::app()->user->login($identity, $duration);
 
-				if(p()["registerType"] == "INVITE") {
+				if(appParams()["registerType"] == "INVITE") {
 					$invite->delete();
 				}
 
