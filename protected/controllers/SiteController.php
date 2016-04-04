@@ -5,7 +5,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $this->checkUser();
+        $this->checkUserIsGuest();
 
         $this->layout = "column1";
 
@@ -17,7 +17,7 @@ class SiteController extends Controller
         ));
     }
 
-    private function checkUser()
+    private function checkUserIsGuest()
     {
         if (Yii::app()->user->isGuest) {
             $this->loginAttempt();
