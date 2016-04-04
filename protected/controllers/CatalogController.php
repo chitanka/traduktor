@@ -5,38 +5,13 @@ class CatalogController extends Controller
     public function actionIndex($cat_id = 0)
     {
         $category = Category::getCategoryById($cat_id);
-        $branch = $this->extractBranch($category);
-        $tree = $this->getCategoryTree($branch);
+        $tree = Category::getTreeFor($category);
         $books_dp = $this->getBooksByCategory($category);
 
         if (in_array("ajax", $_GET)) $this->renderPartial("catalog_ajax", array("tree" => $tree));
         else {
             $this->render("catalog", array("cat" => $category, "tree" => $tree, "books_dp" => $books_dp));
         }
-    }
-
-    /**
-     * @param $cat_obj
-     *
-     * @return array
-     */
-    private function extractBranch($cat_obj)
-    {
-        if ($cat_obj) {
-            return $cat_obj->mp;
-        }
-        return null;
-    }
-
-    /**
-     * @param $branch
-     *
-     * @return static[]
-     */
-    private function getCategoryTree($branch)
-    {
-        $tree = Category::model()->tree($branch)->with("booksCount")->findAll();
-        return $tree;
     }
 
     /**

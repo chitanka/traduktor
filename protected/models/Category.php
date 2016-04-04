@@ -211,7 +211,13 @@ class Category extends CActiveRecord {
 			throw new TypeError('Id категории должно быть числовым значением!');
 		}
 
-		return Category::model()->findByPk($cat_id);
+		return self::model()->findByPk($cat_id);
+	}
+
+	public static function getTreeFor($category)
+	{
+		$branch = is_null($category) ? null : $category->mp;
+		return self::model()->tree($branch)->with("booksCount")->findAll();
 	}
 }
 ?>
