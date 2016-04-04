@@ -4,7 +4,7 @@ class CatalogController extends Controller
 {
     public function actionIndex($cat_id = 0)
     {
-        $category = $this->getCategoryById($cat_id);
+        $category = Category::getCategoryById($cat_id);
         $branch = $this->extractBranch($category);
         $tree = $this->getCategoryTree($branch);
         $books_dp = $this->getBooksByCategory($category);
@@ -13,18 +13,6 @@ class CatalogController extends Controller
         else {
             $this->render("catalog", array("cat" => $category, "tree" => $tree, "books_dp" => $books_dp));
         }
-    }
-
-    /**
-     * @param $cat_id
-     *
-     * @return static
-     */
-    private function getCategoryById($cat_id)
-    {
-        $cat_id = (int)$cat_id;
-        $cat = Category::model()->findByPk((int)$cat_id);
-        return $cat;
     }
 
     /**

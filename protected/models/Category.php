@@ -198,5 +198,20 @@ class Category extends CActiveRecord {
 		if(!is_array($this->mp)) return "{$this->id} [" . $this->mp . "] '{$this->title}'";
 		return "{$this->id} [" . join(",", $this->mp) . "] '{$this->title}'";
 	}
+
+	/**
+	 * @param $cat_id
+	 *
+	 * @return static
+	 * @throws \TypeError
+     */
+    public static function getCategoryById($cat_id)
+	{
+		if (!is_numeric($cat_id) && $cat_id < 0){
+			throw new TypeError('Id категории должно быть числовым значением!');
+		}
+
+		return Category::model()->findByPk($cat_id);
+	}
 }
 ?>
