@@ -52,6 +52,6 @@
 	<div><i class="icon-pencil"></i> <a href='<?=$user->getUrl("edit"); ?>' class='act'>Редактировать</a></div>
 <?php } ?>
 
-<div><i class="icon-envelope"></i> <a href="/my/mail/write?to=<?=$user->login; ?>" class="act">Написать <?=$user->login; ?> личное сообщение</a></div>
+<!--<div><i class="icon-envelope"></i> <a href="/my/mail/write?to=--><?//=$user->login; ?><!--" class="act">Написать --><?//=$user->login; ?><!-- личное сообщение</a></div>-->
 
 </div>
