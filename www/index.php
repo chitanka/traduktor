@@ -1,15 +1,7 @@
 <?php
-function is_developer() {
-	return $_SERVER["SERVER_NAME"] == "notabenoid.dev.romakhin.ru";
-}
 
-function prr($obj, $title = '') {
-	echo "\n<pre>" . ($title != '' ? "<b>{$title}</b>\n" : "") . htmlspecialchars(print_r($obj, true)) . "</pre>\n";
-}
-
-function p() {
-	return Yii::app()->params;
-}
+$utils = dirname(__FILE__) . '/../protected/utils.php';
+require_once($utils);
 
 $yii = dirname(__FILE__).'/../yii/framework/yii.php';
 $config = dirname(__FILE__) . '/../protected/config/' . (is_developer() ? "dev.php" : "main.php");
