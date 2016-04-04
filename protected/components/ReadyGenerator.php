@@ -38,7 +38,12 @@ abstract class ReadyGenerator_base {
 				else $tr_body = $o->body;
 			} else {
 				$tr_body = $o->trs[0]->body;
-				$this->translators[$o->trs[0]->user->login]++;
+				$userLogin = $o->trs[0]->user->login;
+				if (isset($this->translators[$userLogin])) {
+					$this->translators[$userLogin]++;
+				} else {
+					$this->translators[$userLogin] = 1;
+				}
 			}
 
 			$this->verse($o->stdtime("t1"), $o->stdtime("t2"), $tr_body, $o->ord);
