@@ -10,7 +10,7 @@ class SiteController extends Controller {
 			"hot" => Cacher::getHot(),
 			"searchTop" => Cacher::getSearchTop(),
 			"announces" => Cacher::getAnnounces(),
-			"blog" => $this->getBlogPosts(),
+			"blog" => Cacher::getBlogPosts(),
 		));
 	}
 
@@ -70,18 +70,5 @@ class SiteController extends Controller {
 				exit();
 			}
 		}
-	}
-
-	/**
-	 * @return static[]
-	 */
-	private function getBlogPosts()
-	{
-		if (!($blog = Yii::app()->cache->get("blog"))) {
-			$blog = BlogPost::model()->common()->findAll(["limit" => 10]);
-			Yii::app()->cache->set("blog", $blog, 105);
-			return $blog;
-		}
-		return $blog;
 	}
 }

@@ -81,4 +81,17 @@ class Cacher
         }
         return $announces;
     }
+
+    /**
+     * @return static[]
+     */
+    public static function getBlogPosts()
+    {
+        if (!($blog = Yii::app()->cache->get("blog"))) {
+            $blog = BlogPost::model()->common()->findAll(["limit" => 10]);
+            Yii::app()->cache->set("blog", $blog, 105);
+            return $blog;
+        }
+        return $blog;
+    }
 }
