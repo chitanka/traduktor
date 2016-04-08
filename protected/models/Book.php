@@ -228,25 +228,27 @@ class Book extends CActiveRecord {
 		// владельцу можно всё
 		if($this->owner_id == Yii::app()->user->id) return true;
 
-		// если юзер забанен, то ему нельзя ничего
-		if($this->membership->status == GroupMember::BANNED) return false;
-
 		if($what == "owner") return $this->owner_id == Yii::app()->user->id;
-		if($what == "moderate") return $this->membership->status == GroupMember::MODERATOR;
-		if($what == "dict_edit") return $this->membership->status == GroupMember::MODERATOR;
 
 		// read, trread, gen, rate, comment, tr, blog_r, blog_c, blog_w, chap_edit, book_edit, membership, announce
 		$ac = "ac_{$what}";
+
+		if($this->$ac == "o") return $this->owner_id == Yii::app()->user->id;
+
+		if ($this->membership) {
+			// если юзер забанен, то ему нельзя ничего
+			if($this->membership->status == GroupMember::BANNED) return false;
+			if($what == "moderate") return $this->membership->status == GroupMember::MODERATOR;
+			if($what == "dict_edit") return $this->membership->status == GroupMember::MODERATOR;
+			if($this->$ac == "g") return $this->membership->status == GroupMember::MEMBER or $this->membership->status == GroupMember::MODERATOR;
+			if($this->$ac == "m") return $this->membership->status == GroupMember::MODERATOR;
+		}
 
 		// "a" разрешает анонимам только read, trread, gen и blog_r, любым юзерам - все
 		if($this->$ac == "a") {
 			if(Yii::app()->user->isGuest and !($what == "read" || $what == "trread" || $what == "gen" || $what == "blog_r")) return false;
 			else return true;
 		}
-
-		if($this->$ac == "g") return $this->membership->status == GroupMember::MEMBER or $this->membership->status == GroupMember::MODERATOR;
-		if($this->$ac == "m") return $this->membership->status == GroupMember::MODERATOR;
-		if($this->$ac == "o") return $this->owner_id == Yii::app()->user->id;
 
 		return false;
 	}
@@ -332,7 +334,7 @@ class Book extends CActiveRecord {
 		foreach(array("typ", "s_title", "t_title") as $k) {
 			$js .= "\t{$k}: '" . addcslashes($this->$k, "\t\r\n'\"") . "',\n";
 		}
-		if($this->hasRelated("membership")) {
+		if($this->membership) {
 			$js .= "\tmembership: {status: " . intval($this->membership->status) . "}\n";
 		}
 		$js .= "});\n";
