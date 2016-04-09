@@ -176,6 +176,8 @@ SQL;
 			"pagination" => array("pageSize" => 25),
 		));
 
+		$queue_dp = null;
+		$invited_dp = null;
 		if($this->book->can("membership")) {
 			// DataProvider: заявки
 			$queue_dp = new CActiveDataProvider(User::model(), array(
