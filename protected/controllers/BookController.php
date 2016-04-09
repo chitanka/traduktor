@@ -298,7 +298,8 @@ SQL;
 	public function actionMembers_manage($book_id) {
 		$this->loadBook($book_id);
 		if(!$this->book->can("membership")) throw new CHttpException(403, "Вы не можете управлять группой перевода, это прерогатива " . ($this->book->ac_membership == "m" ? "модераторов" : "создателя перевода"));
-		$back = $this->book->getUrl("members") . "?User_page=" . intval($_POST["User_page"]);
+//		$back = $this->book->getUrl("members") . "?User_page=" . intval($_POST["User_page"]);
+		$back = $this->book->getUrl("members");
 
 		if(count($_POST["id"]) == 0) $this->redirect($back);
 
