@@ -105,7 +105,10 @@ class OrigReaderSRT implements IOrigReader {
 		$orig->chap_id = $this->chap->id;
 
 		// Номер (или конец файла)
-		$t = $this->getline();
+		do{
+			$t = $this->getline();
+		} while(strlen($t) == 0 && !$this->is_eod());
+
 		if($this->is_eod()) return false;
 		if(!is_numeric($t)) {
 			$this->raiseError("Ожидается число, получено '{$t}'");
