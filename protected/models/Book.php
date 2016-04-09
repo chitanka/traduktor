@@ -356,6 +356,8 @@ class Book extends CActiveRecord {
 		}
 		if($this->membership) {
 			$js .= "\tmembership: {status: " . intval($this->membership->status) . "}\n";
+		} else {
+			$js .= "\tmembership: {status: null}\n";
 		}
 		$js .= "});\n";
 
