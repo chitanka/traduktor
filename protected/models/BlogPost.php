@@ -269,7 +269,8 @@ class BlogPost extends CActiveRecord {
 		if($what == "edit") {
 			if($this->book_id != 0) {
 				if($this->isAnnounce) return Yii::app()->user->can("blog_moderate");
-				else return $this->user_id == $user->id || $this->book->membership->status == GroupMember::MODERATOR;
+				elseif ($this->book->membership) return $this->book->membership->status == GroupMember::MODERATOR;
+				else return $this->user_id == $user->id;
 			} else {
 				return $this->user_id == $user->id || $user->can("blog_moderate");
 			}
