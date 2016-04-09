@@ -341,11 +341,12 @@ class Orig extends CActiveRecord {
 			"rate" => false,
 		);
 		// Опции Translate::render() для всех остальных версий
+		$book = $this->chap->book;
 		$tr_opts = array(
-			"edit" => $this->chap->book->membership->status == GroupMember::MODERATOR,
-			"rm" => $this->chap->book->membership->status == GroupMember::MODERATOR,
+			"edit" => $book->checkMembershipStatus(GroupMember::MODERATOR),
+			"rm" => $book->checkMembershipStatus(GroupMember::MODERATOR),
 			"rate" => $this->chap->can("rate"),
-			"rate-" => $this->chap->book->membership->status == GroupMember::MODERATOR,
+			"rate-" => $book->checkMembershipStatus(GroupMember::MODERATOR),
 		);
 
 		foreach($trs as $tr) {

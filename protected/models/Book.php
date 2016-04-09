@@ -224,33 +224,53 @@ class Book extends CActiveRecord {
 		return sprintf("%.01f%%", floor($this->d_vars / $this->n_verses * 1000) / 10);
 	}
 
-	public function can($what) {
+	// todo: refactor
+	public function can($what)
+	{
 		// владельцу можно всё
-		if($this->owner_id == Yii::app()->user->id) return true;
+		if ($this->isCurrentUserTheOwner()) return true;
 
-		if($what == "owner") return $this->owner_id == Yii::app()->user->id;
+		if($what == "owner") return $this->isCurrentUserTheOwner();
 
 		// read, trread, gen, rate, comment, tr, blog_r, blog_c, blog_w, chap_edit, book_edit, membership, announce
 		$ac = "ac_{$what}";
 
-		if($this->$ac == "o") return $this->owner_id == Yii::app()->user->id;
+		// если юзер забанен, то ему нельзя ничего
+		if ($this->checkMembershipStatus(GroupMember::BANNED)) return false;
 
-		if ($this->membership) {
-			// если юзер забанен, то ему нельзя ничего
-			if($this->membership->status == GroupMember::BANNED) return false;
-			if($what == "moderate") return $this->membership->status == GroupMember::MODERATOR;
-			if($what == "dict_edit") return $this->membership->status == GroupMember::MODERATOR;
-			if($this->$ac == "g") return $this->membership->status == GroupMember::MEMBER or $this->membership->status == GroupMember::MODERATOR;
-			if($this->$ac == "m") return $this->membership->status == GroupMember::MODERATOR;
-		}
+		if ($what == "moderate") return $this->checkMembershipStatus(GroupMember::MODERATOR);
+		if ($what == "dict_edit") return $this->checkMembershipStatus(GroupMember::MODERATOR);
+
+		if ($this->$ac == "g") return $this->checkMembershipStatus(GroupMember::MEMBER) or $this->checkMembershipStatus(GroupMember::MODERATOR);
+		if ($this->$ac == "m") return $this->checkMembershipStatus(GroupMember::MODERATOR);
+		if ($this->$ac == "o") return $this->isCurrentUserTheOwner();
 
 		// "a" разрешает анонимам только read, trread, gen и blog_r, любым юзерам - все
-		if($this->$ac == "a") {
-			if(Yii::app()->user->isGuest and !($what == "read" || $what == "trread" || $what == "gen" || $what == "blog_r")) return false;
+		if ($this->$ac == "a") {
+			if (Yii::app()->user->isGuest and !($what == "read" || $what == "trread" || $what == "gen" || $what == "blog_r")) return false;
 			else return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * @return bool
+     */
+	public function isCurrentUserTheOwner()
+	{
+		return $this->owner_id == Yii::app()->user->id;
+	}
+
+	/**
+	 * @param Integer $status
+	 *
+	 * @return bool
+	 */
+	public function checkMembershipStatus($status)
+	{
+		if (is_null($this->membership)) return false;
+		return $this->membership->status == $status;
 	}
 
 	public function role_areas($role) {
