@@ -21,11 +21,6 @@ class SiteController extends Controller
     {
         if (Yii::app()->user->isGuest) {
             $this->loginAttempt();
-            if (isRegistrationByInvite()) {
-                $this->layout = "empty";
-                $this->render("index_guest");
-                exit();
-            }
         }
     }
 
