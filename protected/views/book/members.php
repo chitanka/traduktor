@@ -43,7 +43,7 @@ $(P.init);
 
 <?php if($book->facecontrol != Book::FC_OPEN and Yii::app()->user->id != $book->owner_id and !Yii::app()->user->isGuest): ?>
 <?php
-	if($book->membership->status == 0) {
+	if($book->checkMembershipStatus(0)) {
 		$group_needed = "";
 		$A = $book->role_areas("g");
 		if(count($A) > 0) {
