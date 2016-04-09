@@ -65,6 +65,7 @@ class OrigReaderSRT implements IOrigReader {
 	}
 
 	private $purifier;
+	//todo: сделать пропуск двойных пустых линий в субтитрах
 	private function getline() {
 		if($this->is_eod()) return false;
 		$t = fgets($this->fh);
