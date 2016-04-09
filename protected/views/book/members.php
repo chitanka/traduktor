@@ -118,7 +118,7 @@ $(P.init);
 	<input type="hidden" name="status" value="" />
 	<?php if(isset($_GET["User_page"])): ?>
 		<input type="hidden" name="User_page" value="<?php echo (int) $_GET["User_page"]; ?>" />
-	<? endif ?>
+	<?php endif ?>
 <?php endif ?>
 
 <table id="people" class="table table-condensed table-striped">
