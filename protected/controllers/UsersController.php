@@ -21,7 +21,7 @@ class UsersController extends Controller {
 			"profile" => "Контакты",
 		);
 		$user = Yii::app()->user;
-		if(isRegistrationByInvite() && !$user->isGuest && $user->id == $_GET["id"]) {
+		if(isRegistrationByInvite() && !$user->isGuest && isset($_GET["id"]) && $user->id == $_GET["id"]) {
 			$this->submenu["invites"] = "Приглашения";
 			if($user->model->n_invites > 0) $this->submenu["invites"] .= " (" . $user->model->n_invites . ")";
 		}
@@ -266,9 +266,9 @@ class UsersController extends Controller {
 	}
 
 	public function actionInvites($id) {
-		if(isRegistrationByInvite()) {
-			$this->redirect("/users/{$id}");
-		}
+//		if(isRegistrationByInvite()) {
+//			$this->redirect("/users/{$id}");
+//		}
 
 		$user = $this->loadUser($id);
 		if($user->id !== Yii::app()->user->id) throw new CHttpException(404);
@@ -314,7 +314,7 @@ class UsersController extends Controller {
 			}
 		} else {
 			$invite = new RegInvite();
-			if($_GET["who"]) {
+			if(isset($_GET["who"]) && $_GET["who"]) {
 				$invite->type = "user";
 				$invite->clue = htmlspecialchars($_GET["who"]);
 			}
