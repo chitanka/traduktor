@@ -99,7 +99,7 @@ class RegInvite extends CActiveRecord {
 
 		// Проверяем, не приглашали ли мы его уже ранее
 		$i = Yii::app()->db->createCommand("SELECT 1 FROM reg_invites WHERE from_id = :from_id AND to_id = :to_id")
-			->queryScalar(["from_id" => $this->from_id, "to_id" => $this->foundBuddy->id]);
+			->queryScalar(["from_id" => $this->from_id, "to_id" => !is_null($this->foundBuddy) ? $this->foundBuddy->id : null]);
 		if($i) {
 			$this->addError("clue", "Вы уже приглашали этого пользователя.");
 			return;
