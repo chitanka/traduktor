@@ -40,7 +40,11 @@ class User extends CActiveRecord {
 	const INI_AD_OFF		= 8;
 	const INI_ADDTHIS_OFF   = 9;
 
-	public $id, $cdate, $lastseen, $can;
+	const USUAL             = 0;
+	const MANAGER           = 1;
+	const ADMIN             = 2;
+
+	public $id, $cdate, $lastseen, $can, $state;
 	public $login, $pass, $email, $sex, $lang, $upic, $ini;
 	public $rate_t, $rate_c, $rate_u, $n_trs, $n_comments, $n_karma;
 
@@ -79,6 +83,7 @@ class User extends CActiveRecord {
 			'rate_u' => 'Карма',
 			'n_trs' => 'Версий перевода',
 			'n_comments' => 'Комментариев',
+			'state' => 'Статус пользователя',
 
 			"pass2" => "Ещё раз",
 			"remember" => "Запомнить меня на сайте",

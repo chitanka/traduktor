@@ -309,4 +309,17 @@ class WebUser extends CWebUser {
 
 		return $this->newMail;
 	}
+
+	/**
+	 * Checks user state (usual, admin, manager, etc.)
+	 * @param Integer $state
+	 *
+	 * @return bool
+	 */
+    public function stateIs($state)
+	{
+		if (Yii::app()->user->isGuest) return false;
+
+		if (is_int($state)) return $this->model->state == $state;
+	}
 }
