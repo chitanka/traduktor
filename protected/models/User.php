@@ -28,6 +28,7 @@ class User extends CActiveRecord {
 	const CAN_TRANSLATE    = 8;
 	const CAN_CREATE_BOOKS = 9;
 	const CAN_ANNOUNCE     = 10;
+	const CAN_ADMIN        = 11;
 
 	const INI_MYTALKS_NEW   = 0;  // в "моих обсуждениях" показывать посты только с новыми комментариями
 	const INI_INBOX_NEW     = 1;  // в списке инбоксов показывать только инбоксы с новыми комментариями

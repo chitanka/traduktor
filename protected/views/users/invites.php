@@ -38,12 +38,12 @@ $this->renderPartial("profile_head", array("user" => $user, "h1" => "пригл�
 			<span class="invite-who invite-who-new">E-mail:</span>
 			<input type="text" name="invite[clue]" value="<?=CHtml::encode($invite->clue); ?>">
 
-			<?php if(Yii::app()->user->can("admin")): ?>
+			<?php if(Yii::app()->user->can(User::CAN_ADMIN)): ?>
 			<span class="invite-who invite-who-user">
 				Отсыпать инвайтов:
 				<input type="text" class="span1" name="invite[giveInvites]" value="<?=CHtml::encode($invite->giveInvites); ?>">
 			</span>
-			<?php endif ?>
+			<?php endif; ?>
 		</p>
 
 		<p>
@@ -68,7 +68,7 @@ $this->renderPartial("profile_head", array("user" => $user, "h1" => "пригл�
 		$("#invite-send input[type=radio]:checked").click();
 	})();
 </script>
-<?php endif ?>
+<?php endif; ?>
 
 <?php if(count($sent) > 0): ?>
 <h4>Отправленные приглашения</h4>

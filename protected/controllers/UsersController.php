@@ -25,7 +25,7 @@ class UsersController extends Controller {
 			$this->submenu["invites"] = "Приглашения";
 			if($user->model->n_invites > 0) $this->submenu["invites"] .= " (" . $user->model->n_invites . ")";
 		}
-		if($user->can("admin")) {
+		if($user->can(User::CAN_ADMIN)) {
 			$this->submenu["admin"] = "<i class='icon-pencil'></i>";
 		}
 	}
@@ -460,7 +460,7 @@ class UsersController extends Controller {
 	}
 
 	public function actionAdmin($id) {
-		if(!Yii::app()->user->can("admin")) throw new CHttpException(404);
+		if(!Yii::app()->user->can(User::CAN_ADMIN)) throw new CHttpException(404);
 
 		$user = $this->loadUser($id);
 		$user->scenario = "edit-admin";
@@ -488,7 +488,7 @@ class UsersController extends Controller {
 	}
 
 	public function actionAdminRemindToken($id) {
-		if(!Yii::app()->user->can("admin")) throw new CHttpException(404);
+		if(!Yii::app()->user->can(User::CAN_ADMIN)) throw new CHttpException(404);
 
 		$user = $this->loadUser($id);
 

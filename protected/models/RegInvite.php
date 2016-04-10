@@ -107,7 +107,7 @@ class RegInvite extends CActiveRecord {
 	}
 
 	public function validateGiveInvites($attr, $params) {
-		if(!Yii::app()->user->can("admin")) return;
+		if(!Yii::app()->user->can(User::CAN_ADMIN)) return;
 
 		if($this->foundBuddy) {
 			$this->foundBuddy->n_invites += (int) $this->$attr;
