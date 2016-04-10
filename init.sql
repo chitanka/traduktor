@@ -26,7 +26,12 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
 
 --
--- Name: ac; Type: DOMAIN; Schema: public; Owner: notabenoid
+-- Name: ac (Access Control); Type: DOMAIN; Schema: public; Owner: notabenoid
+-- Values:
+-- a - all
+-- g - group
+-- m - moderator
+-- o - owner
 --
 
 CREATE DOMAIN ac AS character(1)
@@ -1159,6 +1164,7 @@ CREATE TABLE users (
     n_karma integer DEFAULT 0 NOT NULL,
     invited_by integer,
     n_invites smallint DEFAULT 0 NOT NULL,
+    state SMALLINT DEFAULT 0 NOT NULL,
     CONSTRAINT users_login_check CHECK (((login)::text <> ''::text)),
     CONSTRAINT users_pass_check CHECK (((pass)::text <> ''::text)),
     CONSTRAINT users_sex_check CHECK ((sex = ANY (ARRAY['x'::bpchar, 'm'::bpchar, 'f'::bpchar, '-'::bpchar])))
