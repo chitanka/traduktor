@@ -99,13 +99,6 @@ class Controller extends CController {
 					$user->setFlash("warning", "Вы забанены на сайте до " . Yii::app()->dateFormatter->formatDateTime($banned_until, "medium", "") . " г. включительно.");
 					$user->logout();
 				}
-			} else {
-				$freePages = [
-					"site/index" => true, "register/index" => true, "register/captcha" => true,
-					"register/remind" => true, "register/reset" => true, "register/done" => true,
-					"site/error" => true,
-				];
-				if(!isset($freePages[$this->id . "/" . $this->action->id])) $this->redirect("/");
 			}
 		}
 		return parent::beforeAction($action);
