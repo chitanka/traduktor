@@ -359,7 +359,7 @@ class UsersController extends Controller {
 	public function actionDelete($id) {
 		$user = Yii::app()->user->model;
 		if($id != $user->id) $this->redirect($user->getUrl("delete"));
-		if($_POST["really"]) {
+		if(isset($_POST["really"]) && $_POST["really"]) {
 			$i = new UserIdentity($user->login, $_POST["pass"]);
 			if($i->authenticate()) {
 				$user->sex = "-";
