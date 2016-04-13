@@ -287,7 +287,7 @@ class UsersController extends Controller {
 				$this->redirect($user->getUrl("invites"));
 			} elseif(isset($_POST["resend"])) {
 				$invite = RegInvite::model()->findByAttributes(["id" => (int) $_POST["resend"], "from_id" => $user->id]);
-				$invite->to_email = $invite->buddy->email;
+//				$invite->to_email = $invite->buddy->email;
 				$invite->save(false, ["to_email"]);
 				if($invite) {
 					$invite->sendMail();
