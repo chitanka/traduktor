@@ -120,11 +120,13 @@ class RegInvite extends CActiveRecord {
 	}
 
 	public function sendMail() {
-		$msg = new YiiMailMessage("{$this->sender->login} приглашает вас в Закрытый Клуб Переводчиков");
-		$msg->view = $this->to_id ? "reg_invite_user" : "reg_invite_new";
-		$msg->from = Yii::app()->params['adminEmail'];
-		$msg->addTo($this->to_email);
-		$msg->setBody(array("invite" => $this), "text/html");
-		return Yii::app()->mail->send($msg);
+		$message = new YiiMailMessage();
+		$message->view = "reg_invite_new";
+		$message->subject = "{$this->sender->login} приглашает вас в Закрытый Клуб Переводчиков";
+		$message->setBody(array("invite" => $this), "text/html");
+		$message->addTo($this->to_email);
+		$message->from = Yii::app()->params['adminEmail'];
+
+		return Yii::app()->mail->send($message);
 	}
 }
