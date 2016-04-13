@@ -166,7 +166,9 @@ class RegisterController extends Controller {
 		$user = Yii::app()->user;
 
 		if(isset($_POST["UserSettings"])) {
-			$_POST["ini"]["t"]["copy"] = (int) $_POST["ini"]["t"]["copy"];
+			if (isset($_POST["ini"]["t"]["copy"])) {
+				$_POST["ini"]["t"]["copy"] = (int) $_POST["ini"]["t"]["copy"];
+			}
 
 			if($_POST["ini"]["t"]["iface"] != $user->ini["t.iface"]) {
 				file_put_contents(
