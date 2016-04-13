@@ -8,9 +8,6 @@
 $this->pageTitle = "Приглашения";
 $this->renderPartial("profile_head", array("user" => $user, "h1" => "приглашения"));
 ?>
-<style type="text/css">
-	 .invite-who { display: none; }
-</style>
 
 <?php if($user->n_invites == 0): ?>
 	<p>У вас нет приглашений.</p>
@@ -19,31 +16,15 @@ $this->renderPartial("profile_head", array("user" => $user, "h1" => "пригл�
 	Вы можете пригласить в наш клуб ещё <?=Yii::t("app", "{n} человека|{n} человек|{n} человек", $user->n_invites); ?>.
 </p>
 <form method="post" class="form-horizontal" id="invite-send">
+	<input type="hidden" name="invite[type]" value="new">
 	<h4>Кого вы хотите пригласить?</h4>
 
 	<?=CHtml::errorSummary($invite, '<div class="alert alert-box alert-danger">', '</div>'); ?>
 
-	<label class="radio">
-		<input type="radio" name="invite[type]" value="user" <?=$invite->type == "user" ? "checked" : ""; ?>>
-		Уже зарегистрированного на Нотабеноиде, но пока неактивного пользователя
-	</label>
-	<label class="radio">
-		<input type="radio" name="invite[type]" value="new" <?=$invite->type == "new" ? "checked" : ""; ?>>
-		Нового переводчика
-	</label>
-
-	<div id="invite-send-more" <?=$invite->type == "" ? "style='display:none;'" : ""; ?>>
+	<div id="invite-send-more">
 		<p>
-			<span class="invite-who invite-who-user">Логин:</span>
 			<span class="invite-who invite-who-new">E-mail:</span>
 			<input type="text" name="invite[clue]" value="<?=CHtml::encode($invite->clue); ?>">
-
-			<?php if(Yii::app()->user->can(User::CAN_ADMIN)): ?>
-			<span class="invite-who invite-who-user">
-				Отсыпать инвайтов:
-				<input type="text" class="span1" name="invite[giveInvites]" value="<?=CHtml::encode($invite->giveInvites); ?>">
-			</span>
-			<?php endif; ?>
 		</p>
 
 		<p>
@@ -56,18 +37,6 @@ $this->renderPartial("profile_head", array("user" => $user, "h1" => "пригл�
 
 	</div>
 </form>
-<script type="text/javascript">
-	(function() {
-		function typeclick(e) {
-			$("#invite-send-more").show();
-			$(".invite-who").hide();
-			$(".invite-who-" + $(this).val()).show();
-			$("#invite-send input[name=invite\\[clue\\]").focus();
-		}
-		$("#invite-send [name=invite\\[type\\]]").click(typeclick);
-		$("#invite-send input[type=radio]:checked").click();
-	})();
-</script>
 <?php endif; ?>
 
 <?php if(count($sent) > 0): ?>
