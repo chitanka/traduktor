@@ -4,7 +4,8 @@
  */
 ?>
 <p style="text-align: center;">
-    <img src="http://translate.kursomir.ru/i/logo.png" alt="Курсомир.Переводы">
+    <img style="width: 50%;"
+        src="http://translate.kursomir.ru/i/logo.png" alt="Курсомир.Переводы">
 </p>
 <p>Привет!</p>
 <p>
