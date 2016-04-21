@@ -473,7 +473,7 @@ SQL;
 		}
 
         Yii::app()->user->setFlash("success", "Вы покинули перевод {$this->book->ahref}.");
-        if($_POST["ajax"] == 1) {
+        if(isset($_POST["ajax"]) && $_POST["ajax"] == 1) {
             echo "ok";
         } else {
             $this->redirect($this->book->getUrl("members"));
