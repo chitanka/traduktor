@@ -495,7 +495,7 @@ SQL;
 		}
 
 		// если я уже в группе, то я идём нахуй
-		if($this->book->membership->status == GroupMember::MEMBER || $this->book->membership->status == GroupMember::MODERATOR) {
+		if(!is_null($this->book->membership) && ($this->book->membership->status == GroupMember::MEMBER || $this->book->membership->status == GroupMember::MODERATOR)) {
 			$this->invite_delete();
 			Yii::app()->user->setFlash("success", "Вы уже состоите в этой группе перевода.");
 			$this->redirect($this->book->url);
