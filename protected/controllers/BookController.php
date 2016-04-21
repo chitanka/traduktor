@@ -155,7 +155,7 @@ SQL;
 
 		if($book->can("membership")) {
 			// Заявки на членство в группе с facecontrol == FC_CONFIRM.
-			if($book->facecontrol == Book::FC_CONFIRM and count($_POST["fate"]) > 0) {
+			if($book->facecontrol == Book::FC_CONFIRM and isset($_POST["fate"]) and count($_POST["fate"]) > 0) {
 				$this->members_requests();
 				$this->redirect($this->book->getUrl("members"));
 			}
