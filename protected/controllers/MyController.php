@@ -34,7 +34,7 @@ class MyController extends Controller
     public function actionNotices_rmseen()
     {
         $exclude = array();
-        if (is_array($_POST["x"])) {
+        if (isset($_POST["x"]) && is_array($_POST["x"])) {
             foreach ($_POST["x"] as $id) {
                 $exclude[] = (int)$id;
             }
