@@ -395,11 +395,12 @@ class User extends CActiveRecord {
 				Notice::CHAPTER_ADDED => "Новая глава в переводе, за которым вы следите",
 				Notice::CHAPTER_STATUS => "Изменился статус перевода, за которым вы следите"
 			);
-			$msg = new YiiMailMessage($subj[$Notice->typ]);
+			$msg = new YiiMailMessage();
 			$msg->view = "notice";
-			$msg->setFrom(array(Yii::app()->params["systemEmail"] => "Оповещение"));
-			$msg->addTo($this->email);
+			$msg->subject = $subj[$Notice->typ];
 			$msg->setBody(array("Notice" => $Notice, "user" => $this), "text/html");
+			$msg->addTo($this->email);
+			$msg->setFrom(array(Yii::app()->params["adminEmail"] => "Оповещение"));
 			Yii::app()->mail->send($msg);
 		}
 

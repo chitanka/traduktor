@@ -268,9 +268,11 @@ SQL;
 		$invited = "";
 		$cnt = 0;
 		foreach($users as $u) {
-			if( $u->membership->status == GroupMember::MEMBER ||
-				$u->membership->status == GroupMember::MODERATOR ||
-				$u->membership->status == GroupMember::BANNED) continue;
+			if (!is_null($u->membership)) {
+				if( $u->membership->status == GroupMember::MEMBER ||
+					$u->membership->status == GroupMember::MODERATOR ||
+					$u->membership->status == GroupMember::BANNED) continue;
+			}
 
 			if($this->book->n_invites - $cnt <= 0) break;
 
