@@ -242,20 +242,9 @@
 					echo "</td>";
 				}
 
-				if($user->isGuest) {
-					if($row == 1) {
-						echo "<td class='o' rowspan='100'>";
-						echo "<p style='margin: 30px 0; text-align: center;'>";
-						echo "Сожалеем, но текст оригинала доступен только <a href='/register'>зарегистрированным</a> пользователям.";
-						echo "</p>";
-						echo "</td>";
-					}
-				} else {
-					echo "<td class='o'><div>";
-					echo $o->render($filter);
-					echo "</div></td>";
-				}
-
+				echo "<td class='o'><div>";
+				echo $o->render($filter);
+				echo "</div></td>";
 
 				if($chap->can("tr")) {
 					echo "<td class='u'>";
