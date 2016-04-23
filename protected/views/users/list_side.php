@@ -17,29 +17,6 @@ function RusEnding($n, $n1, $n2, $n5) {
 		return $n5;
 	}
 ?>
-<style type='text/css'>
-	#Stats {line-height:24px; color:#555;}
-	#Stats b {font-size:20px; white-space:nowrap; color:#000;}
-</style>
-
-<div class='tools' id='Stats'>
-	<?php
-		$age = time() - mktime(16, 57, 0, 6, 25, 2008);
-		$NotabenoidAge = floor($age / (60 * 60 * 24));
-		// Просто обманка, чтобы оно открылось
-		$n_users = 1;
-		$n_books = 0;
-		$n_orig = 0;
-		$n_tr = 0;
-	?>
-	<h5>Сухие цифры</h5>
-
-	За <b><?=number_format($NotabenoidAge, 0, ',', ' '); ?></b> <?=RusEnding($NotabenoidAge, "день", "дня", "дней"); ?> существования Нотабеноида,
-	<b><?=number_format($n_users, 0, ',', ' '); ?></b> его <?=RusEnding($n_users, "пользователь", "пользователя", "пользователей"); ?> создали
-	<b><?=number_format($n_books, 0, ',', ' '); ?></b> <?=RusEnding($n_books, "перевод", "перевода", "переводов"); ?>,
-	состоящих из <b><?=number_format($n_orig, 0, ',', ' '); ?></b> <?=RusEnding($n_orig, "фрагмента", "фрагментов", "фрагментов"); ?>,
-	и предложили <b><?=number_format($n_tr, 0, ',', ' '); ?></b> <?=RusEnding($n_tr, "вариант", "варианта", "вариантов"); ?> их перевода.
-</div>
 
 <div class='tools'>
 	<h5>Найти человека</h5>
