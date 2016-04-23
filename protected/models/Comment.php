@@ -261,7 +261,7 @@ class Comment extends CActiveRecord {
 			if($user->can("blog_moderate")) return true;
 			if($this->orig_id != 0) {
 				// Комментарий к фрагменту  --- @todo сделать, чтобы модератор не мог стереть комментарий владельца перевода (this->orig->chap->book->owner_id)
-				return $this->user_id == $user->id || $this->orig->chap->book->membership->status == GroupMember::MODERATOR;
+				return $this->user_id == $user->id || (isset($this->orig->chap->book->membership) && $this->orig->chap->book->membership->status == GroupMember::MODERATOR):;
 			} elseif($this->post_id != 0) {
 				if($this->post->book_id == 0) {
 					// Комментарий в общем блоге
