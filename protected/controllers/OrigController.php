@@ -248,7 +248,9 @@ class OrigController extends Controller {
 	}
 
 	public function actionEdit($book_id, $chap_id, $orig_id) {
-		$ajax = $_POST["ajax"] || $_GET["ajax"];
+		if (isset($_POST["ajax"]) || isset($_GET["ajax"])) {
+			$ajax = $_POST["ajax"] || $_GET["ajax"];
+		}
 
 		$chap = $this->loadChapter($book_id, $chap_id);
 		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Вы не можете редактировать оригинал в этом переводе.");
