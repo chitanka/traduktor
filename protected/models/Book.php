@@ -313,7 +313,7 @@ class Book extends CActiveRecord {
 	public function getDeniedWhy() {
 		if($this->can("read")) return "";
 
-		if($this->membership->status == GroupMember::BANNED) {
+		if($this->checkMembershipStatus(GroupMember::BANNED)) {
 			$msg = "Вы не можете войти в перевод &laquo;{$this->fullTitle}&raquo;, так как его владелец или модераторы забанили вас.";
 		} elseif($this->ac_read == "o") {
 			$msg = "Владелец перевода &laquo;{$this->fullTitle}&raquo;, {$this->owner->ahref}, закрыл доступ в него для всех.";
