@@ -41,7 +41,7 @@ class BookBaseController extends Controller {
 			if(!Yii::app()->request->isAjaxRequest) {
 
 				// Ебала с группами, предлагаем вступить или проверяем, есть ли инвайт
-				if($this->book->membership->status != GroupMember::BANNED) {
+				if(!$this->book->checkMembershipStatus(GroupMember::BANNED)) {
 					if($this->book->ac_read == "g") {
 						if($this->book->facecontrol == Book::FC_CONFIRM) {
 							$msg .= $this->renderPartial("//book/_join", array("book" => $this->book), true);
