@@ -1350,7 +1350,7 @@ SELECT pg_catalog.setval('books_id_seq', 1, false);
 --
 
 COPY catalog (id, pid, mp, title, available) FROM stdin WITH DELIMITER ',' NULL AS 'NULL';
-1,NULL,{1},Фильмы,true
+1,NULL,{1},Видео,true
 2,NULL,{2},Тексты,true
 \.
 
