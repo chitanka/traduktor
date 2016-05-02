@@ -9,7 +9,7 @@
 <p>
 	Это приглашение — ваш уникальный шанс стать частью команды переводчиков.<br>
 	Регистрируйтесь — и за работу:<br>
-	<a style="padding:10px; background: #a1ff80; color: #005580; border-radius: 9px;"
+	<a style="padding:10px; background: #a1ff80; color: #005580; border-radius: 9px; display: inline-block;"
 	   href='<?=$invite->urlAccept; ?>'>
 		<?=$invite->urlAccept; ?>
 	</a><br>

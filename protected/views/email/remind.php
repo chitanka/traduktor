@@ -5,7 +5,7 @@
 <p>
     Потеряли ключи от "КУРСОМИРА"? Они здесь: <br>
     <a href="<?=$token->url; ?>"
-       style="padding:10px; background: #a1ff80; color: #005580; border-radius: 9px;">
+       style="padding:10px; background: #a1ff80; color: #005580; border-radius: 9px; display: inline-block;">
         <?=$token->url; ?></a>
     <br>
     И больше не теряйте.
