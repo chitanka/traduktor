@@ -1,18 +1,17 @@
-<style type='text/css'>
-	p.note {color:#777; font-style:italic;}
-	address {margin-top:20px; border-top:1px solid gray; width:200px;}
-	blockquote {border-left:2px solid #777; padding:10px 0px 10px 10px;}
-</style>
-
-<body>
-<p>Добрый день!</p>
-<p>
-	Ура, вы зарегистрировались на сайте <a href='http://<?=Yii::app()->params["domain"]; ?>/'><?=Yii::app()->name; ?></a>!
-	На всякий случай, ваш логин - <b><?=$user->login; ?></b>.
+<p style="text-align: center;">
+	<img style="width: 50%;"
+		 src="http://<?=Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
 </p>
-<address>
-	С уважением,<br /.>
-	<a href='http://<?=Yii::app()->params["domain"]; ?>/'><?=Yii::app()->name; ?></a>
-</address>
+<p>
+	Вы успешно прошли регистрацию на сайте <a href='http://<?=Yii::app()->params["domain"]; ?>/'><?=Yii::app()->name; ?></a>.<br>
+	Добро пожаловать!
+</p>
+<p>
+	На всякий случай, ваш логин — <b><?=$user->login; ?></b>.
+</p>
+<p>
+	Ваш,<br>
+	"КУРСОМИР"
+</p>
 
-<p class='note'>P. S. Это письмо написано искусственным интеллектом, отвечать на него не надо.</p>
+<p style='color:#777; font-style:italic;'>P. S. Это письмо написано искусственным интеллектом, отвечать на него не надо.</p>
