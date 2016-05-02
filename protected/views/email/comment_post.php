@@ -1,22 +1,38 @@
 <style type='text/css'>
-	p.note {color:#777; font-style:italic;}
-	address {margin-top:20px; border-top:1px solid gray; width:200px;}
-	blockquote {border-left:2px solid #777; padding:10px 0px 10px 10px;}
+	.note { color: #777; font-style: italic; }
+	.token { padding:10px; background: #a1ff80; color: #005580; border-radius: 9px; }
+	.logo { text-align: center; }
+	.logo > img { width:50%; }
+	.orig { margin-left: 10px; }
+	address { margin-top: 20px; border-top: 1px solid gray; width: 200px; }
+	blockquote { border-left: 2px solid #777; padding: 10px 0px 10px 10px; }
 </style>
-<base href="http://<?=Yii::app()->params["domain"]; ?>" />
 <body>
-<p>Добрый день!</p>
-<p>
-	<?=$comment->author->ahref; ?> оставил<?=$comment->author->sexy(); ?> новый комментарий в вашем посте &laquo;<a href="<?=$post->url; ?>"><?=$post->title; ?></a>&raquo;.
+<p class="logo">
+	<img src="http://<?= Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
 </p>
-<blockquote><?=nl2br($comment->body); ?></blockquote>
+<p>
+	<?=$comment->author->ahref; ?> оставил<?=$comment->author->sexy(); ?> новый комментарий в вашем посте
+	<a href="<?=$post->url; ?>">
+		<?=$post->title; ?>
+	</a>.
+</p>
+<blockquote>
+	<?=nl2br($comment->body); ?>
+</blockquote>
 <p>
 	<a href="<?=$post->url; ?>#cmt_<?=$comment->id; ?>">Ответить</a>.
 </p>
 
 <address>
-	С уважением,<br />
-	<a href='http://<?=Yii::app()->params["domain"]; ?>/'><?=Yii::app()->name; ?></a>
+	С уважением,<br>
+	"КУРСОМИР"
 </address>
-
-<p class='note'>P. S. Это письмо написано искусственным интеллектом, отвечать на него не надо.</p>
+<p class="note">
+	P. S. Это письмо написано искусственным интеллектом, отвечать на него не надо. <br>
+	Вы получаете эти письма потому, что включили пересылку
+	<a href='http://<?= Yii::app()->params["domain"]; ?>/my/notices'>оповещений</a>
+	на электронную почту. Отключить её можно на странице
+	<a href='http://<?= Yii::app()->params["domain"]; ?>/register/settings'>настроек сайта</a>.
+</p>
+</body>
