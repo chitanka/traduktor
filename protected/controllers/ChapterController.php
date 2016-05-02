@@ -386,7 +386,7 @@ class ChapterController extends Controller {
 			Yii::app()->request->sendFile($fname, $data, "application/octet-stream", false);
 
 			// Счётчик скачиваний
-			$ip = $_SERVER["HTTP_X_REAL_IP"] ? $_SERVER["HTTP_X_REAL_IP"] : $_SERVER["REMOTE_ADDR"];
+			$ip = isset($_SERVER["HTTP_X_REAL_IP"]) ? $_SERVER["HTTP_X_REAL_IP"] : $_SERVER["REMOTE_ADDR"];
 			$p = array(":book_id" => $chap->book->id, ":chap_id" => $chap->id, ":ip" => $ip);
 			$sql = "SELECT downloaded_book(:book_id, :chap_id, :ip, NULL)";
 			if(isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
