@@ -8,11 +8,11 @@
 </style>
 <body>
 <p class="logo">
-    <img src="http://<?= Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
+    <img src="http://<?=Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
 </p>
 <p>
     Потеряли ключи от "КУРСОМИРА"? Они здесь: <br>
-    <a href="<?= $token->url; ?>" class="token"><?= $token->url; ?></a><br>
+    <a href="<?=$token->url; ?>" class="token"><?=$token->url; ?></a><br>
     И больше не теряйте.
 </p>
 <p>

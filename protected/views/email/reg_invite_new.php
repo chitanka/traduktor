@@ -12,13 +12,13 @@
 </p>
 <p>
     НЛО приглашает вас в клуб переводчиков курсов MIT
-    <a href='http://<?= Yii::app()->params["domain"]; ?>/'><?= Yii::app()->name; ?></a>.
+    <a href='http://<?=Yii::app()->params["domain"]; ?>/'><?=Yii::app()->name; ?></a>.
 </p>
 <p>
     Это приглашение — ваш уникальный шанс стать частью команды переводчиков.<br>
     Регистрируйтесь — и за работу:<br>
-    <a class="token" href='<?= $invite->urlAccept; ?>'>
-        <?= $invite->urlAccept; ?>
+    <a class="token" href='<?=$invite->urlAccept; ?>'>
+        <?=$invite->urlAccept; ?>
     </a><br>
     И помните: ваш маленький шаг может создать большое будущее!
 </p>
@@ -28,7 +28,7 @@
         Кстати, вам просили передать:<br>
     </p>
     <p>
-        <?= nl2br(htmlspecialchars($invite->message)); ?>
+        <?=nl2br(htmlspecialchars($invite->message)); ?>
     </p>
 <?php endif; ?>
 

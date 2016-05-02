@@ -9,7 +9,7 @@
 </style>
 <body>
 <p class="logo">
-	<img src="http://<?= Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
+	<img src="http://<?=Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
 </p>
 <p>
 	<?=$comment->author->ahref; ?> оставил<?=$comment->author->sexy(); ?> новый комментарий в вашем посте
@@ -31,8 +31,8 @@
 <p class="note">
 	P. S. Это письмо написано искусственным интеллектом, отвечать на него не надо. <br>
 	Вы получаете эти письма потому, что включили пересылку
-	<a href='http://<?= Yii::app()->params["domain"]; ?>/my/notices'>оповещений</a>
+	<a href='http://<?=Yii::app()->params["domain"]; ?>/my/notices'>оповещений</a>
 	на электронную почту. Отключить её можно на странице
-	<a href='http://<?= Yii::app()->params["domain"]; ?>/register/settings'>настроек сайта</a>.
+	<a href='http://<?=Yii::app()->params["domain"]; ?>/register/settings'>настроек сайта</a>.
 </p>
 </body>
