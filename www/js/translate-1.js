@@ -504,6 +504,7 @@ $(function() {
 			e.preventDefault();
 
 			var html, $div, $form, $tr = $(this).parents("tr"),
+				$td = $(this).parents('td'),
 				orig_id = $tr.attr("id").substr(1),
 				id;
 
@@ -524,6 +525,11 @@ $(function() {
 			if(id == 0) {
 				$div = $("<div id='t0' />").appendTo("#o" + orig_id + " td.t");
 			} else {
+				var translation_url = "/book/" + Book.id + "/" + Chap.id + "/" + orig_id + "/get_translation?tr_id=" + id;
+
+				var promise = $.get(translation_url);
+				$td.addClass('loading');
+
 				$div = $("#t" + id);
 				tr.saveHtml = $div.html();
 			}
@@ -545,21 +551,28 @@ $(function() {
 
 			$form = $(html);
 
-			if(id != 0) $form.find("textarea").val($("#t" + id + " .text").text());
-			else if(User.ini_get("t.copy") == 1) $form.find("textarea").val($tr.find("td.o p.text").text());
+			if (id != 0) {
+				promise.done(function (response) {
+						$form.find("textarea").val(JSON.parse(response));
+					})
+					.always(function () {
+						$td.removeClass('loading');
+					})
+			}
+			else if (User.ini_get("t.copy") == 1) $form.find("textarea").val($tr.find("td.o p.text").text());
 
 			$form.find("button.cancel").click(tr.cancel);
 
 			$form.ajaxForm({
 				dataType: "json",
 				data: {ajax: 1},
-				beforeSubmit: function() {
+				beforeSubmit: function () {
 					$div.addClass("loading");
 					$form.find(":submit").attr("disabled", true);
 				},
-				success: function(data) {
+				success: function (data) {
 					$div.removeClass("loading");
-					if(data.error) {
+					if (data.error) {
 						$form.find(":submit").attr("disabled", false);
 						alert(data.error);
 						return;
@@ -573,9 +586,9 @@ $(function() {
 					tr.id = 0;
 					tr.orig_id = 0;
 
-					if(tr.next && tr.next.length) tr.next.click();
+					if (tr.next && tr.next.length) tr.next.click();
 				},
-				error: function(xhr) {
+				error: function (xhr) {
 					$div.removeClass("loading");
 					$form.find(":submit").attr("disabled", false);
 				}
@@ -583,20 +596,22 @@ $(function() {
 
 			$div.addClass("editing").html($form);
 
-			if(window.opera && window.opera.buildNumber) {
-				setTimeout(function() {
+			if (window.opera && window.opera.buildNumber) {
+				setTimeout(function () {
 					var $w = $(window), st = $w.scrollTop();
-					if($form.offset().top - st < 50) $w.scrollTop(st - 100);
+					if ($form.offset().top - st < 50) $w.scrollTop(st - 100);
 				}, 100);
 			}
 
 			var $ta = $form.find("textarea");
-			$ta	.elastic()
+			$ta.elastic()
 				.bind("keydown", tr.keydown)
 				.bind("keyup change blur click", tr.ccnt.update)
 				.keyup()
 				.focus();
-			tr.timer = setInterval(function() { $ta.keyup() }, 333);
+			tr.timer = setInterval(function () {
+				$ta.keyup()
+			}, 333);
 
 			fixWrapper($tr);
 		},

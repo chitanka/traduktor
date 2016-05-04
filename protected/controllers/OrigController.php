@@ -12,15 +12,18 @@ class OrigController extends Controller {
 	public function accessRules() {
 		return array(
 			array('allow',
-				'actions'=>array("index", "comments"),
-				'users'=>array('*'),
+				'actions' => array("index", "comments"),
+				'users' => array('*'),
 			),
 			array('allow',
-				'actions'=>array("edit", "remove", "translate", "tr_rm", "comment_reply", "comment_remove", "comment_edit", "comment_rate"),
-				'users'=>array('@'),
+				'actions' => array(
+					"edit", "remove", "translate", "tr_rm", "comment_reply",
+					"comment_remove", "comment_edit", "comment_rate", "get_translation"
+				),
+				'users' => array('@'),
 			),
 			array('deny',  // deny all users
-				'users'=>array('*'),
+				'users' => array('*'),
 			),
 		);
 	}
@@ -364,10 +367,7 @@ class OrigController extends Controller {
 		$orig = $this->loadOrig($book_id, $chap_id, $orig_id, array("chap.book.membership"));
 		if(!$orig->chap->can("tr")) throw new CHttpException(403, "Вы не можете добавлять свои версии в этом переводе. " . $orig->chap->getWhoCanDoIt("tr"));
 
-		$tr_id = 0;
-		if (isset($_GET["tr_id"])) {
-			$tr_id = (int) $_GET["tr_id"];
-		}
+        $tr_id = isset($_GET["tr_id"]) ? (int)$_GET["tr_id"] : 0;
 
 		/* Загружаем или создаём версию перевода */
 		if($tr_id == 0) {
@@ -446,6 +446,58 @@ class OrigController extends Controller {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get translation body.
+	 *
+	 * @param $book_id
+	 * @param $chap_id
+	 * @param $orig_id
+	 *
+	 * @throws \CHttpException
+     */
+    public function actionGet_translation($book_id, $chap_id, $orig_id)
+    {
+		$trId = isset($_GET['tr_id']) ? (int) $_GET['tr_id'] : 0;
+
+		if ($trId == 0) {
+			throw new CHttpException(400, "Не указана версия перевода.");
+		}
+
+        $orig = $this->loadOrig($book_id, $chap_id, $orig_id, array("chap.book.membership"));
+        if(!$orig->chap->can("tr")) throw new CHttpException(403, "Вы не можете добавлять свои версии в этом переводе. " . $orig->chap->getWhoCanDoIt("tr"));
+
+		$translation = $this->loadTranslation($book_id, $chap_id, $orig_id, $trId);
+		echo json_encode($translation->body);
+		Yii::app()->end();
+    }
+
+	/**
+	 * Load form DB translation.
+	 *
+	 * @param $bookId
+	 * @param $chapId
+	 * @param $origId
+	 * @param $trId
+	 *
+	 * @return static
+	 * @throws \CHttpException
+	 *
+	 */
+	private function loadTranslation($bookId, $chapId, $origId, $trId)
+	{
+		$translation = Translation::model()->with("user")->findByPk($trId, array(
+				"condition" => "chap_id = :chap_id AND book_id = :book_id AND orig_id = :orig_id",
+				"params" => array(":chap_id" => $chapId, ":book_id" => $bookId, ":orig_id" => $origId)
+			)
+		);
+
+		if (!$translation) {
+			throw new CHttpException(404, "Версия перевода, которую вы пытаетесь отредактировать, кем-то уже удалена.");
+		}
+
+		return $translation;
 	}
 
 	public function actionTr_rm($book_id, $chap_id, $orig_id) {
