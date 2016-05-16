@@ -60,7 +60,8 @@ class SearchController extends Controller {
 				->queryScalar($C->params);
 
 			// Пишем в логи
-			if($dp->totalItemCount > 0 && $_GET["from"] != "stop" && $filter->t != "") {
+			$notStopFrom = isset($_GET["from"]) ? $_GET["from"] != "stop" : false;
+			if($dp->totalItemCount > 0 && $notStopFrom && $filter->t != "") {
 				Yii::app()->db->createCommand("INSERT INTO search_history (ip, request) VALUES (:ip, :request)")
 					->execute(array(":ip" => isset($_SERVER["HTTP_X_REAL_IP"]) ? $_SERVER["HTTP_X_REAL_IP"] : $_SERVER["REMOTE_ADDR"], ":request" => $filter->t));
 			}
