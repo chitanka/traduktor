@@ -73,7 +73,8 @@ class BlogController extends Controller {
 		if($post->book_id != 0) $this->redirect("/book/{$post->book_id}/blog/{$post->id}");
 		if(!isset(Yii::app()->params["blog_topics"]["common"][$post->topics])) $this->redirect("/blog");
 
-		$comments = Comment::model()->with("author")->post($post_id)->newer($post->seen->seen)->findAll();
+		$postDate = ! is_null($post->seen) ? $post->seen->seen : null;
+		$comments = Comment::model()->with("author")->post($post_id)->newer($postDate)->findAll();
 
 		$post->setSeen();
 
