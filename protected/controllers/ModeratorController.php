@@ -62,7 +62,7 @@ class ModeratorController extends Controller {
 			Yii::app()->user->setFlash("error", $child->getErrorsString());
 		}
 
-		$this->redirect("/moderator/catalog?edit={$parent->id}");
+		$this->redirect("/moderator/catalog?edit={$child->id}");
 	}
 
 	public function actionCatedit($id) {
