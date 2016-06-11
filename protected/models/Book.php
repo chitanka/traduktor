@@ -239,7 +239,7 @@ class Book extends CActiveRecord {
 		if ($this->checkMembershipStatus(GroupMember::BANNED)) return false;
 
 		if ($what == "moderate") return $this->checkMembershipStatus(GroupMember::MODERATOR);
-		if ($what == "dict_edit") return $this->checkMembershipStatus(GroupMember::MODERATOR);
+		if ($what == "dict_edit") return $this->checkMembershipStatus(GroupMember::MEMBER);
 
 		if ($this->$ac == "g") return $this->checkMembershipStatus(GroupMember::MEMBER) or $this->checkMembershipStatus(GroupMember::MODERATOR);
 		if ($this->$ac == "m") return $this->checkMembershipStatus(GroupMember::MODERATOR);
