@@ -171,11 +171,6 @@ class Chapter extends CActiveRecord {
 		// Хозяин может всё
 		if($this->book->owner_id == $user->id) return true;
 
-		// Если у главы статус STATUS_READY, то нельзя переводить и рейтинговать
-		if($this->status == self::STATUS_READY) {
-			if($what == "rate" || $what == "tr") return false;
-		}
-
 		// Можно ли генерировать результат с подставлением оригинала вместо непереведённых фрагментов
 		if($what == "gen_untr") {
 			if($this->book->typ != "A") return true;
