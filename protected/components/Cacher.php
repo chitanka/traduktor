@@ -35,7 +35,7 @@ class Cacher
 
         $html = "";
         foreach($R as $request => $n) {
-            $size = round($min_size + ($n - $min_n) / ($max_n - $min_n) * ($max_size - $min_size));
+            $size = ($max_n - $min_n) * ($max_size - $min_size) == 0 ? 0 : round($min_size + ($n - $min_n) / ($max_n - $min_n) * ($max_size - $min_size));
             $html .= "<a href='/search/?t=" . urlencode($request) . "&from=stop' style='font-size:{$size}px'>$request</a>\n";
         }
 
