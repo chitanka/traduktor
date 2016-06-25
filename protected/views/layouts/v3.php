@@ -1,8 +1,10 @@
 <?php
-function bold_if_nonzero($t)
-{
-    if ($t != 0) return " <b>({$t})</b>";
-    else return " <b></b>";
+if (! function_exists('bold_if_nonzero')){
+    function bold_if_nonzero($t)
+    {
+        if ($t != 0) return " <b>({$t})</b>";
+        else return " <b></b>";
+    }
 }
 
 $containerClass = $this->layoutOptions["fluid"] ? "container-fluid" : "container";
