@@ -28,7 +28,13 @@
 1. Клонируем репозиторий в какую-нибудь директорию, допустим, `/srv/notabenoid.com`
 2. Натравливаем веб-сервер отдавать статику из `/srv/notabenoid.com/www` и все прочие запросы редиректить в index.php.
    В терминах nginx это будет выглядеть так:
-
+   
+     1.Создаем файл в nginx
+     
+        nano /etc/nginx/sites-available/notabenoid.com
+     
+     Содержимое:
+      
 		server {
 			server_name notabenoid.com;
 			listen 80;
@@ -48,6 +54,10 @@
 				try_files $uri =404;
 			}
 		}
+      2.Включаем сайт, создаем ссылку на конфиг
+       
+        ln -s /etc/nginx/sites-available/notabenoid.com /etc/nginx/sites-enabled/        
+      
 
 3. Веб-сервер должен уметь писать в следующие директории:
      * /www/assets
@@ -61,14 +71,20 @@
         sudo -u postgres createuser -E -P notabenoid
         sudo -u postgres createdb -O notabenoid notabenoid
         
- правим /etc/postgresql/9.4/main/pg_hba.conf, раздел подключений. Необходимо сделать так, чтобы локальное подключение не требовало пароля
- 	local   all  all trust
-        psql -U notabenoid < init.sql
+ правим /etc/postgresql/9.4/main/pg_hba.conf, раздел подключений. Необходимо сделать так, чтобы локальное подключение не требовало пароля 
+       
+       local   all  all trust
+	
+	Скармливаем дамп:
+        
+       psql -U notabenoid < /srv/notabenoid.com/init.sql
         
 Изменяем права пользователя notabenoid
-	sudo -u postgres psql template1
+        
+    sudo -u postgres psql template1
 
-	# alter role notabenoid with superuser;
+    # alter role notabenoid with superuser;
+    # \q
 
 5. Настало время охуительных конфигов! В /protected/config/main.php найдите строки
 
