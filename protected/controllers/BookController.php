@@ -136,7 +136,7 @@ INSERT INTO recalc_log (book_id, user_id) VALUES (:book_id, :user_id);
 COMMIT;
 SQL;
 
-		if($_POST["go"] == 1) {
+		if(isset($_POST["go"]) && $_POST["go"] == 1) {
 			Yii::app()->db->createCommand($sql)->execute(array(":book_id" => $book->id, ":user_id" => $user->id));
 
 			$flash = "Спасибо, все фрагменты оригинала и версии перевода пересчитаны заново" . ($user->can("geek") ? (" за " . Yii::app()->db->stats[1] . " сек") : "") . ".";
