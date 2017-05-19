@@ -154,20 +154,20 @@ $(Dict.init);
 
 <?php if(!$ajax): ?>
 <ul class='nav nav-tabs'>
-	<li><a href='<?=$book->url; ?>/'>оглавление</a></li>
-	<li><a href='<?=$book->url("members"); ?>'>переводчики</a></li>
-	<li><a href='<?=$book->url("blog"); ?>'>блог</a></li>
+	<li><a href='<?=$book->url; ?>/'>съдържание</a></li>
+	<li><a href='<?=$book->url("members"); ?>'>преводачи</a></li>
+<!--	<li><a href='--><?//=$book->url("blog"); ?><!--'>блог</a></li>-->
 </ul>
 
-<h1><?=$book->fullTitle; ?> - словарь</h1>
+<h1><?=$book->fullTitle; ?> - речник</h1>
 <?php endif; ?>
 
 <form class="form-inline">
-	<input type="text" id="dict-search-input" placeholder="Поиск по словарю..." />
+	<input type="text" id="dict-search-input" placeholder="Търсене в речника..." />
 </form>
 
 <?php if(count($dict) == 0): ?>
-	<p>Словарь этого перевода пуст.</p>
+	<p>Този превод все още няма речник.</p>
 <?php endif; ?>
 
 <?php
@@ -185,9 +185,9 @@ $(Dict.init);
 
 <?php if($book->can("dict_edit")): ?>
 <p id="dict-tools">
-	<a href="#" onclick="return Dict.ed(0)" class="btn btn-small"><i class="icon-plus-sign"></i> Добавить слово</a>
+	<a href="#" onclick="return Dict.ed(0)" class="btn btn-small"><i class="icon-plus-sign"></i> Добавяне на дума</a>
 	<?php if(!$ajax): ?>
-		<a href="<?=$book->getUrl(); ?>" class="btn btn-small"><i class="icon-list"></i> К оглавлению</a>
+		<a href="<?=$book->getUrl(); ?>" class="btn btn-small"><i class="icon-list"></i> Към съдържанието</a>
 	<?php endif; ?>
 </p>
 <?php endif; ?>

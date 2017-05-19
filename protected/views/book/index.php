@@ -55,10 +55,10 @@
 </style>
 
 <ul class='nav nav-tabs'>
-	<li class='active'><a href='<?=$book->url; ?>/'>оглавление</a></li>
-	<li><a href='<?=$book->getUrl("members"); ?>'>переводчики</a></li>
-	<li><a href='<?=$book->getUrl("blog"); ?>'>блог</a></li>
-	<li><a href='<?=$book->getUrl("announces"); ?>'>анонсы</a></li>
+	<li class='active'><a href='<?=$book->url; ?>/'>съдържание</a></li>
+	<li><a href='<?=$book->getUrl("members"); ?>'>преводачи</a></li>
+<!--	<li><a href='--><?//=$book->getUrl("blog"); ?><!--'>блог</a></li>-->
+	<li><a href='<?=$book->getUrl("announces"); ?>'>обявления</a></li>
 </ul>
 
 <h1><?=$book->fullTitle; ?></h1>
@@ -89,7 +89,7 @@
 <div class="clear"></div>
 
 <?php
-	echo "<h2 style='clear:both'>Оглавление:</h2>";
+	echo "<h2 style='clear:both'>Съдържание:</h2>";
 
 	if($book->can("chap_edit")) {
 		Yii::app()->bootstrap->registerDropdown();

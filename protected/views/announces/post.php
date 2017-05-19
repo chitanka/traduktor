@@ -5,7 +5,7 @@
 		->registerScriptFile("/js/ff_comments.js?3")
 		->registerScriptFile("/js/blog.js");
 
-	$this->pageTitle = "Анонс перевода " . $book->fullTitle;
+	$this->pageTitle = "Обявление относно превода на " . $book->fullTitle;
 ?>
 
 <script type='text/javascript'>
@@ -14,19 +14,14 @@
 	});
 </script>
 
-<ul class='nav nav-tabs'>
-	<li><a href='<?=$book->url; ?>/'>оглавление</a></li>
-	<li><a href='<?=$book->getUrl("members"); ?>'>переводчики</a></li>
-	<li><a href='<?=$book->getUrl("blog"); ?>'>блог</a></li>
-	<li class='active'><a href='<?=$book->getUrl("announces"); ?>'>анонсы</a></li>
-</ul>
+<?php require __DIR__.'/_nav.php' ?>
 
 <?php
-	$post->title = "Анонс";
+	$post->title = "Обявление";
 	$this->renderPartial("//blog/_post", array("post" => $post, "placement" => "post", "has" => array("bookLink" => true)));
 ?>
 
-<a name="Comments"></a><h2>Комментарии</h2>
+<a name="Comments"></a><h2>Коментари</h2>
 <div class='comments'>
 	<?php
 		$prev_indent = $indent = 0;
@@ -54,18 +49,18 @@
 					<textarea name="Comment[body]"></textarea>
 				</div>
 				<div>
-					<input type="submit" value="Добавить комментарий" title="Или нажмите Ctrl+Enter" class="btn" />
+					<input type="submit" value="Добавяне на коментара" title="Или натиснете Ctrl+Enter" class="btn" />
 					<input type="hidden" name="Comment[pid]" value="0" />
 				</div>
 			</form>
 		</div>
 	</div>
 
-	<p class="cmt_0_btn" style="display:none">(<a href="#" class="re">комментировать пост</a>)</p>
+	<p class="cmt_0_btn" style="display:none">(<a href="#" class="re">коментиране</a>)</p>
 
 	<?php else: ?>
 	<p class="info">
-		Вы не можете писать комментарии в блоге этого перевода.
+		Не може да коментирате в блога на този превод.
 	</p>
 	<?php endif; ?>
 

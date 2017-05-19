@@ -3,9 +3,9 @@
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
 return CMap::mergeArray(array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Notabenoid.Org',
-	"language" => "ru",
+	"basePath" => __DIR__.DIRECTORY_SEPARATOR."..",
+	'name' => 'Преводач',
+	"language" => "bg",
 	"sourceLanguage" => "en",
 
 	"import"=>array(

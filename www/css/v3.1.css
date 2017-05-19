@@ -502,7 +502,6 @@ header #header-login .btn {
 /* Подвал */
 footer {
 	border-top:1px solid #F4E8E8;
-	border-bottom:4px solid #000;
 	padding:10px 0;
 	margin:20px 0 0 0;
 }
@@ -564,5 +563,6 @@ input[type="radio"], input[type="checkbox"] { margin-top: 2px; }
 	padding:5px;
 }
 
-#yandex_ad_bottom {margin-top:15px;}
-.ad-bottom {margin-top:30px;}
+#header-menu {
+	text-transform: uppercase;
+}

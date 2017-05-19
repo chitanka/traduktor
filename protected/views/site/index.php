@@ -151,26 +151,26 @@
 			&rarr; <a href="/announces">остальные новости</a>
 		</p>
 	</div>
-	<div id="f-blog" class="span5">
-		<h2>
-			Обсуждается в блоге
-			<span class="links">&rarr; <a href="/blog">весь блог</a></span>
-		</h2>
-		<ul>
-		<?php
-			foreach($blog as $post) {
-				echo "<li>";
-				echo "<a href='{$post->url}'>{$post->title}";
-				if($post->n_comments > 0) echo " <span class='c'><i class='icon-nb-comment'></i> {$post->n_comments}</span>";
-				echo "</a>";
-				$b = strip_tags($post->body);
-				echo "<p>" . (mb_strlen($b) > 120 ? mb_substr($b, 0, 120) . "..." : $b) . "</p>";
-				echo "</li>";
-			}
-		?>
-		</ul>
-		<p class="links">
-			&rarr; <a href="/blog">остальные посты</a>
-		</p>
-	</div>
+<!--	<div id="f-blog" class="span5">-->
+<!--		<h2>-->
+<!--			Обсуждается в блоге-->
+<!--			<span class="links">&rarr; <a href="/blog">весь блог</a></span>-->
+<!--		</h2>-->
+<!--		<ul>-->
+<!--		--><?php
+//			foreach($blog as $post) {
+//				echo "<li>";
+//				echo "<a href='{$post->url}'>{$post->title}";
+//				if($post->n_comments > 0) echo " <span class='c'><i class='icon-nb-comment'></i> {$post->n_comments}</span>";
+//				echo "</a>";
+//				$b = strip_tags($post->body);
+//				echo "<p>" . (mb_strlen($b) > 120 ? mb_substr($b, 0, 120) . "..." : $b) . "</p>";
+//				echo "</li>";
+//			}
+//		?>
+<!--		</ul>-->
+<!--		<p class="links">-->
+<!--			&rarr; <a href="/blog">остальные посты</a>-->
+<!--		</p>-->
+<!--	</div>-->
 </div>

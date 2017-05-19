@@ -33,13 +33,13 @@ $(P.init);
 </style>
 
 <ul class='nav nav-tabs'>
-	<li><a href='<?=$book->url; ?>/'>оглавление</a></li>
-	<li class='active'><a href='<?=$book->getUrl("members"); ?>'>переводчики</a></li>
-	<li><a href='<?=$book->url("blog"); ?>'>блог</a></li>
-	<li><a href='<?=$book->getUrl("announces"); ?>'>анонсы</a></li>
+	<li><a href='<?=$book->url; ?>/'>съдържание</a></li>
+	<li class='active'><a href='<?=$book->getUrl("members"); ?>'>преводачи</a></li>
+<!--	<li><a href='--><?//=$book->url("blog"); ?><!--'>блог</a></li>-->
+	<li><a href='<?=$book->getUrl("announces"); ?>'>новини</a></li>
 </ul>
 
-<h1><?=$book->fullTitle; ?> &ndash; переводчики&nbsp;(<?=$members_dp->totalItemCount; ?>&nbsp;чел.)</h1>
+<h1><?=$book->fullTitle; ?> &ndash; преводачи&nbsp;(<?=$members_dp->totalItemCount; ?>)</h1>
 
 <?php if($book->facecontrol != Book::FC_OPEN and Yii::app()->user->id != $book->owner_id and !Yii::app()->user->isGuest): ?>
 <?php

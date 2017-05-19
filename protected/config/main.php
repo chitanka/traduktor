@@ -1,8 +1,8 @@
 <?php
 return CMap::mergeArray(array(
-	"basePath" => dirname(__FILE__).DIRECTORY_SEPARATOR."..",
-	"name" => "Notabenoid.Org",
-	"language" => "ru",
+	"basePath" => __DIR__.DIRECTORY_SEPARATOR."..",
+	"name" => "Преводач",
+	"language" => "bg",
 	"sourceLanguage" => "en",
 
 	"preload" => array("log", "bootstrap"),
@@ -313,7 +313,7 @@ return CMap::mergeArray(array(
 				2 => "Перевод",
 				3 => "Общение",
 			),
-			"common" => array(	// 40 - 79
+			"common" => 	array(	// 40 - 79
 				64 => "Новости проекта",
 				65 => "Техподдержка",
 				66 => "Общение",

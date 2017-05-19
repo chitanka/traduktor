@@ -40,26 +40,21 @@ Yii::app()->bootstrap->registerModal();
     <div class="<?= $containerClass; ?>" style="background-color:#fff;">
         <a href="/" id="header-logo">
             <img src="/i/logo.png" width="124" height="130"
-                 style="padding-top: 50px;"
-                 alt="<?= CHtml::encode(Yii::app()->name); ?>"
-                 title="<?= appParams()["version"]; ?>"/>
+                 alt="<?= CHtml::encode(Yii::app()->name); ?>">
         </a>
         <nav>
             <ul id="header-menu">
-                <li><a href="/catalog/1">ВИДЕО</a></li>
-                <li><a href="/catalog/2">ТЕКСТЫ</a></li>
-                <li><a href="/users">ПЕРЕВОДЧИКИ</a></li>
-                <li><a href="/blog">БЛОГ</a></li>
-                <li><a href="/announces">АНОНСЫ</a></li>
+<!--                <li><a href="/catalog/1">Видео</a></li>-->
+                <li><a href="/catalog/2">Текстове</a></li>
+                <li><a href="/users">Преводачи</a></li>
+<!--                <li><a href="/blog">Блог</a></li>-->
+                <li><a href="/announces">Новини</a></li>
                 <li class="search">
                     <form class="form-search" method="get" action="/search">
-                        <?php
-                        $a = array("Вы что-то потеряли?", "Ищете что-нибудь?", "Поиск переводов", "Ищите и обрящете");
-                        ?>
                         <input type="hidden" name="from" value="header">
                         <input type="text" name="t" class="input-medium search-query span3"
-                               placeholder="<?= $a[rand(0, count($a) - 1)]; ?>"
-                               title="Кстати, отсюда можно найти и переводчика, если собаку (@), а потом сразу его ник."/>
+                               placeholder="Търсене"
+                               title="За да намерите преводач, сложете @ пред името му, напр. @chitanka"/>
                         <input type="submit" value="&raquo;" class="btn" style="border-radius: 20px;"/>
                     </form>
                 </li>
@@ -75,8 +70,7 @@ Yii::app()->bootstrap->registerModal();
                     </li>
                     <li><a href="/register"><strong>Зарегистрироваться</strong></a></li>
                     <li><a href="/register/remind"><strong>Напомнить пароль</strong></a></li>
-                    <li><p>Зарегистрировавшись, вы сможете добавлять свои версии перевода, общаться в блоге, ставить
-                            оценки переводам.</p></li>
+                    <li><p>Зарегистрировавшись, вы сможете добавлять свои версии перевода, ставить оценки переводам.</p></li>
                 <?php else: ?>
                     <li>
                         <a href="<?= Yii::app()->user->url; ?>" accesskey="i">
@@ -177,16 +171,11 @@ if (!Yii::app()->user->isGuest):
 
 <footer>
     <div class="<?= $containerClass; ?>">
-        <div class="row">
-            <div class="span6">
-                &copy; <a href="http://romakhin.ru/" rel="nofollow">Дмитрий Ромахин</a>
-                2008&ndash;<?php echo date("Y"); ?>
-                <br/>
-                <a href="/site/help">Справка</a> |
-                <a href="/blog?topic=65">Техподдержка</a> |
-                <a href="mailto:abuse@<?= appParams()["domain"]; ?>?subj=<?= urlencode($_SERVER["REQUEST_URI"]); ?>">Abuse</a> |
-                <a href="mailto:<?= appParams()["adminEmail"]; ?>">E-mail для справок</a> |
-            </div>
+        <div style="text-align: center">
+            <a href="/site/help">Помощ</a>
+        </div>
+        <div style="text-align: right; opacity: .6">
+            Създадено от <a href="http://romakhin.ru/" rel="nofollow">Дмитрий Ромахин</a>, донапаснато от Читанка
         </div>
     </div>
 </footer>

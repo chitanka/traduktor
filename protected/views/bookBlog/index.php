@@ -15,10 +15,10 @@
 ?>
 
 <ul class='nav nav-tabs'>
-	<li><a href='<?=$book->url; ?>/'>оглавление</a></li>
-	<li><a href='<?=$book->getUrl("members"); ?>'>переводчики</a></li>
-	<li class='active'><a href='<?=$book->getUrl("blog"); ?>'>блог</a></li>
-	<li><a href='<?=$book->getUrl("announces"); ?>'>анонсы</a></li>
+	<li><a href='<?=$book->url; ?>/'>съдържание</a></li>
+	<li><a href='<?=$book->getUrl("members"); ?>'>преводачи</a></li>
+<!--	<li class='active'><a href='--><?//=$book->getUrl("blog"); ?><!--'>блог</a></li>-->
+	<li><a href='<?=$book->getUrl("announces"); ?>'>новини</a></li>
 </ul>
 
 <h1><?=$book->fullTitle; ?> &ndash; блог</h1>
