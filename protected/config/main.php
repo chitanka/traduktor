@@ -1,5 +1,5 @@
 <?php
-return array(
+return CMap::mergeArray(array(
 	"basePath" => dirname(__FILE__).DIRECTORY_SEPARATOR."..",
 	"name" => "Notabenoid.Org",
 	"language" => "ru",
@@ -332,4 +332,4 @@ return array(
 		"ENVIRONMENT" => "production",
 		"version" => "3.3"
 	),
-);
+), require(__DIR__.'/main_custom.php'));

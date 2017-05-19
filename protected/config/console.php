@@ -2,7 +2,7 @@
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
-return array(
+return CMap::mergeArray(array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Notabenoid.Org',
 	"language" => "ru",
@@ -46,4 +46,4 @@ return array(
 		"commentEmail" => "comment@notabenoid.org",
 		"systemEmail" => "no-reply@notabenoid.org",
 	],
-);
+), require(__DIR__.'/console_custom.php'));
