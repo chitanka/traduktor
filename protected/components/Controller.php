@@ -20,11 +20,11 @@ class Controller extends CController {
 	* Меню и области сайта
 	*/
 	public $siteAreas = array(
-		"films"   => array("url" => '/search/?SearchFilter[typ]=S', "label" => 'ПЕРЕВОДИМ ФИЛЬМЫ'),
-		"books"   => array("url" => '/search/?SearchFilter[typ]=A', "label" => 'ПЕРЕВОДИМ КНИГИ'),
-		"phrases" => array("url" => '/search/?SearchFilter[typ]=P', "label" => 'ПЕРЕВОДИМ ФРАЗЫ'),
-		"blog"       => array("url" => '/blog/',                    "label" => 'БЛОГ'),
-		"users"      => array("url" => '/users/',                   "label" => 'ПЕРЕВОДЧИКИ'),
+		"films"   => array("url" => '/search/?SearchFilter[typ]=S', "label" => 'Превод на филмо'),
+		"books"   => array("url" => '/search/?SearchFilter[typ]=A', "label" => 'Превод на книги'),
+		"phrases" => array("url" => '/search/?SearchFilter[typ]=P', "label" => 'Превод на фрази'),
+		"blog"       => array("url" => '/blog/',                    "label" => 'Блог'),
+		"users"      => array("url" => '/users/',                   "label" => 'Преводачи'),
 	);
 
 	public $siteArea = "";
@@ -36,6 +36,9 @@ class Controller extends CController {
 		parent::init();
 
 		$user = Yii::app()->user;
+		if ($user->isGuest) {
+			(new ChitankaLogin(Yii::app()->params['singleLoginProvider']))->tryToLogin();
+		}
 
 		Yii::app()->clientScript
 			->registerPackage("jquery")

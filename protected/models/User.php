@@ -100,7 +100,7 @@ class User extends CActiveRecord {
 			// on => "register"
 			array("login, pass, email, sex, lang", "required", "message" => "Укажите {attribute}.", "on" => "register"),
 			array("login, email", "filter", "filter" => "trim", "on" => "register"),
-			array("login", "length", "min" => 2, "max" => 16, "tooShort" => "Слишком короткий логин", "tooLong" => "Слишком длинный логин", "on" => "register"),
+			array("login", "length", "min" => 2, "max" => 50, "tooShort" => "Слишком короткий логин", "tooLong" => "Слишком длинный логин", "on" => "register"),
 			array('login', 'match', 'pattern' => '/^[A-Za-z\d_]+$/', "message" => "Недопустимый символ", "on" => "register"),
 			array("login", "unique", "caseSensitive" => false, "message" => "Такой логин уже используется, придумайте другой.", "on" => "register"),
 			array("pass, pass2", "length", "min" => 5, "max" => 32, "tooShort" => "Слишком короткий пароль", "tooLong" => "Слишком длинный пароль", "on" => "register"),
@@ -156,8 +156,8 @@ class User extends CActiveRecord {
 
 	public function byLogin($login) {
 		$this->getDbCriteria()->mergeWith(array(
-			"condition" => "LOWER(login) = :login",
-			"params" => array(":login" => trim(strtolower($login))),
+			"condition" => "login = :login",
+			"params" => [":login" => $login],
 		));
 		return $this;
 	}

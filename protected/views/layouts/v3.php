@@ -98,7 +98,7 @@ Yii::app()->bootstrap->registerModal();
                     </li>
                     <li><a href="/book/0/edit"><strong>Создать</strong> Перевод</a></li>
                     <li><a href="/register/settings"><strong>Настройки</strong> Профиля</a></li>
-                    <li><a href="/register/logout"><strong>Выход</strong> До свидания :(</a></li>
+<!--                    <li><a href="/register/logout"><strong>Выход</strong> До свидания :(</a></li>-->
                 <?php endif ?>
             </ul>
         </nav>
