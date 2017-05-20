@@ -1,6 +1,6 @@
 <?php
 class ModerUtils extends CApplicationComponent {
-	public $moderators = array("notabenoid");
+	public $moderators = array("Борислав");
 
 	public function init() {
 

@@ -16,7 +16,7 @@ class DungeonController extends Controller {
 				"allow", "users" => ["*"], "actions" => ["pollResults"]
 			],
 			[
-				"allow", "users" => ["notabenoid"], "actions" => ["pollRawResults"]
+				"allow", "users" => ["Борислав"], "actions" => ["pollRawResults"]
 			],
 			['deny', 'users' => ['*']]
 		);

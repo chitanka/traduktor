@@ -14,7 +14,7 @@ class MailController extends Controller {
 			),
 			array('allow',
 				'actions'=>array("spam"),
-				'users'=>array("notabenoid"),
+				'users'=>array("Борислав"),
 			),
 			array('deny', 'users'=>array('*')),
 		);
