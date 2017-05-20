@@ -114,4 +114,11 @@ class Controller extends CController {
 
 		$filterChain->run();
 	}
+
+	protected function forwardToHomepageIfSingleLogin() {
+		if (!empty(Yii::app()->params['singleLoginProvider'])) {
+			$this->forward('/');
+		}
+	}
+
 }

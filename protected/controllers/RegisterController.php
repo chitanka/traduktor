@@ -21,6 +21,8 @@ class RegisterController extends Controller {
 	}
 
 	public function actionIndex($u = null, $invite = null) {
+		$this->forwardToHomepageIfSingleLogin();
+
 		$user = new User("register");
 		$user->lang = 1;
 
@@ -84,6 +86,8 @@ class RegisterController extends Controller {
 	}
 
 	public function actionLogout() {
+		$this->forwardToHomepageIfSingleLogin();
+
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
@@ -93,6 +97,8 @@ class RegisterController extends Controller {
 	}
 
 	public function actionRemind() {
+		$this->forwardToHomepageIfSingleLogin();
+
 		if(Yii::app()->request->isPostRequest) {
 			$clue = "";
 			if(isset($_POST["clue"])) {
@@ -126,6 +132,8 @@ class RegisterController extends Controller {
 	}
 
 	public function actionReset($u, $c) {
+		$this->forwardToHomepageIfSingleLogin();
+
 		$token = RemindToken::model()->find("user_id = :user_id", ["user_id" => (int) $u]);
 
 		if(!$token || !$token->check($c)) {

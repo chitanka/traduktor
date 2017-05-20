@@ -62,14 +62,14 @@ $(function() {
 	if(!empty($_SERVER["HTTP_REFERER"])) echo CHtml::hiddenField("referer", $_SERVER["HTTP_REFERER"]);
 ?>
 
-<h3>Изменить пароль:</h3>
-<fieldset>
+<!--<h3>Изменить пароль:</h3>-->
+<!--<fieldset>-->
 <?php
-	echo $form->passwordFieldRow($model, "old_pass");
-	echo $form->passwordFieldRow($model, "new_pass");
-	echo $form->passwordFieldRow($model, "new_pass2");
-?>
-</fieldset>
+//	echo $form->passwordFieldRow($model, "old_pass");
+//	echo $form->passwordFieldRow($model, "new_pass");
+//	echo $form->passwordFieldRow($model, "new_pass2");
+//?>
+<!--</fieldset>-->
 
 <h3>Внешний вид:</h3>
 <p>
