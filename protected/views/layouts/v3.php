@@ -61,7 +61,7 @@ Yii::app()->bootstrap->registerModal();
             </ul>
             <ul id="header-submenu">
                 <?php if (Yii::app()->user->isGuest): ?>
-                    <li><a href="//chitanka.info/login?returnto=<?= $_SERVER['REQUEST_SCHEME'], '://', $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'] ?>"><strong>Вход</strong></a></li>
+                    <li><a href="//chitanka.info/login?returnto=<?= 'http://', $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'] ?>"><strong>Вход</strong></a></li>
 <!--                    <li id="header-login">-->
 <!--                        <form method="post" action="/" class="form-inline btn-toolbar">-->
 <!--                            <input type="text" name="login[login]" placeholder="Логин" class="span1"/>-->
