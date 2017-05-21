@@ -76,29 +76,25 @@ Yii::app()->bootstrap->registerModal();
                     <li>
                         <a href="<?= Yii::app()->user->url; ?>" accesskey="i">
                             <strong><?= Yii::app()->user->login; ?></strong>
-                            Всё о вас
                         </a>
                     </li>
                     <li id="hm-c">
                         <a href="/my/comments" accesskey="c">
-                            <strong>Обсуждения <?php echo bold_if_nonzero(Yii::app()->user->newComments); ?></strong>
-                            Места, где вы общались
+                            <strong>Коментари <?php echo bold_if_nonzero(Yii::app()->user->newComments); ?></strong>
                         </a>
                     </li>
                     <li id="hm-n">
                         <a href="/my/notices" accesskey="n">
-                            <strong>Оповещения <?php echo bold_if_nonzero(Yii::app()->user->newNotices); ?></strong>
-                            События для вас
+                            <strong>Известия <?php echo bold_if_nonzero(Yii::app()->user->newNotices); ?></strong>
                         </a>
                     </li>
                     <li>
                         <a href="#" data-toggle="modal" data-target="#bookmarks" accesskey="b">
-                            <strong>Закладки</strong>
-                            На память
+                            <strong>Отметки</strong>
                         </a>
                     </li>
-                    <li><a href="/book/0/edit"><strong>Создать</strong> Перевод</a></li>
-                    <li><a href="/register/settings"><strong>Настройки</strong> Профиля</a></li>
+                    <li><a href="/book/0/edit"><strong>Нов превод</strong></a></li>
+                    <li><a href="/register/settings"><strong>Настройки</strong></a></li>
 <!--                    <li><a href="/register/logout"><strong>Выход</strong> До свидания :(</a></li>-->
                 <?php endif ?>
             </ul>

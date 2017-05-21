@@ -1,7 +1,7 @@
 <?php
 return CMap::mergeArray(array(
 	"basePath" => __DIR__.DIRECTORY_SEPARATOR."..",
-	"name" => "Преводач",
+	"name" => "Преводачница",
 	"language" => "bg",
 	"sourceLanguage" => "en",
 
@@ -174,7 +174,7 @@ return CMap::mergeArray(array(
 			"options" => array(
 				"timeout" => 30,
 				"setOptions" => array(
-					CURLOPT_USERAGENT => "Notabenoid.Org Translation Service (support@notabenoid.org)",
+					CURLOPT_USERAGENT => "Translation Service (support@chitanka.info)",
 					CURLOPT_RANGE => "0-2048000",   // Качаем не более 2 мегов
 					CURLOPT_TIMEOUT => 15,
 				),
@@ -215,7 +215,7 @@ return CMap::mergeArray(array(
 		"HTMLPurifierOptions" => array(
 			"HTML.Allowed" => "a[href],b,strong,i,em,u,s,blockquote,table,tr,th,td,ul,ol,li,dl,dt,dd,br,img[src],small,sub,sup,font[color],span,abbr,*[title],code,tt",
 		),
-		"sex" => array("m" => "мужчина", "f" => "женщина", "x" => "существо"),
+		"sex" => array("m" => "мъж", "f" => "жена", "x" => "същество"),
 		"countries" => array(
 			"",
 			1 => "Россия", 2 => "Украина", 3 => "Белоруссия", 4 => 'Абхазия', 5 => 'Австралия', 6 => 'Австрия', 7 => 'Азербайджан', 8 => 'Албания', 9 => 'Алжир',
@@ -330,6 +330,6 @@ return CMap::mergeArray(array(
 		),
 
 		"ENVIRONMENT" => "production",
-		"version" => "3.3"
+		"version" => "3.4"
 	),
 ), require(__DIR__.'/main_custom.php'));

@@ -5,7 +5,7 @@
 	* @var string $html_insert1 = ""
 	*/
     // ! ЗАГЛУШКА !
-    $h1 = $user->login;
+    $h1 = '';
     $html_insert1 = "";
 ?>
 <div class="row profile-header">
@@ -19,7 +19,7 @@
 	echo "' />";
 
 	if(Yii::app()->user->id == $user->id) {
-		echo "<a href='#upic-modal' data-toggle='modal' title='Загрузить новую аватарку, уииии!'>изменить</a>";
+		echo "<a href='#upic-modal' data-toggle='modal' title='Смяна на аватара'>смяна</a>";
 	}
 ?>
 </div>
@@ -45,7 +45,7 @@
     <form method="post" enctype="multipart/form-data" class="form-inline" action="<?=$user->getUrl("upic"); ?>">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Загрузить новую аватарку, уииии!</h3>
+            <h3>Смяна на аватара</h3>
         </div>
         <div class="modal-body">
             <p>Аватар &ndash; ваше второе лицо. Он показывается в вашем профиле и рядом с каждым вашим комментарием. Люди ассоциируют его с вами.</p>
@@ -53,7 +53,7 @@
 			<p class="i"><input type="file" name="img" /></p>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Загрузить</button>
+            <button type="submit" class="btn btn-primary">Качване</button>
         </div>
     </form>
 </div>

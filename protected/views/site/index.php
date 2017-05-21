@@ -8,12 +8,12 @@
 
 	Yii::app()->clientScript->registerCssFile("/css/face.css?1");
 
-	$this->pageTitle = "Система коллективных переводов";
+	$this->pageTitle = "Система за колективни преводи";
 ?>
 <div class="row">
 	<div class="span7" id="f-hot">
 		<h2>
-			Переводится прямо сейчас
+			Превеждано в момента
 			<a href="#" data-toggle="modal" data-target="#f-hot-ini" class="cog" title="Настроить внешний вид этого блока"><i class='icon-cog'></i></a>
 		</h2>
 		<?php
@@ -24,9 +24,9 @@
 			}
 			$ini = Yii::app()->user->ini;
 			if(count($hot) == 0) {
-				echo "<p class='alert alert-box alert-warning'>В данный момент никто ничего не переводит ";
+				echo "<p class='alert alert-box alert-warning'>В момента нищо не се превежда от ";
 				echo Yii::app()->langs->from_to($ini["hot.s_lang"], $ini["hot.t_lang"]);
-				echo ". Хотите посмотреть, что переводят <a href='#' data-toggle='modal' data-target='#f-hot-ini'>на других языках</a>?</p>";
+				echo ". Можете да разгледате какво се превежда <a href='#' data-toggle='modal' data-target='#f-hot-ini'>на други езици</a>.</p>";
 			} else {
 				echo "<ul" . ($ini["hot.img"] ? " class='imged'" : "") . ">";
 				foreach($hot as $book) {
@@ -125,22 +125,21 @@
 
 <div id="f-search-top">
 	<h2>
-		<span rel='popover' data-content='Чем крупнее название, тем чаще его ищут на этом сайте.' data-title="Что это такое?">
-		Популярные переводы
+		<span rel='popover' data-content='Чем крупнее название, тем чаще его ищут на этом сайте.' data-title="Какво е това?">
+		Популярни преводи
 		</span>
 		<script type='text/javascript'>$("span[rel=popover]").popover();</script>
 	</h2>
 	<p class="cloud"><?php echo $searchTop; ?></p>
 	<p class="links">
-		&rarr; <a href="/search">поиск переводов</a>
+		&rarr; <a href="/search">претърсване на преводите</a>
 	</p>
 </div>
 
 <div class="row">
 	<div id="f-announces" class="span7">
 		<h2>
-			Новости переводов
-			<span class="links">&rarr; <a href="/announces">все новости</a></span>
+			Новини относно преводите
 		</h2>
 		<?php
 			foreach($announces as $announce) {
@@ -148,7 +147,7 @@
 			}
 		?>
 		<p class="links">
-			&rarr; <a href="/announces">остальные новости</a>
+			&rarr; <a href="/announces">всички новини</a>
 		</p>
 	</div>
 <!--	<div id="f-blog" class="span5">-->
