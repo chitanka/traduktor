@@ -9,6 +9,10 @@ class ChitankaLogin {
 	}
 
 	public function tryToLogin() {
+		if (function_exists('getValidMylibUser')) {
+			// we were already here and it did not help
+			return;
+		}
 		$chitankaUser = (require $this->singleLoginProvider)();
 		if (empty($chitankaUser['username'])) {
 			return;
