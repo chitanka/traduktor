@@ -57,8 +57,8 @@
 <ul class='nav nav-tabs'>
 	<li class='active'><a href='<?=$book->url; ?>/'>съдържание</a></li>
 	<li><a href='<?=$book->getUrl("members"); ?>'>преводачи</a></li>
-<!--	<li><a href='--><?//=$book->getUrl("blog"); ?><!--'>блог</a></li>-->
-	<li><a href='<?=$book->getUrl("announces"); ?>'>обявления</a></li>
+	<li><a href='<?=$book->getUrl("blog"); ?>'>блог</a></li>
+	<li><a href='<?=$book->getUrl("announces"); ?>'>новини</a></li>
 </ul>
 
 <h1><?=$book->fullTitle; ?></h1>
@@ -132,7 +132,7 @@
 		// только владельцу: редактировать свойства перевода
 		if($book->can("book_edit")) {
 			echo "<div class='btn-group'>";
-			echo "<a href='" . $book->getUrl("edit") . "' class='btn btn-small'><i class='icon-cog'></i> Свойства перевода</a>";
+			echo "<a href='" . $book->getUrl("edit") . "' class='btn btn-small'><i class='icon-cog'></i> Свойства на превода</a>";
 			echo "</div>";
 		}
 
@@ -144,15 +144,14 @@
 
 <?php if(count($chapters) == 0): ?>
 	<div class='alert alert-info' id="info_empty">
-		В этом переводе ещё не создано ни одной главы.
-		<?php if($book->can("chap_edit")): ?><a href='#' onclick='return CE.add(0)' class='act'>Создайте первую главу перевода</a>.<?php endif; ?>
+		Все още няма добавени глави.
 	</div>
 	<table class="items" id="Chapters"></table>
 <?php else: ?>
 <table class="table table-condensed table-striped" id="Chapters">
 <thead><tr>
 	<?php if($book->typ == "S") echo "<td></td>"; ?>
-	<th class='t'>Название</th>
+	<th class='t'>Име</th>
 	<th title='Устанавливается <?php echo $book->ac_chap_edit == "m" ? "модераторами" : "владельцем"; ?>.' style='cursor:help;'>Статус</th>
 	<th title='Когда в последний раз была добавлена, удалена или отредактирована последняя версия перевода или изменился оригинальный текст.' style='cursor:help;'>Активность</th>
 	<th title='Фрагментов переведено / всего. Наведите курсор на цифры, чтобы узнать Коэффициент Плюрализма, среднее количество вариантов перевода одного фрагмента.' style='cursor:help; text-align:center;' colspan='2'>Готово</th>

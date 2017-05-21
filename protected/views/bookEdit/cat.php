@@ -4,7 +4,7 @@
 	 * @var Category[] $cats
 	 */
 
-	$this->pageTitle = $book->isNewRecord ? "Создать перевод: выбор раздела" : "Раздел каталога для " . $book->fulltitle;
+	$this->pageTitle = $book->isNewRecord ? "Нов превод: избор на раздел" : "Раздел от каталога за " . $book->fulltitle;
 ?>
 
 <style type="text/css">
@@ -35,7 +35,7 @@ var T = {
 }
 </script>
 
-<h1>Выберите раздел каталога</h1>
+<h1>Избор на раздел от каталога</h1>
 
 <p>
 	Если не хотите, можете не выбирать никакой раздел, тогда ваш перевод не будет публиковаться в <a href="/catalog">каталоге</a>,
@@ -78,10 +78,10 @@ var T = {
 <div class="form-actions">
 <?php
 	if($book->isNewRecord) {
-		echo "<a class='btn btn-primary pull-right' href='" . $book->getUrl('edit/info') . "'>Пропустить <i class='icon-arrow-right icon-white'></i></a>";
+		echo "<a class='btn btn-primary pull-right' href='" . $book->getUrl('edit/info') . "'>Пропускане <i class='icon-arrow-right icon-white'></i></a>";
 	} else {
-		echo "<a href='{$book->url}' class='btn'>Отмена</a> ";
-		echo "<button class='btn' onclick='T.s(0)'>Не публиковать в каталоге</button> ";
+		echo "<a href='{$book->url}' class='btn'>Отмяна</a> ";
+		echo "<button class='btn' onclick='T.s(0)'>Да не се публикова в каталога</button> ";
 	}
 ?>
 

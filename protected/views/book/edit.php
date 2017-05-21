@@ -3,7 +3,7 @@
 	* @var Book $model
 	*/
 
-	$this->pageTitle = $book->isNewRecord ? "Создать перевод" : ("Свойства перевода \"{$book->fullTitle}\"");
+	$this->pageTitle = $book->isNewRecord ? "Нов превод" : ("Свойства на превода „{$book->fullTitle}“");
 
 	$this->book->registerJS();
 ?>
@@ -144,7 +144,7 @@ var E = {
 $(E.init);
 </script>
 
-<h1>Свойства перевода</h1>
+<h1>Свойства на превода</h1>
 
 <form id="form-rm" method="post" action="<?=$model->url("remove"); ?>"><input type="hidden" name="really" value="1"/></form>
 
@@ -233,7 +233,7 @@ $(E.init);
 	$who3 = array("g" => "группа", "m" => "модераторы", "o" => "никто");
 	$who2 = array("m" => "модераторы", "o" => "никто");
 ?>
-<h2>Права доступа</h2>
+<h2>Права на достъп</h2>
 
 <div id="ac_presets">
 	<div>
@@ -326,9 +326,9 @@ $(E.init);
 
 <div class="form-actions">
 	<?php
-		echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Сохранить", array("type" => "submit", "class" => "btn btn-primary")) . " ";
-		if(!$model->isNewRecord) echo CHtml::htmlButton("<i class='icon-ban-circle icon-white'></i> Удалить", array("onclick" => "E.rm()", "class" => "btn btn-danger")) . " ";
-		echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмена", array("onclick" => "location.href='" . ($model->isNewRecord ? Yii::app()->user->url() : $model->url) . "'", "class" => "btn btn-success"));
+		echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запис", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+		if(!$model->isNewRecord) echo CHtml::htmlButton("<i class='icon-ban-circle icon-white'></i> Изтриване", array("onclick" => "E.rm()", "class" => "btn btn-danger")) . " ";
+		echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмяна", array("onclick" => "location.href='" . ($model->isNewRecord ? Yii::app()->user->url() : $model->url) . "'", "class" => "btn btn-success"));
 	?>
 </div>
 <?php $this->endWidget(); ?>

@@ -15,7 +15,7 @@
 ?>
 
 <?php require __DIR__.'/_nav.php' ?>
-<h1><?=$book->fullTitle; ?> &ndash; обявления</h1>
+<h1><?=$book->fullTitle; ?> &ndash; новини</h1>
 
 <?php
 	$posts = $lenta->getData();
@@ -23,7 +23,7 @@
 ?>
 	<div class='alert alert-info' id="info_empty">
 		<?php
-			echo "Все още няма обявления.";
+			echo "Все още няма новини.";
 
 			if($book->can("blog_w")) echo " <a href='" . $book->getUrl("announces/write") . "' class='act'>Ново обявление</a>.";
 		?>
