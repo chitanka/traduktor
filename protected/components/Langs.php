@@ -17,11 +17,11 @@
 		const FORM_GEN = 1;	// Родительный падеж, "русского"
 
 		public function init() {
-			$r = Yii::app()->db->createCommand("SELECT id, typ, title, title_r FROM languages ORDER BY typ, title")->query();
+			$r = Yii::app()->db->createCommand("SELECT id, typ, title FROM languages ORDER BY typ, title")->query();
 			foreach($r as $row) {
 				$this->Langs[$row['id']] = array(
 					self::FORM_INF => $row['title'],
-					self::FORM_GEN => $row['title_r'],
+					self::FORM_GEN => $row['title'],
 					't' => $row['typ']
 				);
 			}
@@ -83,9 +83,9 @@
 					$ret .= " &rarr; " . mb_substr($this->Langs[$to_lang_id][self::FORM_INF], 0, 3);
 				}
 			} else {
-				$ret = "с ";
+				$ret = "";
 				$ret .= $this->Langs[$from_lang_id][self::FORM_GEN] . " на ";
-				if($to_lang_id == 0) $ret .= "все языки мира";
+				if($to_lang_id == 0) $ret .= "всички езици";
 				else $ret .= $this->Langs[$to_lang_id][self::FORM_INF];
 			}
 

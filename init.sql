@@ -26,7 +26,7 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
 
 --
--- Name: ac (Access Control); Type: DOMAIN; Schema: public; Owner: notabenoid
+-- Name: ac (Access Control); Type: DOMAIN; Schema: public
 -- Values:
 -- a - all
 -- g - group
@@ -38,10 +38,10 @@ CREATE DOMAIN ac AS character(1)
 	CONSTRAINT ac_check CHECK (((VALUE)::text = ANY (ARRAY['a'::text, 'g'::text, 'm'::text, 'o'::text])));
 
 
-ALTER DOMAIN ac OWNER TO notabenoid;
+
 
 --
--- Name: downloaded_book(integer, inet, inet); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: downloaded_book(integer, inet, inet); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION downloaded_book(_book_id integer, _ip inet, _via inet) RETURNS integer
@@ -61,10 +61,10 @@ CREATE FUNCTION downloaded_book(_book_id integer, _ip inet, _via inet) RETURNS i
 			$$;
 
 
-ALTER FUNCTION public.downloaded_book(_book_id integer, _ip inet, _via inet) OWNER TO notabenoid;
+
 
 --
--- Name: downloaded_book(integer, integer, inet, inet); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: downloaded_book(integer, integer, inet, inet); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION downloaded_book(_book_id integer, _chap_id integer, _ip inet, _via inet) RETURNS integer
@@ -85,10 +85,10 @@ CREATE FUNCTION downloaded_book(_book_id integer, _chap_id integer, _ip inet, _v
 			$$;
 
 
-ALTER FUNCTION public.downloaded_book(_book_id integer, _chap_id integer, _ip inet, _via inet) OWNER TO notabenoid;
+
 
 --
--- Name: group_join(integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: group_join(integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION group_join(_user_id integer, _book_id integer) RETURNS void
@@ -106,10 +106,10 @@ CREATE FUNCTION group_join(_user_id integer, _book_id integer) RETURNS void
 			$_$;
 
 
-ALTER FUNCTION public.group_join(_user_id integer, _book_id integer) OWNER TO notabenoid;
+
 
 --
--- Name: moder_book_cat_put(integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: moder_book_cat_put(integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION moder_book_cat_put(_book_id integer) RETURNS void
@@ -127,10 +127,10 @@ CREATE FUNCTION moder_book_cat_put(_book_id integer) RETURNS void
 			$_$;
 
 
-ALTER FUNCTION public.moder_book_cat_put(_book_id integer) OWNER TO notabenoid;
+
 
 --
--- Name: rate_tr(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: rate_tr(integer, integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION rate_tr(_user_id integer, _tr_id integer, _mark integer) RETURNS void
@@ -148,10 +148,10 @@ CREATE FUNCTION rate_tr(_user_id integer, _tr_id integer, _mark integer) RETURNS
 			$_$;
 
 
-ALTER FUNCTION public.rate_tr(_user_id integer, _tr_id integer, _mark integer) OWNER TO notabenoid;
+
 
 --
--- Name: ready(integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: ready(integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION ready(n_verses integer, d_vars integer) RETURNS double precision
@@ -163,10 +163,10 @@ CREATE FUNCTION ready(n_verses integer, d_vars integer) RETURNS double precision
 			$$;
 
 
-ALTER FUNCTION public.ready(n_verses integer, d_vars integer) OWNER TO notabenoid;
+
 
 --
--- Name: seen_orig(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: seen_orig(integer, integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION seen_orig(_user_id integer, _orig_id integer, _n_comments integer) RETURNS void
@@ -181,10 +181,10 @@ CREATE FUNCTION seen_orig(_user_id integer, _orig_id integer, _n_comments intege
 			$$;
 
 
-ALTER FUNCTION public.seen_orig(_user_id integer, _orig_id integer, _n_comments integer) OWNER TO notabenoid;
+
 
 --
--- Name: seen_post(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: seen_post(integer, integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION seen_post(_user_id integer, _post_id integer, _n_comments integer) RETURNS void
@@ -199,10 +199,10 @@ CREATE FUNCTION seen_post(_user_id integer, _post_id integer, _n_comments intege
 			$$;
 
 
-ALTER FUNCTION public.seen_post(_user_id integer, _post_id integer, _n_comments integer) OWNER TO notabenoid;
+
 
 --
--- Name: track_orig(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: track_orig(integer, integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION track_orig(_user_id integer, _orig_id integer, _inc integer) RETURNS void
@@ -217,10 +217,10 @@ CREATE FUNCTION track_orig(_user_id integer, _orig_id integer, _inc integer) RET
 			$_$;
 
 
-ALTER FUNCTION public.track_orig(_user_id integer, _orig_id integer, _inc integer) OWNER TO notabenoid;
+
 
 --
--- Name: track_post(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: notabenoid
+-- Name: track_post(integer, integer, integer); Type: FUNCTION; Schema: public
 --
 
 CREATE FUNCTION track_post(_user_id integer, _post_id integer, _inc integer) RETURNS void
@@ -235,14 +235,14 @@ CREATE FUNCTION track_post(_user_id integer, _post_id integer, _inc integer) RET
 			$_$;
 
 
-ALTER FUNCTION public.track_post(_user_id integer, _post_id integer, _inc integer) OWNER TO notabenoid;
+
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: ban; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: ban; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE ban (
@@ -251,10 +251,10 @@ CREATE TABLE ban (
 );
 
 
-ALTER TABLE ban OWNER TO notabenoid;
+
 
 --
--- Name: blog_posts; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: blog_posts; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE blog_posts (
@@ -270,10 +270,10 @@ CREATE TABLE blog_posts (
 );
 
 
-ALTER TABLE blog_posts OWNER TO notabenoid;
+
 
 --
--- Name: blog_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: blog_posts_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE blog_posts_id_seq
@@ -284,17 +284,17 @@ CREATE SEQUENCE blog_posts_id_seq
     CACHE 1;
 
 
-ALTER TABLE blog_posts_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: blog_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: blog_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE blog_posts_id_seq OWNED BY blog_posts.id;
 
 
 --
--- Name: book_ban_reasons; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: book_ban_reasons; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE book_ban_reasons (
@@ -307,10 +307,10 @@ CREATE TABLE book_ban_reasons (
 );
 
 
-ALTER TABLE book_ban_reasons OWNER TO notabenoid;
+
 
 --
--- Name: book_cat_export; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: book_cat_export; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE book_cat_export (
@@ -319,10 +319,10 @@ CREATE TABLE book_cat_export (
 );
 
 
-ALTER TABLE book_cat_export OWNER TO notabenoid;
+
 
 --
--- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: book_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE book_id_seq
@@ -333,10 +333,10 @@ CREATE SEQUENCE book_id_seq
     CACHE 1;
 
 
-ALTER TABLE book_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: bookmarks; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: bookmarks; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE bookmarks (
@@ -351,10 +351,10 @@ CREATE TABLE bookmarks (
 );
 
 
-ALTER TABLE bookmarks OWNER TO notabenoid;
+
 
 --
--- Name: bookmarks_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: bookmarks_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE bookmarks_id_seq
@@ -365,17 +365,17 @@ CREATE SEQUENCE bookmarks_id_seq
     CACHE 1;
 
 
-ALTER TABLE bookmarks_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: bookmarks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: bookmarks_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE bookmarks_id_seq OWNED BY bookmarks.id;
 
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: books; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE books (
@@ -421,10 +421,10 @@ CREATE TABLE books (
 );
 
 
-ALTER TABLE books OWNER TO notabenoid;
+
 
 --
--- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: books_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE books_id_seq
@@ -435,17 +435,17 @@ CREATE SEQUENCE books_id_seq
     CACHE 1;
 
 
-ALTER TABLE books_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE books_id_seq OWNED BY books.id;
 
 
 --
--- Name: catalog; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: catalog; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE catalog (
@@ -457,10 +457,10 @@ CREATE TABLE catalog (
 );
 
 
-ALTER TABLE catalog OWNER TO notabenoid;
+
 
 --
--- Name: catalog_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: catalog_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE catalog_id_seq
@@ -471,17 +471,17 @@ CREATE SEQUENCE catalog_id_seq
     CACHE 1;
 
 
-ALTER TABLE catalog_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: catalog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: catalog_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE catalog_id_seq OWNED BY catalog.id;
 
 
 --
--- Name: chapters; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: chapters; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE chapters (
@@ -506,10 +506,10 @@ CREATE TABLE chapters (
 );
 
 
-ALTER TABLE chapters OWNER TO notabenoid;
+
 
 --
--- Name: chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: chapters_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE chapters_id_seq
@@ -520,17 +520,17 @@ CREATE SEQUENCE chapters_id_seq
     CACHE 1;
 
 
-ALTER TABLE chapters_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE chapters_id_seq OWNED BY chapters.id;
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE comments (
@@ -548,10 +548,10 @@ CREATE TABLE comments (
 );
 
 
-ALTER TABLE comments OWNER TO notabenoid;
+
 
 --
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE comments_id_seq
@@ -562,17 +562,17 @@ CREATE SEQUENCE comments_id_seq
     CACHE 1;
 
 
-ALTER TABLE comments_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
--- Name: comments_rating; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments_rating; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE comments_rating (
@@ -583,10 +583,10 @@ CREATE TABLE comments_rating (
 );
 
 
-ALTER TABLE comments_rating OWNER TO notabenoid;
+
 
 --
--- Name: dict; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: dict; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE dict (
@@ -599,10 +599,10 @@ CREATE TABLE dict (
 );
 
 
-ALTER TABLE dict OWNER TO notabenoid;
+
 
 --
--- Name: dict_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: dict_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE dict_id_seq
@@ -613,17 +613,17 @@ CREATE SEQUENCE dict_id_seq
     CACHE 1;
 
 
-ALTER TABLE dict_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: dict_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: dict_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE dict_id_seq OWNED BY dict.id;
 
 
 --
--- Name: dima360; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: dima360; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE dima360 (
@@ -632,10 +632,10 @@ CREATE TABLE dima360 (
 );
 
 
-ALTER TABLE dima360 OWNER TO notabenoid;
+
 
 --
--- Name: download_log; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: download_log; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE download_log (
@@ -645,10 +645,10 @@ CREATE TABLE download_log (
 );
 
 
-ALTER TABLE download_log OWNER TO notabenoid;
+
 
 --
--- Name: group_queue; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: group_queue; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE group_queue (
@@ -659,10 +659,10 @@ CREATE TABLE group_queue (
 );
 
 
-ALTER TABLE group_queue OWNER TO notabenoid;
+
 
 --
--- Name: groups; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: groups; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE groups (
@@ -676,10 +676,10 @@ CREATE TABLE groups (
 );
 
 
-ALTER TABLE groups OWNER TO notabenoid;
+
 
 --
--- Name: invites; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: invites; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE invites (
@@ -690,10 +690,10 @@ CREATE TABLE invites (
 );
 
 
-ALTER TABLE invites OWNER TO notabenoid;
+
 
 --
--- Name: karma_rates; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: karma_rates; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE karma_rates (
@@ -706,10 +706,10 @@ CREATE TABLE karma_rates (
 );
 
 
-ALTER TABLE karma_rates OWNER TO notabenoid;
+
 
 --
--- Name: languages; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: languages; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE languages (
@@ -720,10 +720,10 @@ CREATE TABLE languages (
 );
 
 
-ALTER TABLE languages OWNER TO notabenoid;
+
 
 --
--- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE languages_id_seq
@@ -734,17 +734,17 @@ CREATE SEQUENCE languages_id_seq
     CACHE 1;
 
 
-ALTER TABLE languages_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE languages_id_seq OWNED BY languages.id;
 
 
 --
--- Name: mail_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: mail_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE mail_id_seq
@@ -755,10 +755,10 @@ CREATE SEQUENCE mail_id_seq
     CACHE 1;
 
 
-ALTER TABLE mail_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: mail; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: mail; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE mail (
@@ -773,10 +773,10 @@ CREATE TABLE mail (
 );
 
 
-ALTER TABLE mail OWNER TO notabenoid;
+
 
 --
--- Name: marks; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: marks; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE marks (
@@ -787,10 +787,10 @@ CREATE TABLE marks (
 );
 
 
-ALTER TABLE marks OWNER TO notabenoid;
+
 
 --
--- Name: moder_book_cat; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: moder_book_cat; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE moder_book_cat (
@@ -799,10 +799,10 @@ CREATE TABLE moder_book_cat (
 );
 
 
-ALTER TABLE moder_book_cat OWNER TO notabenoid;
+
 
 --
--- Name: moving; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: moving; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE moving (
@@ -815,10 +815,10 @@ CREATE TABLE moving (
 );
 
 
-ALTER TABLE moving OWNER TO notabenoid;
+
 
 --
--- Name: notices; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: notices; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE notices (
@@ -831,10 +831,10 @@ CREATE TABLE notices (
 );
 
 
-ALTER TABLE notices OWNER TO notabenoid;
+
 
 --
--- Name: notices_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: notices_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE notices_id_seq
@@ -845,17 +845,17 @@ CREATE SEQUENCE notices_id_seq
     CACHE 1;
 
 
-ALTER TABLE notices_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: notices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: notices_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE notices_id_seq OWNED BY notices.id;
 
 
 --
--- Name: orig; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: orig; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE orig (
@@ -870,10 +870,10 @@ CREATE TABLE orig (
 );
 
 
-ALTER TABLE orig OWNER TO notabenoid;
+
 
 --
--- Name: orig_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: orig_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE orig_id_seq
@@ -884,10 +884,10 @@ CREATE SEQUENCE orig_id_seq
     CACHE 1;
 
 
-ALTER TABLE orig_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: orig_id_seq1; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: orig_id_seq1; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE orig_id_seq1
@@ -898,17 +898,17 @@ CREATE SEQUENCE orig_id_seq1
     CACHE 1;
 
 
-ALTER TABLE orig_id_seq1 OWNER TO notabenoid;
+
 
 --
--- Name: orig_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: orig_id_seq1; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE orig_id_seq1 OWNED BY orig.id;
 
 
 --
--- Name: orig_old_id; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: orig_old_id; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE orig_old_id (
@@ -918,10 +918,10 @@ CREATE TABLE orig_old_id (
 );
 
 
-ALTER TABLE orig_old_id OWNER TO notabenoid;
+
 
 --
--- Name: poll_answers; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: poll_answers; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE poll_answers (
@@ -934,10 +934,10 @@ CREATE TABLE poll_answers (
 );
 
 
-ALTER TABLE poll_answers OWNER TO notabenoid;
+
 
 --
--- Name: poll_tmp; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: poll_tmp; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE poll_tmp (
@@ -950,10 +950,10 @@ CREATE TABLE poll_tmp (
 );
 
 
-ALTER TABLE poll_tmp OWNER TO notabenoid;
+
 
 --
--- Name: recalc_log; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: recalc_log; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE recalc_log (
@@ -963,10 +963,10 @@ CREATE TABLE recalc_log (
 );
 
 
-ALTER TABLE recalc_log OWNER TO notabenoid;
+
 
 --
--- Name: reg_invites; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: reg_invites; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE reg_invites (
@@ -980,10 +980,10 @@ CREATE TABLE reg_invites (
 );
 
 
-ALTER TABLE reg_invites OWNER TO notabenoid;
+
 
 --
--- Name: reg_invites_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: reg_invites_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE reg_invites_id_seq
@@ -994,17 +994,17 @@ CREATE SEQUENCE reg_invites_id_seq
     CACHE 1;
 
 
-ALTER TABLE reg_invites_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: reg_invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: reg_invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE reg_invites_id_seq OWNED BY reg_invites.id;
 
 
 --
--- Name: remind_tokens; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: remind_tokens; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE remind_tokens (
@@ -1015,10 +1015,10 @@ CREATE TABLE remind_tokens (
 );
 
 
-ALTER TABLE remind_tokens OWNER TO notabenoid;
+
 
 --
--- Name: search_history; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: search_history; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE search_history (
@@ -1028,10 +1028,10 @@ CREATE TABLE search_history (
 );
 
 
-ALTER TABLE search_history OWNER TO notabenoid;
+
 
 --
--- Name: seen; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: seen; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE seen (
@@ -1044,10 +1044,10 @@ CREATE TABLE seen (
 );
 
 
-ALTER TABLE seen OWNER TO notabenoid;
+
 
 --
--- Name: tmp_dllog; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: tmp_dllog; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE tmp_dllog (
@@ -1058,10 +1058,10 @@ CREATE TABLE tmp_dllog (
 );
 
 
-ALTER TABLE tmp_dllog OWNER TO notabenoid;
+
 
 --
--- Name: translate; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: translate; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE translate (
@@ -1077,10 +1077,10 @@ CREATE TABLE translate (
 );
 
 
-ALTER TABLE translate OWNER TO notabenoid;
+
 
 --
--- Name: translate_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: translate_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE translate_id_seq
@@ -1091,10 +1091,10 @@ CREATE SEQUENCE translate_id_seq
     CACHE 1;
 
 
-ALTER TABLE translate_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: translate_id_seq1; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: translate_id_seq1; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE translate_id_seq1
@@ -1105,17 +1105,17 @@ CREATE SEQUENCE translate_id_seq1
     CACHE 1;
 
 
-ALTER TABLE translate_id_seq1 OWNER TO notabenoid;
+
 
 --
--- Name: translate_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: translate_id_seq1; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE translate_id_seq1 OWNED BY translate.id;
 
 
 --
--- Name: user_tr_stat; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: user_tr_stat; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE user_tr_stat (
@@ -1125,23 +1125,22 @@ CREATE TABLE user_tr_stat (
 );
 
 
-ALTER TABLE user_tr_stat OWNER TO notabenoid;
+
 
 --
--- Name: userinfo; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: userinfo; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE userinfo (
     user_id integer NOT NULL,
     prop_id smallint NOT NULL,
     value text NOT NULL
-);
+)
 
 
-ALTER TABLE userinfo OWNER TO notabenoid;
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Tablespace: 
 --
 
 CREATE TABLE users (
@@ -1171,10 +1170,10 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE users OWNER TO notabenoid;
+
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: notabenoid
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public
 --
 
 CREATE SEQUENCE users_id_seq
@@ -1185,108 +1184,108 @@ CREATE SEQUENCE users_id_seq
     CACHE 1;
 
 
-ALTER TABLE users_id_seq OWNER TO notabenoid;
+
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: notabenoid
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY blog_posts ALTER COLUMN id SET DEFAULT nextval('blog_posts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY bookmarks ALTER COLUMN id SET DEFAULT nextval('bookmarks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY books ALTER COLUMN id SET DEFAULT nextval('books_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY catalog ALTER COLUMN id SET DEFAULT nextval('catalog_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY chapters ALTER COLUMN id SET DEFAULT nextval('chapters_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY dict ALTER COLUMN id SET DEFAULT nextval('dict_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY languages ALTER COLUMN id SET DEFAULT nextval('languages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY notices ALTER COLUMN id SET DEFAULT nextval('notices_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY orig ALTER COLUMN id SET DEFAULT nextval('orig_id_seq1'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY reg_invites ALTER COLUMN id SET DEFAULT nextval('reg_invites_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY translate ALTER COLUMN id SET DEFAULT nextval('translate_id_seq1'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: notabenoid
+-- Name: id; Type: DEFAULT; Schema: public
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Data for Name: ban; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: ban; Type: TABLE DATA; Schema: public
 --
 
 COPY ban (user_id, until) FROM stdin;
@@ -1294,7 +1293,7 @@ COPY ban (user_id, until) FROM stdin;
 
 
 --
--- Data for Name: blog_posts; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: blog_posts; Type: TABLE DATA; Schema: public
 --
 
 COPY blog_posts (id, user_id, book_id, cdate, n_comments, lastcomment, topics, title, body) FROM stdin;
@@ -1302,14 +1301,14 @@ COPY blog_posts (id, user_id, book_id, cdate, n_comments, lastcomment, topics, t
 
 
 --
--- Name: blog_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: blog_posts_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('blog_posts_id_seq', 1, false);
 
 
 --
--- Data for Name: book_ban_reasons; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: book_ban_reasons; Type: TABLE DATA; Schema: public
 --
 
 COPY book_ban_reasons (book_id, cdate, title, url, email, message) FROM stdin;
@@ -1317,7 +1316,7 @@ COPY book_ban_reasons (book_id, cdate, title, url, email, message) FROM stdin;
 
 
 --
--- Data for Name: book_cat_export; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: book_cat_export; Type: TABLE DATA; Schema: public
 --
 
 COPY book_cat_export (book_id, cat_id) FROM stdin;
@@ -1325,28 +1324,28 @@ COPY book_cat_export (book_id, cat_id) FROM stdin;
 
 
 --
--- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: book_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('book_id_seq', 1, false);
 
 
 --
--- Name: bookmarks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: bookmarks_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('bookmarks_id_seq', 1, false);
 
 
 --
--- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: books_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('books_id_seq', 1, false);
 
 
 --
--- Data for Name: catalog; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: catalog; Type: TABLE DATA; Schema: public
 --
 
 COPY catalog (id, pid, mp, title, available) FROM stdin WITH DELIMITER ',' NULL AS 'NULL';
@@ -1356,21 +1355,21 @@ COPY catalog (id, pid, mp, title, available) FROM stdin WITH DELIMITER ',' NULL 
 
 
 --
--- Name: catalog_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: catalog_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('catalog_id_seq', 1, false);
 
 
 --
--- Name: chapters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: chapters_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('chapters_id_seq', 1, false);
 
 
 --
--- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: comments; Type: TABLE DATA; Schema: public
 --
 
 COPY comments (id, post_id, orig_id, pid, mp, cdate, ip, user_id, body, rating, n_votes) FROM stdin;
@@ -1378,14 +1377,14 @@ COPY comments (id, post_id, orig_id, pid, mp, cdate, ip, user_id, body, rating, 
 
 
 --
--- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('comments_id_seq', 1, false);
 
 
 --
--- Data for Name: comments_rating; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: comments_rating; Type: TABLE DATA; Schema: public
 --
 
 COPY comments_rating (cdate, comment_id, user_id, mark) FROM stdin;
@@ -1393,7 +1392,7 @@ COPY comments_rating (cdate, comment_id, user_id, mark) FROM stdin;
 
 
 --
--- Data for Name: dict; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: dict; Type: TABLE DATA; Schema: public
 --
 
 COPY dict (id, book_id, cdate, user_id, term, descr) FROM stdin;
@@ -1401,14 +1400,14 @@ COPY dict (id, book_id, cdate, user_id, term, descr) FROM stdin;
 
 
 --
--- Name: dict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: dict_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('dict_id_seq', 1, false);
 
 
 --
--- Data for Name: dima360; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: dima360; Type: TABLE DATA; Schema: public
 --
 
 COPY dima360 (id, login) FROM stdin;
@@ -1416,7 +1415,7 @@ COPY dima360 (id, login) FROM stdin;
 
 
 --
--- Data for Name: download_log; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: download_log; Type: TABLE DATA; Schema: public
 --
 
 COPY download_log (chap_id, ip, via) FROM stdin;
@@ -1424,7 +1423,7 @@ COPY download_log (chap_id, ip, via) FROM stdin;
 
 
 --
--- Data for Name: group_queue; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: group_queue; Type: TABLE DATA; Schema: public
 --
 
 COPY group_queue (book_id, user_id, cdate, message) FROM stdin;
@@ -1432,7 +1431,7 @@ COPY group_queue (book_id, user_id, cdate, message) FROM stdin;
 
 
 --
--- Data for Name: invites; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: invites; Type: TABLE DATA; Schema: public
 --
 
 COPY invites (cdate, from_uid, to_uid, book_id) FROM stdin;
@@ -1440,7 +1439,7 @@ COPY invites (cdate, from_uid, to_uid, book_id) FROM stdin;
 
 
 --
--- Data for Name: karma_rates; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: karma_rates; Type: TABLE DATA; Schema: public
 --
 
 COPY karma_rates (dat, from_uid, to_uid, mark, note) FROM stdin;
@@ -1448,206 +1447,40 @@ COPY karma_rates (dat, from_uid, to_uid, mark, note) FROM stdin;
 
 
 --
--- Data for Name: languages; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: languages; Type: TABLE DATA; Schema: public
 --
 
-COPY languages (id, typ, title, title_r) FROM stdin;
-1	10	русский	русского
-2	10	английский	английского
-3	10	немецкий	немецкого
-4	10	французский	французского
-5	10	итальянский	итальянского
-6	10	испанский	испанского
-7	40	китайский	китайского
-8	40	японский	японского
-9	20	украинский	украинского
-10	20	белорусский	белорусский
-11	20	молдавский	молдавского
-12	20	татарский	татарского
-13	30	чешский	чешского
-14	200	эсперанто	эсперанто
-15	40	иврит	иврита
-16	30	шведский	шведского
-17	30	финский	финского
-18	30	норвежский	норвежского
-19	30	датский	датского
-20	20	абхазский	абхазского
-21	20	аварский	аварского
-22	20	азербайджанский	азербаджанского
-23	50	аймара	аймара
-24	60	акан	акан
-25	30	албанский	албанского
-26	60	амхарский	амхарского
-27	40	арабский	арабского
-28	30	арагонский	арагонского
-29	30	арберешский	арберешского
-30	20	армянский	армянского
-31	40	ассамский	ассамского
-32	30	астурийский	астурийского
-33	60	афарский	афарского
-34	60	африкаанс	африкаанс
-35	50	ацтекский	ацтекского
-36	30	баварский	баварского
-37	60	бамбарийский	бамбарийского
-39	30	баскский	баскского
-40	20	башкирский	башкирского
-41	40	бенгальский	бенгальского
-42	40	бирманский	бирманского
-43	70	бислама	бислама
-44	40	бихари	бихари
-45	30	болгарский	болгарского
-47	30	бретонский	бретонского
-48	30	валенсийский	валенсийского
-49	30	валлийский	валлийского
-50	30	валлонский	валлонского
-51	30	венгерский	венгерского
-52	60	венда	венда
-53	30	венетский	венетского
-54	30	верхнелужицкий	верхнелужицкого
-55	60	волоф	волоф
-57	40	вьетнамский	вьетнамского
-58	70	гавайский	гавайского
-59	50	гаитянский	гаитянского
-60	30	галисийский	галисийского
-61	60	гереро	гереро
-62	30	голландский	голландского
-63	30	греческий	греческого
-64	20	грузинский	грузинского
-65	50	гуарани	гуарани
-66	40	гуджарати	гуджарати
-67	30	шотландский	шотландского
-68	40	дзонг-кэ	дзонг-кэ
-69	200	древнегреческий	древнегреческого
-70	30	западно-фламандский	западно-фламандского
-71	60	зулу	зулу
-72	60	игбо	игбо
-73	200	идиш	идиш
-74	40	илоко	илоко
-75	40	индонезийский	индонезийского
-76	200	интерлингва	интерлингва
-77	50	инуктитут	инуктитут
-78	50	инупиак	инупиак
-79	30	ирландский	ирландского
-80	30	исландский	исландского
-81	60	йоруба	йоруба
-82	60	кабильский	кабильского
-83	20	казахский	казахского
-84	40	каннада	каннада
-85	40	кантонский юэ	кантонский юэ
-86	60	канури	канури
-87	30	каталанский	каталанского
-88	40	кашмири	кашмири
-90	50	кечуа	кечуа
-91	60	кикуйю	кикуйю
-92	60	киньяруанда	киньяруанда
-93	20	киргизский	киргизского
-94	200	клингонский	клингонского
-95	20	коми	коми
-96	60	конго	конго
-97	40	конкани	конкани
-98	40	корейский	корейского
-100	30	корсиканский	корсиканского
-101	200	котава	котава
-102	50	кри	кри
-105	40	курдский	курдского
-107	40	кхмерский	кхмерского
-109	40	лаосский	лаосского
-110	200	латынь	латыни
-111	20	латышский	латышского
-112	20	лезгинский	лезгинского
-113	30	лимбургский	лимбургского
-114	60	лингала	лингала
-115	20	литовский	литовского
-118	60	луба	луба
-119	60	луганда	луганда
-120	30	люксембургский	люксембургского
-121	30	македонский	македонского
-122	60	малагасийский	малагасийского
-123	40	малайский	малайского
-125	40	мальдивский	мальдивского
-126	30	мальтийский	мальтийского
-127	70	маори	маори
-130	70	маршалльский	маршалльского
-133	40	монгольский	монгольского
-135	50	навахо	навахо
-139	30	неаполитанский	неаполитанского
-140	60	непальский	непальского
-147	20	осетинский	осетинского
-149	40	пенджабский	пенджабского
-151	40	персидский	персидского
-152	30	польский	польского
-153	30	португальский	португальского
-158	30	румынский	румынского
-163	40	санскрит	санскрита
-164	30	сардинский	сардинского
-166	30	сербохорватский	сербохорватского
-170	30	словацкий	словацкого
-171	30	словенский	словенского
-172	60	сомали	сомали
-174	200	старотурецкий	старотурецкого
-175	60	суахили	суахили
-176	40	сунданский	сунданского
-177	40	тагальский	тагальского
-178	20	таджикский	таджикского
-179	70	таитянский	таитянского
-180	40	тайваньский	тайваньского
-181	40	тайский	тайского
-182	40	тамильский	тамильского
-184	40	телугу	телугу
-185	40	тибетский	тибетского
-186	60	тигринья	тигринья
-187	70	ток-писин	ток-писин
-188	200	токи пона	токи пона
-189	70	тонганский	тонганского
-191	60	тсвана	тсвана
-192	60	тсонга	тсонга
-193	40	турецкий	турецкого
-194	20	туркменский	туркменского
-196	20	удмуртский	удмуртского
-197	20	узбекский	узбекского
-198	40	уйгурский	уйгурского
-201	70	фиджийский	фиджийского
-203	30	фризский	фризского
-204	60	фулах	фулах
-206	60	хауса	хауса
-207	40	хинди	хинди
-208	70	хири-моту	хири-моту
-209	40	мяо (хмонг)	мяо (хмонг)
-213	20	чеченский	чеченского
-217	20	чувашский	чувашского
-218	30	швейцарский немецкий	швейцарского немецкого
-219	60	шона	шона
-221	60	эве	эве
-223	20	эскимосский	эскимосского
-224	20	эстонский	эстонского
-225	50	юкатекский	юкатекского
-227	40	яванский	яванского
-229	40	филиппинский	филиппинского
-230	40	пакистанский	пакистанского
-231	40	южно-корейский	южно-корейского
-232	20	марийский	марийского
-233	20	лакский	лакского
-234	30	боснийский	боснийского
-235	20	калмыцкий	калмыцкого
+COPY languages (id, typ, title) FROM stdin;
+1	10	български
+2	10	английски
+3	10	немски
+4	10	испански
+5	10	френски
+6	10	италиански
+7	10	руски
+8	30	полски
+9	30	португалски
+10	30	румънски
+11	30	турски
 \.
 
 
 --
--- Name: languages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: languages_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('languages_id_seq', 235, true);
 
 
 --
--- Name: mail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: mail_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('mail_id_seq', 1, false);
 
 
 --
--- Data for Name: marks; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: marks; Type: TABLE DATA; Schema: public
 --
 
 COPY marks (user_id, tr_id, mark, cdate) FROM stdin;
@@ -1655,7 +1488,7 @@ COPY marks (user_id, tr_id, mark, cdate) FROM stdin;
 
 
 --
--- Data for Name: moder_book_cat; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: moder_book_cat; Type: TABLE DATA; Schema: public
 --
 
 COPY moder_book_cat (book_id, cdate) FROM stdin;
@@ -1663,7 +1496,7 @@ COPY moder_book_cat (book_id, cdate) FROM stdin;
 
 
 --
--- Data for Name: moving; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: moving; Type: TABLE DATA; Schema: public
 --
 
 COPY moving (ip, cdate, x, y, color, t) FROM stdin;
@@ -1671,7 +1504,7 @@ COPY moving (ip, cdate, x, y, color, t) FROM stdin;
 
 
 --
--- Data for Name: notices; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: notices; Type: TABLE DATA; Schema: public
 --
 
 COPY notices (id, user_id, cdate, seen, typ, msg) FROM stdin;
@@ -1679,28 +1512,28 @@ COPY notices (id, user_id, cdate, seen, typ, msg) FROM stdin;
 
 
 --
--- Name: notices_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: notices_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('notices_id_seq', 1, false);
 
 
 --
--- Name: orig_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: orig_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('orig_id_seq', 1, false);
 
 
 --
--- Name: orig_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: orig_id_seq1; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('orig_id_seq1', 1, false);
 
 
 --
--- Data for Name: orig_old_id; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: orig_old_id; Type: TABLE DATA; Schema: public
 --
 
 COPY orig_old_id (id, chap_id, old_id) FROM stdin;
@@ -1708,7 +1541,7 @@ COPY orig_old_id (id, chap_id, old_id) FROM stdin;
 
 
 --
--- Data for Name: poll_answers; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: poll_answers; Type: TABLE DATA; Schema: public
 --
 
 COPY poll_answers (poll_id, q_id, user_id, cdate, ip, answer) FROM stdin;
@@ -1716,7 +1549,7 @@ COPY poll_answers (poll_id, q_id, user_id, cdate, ip, answer) FROM stdin;
 
 
 --
--- Data for Name: poll_tmp; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: poll_tmp; Type: TABLE DATA; Schema: public
 --
 
 COPY poll_tmp (poll_id, q_id, user_id, cdate, ip, answer) FROM stdin;
@@ -1724,7 +1557,7 @@ COPY poll_tmp (poll_id, q_id, user_id, cdate, ip, answer) FROM stdin;
 
 
 --
--- Data for Name: recalc_log; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: recalc_log; Type: TABLE DATA; Schema: public
 --
 
 COPY recalc_log (book_id, user_id, dat) FROM stdin;
@@ -1734,14 +1567,14 @@ COPY recalc_log (book_id, user_id, dat) FROM stdin;
 
 
 --
--- Name: reg_invites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: reg_invites_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('reg_invites_id_seq', 1, false);
 
 
 --
--- Data for Name: seen; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: seen; Type: TABLE DATA; Schema: public
 --
 
 COPY seen (user_id, post_id, orig_id, seen, n_comments, track) FROM stdin;
@@ -1749,7 +1582,7 @@ COPY seen (user_id, post_id, orig_id, seen, n_comments, track) FROM stdin;
 
 
 --
--- Data for Name: tmp_dllog; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: tmp_dllog; Type: TABLE DATA; Schema: public
 --
 
 COPY tmp_dllog (book_id, chap_id, dat, ip) FROM stdin;
@@ -1757,21 +1590,21 @@ COPY tmp_dllog (book_id, chap_id, dat, ip) FROM stdin;
 
 
 --
--- Name: translate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: translate_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('translate_id_seq', 1, false);
 
 
 --
--- Name: translate_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: translate_id_seq1; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('translate_id_seq1', 1, true);
 
 
 --
--- Data for Name: user_tr_stat; Type: TABLE DATA; Schema: public; Owner: notabenoid
+-- Data for Name: user_tr_stat; Type: TABLE DATA; Schema: public
 --
 
 COPY user_tr_stat (user_id, book_id, n_trs) FROM stdin;
@@ -1779,14 +1612,14 @@ COPY user_tr_stat (user_id, book_id, n_trs) FROM stdin;
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: notabenoid
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
 SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 
 --
--- Name: ban_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: ban_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY ban
@@ -1794,7 +1627,7 @@ ALTER TABLE ONLY ban
 
 
 --
--- Name: blog_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: blog_posts_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY blog_posts
@@ -1802,7 +1635,7 @@ ALTER TABLE ONLY blog_posts
 
 
 --
--- Name: book_ban_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: book_ban_reasons_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY book_ban_reasons
@@ -1810,7 +1643,7 @@ ALTER TABLE ONLY book_ban_reasons
 
 
 --
--- Name: bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: bookmarks_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY bookmarks
@@ -1818,7 +1651,7 @@ ALTER TABLE ONLY bookmarks
 
 
 --
--- Name: books_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: books_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY books
@@ -1826,7 +1659,7 @@ ALTER TABLE ONLY books
 
 
 --
--- Name: catalog_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: catalog_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY catalog
@@ -1834,7 +1667,7 @@ ALTER TABLE ONLY catalog
 
 
 --
--- Name: chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: chapters_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY chapters
@@ -1842,7 +1675,7 @@ ALTER TABLE ONLY chapters
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY comments
@@ -1850,7 +1683,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: dict_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: dict_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY dict
@@ -1858,7 +1691,7 @@ ALTER TABLE ONLY dict
 
 
 --
--- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY languages
@@ -1866,7 +1699,7 @@ ALTER TABLE ONLY languages
 
 
 --
--- Name: mail_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: mail_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY mail
@@ -1874,7 +1707,7 @@ ALTER TABLE ONLY mail
 
 
 --
--- Name: moder_book_cat_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: moder_book_cat_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY moder_book_cat
@@ -1882,7 +1715,7 @@ ALTER TABLE ONLY moder_book_cat
 
 
 --
--- Name: notices_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: notices_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY notices
@@ -1890,7 +1723,7 @@ ALTER TABLE ONLY notices
 
 
 --
--- Name: orig_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: orig_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY orig
@@ -1898,7 +1731,7 @@ ALTER TABLE ONLY orig
 
 
 --
--- Name: reg_invites_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: reg_invites_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY reg_invites
@@ -1906,7 +1739,7 @@ ALTER TABLE ONLY reg_invites
 
 
 --
--- Name: remind_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: remind_tokens_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY remind_tokens
@@ -1914,7 +1747,7 @@ ALTER TABLE ONLY remind_tokens
 
 
 --
--- Name: translate_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: translate_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY translate
@@ -1922,7 +1755,7 @@ ALTER TABLE ONLY translate
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -1930,315 +1763,315 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: blog_posts_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: blog_posts_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX blog_posts_book_id ON blog_posts USING btree (book_id, topics);
 
 
 --
--- Name: bookmarks_book_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: bookmarks_book_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX bookmarks_book_id_idx ON bookmarks USING btree (book_id);
 
 
 --
--- Name: bookmarks_user_id_book_id_orig_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: bookmarks_user_id_book_id_orig_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX bookmarks_user_id_book_id_orig_id_idx ON bookmarks USING btree (user_id, book_id, orig_id);
 
 
 --
--- Name: books_cat_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: books_cat_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX books_cat_id_idx ON books USING btree (cat_id);
 
 
 --
--- Name: books_owner_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: books_owner_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX books_owner_id_idx ON books USING btree (owner_id);
 
 
 --
--- Name: catalog_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: catalog_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX catalog_id ON catalog USING btree (pid);
 
 
 --
--- Name: catalog_mp; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: catalog_mp; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX catalog_mp ON catalog USING btree (mp);
 
 
 --
--- Name: chapters_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: chapters_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX chapters_book_id ON chapters USING btree (book_id);
 
 
 --
--- Name: comments_orig_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments_orig_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX comments_orig_id ON comments USING btree (orig_id);
 
 
 --
--- Name: comments_post_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments_post_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX comments_post_id ON comments USING btree (post_id);
 
 
 --
--- Name: comments_rating_comment_id_user_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments_rating_comment_id_user_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX comments_rating_comment_id_user_id_idx ON comments_rating USING btree (comment_id, user_id);
 
 
 --
--- Name: comments_user_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: comments_user_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX comments_user_id ON comments USING btree (user_id);
 
 
 --
--- Name: dict_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: dict_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX dict_book_id ON dict USING btree (book_id);
 
 
 --
--- Name: download_log_chap_id_ip_via_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: download_log_chap_id_ip_via_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX download_log_chap_id_ip_via_idx ON download_log USING btree (chap_id, ip, via);
 
 
 --
--- Name: group_queue_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: group_queue_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX group_queue_book_id ON group_queue USING btree (book_id);
 
 
 --
--- Name: group_queue_pk; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: group_queue_pk; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX group_queue_pk ON group_queue USING btree (user_id, book_id);
 
 
 --
--- Name: groups_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: groups_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX groups_book_id ON groups USING btree (book_id);
 
 
 --
--- Name: groups_pk; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: groups_pk; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX groups_pk ON groups USING btree (user_id, book_id);
 
 
 --
--- Name: invites_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: invites_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX invites_book_id ON invites USING btree (book_id);
 
 
 --
--- Name: invites_to_uid; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: invites_to_uid; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX invites_to_uid ON invites USING btree (to_uid, book_id);
 
 
 --
--- Name: karma_rates_from_uid; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: karma_rates_from_uid; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX karma_rates_from_uid ON karma_rates USING btree (from_uid);
 
 
 --
--- Name: karma_rates_pk; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: karma_rates_pk; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX karma_rates_pk ON karma_rates USING btree (to_uid, from_uid);
 
 
 --
--- Name: languages_typ_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: languages_typ_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX languages_typ_idx ON languages USING btree (typ);
 
 
 --
--- Name: mail_user_id_folder_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: mail_user_id_folder_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX mail_user_id_folder_idx ON mail USING btree (user_id, folder);
 
 
 --
--- Name: marks_pk; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: marks_pk; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX marks_pk ON marks USING btree (tr_id, user_id);
 
 
 --
--- Name: notices_user_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: notices_user_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX notices_user_id ON notices USING btree (user_id, seen);
 
 
 --
--- Name: orig_chap_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: orig_chap_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX orig_chap_id ON orig USING btree (chap_id);
 
 
 --
--- Name: orig_old_id_chap_id_old_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: orig_old_id_chap_id_old_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX orig_old_id_chap_id_old_id_idx ON orig_old_id USING btree (chap_id, old_id);
 
 
 --
--- Name: poll_answers_poll_id_user_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: poll_answers_poll_id_user_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX poll_answers_poll_id_user_id_idx ON poll_answers USING btree (poll_id, user_id);
 
 
 --
--- Name: recalc_log_book_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: recalc_log_book_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX recalc_log_book_id_idx ON recalc_log USING btree (book_id);
 
 
 --
--- Name: reg_invites_from_id_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: reg_invites_from_id_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX reg_invites_from_id_idx ON reg_invites USING btree (from_id);
 
 
 --
--- Name: search_history_lower_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: search_history_lower_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX search_history_lower_idx ON search_history USING btree (lower((request)::text));
 
 
 --
--- Name: seen_orig_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: seen_orig_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX seen_orig_id ON seen USING btree (orig_id, user_id);
 
 
 --
--- Name: seen_post_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: seen_post_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX seen_post_id ON seen USING btree (post_id, user_id);
 
 
 --
--- Name: seen_user_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: seen_user_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX seen_user_id ON seen USING btree (user_id);
 
 
 --
--- Name: tmp_dllog_chap_id_dat_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: tmp_dllog_chap_id_dat_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX tmp_dllog_chap_id_dat_idx ON tmp_dllog USING btree (chap_id, dat);
 
 
 --
--- Name: translate_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: translate_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX translate_book_id ON translate USING btree (book_id);
 
 
 --
--- Name: translate_chap_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: translate_chap_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX translate_chap_id ON translate USING btree (chap_id);
 
 
 --
--- Name: translate_orig_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: translate_orig_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX translate_orig_id ON translate USING btree (orig_id);
 
 
 --
--- Name: translate_user_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: translate_user_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX translate_user_id ON translate USING btree (user_id);
 
 
 --
--- Name: user_tr_stat_book_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: user_tr_stat_book_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE INDEX user_tr_stat_book_id ON user_tr_stat USING btree (book_id);
 
 
 --
--- Name: user_tr_stat_user_id; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: user_tr_stat_user_id; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX user_tr_stat_user_id ON user_tr_stat USING btree (user_id, book_id);
 
 
 --
--- Name: userinfo_pk; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: userinfo_pk; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX userinfo_pk ON userinfo USING btree (user_id, prop_id);
 
 
 --
--- Name: users_login_idx; Type: INDEX; Schema: public; Owner: notabenoid; Tablespace: 
+-- Name: users_login_idx; Type: INDEX; Schema: public; Tablespace: 
 --
 
 CREATE UNIQUE INDEX users_login_idx ON users USING btree (lower((login)::text));
 
 
 --
--- Name: ban_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: ban_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY ban
@@ -2246,7 +2079,7 @@ ALTER TABLE ONLY ban
 
 
 --
--- Name: blog_posts_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: blog_posts_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY blog_posts
@@ -2254,7 +2087,7 @@ ALTER TABLE ONLY blog_posts
 
 
 --
--- Name: blog_posts_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: blog_posts_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY blog_posts
@@ -2262,7 +2095,7 @@ ALTER TABLE ONLY blog_posts
 
 
 --
--- Name: book_ban_reasons_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: book_ban_reasons_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY book_ban_reasons
@@ -2270,7 +2103,7 @@ ALTER TABLE ONLY book_ban_reasons
 
 
 --
--- Name: bookmarks_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: bookmarks_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY bookmarks
@@ -2278,7 +2111,7 @@ ALTER TABLE ONLY bookmarks
 
 
 --
--- Name: bookmarks_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: bookmarks_orig_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY bookmarks
@@ -2286,7 +2119,7 @@ ALTER TABLE ONLY bookmarks
 
 
 --
--- Name: bookmarks_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: bookmarks_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY bookmarks
@@ -2294,7 +2127,7 @@ ALTER TABLE ONLY bookmarks
 
 
 --
--- Name: books_cat_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: books_cat_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY books
@@ -2302,7 +2135,7 @@ ALTER TABLE ONLY books
 
 
 --
--- Name: books_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: books_owner_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY books
@@ -2310,7 +2143,7 @@ ALTER TABLE ONLY books
 
 
 --
--- Name: books_s_lang_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: books_s_lang_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY books
@@ -2318,7 +2151,7 @@ ALTER TABLE ONLY books
 
 
 --
--- Name: books_t_lang_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: books_t_lang_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY books
@@ -2326,7 +2159,7 @@ ALTER TABLE ONLY books
 
 
 --
--- Name: catalog_pid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: catalog_pid_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY catalog
@@ -2334,7 +2167,7 @@ ALTER TABLE ONLY catalog
 
 
 --
--- Name: chapters_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: chapters_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY chapters
@@ -2342,7 +2175,7 @@ ALTER TABLE ONLY chapters
 
 
 --
--- Name: comments_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: comments_orig_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY comments
@@ -2350,7 +2183,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: comments_pid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: comments_pid_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY comments
@@ -2358,7 +2191,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: comments_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: comments_post_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY comments
@@ -2366,7 +2199,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: comments_rating_comment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: comments_rating_comment_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY comments_rating
@@ -2374,7 +2207,7 @@ ALTER TABLE ONLY comments_rating
 
 
 --
--- Name: comments_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: comments_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY comments_rating
@@ -2382,7 +2215,7 @@ ALTER TABLE ONLY comments_rating
 
 
 --
--- Name: comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY comments
@@ -2390,7 +2223,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: dict_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: dict_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY dict
@@ -2398,7 +2231,7 @@ ALTER TABLE ONLY dict
 
 
 --
--- Name: dict_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: dict_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY dict
@@ -2406,7 +2239,7 @@ ALTER TABLE ONLY dict
 
 
 --
--- Name: group_queue_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: group_queue_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY group_queue
@@ -2414,7 +2247,7 @@ ALTER TABLE ONLY group_queue
 
 
 --
--- Name: group_queue_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: group_queue_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY group_queue
@@ -2422,7 +2255,7 @@ ALTER TABLE ONLY group_queue
 
 
 --
--- Name: groups_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: groups_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY groups
@@ -2430,7 +2263,7 @@ ALTER TABLE ONLY groups
 
 
 --
--- Name: groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY groups
@@ -2438,7 +2271,7 @@ ALTER TABLE ONLY groups
 
 
 --
--- Name: invites_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: invites_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY invites
@@ -2446,7 +2279,7 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: invites_from_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: invites_from_uid_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY invites
@@ -2454,7 +2287,7 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: invites_to_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: invites_to_uid_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY invites
@@ -2462,7 +2295,7 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: karma_rates_from_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: karma_rates_from_uid_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY karma_rates
@@ -2470,7 +2303,7 @@ ALTER TABLE ONLY karma_rates
 
 
 --
--- Name: karma_rates_to_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: karma_rates_to_uid_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY karma_rates
@@ -2478,7 +2311,7 @@ ALTER TABLE ONLY karma_rates
 
 
 --
--- Name: marks_tr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: marks_tr_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY marks
@@ -2486,7 +2319,7 @@ ALTER TABLE ONLY marks
 
 
 --
--- Name: marks_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: marks_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY marks
@@ -2494,7 +2327,7 @@ ALTER TABLE ONLY marks
 
 
 --
--- Name: moder_book_cat_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: moder_book_cat_book_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY moder_book_cat
@@ -2502,7 +2335,7 @@ ALTER TABLE ONLY moder_book_cat
 
 
 --
--- Name: notices_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: notices_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY notices
@@ -2510,7 +2343,7 @@ ALTER TABLE ONLY notices
 
 
 --
--- Name: orig_chap_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: orig_chap_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY orig
@@ -2518,7 +2351,7 @@ ALTER TABLE ONLY orig
 
 
 --
--- Name: poll_answers_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: poll_answers_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY poll_answers
@@ -2526,7 +2359,7 @@ ALTER TABLE ONLY poll_answers
 
 
 --
--- Name: reg_invites_from_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: reg_invites_from_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY reg_invites
@@ -2534,7 +2367,7 @@ ALTER TABLE ONLY reg_invites
 
 
 --
--- Name: reg_invites_to_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: reg_invites_to_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY reg_invites
@@ -2542,7 +2375,7 @@ ALTER TABLE ONLY reg_invites
 
 
 --
--- Name: remind_tokens_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: remind_tokens_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY remind_tokens
@@ -2550,7 +2383,7 @@ ALTER TABLE ONLY remind_tokens
 
 
 --
--- Name: seen_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: seen_orig_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY seen
@@ -2558,7 +2391,7 @@ ALTER TABLE ONLY seen
 
 
 --
--- Name: seen_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: seen_post_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY seen
@@ -2566,7 +2399,7 @@ ALTER TABLE ONLY seen
 
 
 --
--- Name: seen_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: seen_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY seen
@@ -2574,7 +2407,7 @@ ALTER TABLE ONLY seen
 
 
 --
--- Name: translate_chap_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: translate_chap_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY translate
@@ -2582,7 +2415,7 @@ ALTER TABLE ONLY translate
 
 
 --
--- Name: translate_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: translate_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY translate
@@ -2590,7 +2423,7 @@ ALTER TABLE ONLY translate
 
 
 --
--- Name: userinfo_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: userinfo_user_id_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY userinfo
@@ -2598,7 +2431,7 @@ ALTER TABLE ONLY userinfo
 
 
 --
--- Name: users_invited_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: users_invited_by_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY users
@@ -2606,7 +2439,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_lang_fkey; Type: FK CONSTRAINT; Schema: public; Owner: notabenoid
+-- Name: users_lang_fkey; Type: FK CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY users
