@@ -2,8 +2,8 @@
 if (! function_exists('bold_if_nonzero')){
     function bold_if_nonzero($t)
     {
-        if ($t != 0) return " <b>({$t})</b>";
-        else return " <b></b>";
+        if ($t != 0) return " <b class='nbItems'>({$t})</b>";
+        return "";
     }
 }
 
@@ -17,22 +17,10 @@ Yii::app()->bootstrap->registerModal();
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?php echo $this->pageTitle != "" ? ($this->pageTitle . " :: ") : ""; ?><?= Yii::app()->name; ?></title>
-    <meta name="description" content="Коллективные переводы субтитров и книжек"/>
-    <meta name="language" content="ru"/>
-    <meta name="keywords"
-          content="перевод, translation, коллективный перевод, кино с субтитрами, кино по-английски с русскими субтитрами, кино по-немецки с русскими субтитрами, кино по-испански с русскими субтитрами, примеры перевода, краудсорсинг, crowdsourcing, нотабеноид"/>
+    <meta name="description" content="Коллективни преводи на текстове и субтитри"/>
     <link rel='icon' href='/i/favicon.ico' type='image/x-icon'>
     <link rel='shortcut icon' href='/i/favicon.ico' type='image/x-icon'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <!--[if IE]>
-    <script type="text/javascript" src="/js/jquery.input-placeholder.js"></script>
-    <link rel='stylesheet' href="/css/jquery.input-placeholder.css"/>
-    <script type="text/javascript">
-        $(function () {
-            $('input[placeholder]').inputDefault();
-        });
-    </script>
-    <![endif]-->
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -44,11 +32,11 @@ Yii::app()->bootstrap->registerModal();
         </a>
         <nav>
             <ul id="header-menu">
-                <li><a href="/catalog/2">Текстове</a></li>
-                <li><a href="/catalog/1">Субтитри</a></li>
-                <li><a href="/users">Преводачи</a></li>
+                <li><a href="/catalog/2"><span class="fa fa-book"></span> Текстове</a></li>
+                <li><a href="/catalog/1"><span class="fa fa-film"></span> Субтитри</a></li>
+                <li><a href="/users"><span class="fa fa-users"></span> Преводачи</a></li>
 <!--                <li><a href="/blog">Блог</a></li>-->
-                <li><a href="/announces">Новини</a></li>
+                <li><a href="/announces"><span class="fa fa-globe"></span> Новини</a></li>
                 <li class="search">
                     <form class="form-search" method="get" action="/search">
                         <input type="hidden" name="from" value="header">
@@ -75,26 +63,36 @@ Yii::app()->bootstrap->registerModal();
                 <?php else: ?>
                     <li>
                         <a href="<?= Yii::app()->user->url; ?>" accesskey="i">
-                            <strong><?= Yii::app()->user->login; ?></strong>
+							<span class="fa fa-user"></span>
+							<?= Yii::app()->user->login; ?>
                         </a>
                     </li>
                     <li id="hm-c">
                         <a href="/my/comments" accesskey="c">
-                            <strong>Коментари <?php echo bold_if_nonzero(Yii::app()->user->newComments); ?></strong>
+							<span class="fa fa-comments"></span>
+                            Коментари <?php echo bold_if_nonzero(Yii::app()->user->newComments); ?>
                         </a>
                     </li>
                     <li id="hm-n">
                         <a href="/my/notices" accesskey="n">
-                            <strong>Известия <?php echo bold_if_nonzero(Yii::app()->user->newNotices); ?></strong>
+							<span class="fa fa-inbox"></span>
+                            Известия <?php echo bold_if_nonzero(Yii::app()->user->newNotices); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#" data-toggle="modal" data-target="#bookmarks" accesskey="b">
-                            <strong>Отметки</strong>
+							<span class="fa fa-bookmark"></span>
+                            Отметки
                         </a>
                     </li>
-                    <li><a href="/book/0/edit"><strong>Нов превод</strong></a></li>
-                    <li><a href="/register/settings"><strong>Настройки</strong></a></li>
+                    <li><a href="/book/0/edit">
+							<span class="fa fa-plus"></span>
+							Нов превод
+						</a></li>
+                    <li><a href="/register/settings">
+							<span class="fa fa-cogs"></span>
+							Настройки
+						</a></li>
 <!--                    <li><a href="/register/logout"><strong>Выход</strong> До свидания :(</a></li>-->
                 <?php endif ?>
             </ul>
