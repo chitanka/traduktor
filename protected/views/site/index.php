@@ -139,7 +139,7 @@
 <div class="row">
 	<div id="f-announces" class="span7">
 		<h2>
-			Новини относно преводите
+			Анонси относно преводите
 		</h2>
 		<?php
 			foreach($announces as $announce) {
@@ -147,7 +147,7 @@
 			}
 		?>
 		<p class="links">
-			&rarr; <a href="/announces">всички новини</a>
+			&rarr; <a href="/announces">всички анонси</a>
 		</p>
 	</div>
 <!--	<div id="f-blog" class="span5">-->

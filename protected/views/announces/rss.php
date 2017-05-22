@@ -7,9 +7,9 @@ echo "<?xml version=\"1.0\"?>";
 ?>
 <rss version="2.0">
 	<channel>
-		<title>Анонсы <?=Yii::app()->name; ?></title>
+		<title>Анонси относно <?=Yii::app()->name; ?></title>
 		<link>http://<?=Yii::app()->params["domain"]; ?>/announce/</link>
-		<description>Анонсы переводов на сайте <?=Yii::app()->name; ?></description>
+		<description>Анонси относно преводите в <?=Yii::app()->name; ?></description>
 		<language>ru</language>
 		<pubDate><?=$announces[0]->cdate; ?></pubDate>
 

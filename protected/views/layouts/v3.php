@@ -36,7 +36,7 @@ Yii::app()->bootstrap->registerModal();
                 <li><a href="/catalog/1"><span class="fa fa-film"></span> Субтитри</a></li>
                 <li><a href="/users"><span class="fa fa-users"></span> Преводачи</a></li>
 <!--                <li><a href="/blog">Блог</a></li>-->
-                <li><a href="/announces"><span class="fa fa-globe"></span> Новини</a></li>
+                <li><a href="/announces"><span class="fa fa-globe"></span> Анонси</a></li>
                 <li class="search">
                     <form class="form-search" method="get" action="/search">
                         <input type="hidden" name="from" value="header">

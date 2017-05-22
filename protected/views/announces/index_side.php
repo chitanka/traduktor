@@ -4,7 +4,7 @@
  */
 ?>
 <div class="tools">
-	<h5>Анонсы переводов</h5>
+	<h5>Анонси относно преводите</h5>
 
 	<?php
 	/** @var TbActiveForm $form */

@@ -181,19 +181,19 @@ class AnnouncesController extends BookBaseController {
 		$book = $this->loadBook($book_id);
 
 		if(!$book->can("announce") && !Yii::app()->user->can("blog_moderate")) {
-			throw new CHttpException(403, "Вы не можете анонсировать этот перевод. " . $book->getWhoCanDoIt("announce"));
+			throw new CHttpException(403, "Не може да пускате анонс относно този превод. " . $book->getWhoCanDoIt("announce"));
 		}
 
 		if($post_id != 0) {
 			$post = Announce::model()->findByPk($post_id, "t.topics BETWEEN 80 AND 89 AND book_id = :book_id", array(":book_id" => $book->id));
-			if(!$post) throw new CHttpException(404, "Анонса не существует. Возможно, его удалили.");
+			if(!$post) throw new CHttpException(404, "Този анонс не съществува. Вероятно вече е бил изтрит.");
 		} else {
 			$post = new Announce();
 			$post->user_id = Yii::app()->user->id;
 			$post->book_id = $book->id;
 			$post->cdate = date("Y-m-d H:i:s");
 			if($post->wasToday) {
-				Yii::app()->user->setFlash("warning", "Внимание! <span title='По московскому времени'>Сегодня</span> уже был опубликован анонс этого перевода. Вы сможете разместить следующий анонс только завтра.");
+				Yii::app()->user->setFlash("warning", "Внимание! <span title='Българско време'>Днес</span> вече е бил публикуван анонс относно този превод. Следващият анонс може да бъде пуснат едва утре.");
 			}
 		}
 		$post->book = $book;
@@ -218,13 +218,13 @@ class AnnouncesController extends BookBaseController {
 		$this->loadBook($book_id);
 
 		if(!Yii::app()->user->can("blog_moderate")) {
-			throw new CHttpException(403, "Только модераторы блогов Нотабеноида могут удалять анонсы.");
+			throw new CHttpException(403, "Само модераторите на блогове могат да изтриват анонси.");
 		}
 
 		if(!$_POST["really"]) $this->redirect($this->book->getUrl("announces"));
 
 		$post = BlogPost::model()->findByPk($post_id, "t.topics BETWEEN 80 AND 89 AND t.book_id = :book_id", array(":book_id" => $this->book->id));
-		if(!$post) throw new CHttpException(404, "Анонса не существует. Возможно, его уже удалили.");
+		if(!$post) throw new CHttpException(404, "Този анонс не съществува. Вероятно вече е бил изтрит.");
 		$post->book = $this->book;
 
 		$post->delete();

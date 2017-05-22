@@ -35,15 +35,15 @@ echo CHtml::errorSummary($user, "<div class='alert alert-box alert-danger'>", "<
 		<div class="controls">
 			<?php
 			$abilities = [
-				User::CAN_LOGIN    => "Логиниться",
-				User::CAN_RATE     => "Ставить оценки переводам",
-				User::CAN_COMMENT  => "Писать комментарии в блоге",
-				User::CAN_PMAIL    => "Писать письма",
-				User::CAN_POST     => "Писать посты в блоге",
-				User::CAN_MODERATE => "Модерировать блог",
-				User::CAN_TRANSLATE    => "Переводить",
-				User::CAN_CREATE_BOOKS => "Создавать переводы",
-				User::CAN_ANNOUNCE     => "Создавать анонсы",
+				User::CAN_LOGIN    => "Да влизат",
+				User::CAN_RATE     => "Да поставят оценки на преводите",
+				User::CAN_COMMENT  => "Да оставят коментари в блога",
+				User::CAN_PMAIL    => "Да пишат писма",
+				User::CAN_POST     => "Да пишат постове в блога",
+				User::CAN_MODERATE => "Да модерират блога",
+				User::CAN_TRANSLATE    => "Да превеждат",
+				User::CAN_CREATE_BOOKS => "Да създават преводи",
+				User::CAN_ANNOUNCE     => "Да създават анонси",
 			];
 			foreach($abilities as $i => $title) {
 				echo "<label class='checkbox'>";

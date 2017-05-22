@@ -5,7 +5,7 @@
 		->registerScriptFile("/js/ff_comments.js?3")
 		->registerScriptFile("/js/blog.js");
 
-	$this->pageTitle = $post->title . ": блог перевода " . $book->fullTitle;
+	$this->pageTitle = $post->title . ": блог на превода " . $book->fullTitle;
 ?>
 
 <script type='text/javascript'>
@@ -15,17 +15,17 @@
 </script>
 
 <ul class='nav nav-tabs'>
-	<li><a href='<?=$book->url; ?>/'>оглавление</a></li>
-	<li><a href='<?=$book->getUrl("members"); ?>'>переводчики</a></li>
+	<li><a href='<?=$book->url; ?>/'>съдържание</a></li>
+	<li><a href='<?=$book->getUrl("members"); ?>'>преводачи</a></li>
 	<li class='active'><a href='<?=$book->getUrl("blog"); ?>'>блог</a></li>
-	<li><a href='<?=$book->getUrl("announces"); ?>'>анонсы</a></li>
+	<li><a href='<?=$book->getUrl("announces"); ?>'>анонси</a></li>
 </ul>
 
 <?php
 	$this->renderPartial("//blog/_post", array("post" => $post, "placement" => "post", "has" => array("bookLink" => false)));
 ?>
 
-<a name="Comments"></a><h2>Комментарии</h2>
+<a name="Comments"></a><h2>Коментари</h2>
 <div class='comments'>
 	<?php
 		$view = Yii::app()->user->ini["t.iface"] == 1 ? "//blog/_comment-1" : "//blog/_comment";

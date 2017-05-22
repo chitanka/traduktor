@@ -4,12 +4,12 @@
 	 * @var Announce[] $announces
 	 */
 
-	$this->pageTitle = "Анонсы переводов";
+	$this->pageTitle = "Анонси относно преводите";
 
 	$announces = $dp->getData();
 ?>
 
-<h1>Анонсы переводов</h1>
+<h1><?= $this->pageTitle ?></h1>
 
 <div id="Announces">
 <?php
