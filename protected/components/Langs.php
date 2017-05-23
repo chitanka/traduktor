@@ -81,7 +81,7 @@
 					$ret .= " &rarr; " . mb_substr($this->Langs[$to_lang_id][self::FORM_INF], 0, 3);
 				}
 			} else {
-				$ret = "";
+				$ret = "от ";
 				$ret .= $this->Langs[$from_lang_id][self::FORM_GEN] . " на ";
 				if($to_lang_id == 0) $ret .= "всички езици";
 				else $ret .= $this->Langs[$to_lang_id][self::FORM_INF];
