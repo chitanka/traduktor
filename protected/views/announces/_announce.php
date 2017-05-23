@@ -22,17 +22,17 @@
 				echo Yii::app()->params["book_types"][$announce->book->typ] . " ";
 				echo Yii::app()->langs->from_to($announce->book->s_lang, $announce->book->t_lang) . " ";
 				echo " от " . $announce->book->owner->ahref;
-				if($announce->book->cat_id) echo " в разделе &laquo;<a href='/search?cat={$announce->book->cat_id}'>{$announce->book->cat->title}</a>&raquo;";
+				if($announce->book->cat_id) echo " в раздела „<a href='/search?cat={$announce->book->cat_id}'>{$announce->book->cat->title}</a>“";
 
 				echo "<span class='cmt'>";
 				if($announce->n_comments > 0) {
 					if($announce->n_new_comments) {
-						echo "<a href='{$announce->url}#Comments' title='Комментариев: {$announce->n_comments}, новых: {$announce->n_new_comments}'><i class='icon-nb-comment new'></i> {$announce->seen->n_comments}+{$announce->n_new_comments}</a> ";
+						echo "<a href='{$announce->url}#Comments' title='Коментари: {$announce->n_comments}, новых: {$announce->n_new_comments}'><i class='icon-nb-comment new'></i> {$announce->seen->n_comments}+{$announce->n_new_comments}</a> ";
 					} else {
-						echo "<a href='{$announce->url}#Comments' title='Комментариев: {$announce->n_comments}'><i class='icon-nb-comment'></i> {$announce->n_comments}</a> ";
+						echo "<a href='{$announce->url}#Comments' title='Коментари: {$announce->n_comments}'><i class='icon-nb-comment'></i> {$announce->n_comments}</a> ";
 					}
 				} else {
-					if(!Yii::app()->user->isGuest) echo "<a href='{$announce->url}#Comments' title='Написать комментарий'><i class='icon-nb-comment'></i></a> ";
+					if(!Yii::app()->user->isGuest) echo "<a href='{$announce->url}#Comments' title='Напишете коментар'><i class='icon-nb-comment'></i></a> ";
 				}
 				echo "</span> ";
 			?>
