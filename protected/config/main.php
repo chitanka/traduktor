@@ -1,7 +1,7 @@
 <?php
 return CMap::mergeArray(array(
 	"basePath" => __DIR__.DIRECTORY_SEPARATOR."..",
-	"name" => "Преводачница",
+	"name" => "Дачко",
 	"language" => "bg",
 	"sourceLanguage" => "en",
 

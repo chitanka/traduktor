@@ -26,7 +26,6 @@ h2 .cog {
 #f-hot ul.imged li:hover p.info { border-bottom: 1px dotted #bbb; margin-bottom: 8px;}
 #f-hot ul.imged li p.info .r {float:right;}
 
-#f-about p, #f-about .hero li {font-size:11px;}
 #f-about .hero {
 	border: 1px solid #ccc;
 	border-radius: 20px;
