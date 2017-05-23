@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = "Настройки сайта";
+	$this->pageTitle = "Настройки на сайта";
 
 	Yii::app()->clientScript
 		->registerCssFile("/css/jPicker-1.1.6.css")
@@ -71,21 +71,21 @@ $(function() {
 //?>
 <!--</fieldset>-->
 
-<h3>Внешний вид:</h3>
+<h3>Външен вид:</h3>
 <p>
-	Вы можете настроить цвет фона, текста и размер шрифта на страницах сайта. Это &ndash; экспериментальная функция,
-	используйте её на свой страх и риск. Все настройки сохраняются только на этом компьютере.
+	Можете да настроите цвета на фона, текста и размерът на шрифта на страницата. Това е експериментална функция,
+	така че я използвайте на собствена отговорност. Всички настройки се съхраняват само на вашия компютър.
 </p>
 <fieldset>
 	<div class="control-group">
-		<label class="control-label">Цвет фона страниц</label>
+		<label class="control-label">Цвят на фона на стрницата</label>
 		<div class="controls">
 			<input type="text" name="ini[l][bgcolor]" value="<?=htmlspecialchars($user->ini["l.bgcolor"]); ?>" class="colorpicker" />
-			<button type="button" class="btn" onclick="restore()">Вернуть значения по умолчанию</button>
+			<button type="button" class="btn" onclick="restore()">Върни стойността по подразбиране</button>
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label">Цвет текста</label>
+		<label class="control-label">Цвят на текста</label>
 		<div class="controls">
 			<input type="text" name="ini[l][color]" value="<?=htmlspecialchars($user->ini["l.color"]); ?>" class="colorpicker" />
 		</div>
@@ -95,7 +95,7 @@ $(function() {
 		<div class="controls">
 			<select name="ini[l][metascheme]" class="span4">
 			<?php
-				$A = [0 => "Светлые, сереют под курсором", 1 => "Всегда серые", 2 => "Серые, чернеют под курсором", 3 => "Всегда чёрные"];
+				$A = [0 => "Светли, посивяват под курсора", 1 => "Винаги сиви", 2 => "Сиви, почерняват под курсора", 3 => "Винаги черни"];
 				foreach($A as $k => $v) {
 					echo "<option value='{$k}'" . ($user->ini["l.metascheme"] == $k ? " selected" : "") . ">{$v}</option>";
 				}
@@ -104,24 +104,24 @@ $(function() {
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label">Размер шрифта</label>
+		<label class="control-label">Размер на шрифта</label>
 		<div class="controls">
 			<input type="text" name="ini[l][fontsize]" value="<?=htmlspecialchars($user->ini["l.fontsize"]); ?>" /> px
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label">Высота строки</label>
+		<label class="control-label">Височина на реда</label>
 		<div class="controls">
 			<input type="text" name="ini[l][lineheight]" value="<?=htmlspecialchars($user->ini["l.lineheight"]); ?>" /> px
 		</div>
 	</div>
 
 	<div class="control-group">
-		<label class="control-label">Интерфейс перевода</label>
+		<label class="control-label">Интерфейс на перевода</label>
 		<div class="controls">
 			<select name="ini[t][iface]">
 				<?php
-					$A = array(0 => "им. Поля Дирака", 1 => "им. Питера Хиггса (тестируется)");
+					$A = array(0 => "Пол Дирак", 1 => "Питър Хигс (тестов)");
 					foreach($A as $k => $v) {
 						echo "<option value='{$k}'" . ($user->ini["t.iface"] == $k ? " selected" : "") . ">{$v}</option>";
 					}
@@ -132,7 +132,7 @@ $(function() {
 
 	<?php if($user->ini["t.iface"] == 1): ?>
 		<div class="control-group" id="nc-controls">
-			<label class="control-label">Выделение новых комментариев</label>
+			<label class="control-label">Отбелязване на нови коментари</label>
 			<div class="controls">
 				<?php
 					foreach(WebUserIni::$newCommentsSchemes as $id => $scheme) {
@@ -148,11 +148,10 @@ $(function() {
 		<div id="nc-demo" class="comments <?php echo "demo-{$user->ini["c.sc"]}"; ?>">
 		<?php
 			$comments = array(
-				array("text" => "Люк!\nЯ &mdash; твой отец!", "login" => "darth_vader"),
-				array("text" => "Без булдырабыз!", "login" => "mintimer"),
+				array("text" => "Люк, аз съм баща ти!", "login" => "darth_vader"),
 				array("text" => "Viva la revolucion!", "login" => "4e"),
-				array("text" => "Я этого никогда не говорил.", "login" => "1stein"),
-				array("text" => "Мои лучшие друзья &mdash; девушки!.", "login" => "aLmAzIk1997"),
+				array("text" => "Никога не съм казвал това.", "login" => "1stein"),
+				array("text" => "Най-добрите ми приятели са девойките!.", "login" => "aLmAzIk1997"),
 			);
 
 			$comment = new Comment();
@@ -173,10 +172,10 @@ $(function() {
 		</div>
 
 		<div class="control-group">
-			<div class="control-label">Как выделять итоговые варианты перевода:</div>
+			<div class="control-label">Маркиране крайните варианти на превода:</div>
 			<div class="controls">
 				<?php
-					$A = [0 => "Никак", 1 => "Козявкой в правом верхнем углу", 2 => "Жирным шрифтом"];
+					$A = [0 => "Никак", 1 => "Отметка в горния десен ъгъл", 2 => "Удебелен шрифт"];
 					foreach($A as $k => $v) {
 						echo "<label class='radio'>";
 						echo "<input type='radio' name='ini[t][hlr]' value='{$k}' " . ($k == $user->ini["t.hlr"] ? "checked " : "") . "/> {$v}";
@@ -192,14 +191,14 @@ $(function() {
 </fieldset>
 
 
-<h3>Изменить пол:</h3>
+<h3>Променете пола:</h3>
 <fieldset>
 <?php
-	echo $form->radioButtonListInlineRow($model, "sex", array("m" => "мужчина", "f" => "женщина", "x" => "не скажу"));
+	echo $form->radioButtonListInlineRow($model, "sex", array("m" => "мъж", "f" => "жена", "x" => "не казвам"));
 ?>
 </fieldset>
 
-<h3>Почтовые голуби:</h3>
+<h3>Пощенски гълъби:</h3>
 <fieldset>
 <?php
 	echo $form->textFieldRow($model, "email");
@@ -208,10 +207,10 @@ $(function() {
 <div class="controls">
 <?php
 	$set_ini = array(
-		User::INI_MAIL_PMAIL => "личные сообщения",
-		User::INI_MAIL_NOTICES => "оповещения",
-		User::INI_MAIL_COMMENTS => "комментарии в ваших постах и ответы на ваши комментарии",
-		User::INI_MAIL_NEWS => "важные новости сайта",
+		User::INI_MAIL_PMAIL => "лични съобщения",
+		User::INI_MAIL_NOTICES => "оповестявания",
+		User::INI_MAIL_COMMENTS => "коментари във ваши постове и отговори на ваши коментари",
+		User::INI_MAIL_NEWS => "важни новини на сайта",
 	);
 	foreach($set_ini as $k => $label) {
 		echo "<label class='checkbox'>";
@@ -222,7 +221,7 @@ $(function() {
 </div></div>
 </fieldset>
 
-<h3>Прочее</h3>
+<h3>И още:</h3>
 <fieldset>
 <?php
 	echo $form->checkBoxRow($model, "set_ini[" . User::INI_ADDTHIS_OFF . "]");
@@ -231,7 +230,7 @@ $(function() {
 
 <div class="form-actions">
 <?php
-	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Сохранить", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запиши", array("type" => "submit", "class" => "btn btn-primary")) . " ";
 ?>
 
 </div>
