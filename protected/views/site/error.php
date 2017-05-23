@@ -1,14 +1,14 @@
 <?php
-	$this->pageTitle="Ошибка {$code}";
+	$this->pageTitle="Грешка {$code}";
 
 	$codes = array(
-		"404" => "Страница не найдена",
-		"403" => "Доступ запрещён",
-		"500" => "Системная ошибка"
+		"404" => "Страницата не е намерена",
+		"403" => "Забранен достъп",
+		"500" => "Системна грешка"
 	);
 ?>
 <div class="errorpage">
-	<h1><?php echo isset($codes[$code]) ? $codes[$code]: "Ошибка {$code}"; ?></h1>
+	<h1><?php echo isset($codes[$code]) ? $codes[$code]: "Грешка {$code}"; ?></h1>
 	<?php
 		$p = new CHtmlPurifier();
 		$p->options = Yii::app()->params["HTMLPurifierOptions"];
