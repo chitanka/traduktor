@@ -33,10 +33,10 @@ class WebUserIni implements ArrayAccess, Serializable {
 	);
 
 	public static $newCommentsSchemes = array(
-		0 => array("_title" => "Тэд Мосби",          "backGround" => "#AAD7EE", "metaColor" => "#656B6A"),
-		1 => array("_title" => "Магистр Йода",       "backGround" => "#C7C77A", "metaColor" => "#6B664C"),
-		4 => array("_title" => "Мистер Бин",         "backGround" => "#cccccc", "metaColor" => "#777777"),
-		3 => array("_title" => "Дейнерис Таргариен", "backGround" => "#FFFFBF", "metaColor" => "#B5AB77"),
+		0 => array("_title" => "Тед Мосби",          "backGround" => "#AAD7EE", "metaColor" => "#656B6A"),
+		1 => array("_title" => "Майстор Йода",       "backGround" => "#C7C77A", "metaColor" => "#6B664C"),
+		4 => array("_title" => "Мистър Бийн",         "backGround" => "#cccccc", "metaColor" => "#777777"),
+		3 => array("_title" => "Денерис Таргариен", "backGround" => "#FFFFBF", "metaColor" => "#B5AB77"),
 		2 => array("_title" => "Константин Кинчев",	 "backGround" => "#38100A", "textColor" => "#f00", "metaColor" => "#920000"),
 	);
 
@@ -215,22 +215,22 @@ class WebUser extends CWebUser {
 
 	private static $roles = [
 		// Модераторы блога
-		"blog_moderate" => ["Борислав" => 1],
-		"blog_topic_moderate" => ["Борислав" => 1],
+		"blog_moderate" => ["Борислав" => 1, 'Mandor' => 1],
+		"blog_topic_moderate" => ["Борислав" => 1, 'Mandor' => 1],
 
 		// Модераторы каталога
-		"cat_moderate" => ["Борислав" => 1],
+		"cat_moderate" => ["Борислав" => 1, 'Mandor' => 1],
 
 		// Бета-тестеры новых хуен
 		"betatest" => [
-			"Борислав" => 1,
+			"Борислав" => 1, 'Mandor' => 1
 		],
 
 		// Программисты, сисадмины - доступ к технической информации и её редактирование
-		"geek" => ["Борислав" => 1],
+		"geek" => ["Борислав" => 1, 'Mandor' => 1],
 
 		// Суперадмины
-		"admin" => ["Борислав" => 1],
+		"admin" => ["Борислав" => 1, 'Mandor' => 1],
 	];
 
 	public function can($role) {

@@ -47,7 +47,7 @@ $(function() {
 });
 </script>
 
-<h1>Настройки сайта</h1>
+<h1><?= $this->pageTitle ?></h1>
 
 <?php
 	/** @var TbActiveForm $form */
@@ -151,7 +151,7 @@ $(function() {
 				array("text" => "Люк, аз съм баща ти!", "login" => "darth_vader"),
 				array("text" => "Viva la revolucion!", "login" => "4e"),
 				array("text" => "Никога не съм казвал това.", "login" => "1stein"),
-				array("text" => "Най-добрите ми приятели са девойките!.", "login" => "aLmAzIk1997"),
+				array("text" => "Най-добрите ми приятели са девойките!", "login" => "aLmAzIk1997"),
 			);
 
 			$comment = new Comment();

@@ -61,12 +61,12 @@ class UserSettings extends User {
 
 	public function attributeLabels() {
 		return array(
-			"old_pass" => "Старый пароль",
-			"new_pass" => "Новый пароль",
-			"new_pass2" => "Ещё раз",
-			"sex" => "Итак, я &mdash;",
-			"email" => "Присылать на почту",
-			"set_ini[" . User::INI_ADDTHIS_OFF . "]" => "не показывать кнопку для добавления в социальные сети и закладки",
+			"old_pass" => "Стара парола",
+			"new_pass" => "Нова парола",
+			"new_pass2" => "Още веднъж",
+			"sex" => "Аз съм",
+			"email" => "Пращане по пощата",
+			"set_ini[" . User::INI_ADDTHIS_OFF . "]" => "да не се показват бутони за социални мрежи",
 		);
 	}
 
