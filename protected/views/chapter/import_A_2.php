@@ -4,7 +4,7 @@
 	 * @var Chapter $chap
 	 */
 
-	$this->pageTitle = "Импортировать текст в перевод {$chap->book->fullTitle}";
+	$this->pageTitle = "Вмъкване на текст при превода „{$chap->book->fullTitle}“";
 ?>
 <style type="text/css">
 	#TextSource_text {height:200px;}
@@ -57,7 +57,7 @@ var C = {
 			html2 += $(this).outerHTML();
 		});
 
-		p.replaceWith("<p>" + html1 + " <a href='#' class='glue'>(склеить)</a> <a href='#' class='rm'>(удалить)</a></p><p>" + html2 + "</p>");
+		p.replaceWith("<p>" + html1 + " <a href='#' class='glue'>(залепване)</a> <a href='#' class='rm'>(изтриване)</a></p><p>" + html2 + "</p>");
 		C.check_lengths();
 	},
 	glue: function(e) {
@@ -101,13 +101,13 @@ var C = {
 }
 $(C.init);
 </script>
-<h1>Импортировать текст</h1>
+<h1>Вмъкване на текст</h1>
 <p>
-	Перевод: <?=$chap->book->ahref; ?>, <?=$chap->ahref; ?>
+	Превод: <?=$chap->book->ahref; ?>, <?=$chap->ahref; ?>
 </p>
 
 <p class="help-block">
-	Кликами мыши разбейте текст на удобные для перевода фрагменты. Имейте в виду, что одна глава не может содержать более 4000 фрагментов.
+	Чрез щракване върху определена дума можете да разделите текста на удобни за превод фрагменти. Имайте предвид, че една глава не може да съдържа повече от 4000 фрагмента.
 </p>
 
 <form method='post' id='form-chop-text' action="<?=$chap->getUrl("import_text_save"); ?>">
@@ -123,8 +123,8 @@ $(C.init);
 
 		echo "<p{$class}>";
 		echo nl2br($p);
-		echo "<a href='#' class='glue'>(склеить)</a> ";
-		echo "<a href='#' class='rm'>(удалить)</a> ";
+		echo "<a href='#' class='glue'>(залепване)</a> ";
+		echo "<a href='#' class='rm'>(изтриване)</a> ";
 		echo "</p>";
 	}
 ?>
@@ -136,7 +136,7 @@ $(C.init);
 		Назад
 	</button>
 	<button type="button" class="btn btn-primary pull-right save" onclick="C.save()">
-		Сохранить
+		Запис
 		<i class="icon-arrow-right icon-white"></i>
 	</button>
 </div>

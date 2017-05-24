@@ -78,7 +78,7 @@
 		if($book->cat_id || $book->can("book_edit")) {
 			echo "<p class='cat'>";
 			if($book->cat_id) echo "<a href='{$book->cat->url}'>{$book->cat->pathHtml}</a>";
-			if($book->can("book_edit") || Yii::app()->user->can("cat_moderate")) echo "<span> &larr; <a href='" . $book->getUrl("edit/cat") . "' class='act'>указать раздел каталога</a></span>";
+			if($book->can("book_edit") || Yii::app()->user->can("cat_moderate")) echo "<span> &larr; <a href='" . $book->getUrl("edit/cat") . "' class='act'>указване на раздел от каталога</a></span>";
 			echo "</p>";
 		}
 
@@ -98,12 +98,12 @@
 
 		// добавить главу
 		echo "<div class='btn-group'>";
-		echo "<a href='#' onclick='return CE.add(" . (count($chapters) == 0 ? 0 : 1) . ")' class='btn btn-small'><i class='icon-plus'></i> Добавить главу</a>";
+		echo "<a href='#' onclick='return CE.add(" . (count($chapters) == 0 ? 0 : 1) . ")' class='btn btn-small'><i class='icon-plus'></i> Добавяне на глава</a>";
 		if(count($chapters) > 0) {
 			echo "<a href='#' class='btn btn-small dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></a>";
 			echo "<ul class='dropdown-menu'>";
-			echo "<li><a href='#' onclick='return CE.add(1)'>в конец</a></li>";
-			echo "<li><a href='#' onclick='return CE.add(-1)'>в начало</a></li>";
+			echo "<li><a href='#' onclick='return CE.add(1)'>в края</a></li>";
+			echo "<li><a href='#' onclick='return CE.add(-1)'>в началото</a></li>";
 			echo "</ul>";
 		}
 		echo "</div>";
@@ -111,10 +111,10 @@
 		// Tools
 		$Tools = array();
 		if(count($chapters) > 0) {
-			$Tools[] = array("#", "<i class='icon-random'></i> Изменить порядок глав", "onclick" => "return CE.reorder()");
+			$Tools[] = array("#", "<i class='icon-random'></i> Промяна на реда на главите", "onclick" => "return CE.reorder()");
 		}
-		$Tools[] = array($book->getUrl("recalc"), "<i class='icon-refresh'></i> Пересчитать статистику перевода");
-		if($book->can("dict_edit")) $Tools[] = array($book->getUrl("dict_copy"), "<i class='icon-book'></i> Скопировать словарь из другого перевода");
+		$Tools[] = array($book->getUrl("recalc"), "<i class='icon-refresh'></i> Преизчисляване на статистиката на превода");
+		if($book->can("dict_edit")) $Tools[] = array($book->getUrl("dict_copy"), "<i class='icon-book'></i> Копиране на речника на друг превод");
 		if(count($Tools) > 0) {
 			echo "<div class='btn-group'>";
 			echo "<a href='javascript:void()' class='btn btn-small'><i class='icon-wrench'></i></a>";
@@ -151,9 +151,9 @@
 <table class="table table-condensed table-striped" id="Chapters">
 <thead><tr>
 	<?php if($book->typ == "S") echo "<td></td>"; ?>
-	<th class='t'>Име</th>
-	<th title='Устанавливается <?php echo $book->ac_chap_edit == "m" ? "модераторами" : "владельцем"; ?>.' style='cursor:help;'>Статус</th>
-	<th title='Когда в последний раз была добавлена, удалена или отредактирована последняя версия перевода или изменился оригинальный текст.' style='cursor:help;'>Активность</th>
+	<th class='t'>Заглавие</th>
+	<th title='Променя се от <?php echo $book->ac_chap_edit == "m" ? "модераторите" : "собственика"; ?>.' style='cursor:help;'>Статус</th>
+	<th title='Когда в последний раз была добавлена, удалена или отредактирована последняя версия перевода или изменился оригинальный текст.' style='cursor:help;'>Активност</th>
 	<th title='Фрагментов переведено / всего. Наведите курсор на цифры, чтобы узнать Коэффициент Плюрализма, среднее количество вариантов перевода одного фрагмента.' style='cursor:help; text-align:center;' colspan='2'>Готово</th>
 	<?php if($book->can("chap_edit")) echo "<th class='e'></th>"; ?>
 </tr></thead>
@@ -165,7 +165,7 @@
 
 		if($book->typ == "S") {
 			echo "<td>";
-			if($chap->n_verses > 0) echo "<a href='" . $chap->getUrl("orig") . "' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a>";
+			if($chap->n_verses > 0) echo "<a href='" . $chap->getUrl("orig") . "' title='Сваляне на оригинала'>&laquo;&laquo;&laquo;</a>";
 			echo "</td>";
 		}
 
@@ -183,7 +183,7 @@
 
 		if($chap->n_verses == 0) {
 			echo "<td colspan='3'>";
-			if($book->can("chap_edit")) echo "<i class='icon-upload'></i> <a href='" . $chap->getUrl("import") . "'>импортировать оригинал</a>";
+			if($book->can("chap_edit")) echo "<i class='icon-upload'></i> <a href='" . $chap->getUrl("import") . "'>вмъкване на оригинала</a>";
 			else echo "(пусто)";
 			echo "</td>";
 		} else {
@@ -197,23 +197,23 @@
 
 			echo "<td>";
 			if($chap->n_vars > 0) {
-				$verb = $book->typ == "S" ? "скачать" : "читать";
+				$verb = $book->typ == "S" ? "сваляне" : "четене";
 				$tdl = " ";
 				if($chap->n_dl > 0) {
-					$tdl .= "Скачали: {$chap->n_dl} чел.";
-					if($chap->n_dl_today > 0) $tdl .= " (сегодня &ndash; {$chap->n_dl_today})";
+					$tdl .= "Брой сваляния: {$chap->n_dl}";
+					if($chap->n_dl_today > 0) $tdl .= " (днес &ndash; {$chap->n_dl_today})";
 				}
 				if($chap->can("gen")) {
-					echo "<a href='" . $chap->getUrl("ready") . "' class='act' title='Получить готовый перевод.{$tdl}'>{$verb}</a>";
+					echo "<a href='" . $chap->getUrl("ready") . "' class='act' title='Получаване на готовия превод.{$tdl}'>{$verb}</a>";
 				} else {
-					echo "<span class='disabled' title='Вы не можете скачивать перевод этой главы.{$tdl}'>{$verb}</span>";
+					echo "<span class='disabled' title='Нямате право да сваляте превода на тази глава.{$tdl}'>{$verb}</span>";
 				}
 			}
 			echo "</td>";
 		}
 
 		if($book->can("chap_edit")) {
-			echo "<td><a href='" . $chap->getUrl("edit") . "' onclick='return CE.ed({$chap->id})' title='Редактировать'><i class='icon-pencil'></i></a></td>";
+			echo "<td><a href='" . $chap->getUrl("edit") . "' onclick='return CE.ed({$chap->id})' title='Редактиране'><i class='icon-pencil'></i></a></td>";
 		}
 
 		echo "</tr>";

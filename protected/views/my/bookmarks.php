@@ -35,9 +35,9 @@ var E = {
 		var title = $li.find("a:first").text();
 		var html = "<form method='post' class='form-inline' id='form-ed' action='/my/bookmarks_edit?id=" + id + "'>" +
 			"<input type='text' name='Bookmark[title]' class='span4' /> " +
-			"<button type='submit' class='btn btn-primary'>Сохранить</button> " +
-			"<button type='button' class='btn btn-danger' onclick='E.rm()'>Удалить</button> " +
-			"<button type='button' class='btn' onclick='E.cancel()'>Отмена</button> " +
+			"<button type='submit' class='btn btn-primary'>Запис</button> " +
+			"<button type='button' class='btn btn-danger' onclick='E.rm()'>Изтриване</button> " +
+			"<button type='button' class='btn' onclick='E.cancel()'>Отмяна</button> " +
 			"</form>";
 		$li.html(html);
 		$("#form-ed [name=Bookmark\\[title\\]]").val(title).focus();

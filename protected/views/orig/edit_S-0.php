@@ -9,7 +9,7 @@
 		echo ".orig-editor textarea {width:500px; height:200px;}\n";
 		echo "</style>\n";
 
-		$title = ($orig->isNewRecord ? "Создать" : "Редактировать") . " субтитр";
+		$title = ($orig->isNewRecord ? "Създаване" : "Редактиране") . " на субтитри";
 		$this->pageTitle = $orig->chap->book->fullTitle . ": " . $orig->chap->title . ": " . $title;
 		echo "<h1>{$title}</h1>";
 	}
@@ -18,7 +18,7 @@
 	<form id='form-orig' method='post' action='<?=$orig->getUrl("edit"); ?>' class="form-inline">
 		<div class="control-group">
 			<label>Начало:</label> <input type="text" name="Orig[t1]" value="<?=htmlspecialchars($orig->t1); ?>" class="span2" placeholder="ЧЧ:ММ:СС.ддд" maxlength="12" />
-			<label>Конец:</label> <input type="text" name="Orig[t2]" value="<?=htmlspecialchars($orig->t2); ?>" class="span2" placeholder="ЧЧ:ММ:СС.ддд" maxlength="12" />
+			<label>Край:</label> <input type="text" name="Orig[t2]" value="<?=htmlspecialchars($orig->t2); ?>" class="span2" placeholder="ЧЧ:ММ:СС.ддд" maxlength="12" />
 		</div>
 
 		<div class="control-group">
@@ -26,9 +26,9 @@
 		</div>
 
 		<div class="control-group">
-			<button type='submit' class='btn btn-mini btn-primary'>Сохранить</button>
-			<?php if(!$orig->isNewRecord): ?><button type='button' class='btn btn-mini btn-danger remove'>Удалить</button><?php endif; ?>
-			<button type='button' class='btn btn-mini cancel' onclick="<?=$ajax ? "T.editing_stop()" : "location.href='{$orig->url}'"; ?>">Отмена</button>
+			<button type='submit' class='btn btn-mini btn-primary'>Запис</button>
+			<?php if(!$orig->isNewRecord): ?><button type='button' class='btn btn-mini btn-danger remove'>Изтриване</button><?php endif; ?>
+			<button type='button' class='btn btn-mini cancel' onclick="<?=$ajax ? "T.editing_stop()" : "location.href='{$orig->url}'"; ?>">Отмяна</button>
 		</div>
 	</form>
 </div>

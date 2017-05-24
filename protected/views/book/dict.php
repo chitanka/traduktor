@@ -5,7 +5,7 @@
  * @var boolean $ajax
  */
 
-	$this->pageTitle = $book->fullTitle . " - словарь";
+	$this->pageTitle = $book->fullTitle . " – речник";
 	if(!$ajax) $book->registerJS();
 ?>
 <style type="text/css">
@@ -38,7 +38,7 @@ var Dict = {
 	init: function() {
 		$("#dict-search-input").keyup(Dict.handlerSearch);
 		$("#Dict").delegate("a.e", "click", Dict.handlerEdit);
-		$("#Dict a.e").attr("title", "Редактировать");
+		$("#Dict a.e").attr("title", "Редактиране");
 	},
 	handlerSearch: function(e) {
 		var srch = $(this).val().toLowerCase();
@@ -80,12 +80,12 @@ var Dict = {
 		}
 
 		var html_dt = "<input type='hidden' name='id' value='" + id + "' />";
-		html_dt += "Слово: <input type='text' name='term' class='t' />";
+		html_dt += "Дума: <input type='text' name='term' class='t' />";
 
-		var html_dd = "Перевод: <input type='text' name='descr' class='t' /><br />" +
-			"<button type='submit' class='btn'>Сохранить</button> ";
-		if(id != 0) html_dd += "<button type='button' class='btn' onclick='Dict.rm()'>Удалить</button> ";
-		html_dd += "<button type='button' class='btn' onclick='Dict.cancel()'>Отмена</button>";
+		var html_dd = "Превод: <input type='text' name='descr' class='t' /><br />" +
+			"<button type='submit' class='btn'>Запис</button> ";
+		if(id != 0) html_dd += "<button type='button' class='btn' onclick='Dict.rm()'>Изтриване</button> ";
+		html_dd += "<button type='button' class='btn' onclick='Dict.cancel()'>Отмяна</button>";
 		$dt.addClass("editing").html(html_dt);
 		$dd.addClass("editing").html(html_dd);
 		$("#dict-ed-form [name='term']").val(term).focus();
@@ -118,7 +118,7 @@ var Dict = {
 		return false;
 	},
 	rm: function() {
-		if(!confirm("Вы уверены?")) return false;
+		if(!confirm("Уверени ли сте?")) return false;
 		$.ajax({
 			url: Book.url("dict_rm"),
 			type: "POST",
@@ -156,10 +156,10 @@ $(Dict.init);
 <ul class='nav nav-tabs'>
 	<li><a href='<?=$book->url; ?>/'>съдържание</a></li>
 	<li><a href='<?=$book->url("members"); ?>'>преводачи</a></li>
-<!--	<li><a href='--><?//=$book->url("blog"); ?><!--'>блог</a></li>-->
+	<li><a href='<?=$book->url("blog"); ?>'>блог</a></li>
 </ul>
 
-<h1><?=$book->fullTitle; ?> - речник</h1>
+<h1><?=$book->fullTitle; ?> – речник</h1>
 <?php endif; ?>
 
 <form class="form-inline">

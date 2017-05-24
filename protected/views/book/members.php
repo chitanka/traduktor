@@ -196,7 +196,7 @@ $(P.init);
 
 
 <?php if($this->book->can("membership") and $this->book->facecontrol != Book::FC_OPEN): ?>
-<h2>Пригласить переводчиков</h2>
+<h2>Покана на преводачи</h2>
 <?php if($this->book->n_invites <= 0) { ?>
 	<p class="info">
 		Сегодня вы больше не можете приглашать людей в этот перевод.
@@ -213,7 +213,7 @@ $(P.init);
 <?php } ?>
 
 <?php if($invited_dp->totalItemCount > 0) { ?>
-	<h3>Уже приглашены</h3>
+	<h3>Вече поканени</h3>
 	<p class="userlist">
 	<?php
 		$cnt = 0;

@@ -49,9 +49,9 @@
 
 <div class="form-actions">
 	<?php
-		echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Сохранить", array("type" => "submit", "class" => "btn btn-primary")) . " ";
-		echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмена", array("onclick" => "location.href='" . Yii::app()->user->url . "'", "class" => "btn btn-success")) . " ";
-		echo CHtml::htmlButton("<i class='icon-ban-circle icon-white'></i> Удалить аккаунт", array("onclick" => "location.href='" . Yii::app()->user->getUrl("delete") . "'", "class" => "btn btn-danger"));
+		echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запис", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+		echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмяна", array("onclick" => "location.href='" . Yii::app()->user->url . "'", "class" => "btn btn-success")) . " ";
+		echo CHtml::htmlButton("<i class='icon-ban-circle icon-white'></i> Изтриване на профила", array("onclick" => "location.href='" . Yii::app()->user->getUrl("delete") . "'", "class" => "btn btn-danger"));
 	?>
 </div>
 

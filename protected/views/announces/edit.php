@@ -4,7 +4,7 @@
  * @var Announce $post
  */
 
-	$this->pageTitle = $book->fullTitle . " - " . ($post->isNewRecord ? "Написать анонс" : "Редактировать анонс");
+	$this->pageTitle = $book->fullTitle . " - " . ($post->isNewRecord ? "Нов анонс" : "Редакция на анонса");
 ?>
 <style type='text/css'>
 	#Announce_body {height:200px;}
@@ -19,12 +19,12 @@ $(function() {
 		return true;
 	});
 	$("#form-edit button.remove").click(function(e) {
-		if(confirm("Вы уверены?")) $("#form-rm").submit();
+		if(confirm("Уверени ли сте?")) $("#form-rm").submit();
 	});
 });
 </script>
 
-<h1><?=$post->isNewRecord ? "Написать анонс" : "Редактировать анонс"; ?> перевода &laquo;<?=$book->fullTitle; ?>&raquo;</h1>
+<h1><?=$post->isNewRecord ? "Нов анонс" : "Редакция на анонс"; ?> относно превода „<?=$book->fullTitle; ?>“</h1>
 
 <form id="form-rm" method="post" action="<?=$post->getUrl("remove"); ?>"><input type="hidden" name="really" value="1"/></form>
 
@@ -47,14 +47,14 @@ echo $form->textAreaRow($post, "body", array("class" => "span6", "hint" => "Зд
 ?>
 <div class="form-actions">
 <?php
-	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Сохранить", array("type" => "submit", "class" => "btn btn-primary")) . " ";
-	if(!$post->isNewRecord && Yii::app()->user->can("blog_moderate")) echo CHtml::htmlButton("<i class='icon-ban-circle icon-white'></i> Удалить", array("class" => "btn btn-danger remove")) . " ";
+	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запис", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+	if(!$post->isNewRecord && Yii::app()->user->can("blog_moderate")) echo CHtml::htmlButton("<i class='icon-ban-circle icon-white'></i> Изтриване", array("class" => "btn btn-danger remove")) . " ";
 	if($post->isNewRecord) {
 		$back = $post->book->getUrl("announces");
 	} else {
 		$back = $post->url;
 	}
-	echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмена", array("onclick" => "location.href='{$back}'", "class" => "btn btn-success"));
+	echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмяна", array("onclick" => "location.href='{$back}'", "class" => "btn btn-success"));
 ?>
 </div>
 <?php $this->endWidget(); ?>

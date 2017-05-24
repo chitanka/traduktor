@@ -5,7 +5,7 @@
 	 * @var Book[] $books
 	 */
 
-	$this->pageTitle = "Модерация: переводы по разделам";
+	$this->pageTitle = "Модерация: преводи по раздели";
 	$books = $books_dp->getData();
 ?>
 <style type="text/css">
@@ -21,7 +21,7 @@ $(T.init);
 
 <?php $this->renderPartial("_header"); ?>
 
-<h1>Переводы по разделам</h1>
+<h1>Преводи по раздели</h1>
 
 <?php
 	echo "<div class='row' id='Utils'><div class='span8'>";
@@ -30,7 +30,7 @@ $(T.init);
 	echo "</div><div class='span4'>";
 
 	$r = rand(1, $books_dp->pagination->pageCount - 1);
-	echo "<a href='/moderator/book_cat/Book_page/{$r}' class='btn'>Случайная страница</a>";
+	echo "<a href='/moderator/book_cat/Book_page/{$r}' class='btn'>Случайна страница</a>";
 
 	echo "</div></div>";
 ?>
@@ -38,9 +38,9 @@ $(T.init);
 <form method="post" id="form-cat">
 <table class="table table-bordered">
 <tr>
-	<th>Перевод</th>
-	<th>Старые разделы</th>
-	<th>Новый раздел</th>
+	<th>Превод</th>
+	<th>Стари раздели</th>
+	<th>Нов раздел</th>
 </tr>
 <?php
 	function topics($book) {
@@ -86,7 +86,7 @@ $(T.init);
 		}
 		echo "</select>";
 
-		if($i) echo " <a href='#' onclick='return T.copy(this)' title='Как у предыдущего'>&uarr;</a>";
+		if($i) echo " <a href='#' onclick='return T.copy(this)' title='Както при предишния'>&uarr;</a>";
 
 		echo "</td>";
 
@@ -96,7 +96,7 @@ $(T.init);
 </table>
 
 <div class="form-actions">
-	<button type="submit" class="btn btn-inverse"><i class="icon-ok icon-white"></i> Сохранить</button>
+	<button type="submit" class="btn btn-inverse"><i class="icon-ok icon-white"></i> Запис</button>
 </div>
 
 </form>

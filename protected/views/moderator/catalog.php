@@ -136,21 +136,21 @@
 				"action" => "/moderator/catedit/id/{$edit_node->id}",
 			));
 
-			echo "<h3>Свойства раздела</h3>";
+			echo "<h3>Свойства на раздела</h3>";
 			echo $form->textFieldRow($edit_node, "title", array("placeholder" => "Название", "class" => "span3"));
 			echo $form->checkBoxRow($edit_node, "available");
 		?>
 		<div style='margin-bottom:5px'>
-			<input type='submit' value='Сохранить' class='btn btn-success' />
-			<input type='button' value='Удалить' class='btn btn-danger' onclick='if(confirm("Удалить раздел?")) $("#remove").submit()' />
+			<input type='submit' value='Запис' class='btn btn-success' />
+			<input type='button' value='Изтриване' class='btn btn-danger' onclick='if(confirm("Да се изтрие ли разделът?")) $("#remove").submit()' />
 		</div><div>
-			<input type='button' value='Поменять местами' class='btn' onclick="T.sel2_start('#swap')" />
-			<input type='button' value='Переместить' class='btn' onclick="T.sel2_start('#chpid')" />
+			<input type='button' value='Смяна на местата' class='btn' onclick="T.sel2_start('#swap')" />
+			<input type='button' value='Преместване' class='btn' onclick="T.sel2_start('#chpid')" />
 		</div>
 		<?php $this->endWidget(); ?>
 
 		<p>
-			<a href="<?=$cat->url; ?>">В каталоге &rarr;</a>
+			<a href="<?=$cat->url; ?>">В каталога &rarr;</a>
 		</p>
 
 		<form method='post' action='/moderator/catremove/id/<?=$edit_node->id; ?>' id="remove"></form>
@@ -174,7 +174,7 @@
 
 		<?php } ?>
 
-		<h3>Создать подраздел</h3>
+		<h3>Нов подраздел</h3>
 		<?php
 			/** @var TbActiveForm $form */
 			$kitten = new Category();
@@ -185,11 +185,11 @@
 				"action" => "/moderator/kitten/pid/{$edit_node->id}",
 			));
 
-			echo $form->textFieldRow($kitten, "title", array("placeholder" => "Название", "class" => "span3"));
+			echo $form->textFieldRow($kitten, "title", array("placeholder" => "Заглавие", "class" => "span3"));
 			echo $form->checkBoxRow($kitten, "available");
 		?>
 		<div>
-			<input type='submit' value='Создать подраздел' class='btn' />
+			<input type='submit' value='Създаване не подраздел' class='btn' />
 		</div>
 		<?php $this->endWidget(); ?>
 

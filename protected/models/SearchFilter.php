@@ -32,8 +32,8 @@ class SearchFilter extends CFormModel {
 		$html = array(
 			"t" => "<a>Название или описание содержит текст</a>",
 			"cat" => '<a href="#" onclick="return S.catChoose()">Из раздела каталога</a>',
-			"s_lang" => "<a>Язык оригинала</a>",
-			"t_lang" => "<a>Язык перевода</a>",
+			"s_lang" => "<a>Език на оригинала</a>",
+			"t_lang" => "<a>Език на превода</a>",
 			"ready" => "<a>100% готовые</a>",
 			"gen" => "<a>Доступные для скачивания</a>",
 			"tr" => "<a>Доступные для перевода</a>",
@@ -49,8 +49,8 @@ class SearchFilter extends CFormModel {
 		$html = array(
 			't' => '<input type="text" name="t" class="span8" />',
 			'cat' => '<input type="hidden" name="cat" />Из раздела каталога &laquo;<span class="name"></span>&raquo;',
-			's_lang' => 'Язык оригинала: <select name="t_lang">' . Yii::app()->langs->options(Langs::FORM_INF) . '</select>',
-			't_lang' => 'Язык перевода: <select name="t_lang">' . Yii::app()->langs->options(Langs::FORM_INF) . '</select>',
+			's_lang' => 'Език на оригинала: <select name="t_lang">' . Yii::app()->langs->options(Langs::FORM_INF) . '</select>',
+			't_lang' => 'Език на превода: <select name="t_lang">' . Yii::app()->langs->options(Langs::FORM_INF) . '</select>',
 			'ready' => '<label><input type="checkbox" name="ready" value="1" checked /> готовые на 100%</label>',
 			'gen' => '<label><input type="checkbox" name="gen" value="1" checked /> доступные для скачивания</label>',
 			'tr' => '<label><input type="checkbox" name="tr" value="1" checked /> доступные для перевода</label>',
@@ -82,10 +82,10 @@ class SearchFilter extends CFormModel {
 
 	public function attributeLabels() {
 		return array(
-			"t" => "Название",
-			"s_lang" => "Язык оригинала",
-			"t_lang" => "Язык перевода",
-			"cat" => "Из раздела каталога",
+			"t" => "Заглавие",
+			"s_lang" => "Език на оригинала",
+			"t_lang" => "Език на превода",
+			"cat" => "От раздела на каталога",
 		);
 	}
 }

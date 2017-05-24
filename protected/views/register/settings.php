@@ -73,15 +73,15 @@ $(function() {
 
 <h3>Външен вид:</h3>
 <p>
-	Можете да настроите цвета на фона, текста и размерът на шрифта на страницата. Това е експериментална функция,
+	Можете да настроите цвета на фона, текста и размера на шрифта на страницата. Това е експериментална функция,
 	така че я използвайте на собствена отговорност. Всички настройки се съхраняват само на вашия компютър.
 </p>
 <fieldset>
 	<div class="control-group">
-		<label class="control-label">Цвят на фона на стрницата</label>
+		<label class="control-label">Цвят на фона на страницата</label>
 		<div class="controls">
 			<input type="text" name="ini[l][bgcolor]" value="<?=htmlspecialchars($user->ini["l.bgcolor"]); ?>" class="colorpicker" />
-			<button type="button" class="btn" onclick="restore()">Върни стойността по подразбиране</button>
+			<button type="button" class="btn" onclick="restore()">Връщане на стойността по подразбиране</button>
 		</div>
 	</div>
 	<div class="control-group">
@@ -91,7 +91,7 @@ $(function() {
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label">Подписи и тайминг</label>
+		<label class="control-label">Подписи и времеви означения</label>
 		<div class="controls">
 			<select name="ini[l][metascheme]" class="span4">
 			<?php
@@ -117,7 +117,7 @@ $(function() {
 	</div>
 
 	<div class="control-group">
-		<label class="control-label">Интерфейс на перевода</label>
+		<label class="control-label">Интерфейс на превода</label>
 		<div class="controls">
 			<select name="ini[t][iface]">
 				<?php
@@ -167,12 +167,12 @@ $(function() {
 
 		<div class="control-group clear">
 			<div class="controls">
-                <label class="checkbox"><input type="checkbox" name="ini[t][copy]" value="1" <?php if($user->ini["t.copy"] == 1) echo "checked"; ?> />Копировать текст оригинала при добавлении версии перевода</label>
+                <label class="checkbox"><input type="checkbox" name="ini[t][copy]" value="1" <?php if($user->ini["t.copy"] == 1) echo "checked"; ?> />Копиране на текста на оригинала при добавяне на версии на превода</label>
 			</div>
 		</div>
 
 		<div class="control-group">
-			<div class="control-label">Маркиране крайните варианти на превода:</div>
+			<div class="control-label">Маркиране на крайните варианти на превода:</div>
 			<div class="controls">
 				<?php
 					$A = [0 => "Никак", 1 => "Отметка в горния десен ъгъл", 2 => "Удебелен шрифт"];
@@ -191,7 +191,7 @@ $(function() {
 </fieldset>
 
 
-<h3>Променете пола:</h3>
+<h3>Промяна на пола:</h3>
 <fieldset>
 <?php
 	echo $form->radioButtonListInlineRow($model, "sex", array("m" => "мъж", "f" => "жена", "x" => "не казвам"));
@@ -208,7 +208,7 @@ $(function() {
 <?php
 	$set_ini = array(
 		User::INI_MAIL_PMAIL => "лични съобщения",
-		User::INI_MAIL_NOTICES => "оповестявания",
+		User::INI_MAIL_NOTICES => "известия",
 		User::INI_MAIL_COMMENTS => "коментари във ваши постове и отговори на ваши коментари",
 		User::INI_MAIL_NEWS => "важни новини на сайта",
 	);
@@ -230,10 +230,9 @@ $(function() {
 
 <div class="form-actions">
 <?php
-	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запиши", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запис", array("type" => "submit", "class" => "btn btn-primary")) . " ";
 ?>
 
 </div>
 
 <?php $this->endWidget(); ?>
-

@@ -20,7 +20,7 @@ class Controller extends CController {
 	* Меню и области сайта
 	*/
 	public $siteAreas = array(
-		"films"   => array("url" => '/search/?SearchFilter[typ]=S', "label" => 'Превод на филмо'),
+		"films"   => array("url" => '/search/?SearchFilter[typ]=S', "label" => 'Превод на филми'),
 		"books"   => array("url" => '/search/?SearchFilter[typ]=A', "label" => 'Превод на книги'),
 		"phrases" => array("url" => '/search/?SearchFilter[typ]=P', "label" => 'Превод на фрази'),
 		"blog"       => array("url" => '/blog/',                    "label" => 'Блог'),

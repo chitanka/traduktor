@@ -54,19 +54,19 @@ class Book extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
-			's_lang' => 'Язык оригинала',
-			't_lang' => 'Язык перевода',
-			's_title' => 'Название на языке оригинала',
-			't_title' => 'Название на языке перевода',
+			's_lang' => 'Език на оригинала',
+			't_lang' => 'Език на превода',
+			's_title' => 'Заглавие на езика на оригинала',
+			't_title' => 'Заглавие на езика на превода',
 			'descr' => 'Описание',
-			'new_img' => 'Картинка в оглавление',
-			"facecontrol" => "Участие в группе",
+			'new_img' => 'Изображение в съдържанието',
+			"facecontrol" => "Участие в групата",
 		);
 	}
 
 	public function rules() {
 		return array(
-			array("cat_id",            "exist", "allowEmpty" => true, "className" => "Category", "attributeName" => "id", "criteria" => array("condition" => "available"), "message" => "В этот раздел нельзя добавлять переводы", "on" => "cat"),
+			array("cat_id",            "exist", "allowEmpty" => true, "className" => "Category", "attributeName" => "id", "criteria" => array("condition" => "available"), "message" => "В този раздел не бива да се добавят преводи", "on" => "cat"),
 
 			array("s_title, t_title",  "clean", "on" => "info"),
 			array("descr",             "safehtml", "on" => "info"),
@@ -74,7 +74,7 @@ class Book extends CActiveRecord {
 			array('s_lang, t_lang',    'numerical', 'integerOnly' => true, "allowEmpty" => false, "on" => "info"),
 			array('s_title, t_title',  'length', 'max' => 255, "allowEmpty" => false, "on" => "info"),
 			array("rm_img",            "boolean", "on" => "info"),
-			array("new_img",           "file", "allowEmpty" => true, "types" => "jpg, gif, png, jpeg", "wrongType" => "Неверный формат файла. Пожалуйста, загружайте JPG, PNG или GIF", "on" => "info"),
+			array("new_img",           "file", "allowEmpty" => true, "types" => "jpg, gif, png, jpeg", "wrongType" => "Неподдържан формат на файла. Моля, качвайте само JPG, PNG или GIF", "on" => "info"),
 
 			array("facecontrol",        "numerical", "integerOnly" => true, "on" => "access"),
 			array('ac_read, ac_trread, ac_gen, ac_rate, ac_comment, ac_tr, ac_blog_r, ac_blog_w, ac_blog_c',
@@ -168,7 +168,7 @@ class Book extends CActiveRecord {
 			$new_img = new UploadedImage("book");
 
 			if(!$new_img->upload($this->new_img, 200, 500)) {
-				$this->addError("new_img", "Не удалось загрузить картинку, попробуйте другую.");
+				$this->addError("new_img", "Качването на изображението не сполучи. Пробвайте пак или изберете друго изображение.");
 				return;
 			}
 
@@ -302,7 +302,7 @@ class Book extends CActiveRecord {
 			} elseif($this->facecontrol == self::FC_INVITE) {
 				$msg = "Чтобы вступить в группу, нужно получить приглашение от владельца ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или модераторов" : "") . ".";
 				if($tools && $this->user_invited(Yii::app()->user->id)) {
-					$msg .= " Кстати, у вас это приглашение есть.<br /><br /><a href='" . $this->getUrl("invite_accept") . "' class='act'>Принять</a> | <a href='" . $this->getUrl("invite_decline") . "' class='act'>Отказать</a>";
+					$msg .= " Кстати, у вас это приглашение есть.<br /><br /><a href='" . $this->getUrl("invite_accept") . "' class='act'>Приемане</a> | <a href='" . $this->getUrl("invite_decline") . "' class='act'>Отказ</a>";
 				}
 			}
 		}

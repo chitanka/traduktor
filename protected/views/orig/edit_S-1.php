@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="control-group">
-		<button type='submit' class='btn btn-mini btn-primary'>Сохранить</button>
-		<button type='button' class='btn btn-mini cancel' onclick="<?=$ajax ? "" : "location.href='{$orig->url}'"; ?>">Отмена</button>
+		<button type='submit' class='btn btn-mini btn-primary'>Запис</button>
+		<button type='button' class='btn btn-mini cancel' onclick="<?=$ajax ? "" : "location.href='{$orig->url}'"; ?>">Отмяна</button>
 	</div>
 </form>

@@ -233,10 +233,10 @@ $(E.init);
 <?php
 	if($book->isNewRecord) {
 		echo "<a class='btn btn-primary' href='" . $book->getUrl("edit/info") . "'><i class='icon-arrow-left icon-white'></i> Назад</a> ";
-		echo CHtml::htmlButton("Сохранить", array("type" => "submit", "class" => "btn btn-primary pull-right")) . " ";
+		echo CHtml::htmlButton("Запис", array("type" => "submit", "class" => "btn btn-primary pull-right")) . " ";
 	} else {
-		echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Сохранить", array("type" => "submit", "class" => "btn btn-primary")) . " ";
-		echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмена", array("onclick" => "location.href='" . ($book->isNewRecord ? Yii::app()->user->url : $book->url) . "'", "class" => "btn btn-success"));
+		echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Запис", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+		echo CHtml::htmlButton("<i class='icon-remove icon-white'></i> Отмяна", array("onclick" => "location.href='" . ($book->isNewRecord ? Yii::app()->user->url : $book->url) . "'", "class" => "btn btn-success"));
 	}
 ?>
 </div>
