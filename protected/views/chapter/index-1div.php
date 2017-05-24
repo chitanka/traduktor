@@ -52,7 +52,7 @@
 	<div class='group'><a href="<?=$chap->getUrl("go?" . getQS(array("nach" => "prev", "ord" => $chap->ord), array("Orig_page"))); ?>" title="Предыдущая глава"><i class="i icon-arrow-left"></i></a></div>
 
 	<div class="tb-index btn-group">
-		<a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Оглавление</a>
+		<a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
 		<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 		<ul class="dropdown-menu" id="tb-chapter-list">
 			<li><a href="<?=$chap->book->getUrl("members"); ?>">Переводчики</a></li>

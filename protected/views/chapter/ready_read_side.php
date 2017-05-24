@@ -78,7 +78,7 @@
 		</div>
 		<?php if($chap->can("gen_untr")): ?>
 		<div class="control-group">
-			<label class="control-label">Непереведённые фрагменты:</label>
+			<label class="control-label">Непреведени фрагменти:</label>
 			<div class="controls">
 				<?php
 				foreach(GenOptions::$untr_options as $k => $v) {
@@ -92,11 +92,11 @@
 		</div>
 		<?php else: ?>
 		<p style="color:#888" title="Подставлять оригинальный текст вместо непереведённых фрагментов можно, если вы являетесь владельцем перевода, либо он закрыт для общего доступа, либо он готов более, чем на 95%.">
-			Непереведённые фрагменты будут пропущены.
+			Непреведените фрагменти ще бъдат пропуснати.
 		</p>
 		<?php endif; ?>
 
-		<button type="submit" class="btn btn-primary btn-mini">Обновить</button>
+		<button type="submit" class="btn btn-primary btn-mini">Обновяване</button>
 	</form>
 
 	<a href="<?=$chap->getUrl("download?format=t&enc=UTF-8"); ?>"><i class="icon-download-alt"></i> Скачать как .txt файл</a><br />
@@ -105,6 +105,6 @@
   $readyLink = 'ready?' . http_build_query($queryString);
   ?>
 	<a href="<?=$chap->getUrl($readyLink);?>" title="Чтобы поделиться ей, нажмите правой кнопкой мыши и выберите &quot;Скопировать адрес ссылки&quot;"><i class="icon-share"></i> Ссылка на эту страницу</a><br />
-	<a href="<?=$chap->book->url; ?>"><i class="icon-list"></i> Оглавление перевода</a><br />
-	<a href="<?=$chap->getUrl(); ?>"><i class="icon-fire"></i> Интерфейс перевода</a>
+	<a href="<?=$chap->book->url; ?>"><i class="icon-list"></i> Съдържание на превода</a><br />
+	<a href="<?=$chap->getUrl(); ?>"><i class="icon-fire"></i> Интерфейс на превода</a>
 </div>

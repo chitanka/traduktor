@@ -41,7 +41,7 @@
         <a href="<?=$chap->getUrl("go?to=prev&ord={$chap->ord}"); ?>" class="btn btn-small" title="Предыдущая глава"><i class="icon-arrow-left"></i></a>
     </div>
     <div class="btn-group">
-        <a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Оглавление</a>
+        <a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
         <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#" onclick="T.loadChapters()"><span class="caret"></span></a>
         <ul class="dropdown-menu" id="chapter-list">
             <li><a href="<?=$chap->book->getUrl("members"); ?>">Переводчики</a></li>

@@ -18,23 +18,23 @@ FB;
 	}
 ?>
 <div class='tools'>
-	<h5>Перевод</h5>
+	<h5>Превод</h5>
 
 	<dl class='info'>
-		<dt>Перевод:</dt>
+		<dt>Превод:</dt>
 		<dd><?=Yii::app()->params["book_types"][$book->typ] . " " . Yii::app()->langs->from_to($book->s_lang, $book->t_lang); ?></dd>
 
-		<dt>Создан:</dt>
-		<dd><?php echo Yii::app()->dateFormatter->formatDateTime($book->cdate, "medium", "") . ', владелец: ' . $book->owner->ahref; ?></dd>
+		<dt>Създаден:</dt>
+		<dd><?php echo Yii::app()->dateFormatter->formatDateTime($book->cdate, "medium", "") . ', собственик: ' . $book->owner->ahref; ?></dd>
 
 		<?php if($book->n_dl > 0): ?>
-		<dt>Скачали:</dt>
+		<dt>Брой сваляния:</dt>
 		<dd>
 			<span rel='popover' data-content='Учитываются только загрузки с уникальных IP-адресов. Иногда компьютеры из одной домашней или корпоративной сети имеют один и тот же IP-адрес, поэтому относитесь к этим цифрам как к примерной заниженной оценке.' data-title="Откуда берутся эти цифры?">
 			<?php
-				echo "{$book->n_dl} чел.";
+				echo "{$book->n_dl} чов.";
 				if($book->n_dl_today > 0) {
-					echo " (сегодня &ndash; {$book->n_dl_today})";
+					echo " (днес &ndash; {$book->n_dl_today})";
 				}
 			?>
 			</span>
@@ -42,7 +42,7 @@ FB;
 		</dd>
 		<?php endif; ?>
 
-		<dt>Права доступа:</dt>
+		<dt>Права на достъп:</dt>
 		<dd>
 			<div id="ac_icons">
 			<?php
@@ -51,7 +51,7 @@ FB;
 					echo "<i class='{$ac} {$book->$ac}'></i> ";
 				}
 			?>
-			<a href="#" class='more_btn' onclick="$('#side_ac_more').show(); $('#ac_icons').hide(); $(this.parentNode).hide(); return false;">подробнее...</a>
+			<a href="#" class='more_btn' onclick="$('#side_ac_more').show(); $('#ac_icons').hide(); $(this.parentNode).hide(); return false;">подробности...</a>
 			</div>
 			<div class="more" id="side_ac_more" style="display:none;">
 				<table class="t">
@@ -64,18 +64,18 @@ FB;
 					}
 				?>
 				<tr>
-					<td>Участие в группе</td>
+					<td>Участие в групата</td>
 					<td class='d'><?php
 						if($book->ac_membership == "m") {
-							$A = array(Book::FC_OPEN => "нет группы", Book::FC_CONFIRM => "после подтверждения модераторами", Book::FC_INVITE => "по приглашению от модераторов");
+							$A = array(Book::FC_OPEN => "няма група", Book::FC_CONFIRM => "след подтвърждение от модератор", Book::FC_INVITE => "по покана на модератор");
 						} else {
-							$A = array(Book::FC_OPEN => "нет группы", Book::FC_CONFIRM => "после подтверждения создателем", Book::FC_INVITE => "по приглашению от создателя");
+							$A = array(Book::FC_OPEN => "няма група", Book::FC_CONFIRM => "след подтвърждение от създателя", Book::FC_INVITE => "по покана на създателя");
 						}
 						echo $A[$book->facecontrol];
 					?></td>
 				</tr>
 				</table>
-				<?php if($book->can("owner")) echo "<div style='text-align:right; margin-top:5px;'><a href='" . $book->getUrl("edit/access") . "' class='act'>Редактировать</a></div>"; ?>
+				<?php if($book->can("owner")) echo "<div style='text-align:right; margin-top:5px;'><a href='" . $book->getUrl("edit/access") . "' class='act'>Редактиране</a></div>"; ?>
 			</div>
 		</dd>
 
@@ -97,8 +97,8 @@ FB;
 				printf("<div class='bar' style='width: %d%%;'></div>", $procent);
 
 				echo "<div class='text'>";
-				printf("<span title='глав: %d, фрагментов: %d, переведено: %d'>%0.02f%%</span>", $book->n_chapters, $book->n_verses, $book->d_vars, $procent);
-				if($book->d_vars > 0 and $book->n_vars > 0) printf(" <abbr title='Коэффициент Плюрализма: среднее количество вариантов перевода каждого фрагмента'>КП</abbr> = %.01f", $book->n_vars / $book->d_vars);
+				printf("<span title='глави: %d, фрагменти: %d, преведено: %d'>%0.02f%%</span>", $book->n_chapters, $book->n_verses, $book->d_vars, $procent);
+				if($book->d_vars > 0 and $book->n_vars > 0) printf(" <abbr title='Коефициент на плурализъм: средно количество на вариантите на превод на всеки фрагмент'>КП</abbr> = %.01f", $book->n_vars / $book->d_vars);
 				echo "</div>";
 
 				echo "</div>";
@@ -110,25 +110,25 @@ FB;
 				$myStatus = "";
 				if ($book->membership) {
 					if($book->membership->status == GroupMember::BANNED) {
-						$myStatus = "Вы забанены в этом переводе.";
+						$myStatus = "Достъпът до превода ви е забранен.";
 					} elseif($book->membership->status == GroupMember::MODERATOR) {
-						$myStatus = "Вы &ndash; модератор этой группы. <a href='" . $book->getUrl("members") . "#leave'>Выйти</a>.";
+						$myStatus = "Вие сте модератор на групата. <a href='" . $book->getUrl("members") . "#leave'><span class=\"fa fa-sign-in\"></span> Вход</a>";
 					} elseif($book->membership->status == GroupMember::MEMBER) {
-						$myStatus = "Вы состоите в группе перевода. <a href='" . $book->getUrl("members") . "#leave'>Выйти</a>.";
+						$myStatus = "Вие сте член на групата на превода. <a href='" . $book->getUrl("members") . "#leave'><span class=\"fa fa-sign-in\"></span> Вход</a>";
 					}
 				} else {
 					if($book->owner_id == Yii::app()->user->id) {
-						$myStatus = "Вы &ndash; создатель этого перевода.";
+						$myStatus = "Вие сте създател на превода.";
 					} elseif($book->facecontrol != Book::FC_OPEN) {
-						$myStatus = "Вы не состоите в группе перевода. ";
+						$myStatus = "Не сте член на групата на превода. ";
 						if($book->facecontrol == Book::FC_CONFIRM) {
 							$myStatus .= "<a href='" . $book->getUrl("members") . "' class='act' title='Вашу заявку сначала рассмотрят модераторы'>Вступить</a>.";
 						} elseif($book->facecontrol == Book::FC_INVITE) {
-							$myStatus .= "Членство в этой группе &ndash; только по приглашению от " . ($book->ac_membership == "m" ? "модераторов" : "владельца перевода") . ".";
+							$myStatus .= "Членство в групата &ndash; само по покана на " . ($book->ac_membership == "m" ? "модератор" : "собственика на превода") . ".";
 						}
 					}
 				}
-				if($myStatus != "") echo "<dt>Ваш статус:</dt><dd>{$myStatus}</dd>";
+				if($myStatus != "") echo "<dt>Вашият статус:</dt><dd>{$myStatus}</dd>";
 			}
 		?>
     </dl>
@@ -137,18 +137,17 @@ FB;
 
 <?php
 	$Tools = array();
-	$Tools[] = "<a href='http://www.imdb.com/find?q=" . urlencode($book->s_title) . "&s=tt' target='_blank' rel='nofollow'>Искать на IMDb</a>";
-	$Tools[] = "<a href='http://www.kinopoisk.ru/index.php?first=no&what=&kp_query=" . urlencode($book->s_title) . "&s=tt' target='_blank' rel='nofollow'>Искать на kinopoisk.ru</a>";
-	if(!Yii::app()->user->isGuest) $Tools[] = "<a href='" . $book->getUrl("recalc") . "'>Пересчитать статистику перевода</a>";
+	$Tools[] = "<a href='http://www.imdb.com/find?q=" . urlencode($book->s_title) . "&s=tt' target='_blank' rel='nofollow'>Търсене в IMDb</a>";
+	if(!Yii::app()->user->isGuest) $Tools[] = "<a href='" . $book->getUrl("recalc") . "'>Преизчисляване на статистиката за превода</a>";
 ?>
 <div class='tools'>
-	<h5>Инструментарий</h5>
+	<h5>Инструменти</h5>
 	<?php if(!Yii::app()->user->isGuest):
 		echo "<button class='btn btn-small' id='btn-bookmark' onclick='Book.bookmark({$book->id})'>";
 		if($book->bookmark) {
-			echo "<i class='icon-star'></i> Изменить закладку";
+			echo "<i class='icon-star'></i> Промяна на отметката";
 		} else {
-			echo "<i class='icon-star-empty'></i> Поставить закладку";
+			echo "<i class='icon-star-empty'></i> Поставяне на отметка";
 		}
 		echo "</button>";
 	?>

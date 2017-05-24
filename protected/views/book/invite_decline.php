@@ -6,7 +6,7 @@
 	Вы отказались от участия в этом переводе.
 </p>
 <p>
-	<a href="<?=$this->book->url; ?>">Оглавление перевода</a> |
+	<a href="<?=$this->book->url; ?>">Съдържание на превода</a> |
 	<?php
 		$here = $this->book->url("invite_decline");
 		if($_SERVER["HTTP_REFERER"] != "" and substr($_SERVER["HTTP_REFERER"], -strlen($here)) != $here) {
