@@ -8,9 +8,9 @@
 	Yii::app()->clientScript
 		->registerScriptFile("/js/profile.js")->registerCssFile("/css/profile.css?3");
 
-	$this->pageTitle = $user->login . ": переводы";
+	$this->pageTitle = $user->login . ": преводи";
 
-	$this->renderPartial("profile_head", array("user" => $user, "h1" => "переводы"));
+	$this->renderPartial("profile_head", array("user" => $user, "h1" => "преводи"));
 ?>
 
 <style type="text/css">
@@ -48,7 +48,7 @@ $(function() {
 <?php if($translations->totalItemCount == 0): ?>
 
 <p>
-	<?=$user->login; ?> не предложил<?=$user->sexy(); ?> ни одного варианта перевода.
+	<?=$user->login; ?> не е предложил<?=$user->sexy(); ?> нито един вариант на превода.
 </p>
 
 <?php else: ?>
@@ -59,8 +59,8 @@ $(function() {
 ?></h2>
 <?php
 	if(isset($cache_time) && $cache_time) {
-		echo "<div class='alert alert-box alert-info'>Информация обновляется раз в <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часов", $cache_time) . "</strong></div>";
-	}
+		echo "<div class='alert alert-box alert-info'>Информацията се обновява веднъж на <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часа", $cache_time) . "</strong></div>";
+	}	//!M Да се провери третия вариант ^^^
 
 	$data = $translations->data;
 
