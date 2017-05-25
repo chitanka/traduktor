@@ -8,7 +8,7 @@ Yii::app()->clientScript
 	->registerScriptFile("/js/profile.js")->registerCssFile("/css/profile.css?3")
 	->registerScript("profile", "Profile.uid = {$user->id};", CClientScript::POS_HEAD);
 
-$this->pageTitle = $user->login . ": профиль";
+$this->pageTitle = $user->login . ": профил";
 
 $this->renderPartial("profile_head", array("user" => $user));
 ?>
@@ -26,19 +26,19 @@ $this->renderPartial("profile_head", array("user" => $user));
 </table>
 
 <?php if($user->id == Yii::app()->user->id) { ?>
-	<div><i class="icon-pencil"></i> <a href='<?=$user->getUrl("edit"); ?>' class='act'>Редактировать свои данные</a></div>
+	<div><i class="icon-pencil"></i> <a href='<?=$user->getUrl("edit"); ?>' class='act'>Промяна на данните</a></div>
 <?php } ?>
 
 <?php if(count($invited) > 0): ?>
-	<h2>По <?=$user->sexy("его", "её", "его"); ?> приглашению зарегистрированы переводчики:</h2>
+	<h2>Регистрирани преводачи по <?=$user->sexy("негова", "нейна", "негова"); ?> покана:</h2>
 	<table class="items table table-condensed">
 		<thead>
 		<tr>
-			<th>Ник</th>
+			<th>Псевдоним</th>
 			<th>Карма</th>
-			<th>Переводов</th>
-			<th>Суммарный рейтинг</th>
-			<th>Средний рейтинг</th>
+			<th>Преводи</th>
+			<th>Общ рейтинг</th>
+			<th>Среден рейтинг</th>
 		</tr>
 		</thead>
 		<tbody>
