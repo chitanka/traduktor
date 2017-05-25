@@ -49,6 +49,6 @@ $(function() {
 	#preview img {max-width:none;}
 </style>
 
-<h1>Вырежьте квадратную аватарку из картинки</h1>
+<h1>Изрежете квадратен аватар от картинката</h1>
 
 <img src="/i/tmp/upiccut/<?=$Img["name"]; ?>" width="<?=$Img["w"]; ?>" height="<?=$Img["h"]; ?>" id="ava" alt="" />
