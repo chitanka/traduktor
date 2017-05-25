@@ -19,7 +19,7 @@ function RusEnding($n, $n1, $n2, $n5) {
 ?>
 
 <div class='tools'>
-	<h5>Найти человека</h5>
+	<h5>Открийте човека</h5>
 	<form method="get" action="/users/go" class="form-inline">
 		Ник: <input type='text' name='login' size='25' class='span2' />
 		<input type='submit' value='&raquo;' class='btn' />
