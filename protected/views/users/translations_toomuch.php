@@ -8,10 +8,10 @@
 	Yii::app()->clientScript
 		->registerScriptFile("/js/profile.js")->registerCssFile("/css/profile.css?3");
 
-	$this->pageTitle = $user->login . ": переводы";
+	$this->pageTitle = $user->login . ": преводи";
 
-	$this->renderPartial("profile_head", array("user" => $user, "h1" => "переводы"));
+	$this->renderPartial("profile_head", array("user" => $user, "h1" => "преводи"));
 ?>
 <div class="alert-block">
-	К сожалению, <?=$user->login . " написал" . $user->sexy(); ?> слишком много версий перевода и мы не можем их тут пока показать.
+	За съжаление <?=$user->login . " е написал" . $user->sexy(); ?> твърде много версии на превода и не можем да ги покажем тук.
 </div>
