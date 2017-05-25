@@ -197,7 +197,7 @@
 
 			echo "<td>";
 			if($chap->n_vars > 0) {
-				$verb = $book->typ == "S" ? "сваляне" : "четене";
+				$verb = $book->typ == "S" ? "сваляне" : "прочит";
 				$tdl = " ";
 				if($chap->n_dl > 0) {
 					$tdl .= "Брой сваляния: {$chap->n_dl}";
