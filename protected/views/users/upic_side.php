@@ -20,7 +20,7 @@
 
 ?>
 <div class="tools">
-	<h5>Что получится</h5>
+	<h5>Какво ще се получи</h5>
 
 	<div id="preview">
         <img src="/i/tmp/upiccut/<?=$Img["name"]; ?>" width="<?=$Img["w"]; ?>" height="<?=$Img["h"]; ?>" alt="" />
@@ -30,6 +30,6 @@
         <input type="hidden" name="x" value="<?=$ini_x; ?>" /> <input type="hidden" name="y" value="<?=$ini_y; ?>" />
         <input type="hidden" name="w" value="<?=$ini_w; ?>" /> <input type="hidden" name="h" value="<?=$ini_h; ?>" />
         <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Готово</button>
-        <a href="?do=cancel" class="btn btn-inverse"><i class="icon-remove icon-white"></i> Отмена</a>
+        <a href="?do=cancel" class="btn btn-inverse"><i class="icon-remove icon-white"></i> Отмяна</a>
     </form>
 </div>
