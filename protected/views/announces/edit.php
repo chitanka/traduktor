@@ -12,14 +12,14 @@
 <script type="text/javascript">
 $(function() {
 	$("#form-edit").submit(function(e) {
-		if(!confirm("Вы перечитали ваш анонс и уверены, что готовы опубликовать его на главной странице сайта, где его прочтёт неисчислимое количество людей?")) {
+		if(!confirm("Вие прочетохте анонса си и сте сигурни, че сте готови да го публикувате на главната страница на сайта, където ще го прочетат много хора?")) {
 			e.preventDefault();
 			return false;
 		}
 		return true;
 	});
 	$("#form-edit button.remove").click(function(e) {
-		if(confirm("Уверени ли сте?")) $("#form-rm").submit();
+		if(confirm("Сигурен ли сте?")) $("#form-rm").submit();
 	});
 });
 </script>
@@ -43,7 +43,7 @@ $(function() {
 	$topics = Yii::app()->params["blog_topics"]["announce"];
 	echo $form->radioButtonListInlineRow($post, "topics", $topics);
 
-echo $form->textAreaRow($post, "body", array("class" => "span6", "hint" => "Здесь можно использовать HTML-теги a, b, strong, i, em, u, small, sub, sup."));
+echo $form->textAreaRow($post, "body", array("class" => "span6", "hint" => "Тук може да използвате HTML-таговете a, b, strong, i, em, u, small, sub, sup."));
 ?>
 <div class="form-actions">
 <?php
