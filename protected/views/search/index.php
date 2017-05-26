@@ -4,7 +4,7 @@
 	* @var CActiveDataProvider $dp
 	*/
 
-	$this->pageTitle = "Поиск";
+	$this->pageTitle = "Търсене";
 ?>
 <style type="text/css">
 ul.search-results {list-style:none; padding:0; margin:0;}
@@ -50,11 +50,11 @@ var yandex_r = Math.round(Math.random() * 100000);
 document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/code/102609?rnd=' + yandex_r + '&text=<?php echo urlencode($filter->t); ?>&page-no=<?php echo $dp->pagination->currentPage; ?>&charset=utf-8"></'+'sc'+'ript>');
 </script>
 
-<h1>Поиск переводов</h1>
+<h1>Търсене на преводи</h1>
 
 <form id="search-ghost-form" class="form-inline" action="/NOWHERE">
 	<input type="text" name="t" value="<?=CHtml::encode($filter->t); ?>" class="span7" />
-	<button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i> Найти</button>
+	<button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i> Намери</button>
 </form>
 
 
@@ -66,11 +66,11 @@ document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/code/
 	if($dp->totalItemCount == 0) {
 		echo <<<HTML
 			<p class="alert alert-block alert-info">
-				Ничего не найдено.
+				Нищо не е намерено.
 			</p>
 HTML;
 	} else {
-		echo "<h3>" . Yii::t("app", "Найден {n} перевод|Найдено {n} перевода|Найдено {n} переводов", $dp->totalItemCount) . "</h3>";
+		echo "<h3>" . Yii::t("app", "Намерен е {n} превод|Намерени са {n} превода|Намерени са {n} преводов", $dp->totalItemCount) . "</h3>";
 		$this->widget('bootstrap.widgets.TbPager', array("pages" => $dp->pagination, "header" => "<div class='pagination' style='margin-bottom:0'>"));
 ?>
 
@@ -110,6 +110,6 @@ HTML;
 ?>
 <?php else: ?>
 	<div class="alert alert-info">
-		Пожалуйста, выберите раздел каталога, язык или введите поисковый запрос.
+		Моля, изберете раздел от каталога, език, или въведете текст за търсене.
 	</div>
 <?php endif; ?>
