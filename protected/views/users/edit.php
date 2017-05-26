@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = "Редактор профиля";
+	$this->pageTitle = "Редактор на профила";
 ?>
 
 <style type="text/css">
