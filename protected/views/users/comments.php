@@ -38,7 +38,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 	} else {
 		echo "<h2>" . Yii::t("app", "{n} коментар|{n} коментара|{n} коментара", $comments->totalItemCount) . "</h2>";
 		if($cache_time) {
-			echo "<div class='alert alert-box alert-info'>Информацията се обновява веднж на <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часа", $cache_time) . "</strong></div>";
+			echo "<div class='alert alert-box alert-info'>Информацията се обновява веднъж на <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часа", $cache_time) . "</strong></div>";
 		}
 
 		$data = $comments->data;
