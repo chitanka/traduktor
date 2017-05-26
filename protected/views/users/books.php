@@ -10,7 +10,7 @@
 		->registerScriptFile("/js/profile.js")->registerCssFile("/css/profile.css?3")
 		->registerScript("profile", "Profile.uid = {$user->id};", CClientScript::POS_HEAD);
 
-	$this->pageTitle = $user->login . ": переводы";
+	$this->pageTitle = $user->login . ": преводи";
 
 	$this->renderPartial("profile_head", array("user" => $user));
 ?>
@@ -23,7 +23,7 @@ if($groups_dp->totalItemCount):
 <div class="pagination in-h2">
 	<?php $this->widget('bootstrap.widgets.TbPager', array("pages" => $groups_dp->pagination, "maxButtonCount" => 5, "header" => false, "footer" => false)); ?>
 </div>
-<h2><?php echo "Участвует" . yii::t("app", " в {n} переводе| в {n} переводах", $groups_dp->totalItemCount) . ":"; ?></h2>
+<h2><?php echo "Участвует" . yii::t("app", " в {n} превод| в {n} превода", $groups_dp->totalItemCount) . ":"; ?></h2>
 
 
 <table id="people" class="table table-condensed table-striped">
@@ -31,11 +31,11 @@ if($groups_dp->totalItemCount):
 <tr>
 	<th></th>
 	<?php if($order == 4): ?><th>Дата</th><?php endif; ?>
-	<th style='witdh:100%'>Перевод</th>
+	<th style='witdh:100%'>Превод</th>
 	<th>Готово</th>
-	<th>Версий</th>
+	<th>Версии</th>
 	<th>Рейтинг</th>
-	<th>Средний рейтинг</th>
+	<th>Среден рейтинг</th>
 </tr>
 </thead>
 <tbody>
@@ -97,7 +97,7 @@ endif;
 <?php
 if($user->id == Yii::app()->user->id):
 	?>
-<p><a href='/book/0/edit' class='btn btn-success'>Создать перевод</a></p>
+<p><a href='/book/0/edit' class='btn btn-success'>Създайте превод</a></p>
 <?php
 endif;
 ?>
