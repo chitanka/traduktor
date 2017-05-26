@@ -51,9 +51,9 @@ foreach($sent as $inv) {
 	else echo $inv->to_email;
 	echo "</td>";
 	echo "<td>";
-	echo "<a href='#' class='btn btn-small revoke'><i class='icon icon-remove'></i> отозвать</a> ";
-	echo "<a href='#' class='btn btn-small resend'><i class='icon icon-envelope'></i> ещё раз</a> ";
-	echo "<a href='#' class='btn btn-small code'><i class='icon icon-leaf'></i> получить код</a> ";
+	echo "<a href='#' class='btn btn-small revoke'><i class='icon icon-remove'></i> отмяна</a> ";
+	echo "<a href='#' class='btn btn-small resend'><i class='icon icon-envelope'></i> още веднъж</a> ";
+	echo "<a href='#' class='btn btn-small code'><i class='icon icon-leaf'></i> вземете код</a> ";
 	echo "</td>";
 }
 ?>
