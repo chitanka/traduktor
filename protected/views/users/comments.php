@@ -9,9 +9,9 @@
 	Yii::app()->clientScript
 		->registerScriptFile("/js/profile.js")->registerCssFile("/css/profile.css?3");
 
-	$this->pageTitle = $user->login . ": комментарии";
+	$this->pageTitle = $user->login . ": комментари";
 
-	$this->renderPartial("profile_head", array("user" => $user, "h1" => "комментарии"));
+	$this->renderPartial("profile_head", array("user" => $user, "h1" => "комментари"));
 ?>
 
 <style type="text/css">
@@ -24,21 +24,21 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 	'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
 	'stacked' => false, // whether this is a stacked menu
 	'items'=>array(
-		array('label'=>'В общем блоге',      'url'=>'?mode=blog',  'active' => $mode == "blog"),
-		array('label'=>'В блогах переводов', 'url'=>'?mode=tblog', "active" => $mode == "tblog"),
-		array('label'=>'В переводах',        'url'=>'?mode=tr',    "active" => $mode == "tr"),
+		array('label'=>'В общия блог',      'url'=>'?mode=blog',  'active' => $mode == "blog"),
+		array('label'=>'В блоговете на преводи', 'url'=>'?mode=tblog', "active" => $mode == "tblog"),
+		array('label'=>'В преводи',        'url'=>'?mode=tr',    "active" => $mode == "tr"),
 	),
 ));
 ?>
 
 <?php
 	if($comments->totalItemCount == 0) {
-		$A = array("blog" => "в общем блоге", "tblog" => "в блогах общедоступных переводов", "tr" => "в общедоступных переводах");
-		echo "<p>{$user->login} не написал" . $user->sexy() . " ни одного комментария {$A[$mode]}</p>";
+		$A = array("blog" => "в общия блог", "tblog" => "в блоговете на общодостъпните преводи", "tr" => "в общодостъпните преводи");
+		echo "<p>{$user->login} не е написал" . $user->sexy() . " нито един коментар {$A[$mode]}</p>";
 	} else {
-		echo "<h2>" . Yii::t("app", "{n} комментарий|{n} комментария|{n} комментариев", $comments->totalItemCount) . "</h2>";
+		echo "<h2>" . Yii::t("app", "{n} коментар|{n} коментара|{n} коментара", $comments->totalItemCount) . "</h2>";
 		if($cache_time) {
-			echo "<div class='alert alert-box alert-info'>Информация обновляется раз в <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часов", $cache_time) . "</strong></div>";
+			echo "<div class='alert alert-box alert-info'>Информацията се обновява веднж на <strong>" . Yii::t("app", "{n} час|{n} часа|{n} часа", $cache_time) . "</strong></div>";
 		}
 
 		$data = $comments->data;
@@ -52,7 +52,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 
 			if($mode == "blog") {
 				if(!isset(Yii::app()->params["blog_topics"]["common"][$comment->post->topics])) {
-					echo "<p class='access-denied'>Комментарий написан в блоге, к которому у вас нет доступа.</p>";
+					echo "<p class='access-denied'>Комментарът е написан в блог, до който нямате достъп.</p>";
 					continue;
 				}
 				$x .= "<a href='{$comment->post->url}#cmt_{$comment->id}'>{$comment->post->title}</a>";
