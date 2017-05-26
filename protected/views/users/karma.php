@@ -4,7 +4,7 @@
 
 	$this->pageTitle = $user->login . ": карма";
 
-	$this->renderPartial("profile_head", array("user" => $user, "h1" => "карма = <span title='оценок: {$user->n_karma}'" . ($user->rate_u < 0 ? " class='negative'" : "") . ">{$user->rate_uFormatted}"));
+	$this->renderPartial("profile_head", array("user" => $user, "h1" => "карма = <span title='оценки: {$user->n_karma}'" . ($user->rate_u < 0 ? " class='negative'" : "") . ">{$user->rate_uFormatted}"));
 ?>
 <script type="text/javascript">
 var KarmaSet = {
@@ -21,11 +21,11 @@ $(KarmaSet.init);
 <?php if($dir != "out"): ?>
 <?php if(Yii::app()->user->isGuest): ?>
 	<p class="alert alert-block alert-info fade in">
-		Чтобы оценивать других переводчиков, нужно <a href="/register">зарегистрироваться</a> или <a href="#" onclick="return Global.login()">войти на сайт</a>.
+		За да оценявате други преводачи, трябва да се <a href="/register">регистрирате</a> или <a href="#" onclick="return Global.login()">влезете</a> в сайта.
 	</p>
 <?php elseif(!Yii::app()->user->can("karma")): ?>
 	<p class="alert alert-block alert-info fade in">
-		Ставить оценки в карму могут только пользователи, зарегистрировавшиеся не позднее, чем 180 дней тому назад.
+		Само потребители, регистрирани повече от 180 дни могат да поставят оценки в кармата.
 	</p>
 <?php elseif(Yii::app()->user->id != $user->id): ?>
 	<?php
@@ -38,12 +38,12 @@ $(KarmaSet.init);
 	?>
 	<div class="row">
 		<div class="span3">
-			<h3>Ваша оценка</h3>
-			<?php echo $form->radioButtonList($my_mark, "mark", array(1 => "Положительно", 0 => "Никак", -1 => "Отрицательно"), array("uncheckValue" => null)); ?>
-			<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> Поставить оценку</button>
+			<h3>Вашата оценка</h3>
+			<?php echo $form->radioButtonList($my_mark, "mark", array(1 => "Положителна", 0 => "Никаква", -1 => "Отрицателна"), array("uncheckValue" => null)); ?>
+			<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> Поставетеь оценка</button>
 		</div>
 		<div class="span5">
-			<h3>Комментарий</h3>
+			<h3>Комментари</h3>
 			<?php echo $form->textArea($my_mark, "note", array("class" => "span5", "style" => "height:85px;")); ?>
 		</div>
 	</div>
@@ -63,7 +63,7 @@ $(KarmaSet.init);
 		$html[$mark->mark] .= "<li><a href='{$u->url}' title='" . Yii::app()->dateFormatter->formatDateTime($mark->dat, "medium", "short") . "'>{$u->login}</a>" . ($mark->note != "" ? ": &laquo;{$mark->note}&raquo;" : "") . "</li>";
 		$stat[$mark->mark]++;
 	}
-	$header = array(-1 => "Минусы", 1 => "Плюсы");
+	$header = array(-1 => "Минуси", 1 => "Плюсове");
 	foreach(array(-1, 1) as $z) {
 		if($stat[$z] != 0) $header[$z] .= " ({$stat[$z]})";
 	}
