@@ -48,15 +48,15 @@ class BookBaseController extends Controller {
 						} elseif($this->book->facecontrol == Book::FC_INVITE) {
 							if($this->book->user_invited(Yii::app()->user->id)) {
 								$msg .= "<br /><br />И, кстати, это приглашение у вас есть.<br /><br />" .
-									"<a href='" . $this->book->getUrl("invite_accept")  . "' class='btn btn-success'><i class='icon-ok icon-white'></i> Принять</a> " .
-									"<a href='" . $this->book->getUrl("invite_decline") . "' class='btn btn-inverse'><i class='icon-remove-sign icon-white'></i> Отказать</a>";
+									"<a href='" . $this->book->getUrl("invite_accept")  . "' class='btn btn-success'><i class='icon-ok icon-white'></i> Приемане</a> " .
+									"<a href='" . $this->book->getUrl("invite_decline") . "' class='btn btn-inverse'><i class='icon-remove-sign icon-white'></i> Отказ</a>";
 							}
 						}
 					}
 				}
 
-				$msg .= "<br /><br /><a href='/search?t=" . urlencode($this->book->s_title) . "'>Поискать похожие переводы</a> | ";
-				$msg .= "<a href='" . $this->book->owner->getUrl("books") . "'>Другие переводы от {$this->book->owner->login}</a> | ";
+				$msg .= "<br /><br /><a href='/search?t=" . urlencode($this->book->s_title) . "'>Търсене на подобни преводи</a> | ";
+				$msg .= "<a href='" . $this->book->owner->getUrl("books") . "'>Други преводи от {$this->book->owner->login}</a> | ";
 				if(!Yii::app()->user->isGuest) $msg .= "<a href='/mail/write?to=" . urlencode($this->book->owner->login) . "'>Написать письмо {$this->book->owner->login}</a> ";
 			}
 

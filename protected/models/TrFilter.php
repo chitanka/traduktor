@@ -4,14 +4,14 @@ class TrFilter extends CFormModel {
 	public $to_esc, $tt_esc;
 
 	public static $modes = array(
-		0 => "Всё",
-		1 => "Непереведённое",
-		7 => "С 2 и более версиями перевода",
-		3 => "С комментариями",
-		4 => "С новыми комментариями",
-		2 => "От переводчика",
-		5 => "Оригинал содержит",
-		6 => "Перевод содержит",
+		0 => "Всички",
+		1 => "Непреведеното",
+		7 => "С две и повече версии на превод",
+		3 => "С коментари",
+		4 => "С нови коментари",
+		2 => "От преводача",
+		5 => "Оригиналът съдържа",
+		6 => "Преводът съдържа",
 	);
 
 	protected function beforeValidate() {
@@ -33,10 +33,10 @@ class TrFilter extends CFormModel {
 
 	public function attributeLabels() {
 		return array(
-			"show" => "Фильтр",
-			"to" => "Оригинал содержит",
-			"tt" => "Перевод содержит",
-			"show_user" => "От переводчика",
+			"show" => "Филтър",
+			"to" => "Оригиналът съдържа",
+			"tt" => "Преводът съдържа",
+			"show_user" => "От преводача",
 		);
 	}
 
@@ -50,10 +50,9 @@ class TrFilter extends CFormModel {
 		$html = "<a href='#' class='btn btn-small tb-filter' accesskey='F'";
 		if($this->show) $html .= " title='{$this->buttonTitle}'";
 		$html .= ">";
-		$html .= "<i class='icon-filter'></i> Фильтр";
+		$html .= "<i class='icon-filter'></i> Филтър";
 		if($this->show) $html .= " <sup>{$orig_dp->totalItemCount}</sup>";
 		$html .= "</a>";
 		return $html;
 	}
 }
-?>

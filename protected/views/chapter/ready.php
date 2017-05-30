@@ -4,13 +4,13 @@
 	 * @var GenOptions $options
 	 * @var array $authors
 	 */
-	$this->pageTitle = "Скачать перевод {$chap->book->fullTitle}: {$chap->title}";
+	$this->pageTitle = "Сваляне на превода {$chap->book->fullTitle}: {$chap->title}";
 ?>
-<h1>Скачать перевод <?php echo "{$chap->book->fullTitle}: {$chap->title}"; ?></h1>
+<h1><?= $this->pageTitle ?></h1>
 
 <form method="get" action="<?=$chap->getUrl("download"); ?>" class="form-horizontal">
 	<div class="control-group">
-		<label class="control-label">Использовать:</label>
+		<label class="control-label">Използване на:</label>
 		<div class="controls">
 			<?php
 				foreach(GenOptions::$algorithm_options as $k => $v) {
@@ -28,7 +28,7 @@
 			<label class="checkbox">
 				<input type="hidden" name="skip_neg" value="0" />
 				<input type="checkbox" name="skip_neg" value="1" <?php if($options->skip_neg) echo " checked"; ?> />
-				Пропускать варианты с отрицательным рейтингом
+				Пропускане на варианти с отрицателен рейтинг
 			</label>
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 
 	<?php if($chap->d_vars < $chap->n_verses): ?>
 	<div class="control-group">
-		<label class="control-label">Непереведённые фрагменты:</label>
+		<label class="control-label">Непреведени фрагменти:</label>
 		<div class="controls">
 			<?php
 			foreach(GenOptions::$untr_options as $k => $v) {
@@ -90,7 +90,7 @@
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label">Перенос строки:</label>
+		<label class="control-label">Пренасяне на редовете:</label>
 		<div class="controls">
 			<select name="crlf">
 				<?php
@@ -107,10 +107,10 @@
 
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary">
-			<i class="icon-download-alt icon-white"></i> Скачать
+			<i class="icon-download-alt icon-white"></i> Сваляне
 		</button>
-		<a href="<?=$chap->book->url; ?>" class="btn">К оглавлению</a>
-		<a href="<?=$chap->url; ?>" class="btn">Перевод этой главы</a>
+		<a href="<?=$chap->book->url; ?>" class="btn">Към съдържанието</a>
+		<a href="<?=$chap->url; ?>" class="btn">Превод на главата</a>
 	</div>
 
 </form>

@@ -277,7 +277,7 @@
 <div id="tr-sidebar">
 	<div id="dict" <?php if($chap->book->can("dict_edit")) echo "class='has-edit'"; ?>>
 		<div id="dict-search">
-			<input type="text" placeholder="Поиск по словарю" class="search" />
+			<input type="text" placeholder="Търсене в речника" class="search" />
 			<a href="#" class="b"><i class="i icon-remove-sign"></i></a>
 		</div>
 		<div id="dict-body">

@@ -4,14 +4,14 @@
 	 * @var array[] $Questions
 	 */
 
-	$this->pageTitle = "Результаты опроса";
+	$this->pageTitle = "Резултати от заявката";
 ?>
 <style type="text/css">
 .question {
 	margin:20px 0 40px;
 }
 </style>
-<h1>Результаты опроса</h1>
+<h1><?= $this->pageTitle ?></h1>
 <?php
 	foreach($Questions as $q) {
 		echo "<div class='question'>";
@@ -27,4 +27,4 @@
 	}
 ?>
 
-<p><a href="/dungeon/pollRawResults">Скачать CSV</a></p>
+<p><a href="/dungeon/pollRawResults">Сваляне на CSV</a></p>

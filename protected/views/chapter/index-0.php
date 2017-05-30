@@ -45,34 +45,34 @@
 		<a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
 		<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#" onclick="T.loadChapters()"><span class="caret"></span></a>
 		<ul class="dropdown-menu" id="chapter-list">
-			<li><a href="<?=$chap->book->getUrl("members"); ?>">Переводчики</a></li>
+			<li><a href="<?=$chap->book->getUrl("members"); ?>">Преводачи</a></li>
 			<li><a href="<?=$chap->book->getUrl("blog"); ?>">Блог</a></li>
 		</ul>
 	</div>
     <div class="btn-group">
-        <a href="<?=$chap->getUrl("go?nach=next&ord={$chap->ord}"); ?>" class="btn btn-small" title="Следующая глава"><i class="icon-arrow-right"></i></a>
+        <a href="<?=$chap->getUrl("go?nach=next&ord={$chap->ord}"); ?>" class="btn btn-small" title="Следваща глава"><i class="icon-arrow-right"></i></a>
     </div>
 
 	<div class="btn-group">
 		<a href="#" onclick="return T.dict.show()" class="btn btn-small" accesskey="V"><i class="icon-book"></i> Речник</a>
 		<a href="#filter-modal" data-toggle="modal" class="btn btn-small">
-			<i class="icon-filter"></i> Фильтр:
+			<i class="icon-filter"></i> Филтър:
 			<?php
-				if($show == 2) echo "от переводчика {$show_user}";
+				if($show == 2) echo "от преводача {$show_user}";
 				else echo mb_strtolower($filters[$show]);
 			?>
 		</a>
 		<?php if($chap->book->can("chap_edit")): ?>
-			<a href="<?=$chap->getUrl("0/edit"); ?>" class='btn btn-small'><i class='icon-plus-sign'></i> Добавить фрагмент</a>
+			<a href="<?=$chap->getUrl("0/edit"); ?>" class='btn btn-small'><i class='icon-plus-sign'></i> Добавяне на фрагмент</a>
         	<?php if($chap->book->typ == "S"): ?>
 				<a href="#timeshift-modal" data-toggle="modal" class='btn btn-small'><i class='icon-time'></i> Тайминг</a>
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
 
-	<div class="btn-group switchiface">
-		<a href="<?=$chap->getUrl("switchiface"); ?>" class="btn btn-small"><i class="icon-thumbs-up"></i></a>
-	</div>
+<!--	<div class="btn-group switchiface">-->
+<!--		<a href="<?=$chap->getUrl("switchiface"); ?>" class="btn btn-small"><i class="icon-thumbs-up"></i></a>-->
+<!--	</div>-->
 
 	<div class="btn-group pull-right" style='vertical-align: top'>
 		<div id='progress-info'>
@@ -83,7 +83,7 @@
 			echo "<div class='progress progress-striped progress-success'>";
 			printf("<div class='bar' style='width: %d%%;'></div>", $procent);
 			printf(
-				"<div class='text'><a href='%s' title='Скачать результат.\nФрагментов: %d, вариантов: %d, разных: %d'>Готово: %0.01f%%, скачать</a></div>",
+				"<div class='text'><a href='%s' title='Сваляне на резултата.\nФрагменти: %d, варианти: %d, разни: %d'>Готово: %0.01f%%, сваляне</a></div>",
 				$chap->getUrl("ready"), $chap->n_verses, $chap->n_vars, $chap->d_vars, $procent
 			);
 
@@ -119,7 +119,7 @@
 		<th style='border-top-left-radius: 10px;'>#</th>
 		<th>Оригинал (<?=Yii::app()->langs->Langs[$chap->book->s_lang][Langs::FORM_INF]; ?>)</th>
 		<th></th>
-		<th>Перевод (<?=Yii::app()->langs->Langs[$chap->book->t_lang][Langs::FORM_INF]; ?>)</th>
+		<th>Превод (<?=Yii::app()->langs->Langs[$chap->book->t_lang][Langs::FORM_INF]; ?>)</th>
 		<th style='border-top-right-radius: 10px;'></th>
 	</tr>
 	</thead>
@@ -153,11 +153,11 @@
 
 			if(!Yii::app()->user->isGuest) {
 				if(!is_null($o->bookmark) && $o->bookmark->id) {
-					$title = "Закладка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
+					$title = "Отметка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
 					$html = "<i class='icon-star'></i>";
 					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b set' title='{$title}'>{$html}</a>";
 				} else {
-					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b' title='Поставить закладку'><i class='icon-star-empty'></i></a>";
+					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b' title='Поставяне на отметка'><i class='icon-star-empty'></i></a>";
 				}
 			} else {
 				$bm = "";
@@ -255,7 +255,7 @@
 	<form method="get" class="form-inline" action="<?=$chap->url; ?>">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
-		<h3>Фильтр</h3>
+		<h3>Филтър</h3>
 	</div>
 	<div class="modal-body">
 		<ul class='options'>
@@ -275,8 +275,8 @@
 		</ul>
 	</div>
 	<div class="modal-footer">
-		<button type="submit" class="btn btn-primary">Показать</button>
-		<a href="#" class="btn" data-dismiss="modal">Отмена</a>
+		<button type="submit" class="btn btn-primary">Показване</button>
+		<a href="#" class="btn" data-dismiss="modal">Отмяна</a>
 	</div>
 	</form>
 </div>
@@ -304,8 +304,8 @@
 			</div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Поехали</button>
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+            <button type="submit" class="btn btn-primary">Старт</button>
+            <a href="#" class="btn" data-dismiss="modal">Отмяна</a>
         </div>
 	</form>
 </div>

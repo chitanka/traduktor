@@ -15,7 +15,7 @@ Yii::app()->getClientScript()
 
 Yii::app()->bootstrap->registerModal();
 
-$this->pageTitle = "Перевод " . $chap->book->fullTitle . ": " . $chap->title;
+$this->pageTitle = "Превод " . $chap->book->fullTitle . ": " . $chap->title;
 $this->layoutOptions["fluid"] = true;
 
 /** @var Orig[] $orig */
@@ -96,13 +96,13 @@ function getQS($merge = null, $unset = null)
                             if ($k == 0) continue;
                             echo "<li><label><input type='radio' name='show' value='{$k}' " . ($k == $filter->show ? " checked" : "") . "/> ";
                             if ($k == 2) {
-                                echo " <input type='text' name='show_user' placeholder='От переводчика' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
+                                echo " <input type='text' name='show_user' placeholder='От преводaча' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
                                 if (!$user->isGuest) echo "title='Ctrl+I: вставить ваш ник' ";
                                 echo "/>";
                             } elseif ($k == 5) {
-                                echo " <input type='text' name='to' placeholder='Оригинал содержит' class='span3' value='" . CHtml::encode($filter->to) . "' />";
+                                echo " <input type='text' name='to' placeholder='Оригиналът съдържа' class='span3' value='" . CHtml::encode($filter->to) . "' />";
                             } elseif ($k == 6) {
-                                echo " <input type='text' name='tt' placeholder='Перевод содержит' class='span3' value='" . CHtml::encode($filter->tt) . "' />";
+                                echo " <input type='text' name='tt' placeholder='Преводът ъдържа' class='span3' value='" . CHtml::encode($filter->tt) . "' />";
                             } else {
                                 echo "<a href='?show={$k}'>{$v}</a>";
                             }
@@ -111,9 +111,9 @@ function getQS($merge = null, $unset = null)
                         }
                         ?>
                     </ul>
-                    <button type="submit" class="btn btn-mini btn-primary">Показать</button>
+                    <button type="submit" class="btn btn-mini btn-primary">Показване</button>
                     <a href="<?= $chap->getUrl(getQS(null, array("Orig_page", "show", "to", "tt", "show_user"))); ?>"
-                       class="btn btn-mini">Сбросить всё</a>
+                       class="btn btn-mini">Изтриване на всички</a>
                 </form>
             </div>
 
@@ -121,7 +121,7 @@ function getQS($merge = null, $unset = null)
         </div>
 
         <?php
-        if ($filter->show) echo "<div class='group'><a href='{$chap->url}' title='Сбросить фильтр'><i class='i icon-remove'></i></a></div>";
+        if ($filter->show) echo "<div class='group'><a href='{$chap->url}' title='Изтриване на филтъра'><i class='i icon-remove'></i></a></div>";
         ?>
 
         <?php if ($chap->book->typ == "S" && $chap->book->can("chap_edit")): ?>
@@ -130,15 +130,15 @@ function getQS($merge = null, $unset = null)
                 <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu" id="tools-list">
                     <li><a href="#timeshift-modal" data-toggle="modal"><i class='icon-time'></i> Тайминг</a></li>
-                    <li><a href="#renum-modal" data-toggle="modal"><i class="icon-road"></i> Пронумеровать</a></li>
+                    <li><a href="#renum-modal" data-toggle="modal"><i class="icon-road"></i> Преномериране</a></li>
                 </ul>
             </div>
         <?php endif; ?>
 
 
-        <div class="group">
-            <a href="<?= $chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>
-        </div>
+<!--        <div class="group">-->
+<!--            <a href="<?= $chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>-->
+<!--        </div>-->
 
         <div class="tb-progress group"></div>
 
@@ -150,7 +150,7 @@ function getQS($merge = null, $unset = null)
             if ($p->currentPage + 1 == 1) echo "<span>&larr;</span>";
             else {
                 $g["Orig_page"] = $p->currentPage;
-                echo "<a href='?" . http_build_query($g) . "' class='pseudo' title='На предыдущую страницу'>&larr;</a>";
+                echo "<a href='?" . http_build_query($g) . "' class='pseudo' title='Към предишната страница'>&larr;</a>";
             }
 
             echo "<div class='blur left'></div>";
@@ -171,7 +171,7 @@ function getQS($merge = null, $unset = null)
             if ($p->currentPage + 1 >= $p->pageCount) echo "<span>&rarr;</span>";
             else {
                 $g["Orig_page"] = $p->currentPage + 2;
-                echo "<a href='?" . http_build_query($g) . "' class='pseudo' title='На следующую страницу'>&rarr;</a>";
+                echo "<a href='?" . http_build_query($g) . "' class='pseudo' title='Към следващата страница'>&rarr;</a>";
             }
             echo "</div>";
         }
@@ -307,8 +307,8 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
 <div id="pages-bottom">
     <?php
     $p = $orig_dp->pagination;
-    if ($p->currentPage > 0) echo "<p class='p'><a href='?" . getQS(array("Orig_page" => $p->currentPage)) . "'>&larr; Предыдущая страница</a></p>";
-    if ($p->currentPage < $p->pageCount - 1) echo "<p class='n'><a href='?" . getQS(array("Orig_page" => $p->currentPage + 2)) . "'>Следующая страница &rarr;</a></p>";
+    if ($p->currentPage > 0) echo "<p class='p'><a href='?" . getQS(array("Orig_page" => $p->currentPage)) . "'>&larr; Предишна страница</a></p>";
+    if ($p->currentPage < $p->pageCount - 1) echo "<p class='n'><a href='?" . getQS(array("Orig_page" => $p->currentPage + 2)) . "'>Следваща страница &rarr;</a></p>";
     ?>
 </div>
 
@@ -316,7 +316,7 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
 <div id="tr-sidebar">
     <div id="dict" <?php if ($chap->book->can("dict_edit")) echo "class='has-edit'"; ?>>
         <div id="dict-search">
-            <input type="text" placeholder="Поиск по словарю" class="search"/>
+            <input type="text" placeholder="Търсене в речника" class="search"/>
             <a href="#" class="b"><i class="i icon-remove-sign"></i></a>
         </div>
         <div id="dict-body">
@@ -388,8 +388,8 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
         </div>
         <div class="modal-footer">
             <input type="hidden" name="mode" value="1"/>
-            <button type="submit" class="btn btn-primary">Поехали</button>
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+            <button type="submit" class="btn btn-primary">Старт</button>
+            <a href="#" class="btn" data-dismiss="modal">Отмяна</a>
         </div>
     </form>
 </div>

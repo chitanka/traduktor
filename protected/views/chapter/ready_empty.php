@@ -3,11 +3,11 @@
  * @var Chapter $chap
  */
 ?>
-<h1>Скачать перевод <?php echo "{$chap->book->fullTitle}: {$chap->title}"; ?></h1>
+<h1>Сваляне на превода <?php echo "{$chap->book->fullTitle}: {$chap->title}"; ?></h1>
 <p>
-	В этой главе нет ни одного переведённого фрагмента.
+	В тази глава няма нито един преведен фрагмент.
 </p>
 <p>
-	<a href="<?=$chap->book->url; ?>">К оглавлению</a> |
-	<?php if($chap->can("tr")) echo "<a href='{$chap->url}'>Перевести</a>"; ?>
+	<a href="<?=$chap->book->url; ?>">Към съдържанието</a> |
+	<?php if($chap->can("tr")) echo "<a href='{$chap->url}'>Превеждане</a>"; ?>
 </p>

@@ -3,9 +3,9 @@
 	 * @var Chapter $chap
 	 * @var GenOptions $options
 	 */
-	$this->pageTitle = "Скачать оригинальные субтитры {$chap->book->fullTitle}: {$chap->title}";
+	$this->pageTitle = "Сваляне на оригиналните субтитри {$chap->book->fullTitle}: {$chap->title}";
 ?>
-<h1>Скачать оригинальные субтитры <?php echo "{$chap->book->s_title}: {$chap->title}"; ?></h1>
+<h1>Сваляне на оригиналните субтитри <?php echo "{$chap->book->s_title}: {$chap->title}"; ?></h1>
 
 <form method="get" action="<?=$chap->getUrl("orig_download"); ?>" class="form-horizontal">
 	<div class="control-group">
@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label">Перенос строки:</label>
+		<label class="control-label">Пренасяне на редовете:</label>
 		<div class="controls">
 			<select name="crlf">
 				<?php
@@ -47,10 +47,10 @@
 
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary">
-			<i class="icon-download-alt icon-white"></i> Скачать
+			<i class="icon-download-alt icon-white"></i> Сваляне
 		</button>
-		<a href="<?=$chap->book->url; ?>" class="btn">К оглавлению</a>
-		<a href="<?=$chap->url; ?>" class="btn">Перевод этой главы</a>
+		<a href="<?=$chap->book->url; ?>" class="btn">Към съдържанието</a>
+		<a href="<?=$chap->url; ?>" class="btn">Превод на главата</a>
 	</div>
 
 </form>

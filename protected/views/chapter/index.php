@@ -91,7 +91,7 @@
 			echo "<div class='progress progress-striped progress-success'>";
 			printf("<div class='bar' style='width: %d%%;'></div>", $procent);
 			printf(
-				"<div class='text'><a href='%s' title='Скачать результат.\nФрагментов: %d, вариантов: %d, разных: %d'>Готово: %0.01f%%, скачать</a></div>",
+				"<div class='text'><a href='%s' title='Сваляне на резултата.\nФрагменти: %d, варианти: %d, разни: %d'>Готово: %0.01f%%, сваляне</a></div>",
 				$chap->getUrl("ready"), $chap->n_verses, $chap->n_vars, $chap->d_vars, $procent
 			);
 
@@ -258,7 +258,7 @@
 	<form method="get" class="form-inline">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
-		<h3>Фильтр</h3>
+		<h3>Филтър</h3>
 	</div>
 	<div class="modal-body">
 		<ul class='options'>
@@ -278,8 +278,8 @@
 		</ul>
 	</div>
 	<div class="modal-footer">
-		<button type="submit" class="btn btn-primary">Показать</button>
-		<a href="#" class="btn" data-dismiss="modal">Отмена</a>
+		<button type="submit" class="btn btn-primary">Показване</button>
+		<a href="#" class="btn" data-dismiss="modal">Отмяна</a>
 	</div>
 	</form>
 </div>
