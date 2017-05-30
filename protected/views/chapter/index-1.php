@@ -65,25 +65,25 @@ function getQS($merge = null, $unset = null)
     <div>
         <div class='group'><a
                 href="<?= $chap->getUrl("go?" . getQS(array("nach" => "prev", "ord" => $chap->ord), array("Orig_page"))); ?>"
-                title="Предыдущая глава"><i class="i icon-arrow-left"></i></a></div>
+                title="Предишна глава"><i class="i icon-arrow-left"></i></a></div>
 
         <div class="tb-index btn-group">
             <a href="<?= $chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
             <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
             <ul class="dropdown-menu" id="tb-chapter-list">
-                <li><a href="<?= $chap->book->getUrl("members"); ?>">Переводчики</a></li>
+                <li><a href="<?= $chap->book->getUrl("members"); ?>">Преводачи</a></li>
                 <li><a href="<?= $chap->book->getUrl("blog"); ?>">Блог</a></li>
             </ul>
         </div>
 
         <div class='group'><a
                 href="<?= $chap->getUrl("go?" . getQS(array("nach" => "next", "ord" => $chap->ord), array("Orig_page"))); ?>"
-                title="Следующая глава"><i class="i icon-arrow-right"></i></a></div>
+                title="Следваща глава"><i class="i icon-arrow-right"></i></a></div>
 
         <div class="btn-group">
             <?php if (!$user->isGuest): ?>
-                <button type="button" class="btn btn-small tb-chat" title="Ctrl + ~"><i class="icon-bullhorn"></i> Чат
-                </button>
+<!--                <button type="button" class="btn btn-small tb-chat" title="Ctrl + ~"><i class="icon-bullhorn"></i> Чат-->
+<!--                </button>-->
             <?php endif; ?>
 
             <a href="#" class="btn btn-small tb-dict" accesskey="V"><i class="icon-book"></i> Речник</a>
