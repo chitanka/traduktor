@@ -54,31 +54,31 @@
 
 <div class="btn-toolbar" id='toolbar-main'>
 	<div class="btn-group">
-		<a href="<?=$chap->getUrl("go?to=prev&ord={$chap->ord}"); ?>" class="btn btn-small" title="Предыдущая глава"><i class="icon-arrow-left"></i></a>
+		<a href="<?=$chap->getUrl("go?to=prev&ord={$chap->ord}"); ?>" class="btn btn-small" title="Предишна глава"><i class="icon-arrow-left"></i></a>
 	</div>
 	<div class="btn-group">
 		<a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
 		<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#" onclick="T.loadChapters()"><span class="caret"></span></a>
 		<ul class="dropdown-menu" id="chapter-list">
-			<li><a href="<?=$chap->book->getUrl("members"); ?>">Переводчики</a></li>
+			<li><a href="<?=$chap->book->getUrl("members"); ?>">Преводачи</a></li>
 			<li><a href="<?=$chap->book->getUrl("blog"); ?>">Блог</a></li>
 		</ul>
 	</div>
     <div class="btn-group">
-        <a href="<?=$chap->getUrl("go?to=next&ord={$chap->ord}"); ?>" class="btn btn-small" title="Следующая глава"><i class="icon-arrow-right"></i></a>
+        <a href="<?=$chap->getUrl("go?to=next&ord={$chap->ord}"); ?>" class="btn btn-small" title="Следваща глава"><i class="icon-arrow-right"></i></a>
     </div>
 
 	<div class="btn-group">
-		<a href="#" onclick="return T.dict.show()" class="btn btn-small" accesskey="V"><i class="icon-book"></i> Словарь</a>
+		<a href="#" onclick="return T.dict.show()" class="btn btn-small" accesskey="V"><i class="icon-book"></i> Речник</a>
 		<a href="#filter-modal" data-toggle="modal" class="btn btn-small">
-			<i class="icon-glass"></i> Фильтр:
+			<i class="icon-glass"></i> Филтър:
 			<?php
 				if($show == 2) echo "от переводчика {$show_user}";
 				else echo mb_strtolower($filters[$show]);
 			?>
 		</a>
 		<?php if($chap->book->can("chap_edit")): ?>
-			<a href="<?=$chap->getUrl("0/edit"); ?>" class='btn btn-small'><i class='icon-plus-sign'></i> Добавить фрагмент</a>
+			<a href="<?=$chap->getUrl("0/edit"); ?>" class='btn btn-small'><i class='icon-plus-sign'></i> Добавяне на фрагмент</a>
 		<?php endif; ?>
 	</div>
 
@@ -288,7 +288,7 @@
 
 </div>
 
-<div id="dict-dialog" title="Словарь" style="display:none;">
-	<p class="loading">Минуточку...</p>
+<div id="dict-dialog" title="Речник" style="display:none;">
+	<p class="loading">Минутка...</p>
 </div>
 

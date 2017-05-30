@@ -54,7 +54,7 @@
     </div>
 
 	<div class="btn-group">
-		<a href="#" onclick="return T.dict.show()" class="btn btn-small" accesskey="V"><i class="icon-book"></i> Словарь</a>
+		<a href="#" onclick="return T.dict.show()" class="btn btn-small" accesskey="V"><i class="icon-book"></i> Речник</a>
 		<a href="#filter-modal" data-toggle="modal" class="btn btn-small">
 			<i class="icon-filter"></i> Фильтр:
 			<?php
@@ -311,7 +311,7 @@
 </div>
 <?php endif; ?>
 
-<div id="dict-dialog" title="Словарь" style="display:none;">
-	<p class="loading">Минуточку...</p>
+<div id="dict-dialog" title="Речник" style="display:none;">
+	<p class="loading">Минутка...</p>
 </div>
 

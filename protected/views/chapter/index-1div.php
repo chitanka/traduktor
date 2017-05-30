@@ -49,21 +49,21 @@
 <h1><?=$chap->book->ahref; ?>: <?=$chap->title; ?></h1>
 
 <div id="tb-main"><div>
-	<div class='group'><a href="<?=$chap->getUrl("go?" . getQS(array("nach" => "prev", "ord" => $chap->ord), array("Orig_page"))); ?>" title="Предыдущая глава"><i class="i icon-arrow-left"></i></a></div>
+	<div class='group'><a href="<?=$chap->getUrl("go?" . getQS(array("nach" => "prev", "ord" => $chap->ord), array("Orig_page"))); ?>" title="Предишна глава"><i class="i icon-arrow-left"></i></a></div>
 
 	<div class="tb-index btn-group">
 		<a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
 		<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 		<ul class="dropdown-menu" id="tb-chapter-list">
-			<li><a href="<?=$chap->book->getUrl("members"); ?>">Переводчики</a></li>
+			<li><a href="<?=$chap->book->getUrl("members"); ?>">Преводачи</a></li>
 			<li><a href="<?=$chap->book->getUrl("blog"); ?>">Блог</a></li>
 		</ul>
 	</div>
 
-	<div class='group'><a href="<?=$chap->getUrl("go?" . getQS(array("nach" => "next", "ord" => $chap->ord), array("Orig_page"))); ?>" title="Следующая глава"><i class="i icon-arrow-right"></i></a></div>
+	<div class='group'><a href="<?=$chap->getUrl("go?" . getQS(array("nach" => "next", "ord" => $chap->ord), array("Orig_page"))); ?>" title="Следваща глава"><i class="i icon-arrow-right"></i></a></div>
 
 	<div class="btn-group">
-		<a href="#" class="btn btn-small tb-dict" accesskey="V"><i class="icon-book"></i> Словарь</a>
+		<a href="#" class="btn btn-small tb-dict" accesskey="V"><i class="icon-book"></i> Речник</a>
 
         <div id="tb-filter">
             <form method="get" class="form-inline" action="<?=$chap->url; ?>">
@@ -73,13 +73,13 @@
 						if($k == 0) continue;
 						echo "<li><label><input type='radio' name='show' value='{$k}' " . ($k == $filter->show ? " checked" : "") . "/> ";
 						if($k == 2) {
-							echo " <input type='text' name='show_user' placeholder='От переводчика' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
+							echo " <input type='text' name='show_user' placeholder='От преводача' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
 							if(!$user->isGuest) echo "title='Ctrl+I: вставить ваш ник' ";
 							echo "/>";
 						} elseif($k == 5) {
-							echo " <input type='text' name='to' placeholder='Оригинал содержит' class='span3' value='" . CHtml::encode($filter->to) . "' />";
+							echo " <input type='text' name='to' placeholder='Оригиналът съдържа' class='span3' value='" . CHtml::encode($filter->to) . "' />";
 						} elseif($k == 6) {
-							echo " <input type='text' name='tt' placeholder='Перевод содержит' class='span3' value='" . CHtml::encode($filter->tt) . "' />";
+							echo " <input type='text' name='tt' placeholder='Преводът съдържа' class='span3' value='" . CHtml::encode($filter->tt) . "' />";
 						} else {
 							echo "<a href='?show={$k}'>{$v}</a>";
 						}
@@ -88,8 +88,8 @@
 					}
 				?>
                 </ul>
-                <button type="submit" class="btn btn-mini btn-primary">Показать</button>
-                <a href="<?=$chap->getUrl(getQS(null, array("Orig_page", "show", "to", "tt", "show_user"))); ?>" class="btn btn-mini">Сбросить всё</a>
+                <button type="submit" class="btn btn-mini btn-primary">Показване</button>
+                <a href="<?=$chap->getUrl(getQS(null, array("Orig_page", "show", "to", "tt", "show_user"))); ?>" class="btn btn-mini">Изтриване на всички</a>
             </form>
         </div>
 
@@ -97,7 +97,7 @@
 	</div>
 
 	<?php
-		if($filter->show) echo "<div class='group'><a href='{$chap->url}' title='Сбросить фильтр'><i class='i icon-remove'></i></a></div>";
+		if($filter->show) echo "<div class='group'><a href='{$chap->url}' title='Изтриване на филтъра'><i class='i icon-remove'></i></a></div>";
 	?>
 
 	<?php if($chap->book->typ == "S" && $chap->book->can("chap_edit")): ?>
@@ -106,21 +106,21 @@
         <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu" id="tools-list">
             <li><a href="#timeshift-modal" data-toggle="modal"><i class='icon-time'></i> Тайминг</a></li>
-            <li><a href="#renum-modal" data-toggle="modal"><i class="icon-road"></i> Пронумеровать</a></li>
+            <li><a href="#renum-modal" data-toggle="modal"><i class="icon-road"></i> Преномериране</a></li>
         </ul>
 	</div>
 	<?php endif; ?>
 
 	<div class="group">
-		<a href="<?=$chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>
-		<a href="/blog/20938"><i class="icon-bullhorn" title="Обсуждение в блоге"></i></a>
+		<!--<a href="<?=$chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>-->
+		<a href="/blog/20938"><i class="icon-bullhorn" title="Обсъждане в блога"></i></a>
 	</div>
 
 	<?php if(0): ?>
 	<div class="group tb-text-size">
-		<a href="#" title="Уменьшить шрифт" class="smaller"><i class="icon-minus-sign"></i></a>
-        <span class="current" title="Текущий размер шрифта"><?=$user->ini["t.textfontsize"]; ?></span>
-		<a href="#" title="Увеличить шрифт" class="bigger"><i class="icon-plus-sign"></i></a>
+		<a href="#" title="Намаляване на шрифта" class="smaller"><i class="icon-minus-sign"></i></a>
+        <span class="current" title="Текущ размер на шрифта"><?=$user->ini["t.textfontsize"]; ?></span>
+		<a href="#" title="Увеличаване на шрифта" class="bigger"><i class="icon-plus-sign"></i></a>
     </div>
 	<?php endif; ?>
 
@@ -289,13 +289,13 @@
 		<div id="dict-add">
 			<form method="post" action="<?=$chap->book->getUrl("dict"); ?>">
 				<input type="text" name="term" placeholder="Оригинал" />
-				<input type="text" name="descr" placeholder="Перевод" />
-				<button type="submit" class="btn btn-mini btn-primary">Добавить</button>
-				<button type="button" class="btn btn-mini cancel">Отмена</button>
+				<input type="text" name="descr" placeholder="Превод" />
+				<button type="submit" class="btn btn-mini btn-primary">Добавяне</button>
+				<button type="button" class="btn btn-mini cancel">Отмяна</button>
 			</form>
 		</div>
 		<div id="dict-tools">
-			<i class="icon-plus"></i> <a href="#" class="add">Добавить слово</a>
+			<i class="icon-plus"></i> <a href="#" class="add">Добавяне на дума</a>
 		</div>
 		<?php endif; ?>
 		<?php if(0): ?><div id="dict-pages"></div><?php endif; ?>

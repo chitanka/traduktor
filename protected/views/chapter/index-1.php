@@ -86,7 +86,7 @@ function getQS($merge = null, $unset = null)
                 </button>
             <?php endif; ?>
 
-            <a href="#" class="btn btn-small tb-dict" accesskey="V"><i class="icon-book"></i> Словарь</a>
+            <a href="#" class="btn btn-small tb-dict" accesskey="V"><i class="icon-book"></i> Речник</a>
 
             <div id="tb-filter">
                 <form method="get" class="form-inline" action="<?= $chap->url; ?>">
@@ -328,13 +328,13 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
             <div id="dict-add">
                 <form method="post" action="<?= $chap->book->getUrl("dict"); ?>">
                     <input type="text" name="term" placeholder="Оригинал"/>
-                    <input type="text" name="descr" placeholder="Перевод"/>
-                    <button type="submit" class="btn btn-mini btn-primary">Добавить</button>
-                    <button type="button" class="btn btn-mini cancel">Отмена</button>
+                    <input type="text" name="descr" placeholder="Превод"/>
+                    <button type="submit" class="btn btn-mini btn-primary">Добавяне</button>
+                    <button type="button" class="btn btn-mini cancel">Отмяна</button>
                 </form>
             </div>
             <div id="dict-tools">
-                <i class="icon-plus"></i> <a href="#" class="add">Добавить слово</a>
+                <i class="icon-plus"></i> <a href="#" class="add">Добавяне на дума</a>
             </div>
         <?php endif; ?>
         <?php if (0): ?>

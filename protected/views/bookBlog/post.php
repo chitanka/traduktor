@@ -54,8 +54,8 @@
 					<textarea name="Comment[body]"></textarea>
 				</div>
 				<div>
-					<input type="submit" value="Добавить комментарий" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
-                    <input type="button" value="Отмена" class="btn btn-mini cancel" />
+					<input type="submit" value="Добавяне на коментар" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
+                    <input type="button" value="Отмяна" class="btn btn-mini cancel" />
 					<input type="hidden" name="Comment[pid]" value="0" />
 				</div>
 			</form>

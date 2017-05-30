@@ -32,7 +32,7 @@
 					<textarea name="Comment[body]"></textarea>
 				</div>
 				<div>
-					<input type="submit" value="Добавить" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
+					<input type="submit" value="Добавяне" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
 					<?php if(!is_null($orig->seen) && !$orig->seen->track): ?>
 						<input type="button" value="В мои обсуждения" class="btn btn-mini mytalks" title="Показывать новые комментарии к этому фрагменту в &laquo;Моих обсуждениях&raquo;" onclick="T.mytalks(<?=$orig->id; ?>, this)" />
 					<?php endif; ?>
