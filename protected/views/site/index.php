@@ -119,6 +119,7 @@
 	</div>
 </div>
 
+<?php if (!empty($searchTop)): ?>
 <div id="f-search-top">
 	<h2>
 		<span rel='popover' data-content='Колкото по-голямо е името, толкова по-често го търсят на този сайт.' data-title="Какво е това?">
@@ -131,8 +132,10 @@
 		&rarr; <a href="/search">претърсване на преводите</a>
 	</p>
 </div>
+<?php endif ?>
 
 <div class="row">
+	<?php if (!empty($announces)): ?>
 	<div id="f-announces" class="span7">
 		<h2>
 			Анонси относно преводите
@@ -146,6 +149,7 @@
 			&rarr; <a href="/announces">всички анонси</a>
 		</p>
 	</div>
+	<?php endif ?>
 <!--	<div id="f-blog" class="span5">-->
 <!--		<h2>-->
 <!--			Обсуждается в блоге-->
