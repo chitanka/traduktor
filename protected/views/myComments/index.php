@@ -4,7 +4,7 @@
 		->registerScriptFile("/js/blog.js");
 
 	$newComments = Yii::app()->user->newComments;
-	$this->pageTitle = "Мои обсуждения" . ($newComments > 0 ? " ({$newComments})" : "");
+	$this->pageTitle = "Моите разговори" . ($newComments > 0 ? " ({$newComments})" : "");
 ?>
 <style type='text/css'>
 #Lenta .orig {margin:0 0 15px 0}
@@ -17,7 +17,7 @@
 #Lenta .orig .meta a.new {color:#c00; font-weight:bold;}
 </style>
 
-<h1>Мои обсуждения</h1>
+<h1>Моите разговори</h1>
 <ul class="nav nav-tabs">
 <?php
 	foreach($modes as $k => $v) {
@@ -31,10 +31,10 @@
 	if($lenta->totalItemCount == 0) {
 		echo "<p class='info'>";
 		if(Yii::app()->user->ini_get(User::INI_MYTALKS_NEW)) {
-			echo "Новых комментариев {$modes[$mode]}, где вы отметились, нет.";
+			echo "Няма нови коментари {$modes[$mode]}, където сте записани.";
 		} else {
-			$A = array("p" => "пост", "o" => "фрагмент оригинала");
-			echo "Вы ещё не добавили в &laquo;Мои обсуждения&raquo; ни один {$A[$mode]}. Посты и фрагменты появляются здесь автоматически, если вы прокомментировали их или нажали на кнопку &laquo;в мои обсуждения&raquo;.";
+			$A = array("p" => "едно съобщение", "o" => "един фрагмент от оригинала");
+			echo "Още не сте добавили в „Моите разговори“ нито {$A[$mode]}. Съобщенията и фрагментите се появяват тук автоматично, ако сте ги коментирали или сте натиснали бутона „в моите разговори“.";
 		}
 		echo "</p>";
 	} else {
@@ -62,9 +62,9 @@
 				echo "<p>" . nl2br($orig->body) . "</p>";
 				echo "<div class='meta'>";
 				echo $orig->chap->ahref . " | ";
-				echo "<a href='{$orig->url}'>Комментариев: {$orig->n_comments}</a>";
-				if($orig->seen->n_comments != $orig->n_comments) echo " / <a href='{$orig->url}' class='new'>Новых: " . ($orig->n_comments - $orig->seen->n_comments) . "</a>";
-				echo " | <a href='/my/comments/rm/?orig_id={$orig->id}' class='talks'>не показывать</a>";
+				echo "<a href='{$orig->url}'>Коментари: {$orig->n_comments}</a>";
+				if($orig->seen->n_comments != $orig->n_comments) echo " / <a href='{$orig->url}' class='new'>Нови: " . ($orig->n_comments - $orig->seen->n_comments) . "</a>";
+				echo " | <a href='/my/comments/rm/?orig_id={$orig->id}' class='talks'>не показвай</a>";
 				echo "</div>";
 				echo "</div>";
 			}
