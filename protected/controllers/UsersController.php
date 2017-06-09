@@ -14,15 +14,15 @@ class UsersController extends Controller {
 		parent::init();
 
 		$this->submenu = array(
-			"books" => "Переводы",
+			"books" => "Преводи",
 			"karma" => "Карма",
-			"comments" => "Комментарии",
-			"posts" => "Посты",
-			"profile" => "Контакты",
+			"comments" => "Коментари",
+			"posts" => "Съобщения",
+			"profile" => "Контакти",
 		);
 		$user = Yii::app()->user;
 		if(isRegistrationByInvite() && !$user->isGuest && isset($_GET["id"]) && $user->id == $_GET["id"]) {
-			$this->submenu["invites"] = "Приглашения";
+			$this->submenu["invites"] = "Покани";
 			if($user->model->n_invites > 0) $this->submenu["invites"] .= " (" . $user->model->n_invites . ")";
 		}
 		if($user->can(User::CAN_ADMIN)) {
@@ -32,8 +32,8 @@ class UsersController extends Controller {
 
 	private function loadUser($id) {
 		$user = User::model()->findByPk((int) $id);
-		if(!$user) throw new CHttpException(404, "Такого пользователя не существует.");
-		if($user->isDeleted) throw new CHttpException(404, "Пользователь удалён.");
+		if(!$user) throw new CHttpException(404, "Няма такъв потребител.");
+		if($user->isDeleted) throw new CHttpException(404, "Потребителят е изтрит.");
 
 		return $user;
 	}
@@ -41,7 +41,7 @@ class UsersController extends Controller {
 	public function actionGo($login) {
 		$user = User::model()->find("LOWER(login) = :login", array(":login" => mb_strtolower($login)));
 		if(!$user) {
-			throw new CHttpException(404, "Пользователя с таким именем просто не существует. Впрочем, за существование остальной части Вселенной мы тоже не можем поручиться.");
+			throw new CHttpException(404, "Няма потребител с такова име. Между другото, не можем да сме сигурни и в съществуването на останалата част от Вселената.");
 		}
 
 		$this->redirect($user->url);
@@ -98,12 +98,12 @@ class UsersController extends Controller {
 
 			if(isset($_POST["KarmaMark"])) {
 				if(!Yii::app()->user->can("karma")) {
-					Yii::app()->user->setFlash("error", "Ставить оценки в карму могут только пользователи, зарегистрировавшиеся не позднее, чем 180 дней тому назад.");
+					Yii::app()->user->setFlash("error", "Само потребители, регистрирани преди повече от 180 дни могат да поставят оценки в кармата.");
 				}
 				$my_mark->setAttributes($_POST["KarmaMark"]);
 				if(!$my_mark->isNewRecord or $my_mark->mark != 0) {
 					if(!$my_mark->save()) {
-						Yii::app()->user->setFlash("error", "Не удалось добавить вашу оценку.");
+						Yii::app()->user->setFlash("error", "Не успяхме да добавим вашата оценка.");
 					} else {
 						$this->redirect($user->getUrl("karma"));
 					}
@@ -145,15 +145,15 @@ class UsersController extends Controller {
 		$user = $this->loadUser($id);
 
 		$orderOptions = array(
-			1 => array("t.last_tr desc NULLS LAST", "По дате последнего перевода от {$user->login}"),
-			2 => array("t.n_trs desc NULLS LAST", "По количеству версий от {$user->login}"),
-			3 => array("CASE WHEN book.n_verses <> 0 THEN book.d_vars::float / book.n_verses::float ELSE null END DESC NULLS LAST", "По готовности перевода"),
-			4 => array("t.since DESC", "По дате вступления в перевод"),
+			1 => array("t.last_tr desc NULLS LAST", "По датата на последния превод от {$user->login}"),
+			2 => array("t.n_trs desc NULLS LAST", "По броя версии от {$user->login}"),
+			3 => array("CASE WHEN book.n_verses <> 0 THEN book.d_vars::float / book.n_verses::float ELSE null END DESC NULLS LAST", "По готовност на превода"),
+			4 => array("t.since DESC", "По датата на встъпване в превода"),
 		);
 		$statusOptions = array(
-			0 => array("", "все", "не участвует ни в одном переводе"),
-			1 => array("t.status = 2", "там, где {$user->login} &ndash; модератор", "не модерирует ни один перевод"),
-			2 => array("book.owner_id = {$user->id}", "там, где {$user->login} &ndash; создатель", "не создал" . $user->sexy() . " ни одного проекта перевода"),
+			0 => array("", "всички", "не участва в нито един превод"),
+			1 => array("t.status = 2", "там, където {$user->login} е модератор", "не модерират нито един превод"),
+			2 => array("book.owner_id = {$user->id}", "там, където {$user->login} е създател", "не е създал" . $user->sexy() . " нито един проект за превод"),
 		);
 
 		if(in_array("order", $_GET)) $order = (int) $_GET["order"];
@@ -191,9 +191,9 @@ class UsersController extends Controller {
 		$user = $this->loadUser($id);
 
 		$book = Book::model()->with("membership")->findByPk((int) $book_id);
-		if(!$book) throw new CHttpException(404, "Перевода не существует. Вероятно, он удалён.");
-		if(!$book->can("read") ) throw new CHttpException(403, "Вы не можете просматривать версии перевода в этом проекте. " . $book->getWhoCanDoIt("read", false));
-		if(!$book->can("trread")) throw new CHttpException(403, "Вы не можете просматривать версии перевода в этом проекте. " . $book->getWhoCanDoIt("trread", false));
+		if(!$book) throw new CHttpException(404, "Преводът не съществува. Възможно е да е премахнат.");
+		if(!$book->can("read") ) throw new CHttpException(403, "Не можете да виждате всички версии на превод в този проект. " . $book->getWhoCanDoIt("read", false));
+		if(!$book->can("trread")) throw new CHttpException(403, "Не можете да виждате версии на превода в този проект. " . $book->getWhoCanDoIt("trread", false));
 
 		$translations = new CActiveDataProvider(
             Translation::model()->userbook($user->id, $book->id)->with("orig.chap"),
@@ -280,9 +280,9 @@ class UsersController extends Controller {
 					$invite->delete();
 					$user->n_invites++;
 					$user->save(false, ["n_invites"]);
-					Yii::app()->user->setFlash("success", "Приглашение отозвано.");
+					Yii::app()->user->setFlash("success", "Поканата е оттеглена.");
 				} else {
-					Yii::app()->user->setFlash("error", "Приглашение не найдено.");
+					Yii::app()->user->setFlash("error", "Поканате не е намерена.");
 				}
 				$this->redirect($user->getUrl("invites"));
 			} elseif(isset($_POST["resend"])) {
@@ -291,9 +291,9 @@ class UsersController extends Controller {
 				$invite->save(false, ["to_email"]);
 				if($invite) {
 					$invite->sendMail();
-					Yii::app()->user->setFlash("success", "Приглашение отправлено.");
+					Yii::app()->user->setFlash("success", "Поканата е изпратена.");
 				} else {
-					Yii::app()->user->setFlash("error", "Приглашение не найдено.");
+					Yii::app()->user->setFlash("error", "Поканата не е намерена.");
 				}
 				$this->redirect($user->getUrl("invites"));
 			} elseif(isset($_POST["invite"]) && $user->n_invites > 0) {
@@ -308,7 +308,7 @@ class UsersController extends Controller {
 
 					$invite->sendMail();
 
-					Yii::app()->user->setFlash("success", "Приглашение отправлено!");
+					Yii::app()->user->setFlash("success", "Поканата е изпратена!");
 					$this->redirect($user->getUrl("invites"));
 				}
 			}
@@ -338,7 +338,7 @@ class UsersController extends Controller {
 		if($user->id !== Yii::app()->user->id) throw new CHttpException(404);
 
 		$invite = RegInvite::model()->findByPk((int) $iid, "from_id = :me", ["me" => $user->id]);
-		if(!$invite) throw new CHttpException(404, "Инвайт не найден");
+		if(!$invite) throw new CHttpException(404, "Поканата не е намерена");
 
 		echo $invite->getUrlAccept();
 	}
@@ -368,7 +368,7 @@ class UsersController extends Controller {
 				$this->render("delete_done");
 				return;
 			} else {
-				Yii::app()->user->setFlash("error", "Пароль неверный. <a href='/register/remind'>Напомнить?</a>");
+				Yii::app()->user->setFlash("error", "Грешна парола. <a href='/register/remind'>Напомняне?</a>");
 			}
 		}
 
@@ -410,7 +410,7 @@ class UsersController extends Controller {
 			$dst = ImageCreateTrueColor(50, 50);
 
 			if(!$src || !$dst) {
-				Yii::app()->user->setFlash("error", "При обработке изображения произошла ошибка. Попробуйте другую картинку.");
+				Yii::app()->user->setFlash("error", "Възникна грешка при обработка на изображението. Опитайте с друга картинка.");
 				$this->redirect($user->getUrl("upic"));
 			}
 
@@ -438,7 +438,7 @@ class UsersController extends Controller {
 			list($w, $h) = getimagesize($_FILES["img"]["tmp_name"]);
 
 			if($w <= 0 || $h <= 0) {
-				Yii::app()->user->setFlash("error", "Не удалось загрузить файл. Возможно, он сохранён в неправильном формате. Попробуйте открыть его любым графическим редактором и пересохранить в JPG.");
+				Yii::app()->user->setFlash("error", "Неуспешно зареждане на файл. Може би е записан в неправилен формат. Опитайте се да го отворите в който и да е графичен редактор и да го запишете в JPG.");
 				$this->redirect($user->url);
 			}
 
@@ -473,7 +473,7 @@ class UsersController extends Controller {
 				}
 			}
 			if($user->save()) {
-				Yii::app()->user->setFlash("success", "Сохранено.");
+				Yii::app()->user->setFlash("success", "Записано.");
 			}
 		}
 
