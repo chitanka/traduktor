@@ -49,7 +49,7 @@ class BookController extends BookBaseController {
 	public function actionReorder($book_id) {
 		$this->loadBook($book_id);
 
-		if(!$this->book->can("chap_edit")) throw new CHttpException(403, "Вы не можете редактировать оглавление в этом переводе.");
+		if(!$this->book->can("chap_edit")) throw new CHttpException(403, "Не можете да редактиране името на този превод.");
 
 		if(!is_array($_POST["ord"])) $this->redirect($this->book->url);
 
@@ -139,7 +139,7 @@ SQL;
 		if(isset($_POST["go"]) && $_POST["go"] == 1) {
 			Yii::app()->db->createCommand($sql)->execute(array(":book_id" => $book->id, ":user_id" => $user->id));
 
-			$flash = "Спасибо, все фрагменты оригинала и версии перевода пересчитаны заново" . ($user->can("geek") ? (" за " . Yii::app()->db->stats[1] . " сек") : "") . ".";
+			$flash = "Благодаря, всички фрагменти на оригинала и версии на превода са преизчислени" . ($user->can("geek") ? (" за " . Yii::app()->db->stats[1] . " сек") : "") . ".";
 			Yii::app()->user->setFlash("success", $flash);
 			$this->redirect($book->url);
 		}
@@ -246,7 +246,7 @@ SQL;
 		$user = Yii::app()->user;
 
 		if($this->book->n_invites <= 0) {
-			$user->setFlash("error", "Сегодня вы больше не можете приглашать людей в этот перевод.");
+			$user->setFlash("error", "Днес не можете да каните повече хора в този превод.");
 			return false;
 		}
 
@@ -290,16 +290,16 @@ SQL;
 			$n = Yii::app()->db->createCommand($sql)->execute();
 			$this->book->n_invites -= $n;
 			$this->book->save(array("n_invites"));
-			$user->setFlash("success", Yii::t("app", "Отправлено {n} приглашение|Отправлено {n} приглашения|Отправлено {n} приглашений", $n) . ": {$invited}");
+			$user->setFlash("success", Yii::t("app", "Изпратена е {n} покана|Изпратени са {n} покани|Изпратени са {n} покани", $n) . ": {$invited}");
 		} else {
-			$user->setFlash("error", "Ни одного приглашения не отправлено. Возможно, вы неправильно написали ники пользователей, или им уже было отправлено приглашение, или они уже участвуют в переводе.");		}
+			$user->setFlash("error", "Не е изпратена нито една покана. Може би неправилно сте въвели имената на потребителите или вече им е била изпратена покана или вече участват в превода.");		}
 
 		return true;
 	}
 
 	public function actionMembers_manage($book_id) {
 		$this->loadBook($book_id);
-		if(!$this->book->can("membership")) throw new CHttpException(403, "Вы не можете управлять группой перевода, это прерогатива " . ($this->book->ac_membership == "m" ? "модераторов" : "создателя перевода"));
+		if(!$this->book->can("membership")) throw new CHttpException(403, "Не можете да управлявате групата за превод; разрешено е само на " . ($this->book->ac_membership == "m" ? "модераторите" : "създателя на превода"));
 //		$back = $this->book->getUrl("members") . "?User_page=" . intval($_POST["User_page"]);
 		$back = $this->book->getUrl("members");
 
@@ -384,21 +384,21 @@ SQL;
 
 	public function actionMembers_join($book_id) {
 		$this->book = Book::model()->with("owner")->membership(Yii::app()->user->id)->findByPk(intval($book_id));
-		if(!$this->book) throw new CHttpException(404, "Такого перевода не существует. Возможно, он удалён.");
+		if(!$this->book) throw new CHttpException(404, "Няма такъв превод. Възможно е да е бил изтрит.");
 
 		if($this->book->facecontrol == Book::FC_INVITE) {
 			$result = array(
-				"msg" => "Участие в этой группе - только по приглашению от " . ($this->book->ac_membership == "m" ? "модераторов" : "создателя перевода") . "."
+				"msg" => "Участието в тази група е само по покана от " . ($this->book->ac_membership == "m" ? "модератор" : "създателя на превода") . "."
 			);
 		} elseif($this->book->facecontrol == Book::FC_OPEN) {
 			$result = array(
-				"msg" => "В этом переводе нет группы переводчиков."
+				"msg" => "В този превод няма преводаческа група."
 			);
 		} elseif($this->book->facecontrol == Book::FC_CONFIRM) {
 			$result = $this->members_enqueue();
 		} else {
 			$result = array(
-				"msg" => "Системная ошибка: bad book.facecontrol ({$this->book->id}:{$this->book->facecontrol})"
+				"msg" => "Системна грешка: bad book.facecontrol ({$this->book->id}:{$this->book->facecontrol})"
 			);
 		}
 
@@ -418,19 +418,19 @@ SQL;
 		$result = array("status" => "fail", "msg" => "");
 
 		if($this->book->membership->status == GroupMember::MEMBER) {
-			$result["msg"] = "Вы уже состоите в этой группе перевода.";
+			$result["msg"] = "Вече участвате в тази група за превод.";
 			return $result;
 		}
 
 		if($this->book->membership->status == GroupMember::BANNED) {
-			$result["msg"] = "Вы забанены в этой группе перевода.";
+			$result["msg"] = "Вие сте блокирани в тази група за превод.";
 			return $result;
 		}
 
 		$p = array("book_id" => $this->book->id, "user_id" => Yii::app()->user->id);
 		$r = Yii::app()->db->createCommand("SELECT 1 FROM group_queue WHERE book_id = :book_id AND user_id = :user_id")->queryScalar($p);
 		if($r) {
-			$result["msg"] = "Вы уже подавали заявку на участие в этой группе и она ещё не рассмотрена " . ($this->book->ac_membership == "m" ? "модераторами" : "создателем перевода") . ".";
+			$result["msg"] = "Вече сте подали заявка за участие в тази група за превод, но тя още не е разгледана от " . ($this->book->ac_membership == "m" ? "модератор" : "създателя на превода") . ".";
 			return $result;
 		}
 
@@ -439,7 +439,7 @@ SQL;
 
 		// Добавляем в закладки
 		if($_POST["bm"]) {
-			Bookmark::set($this->book->id, null, "заявка подана " . date("d.m.Y"));
+			Bookmark::set($this->book->id, null, "заявката е подадена " . date("d.m.Y"));
 		}
 
 		// Теперь отправляем оповещение всем модераторам
@@ -449,20 +449,20 @@ SQL;
 		}
 
 		$result["status"] = "success";
-		$result["msg"] = "Ваша заявка на участие в этой группе отправлена. О решении " . ($this->book->ac_membership == "m" ? "модераторов" : "создателя перевода") .
-			" касательно вашего участия в группе вы будете извещены особо. Заглядывайте иногда на страницу <a href='/my/notices'>&laquo;Оповещения&raquo;</a>.";
+		$result["msg"] = "Заявката ви за участие в тази група за превод е изпратена. Ще бъдете уведомени за решението на " . ($this->book->ac_membership == "m" ? "модераторите" : "създателя на превода") .
+			" относно вашето участие в групата. Посещавайте редовно страницата <a href='/my/notices'>„Известия“</a>.";
 
 		return $result;
 	}
 
 	public function actionMembers_leave($book_id) {
         if(!Yii::app()->request->isPostRequest) {
-            throw new CHttpException(400, "Вы не должны видеть эту страницу. Что бы к этому не привело, пожалуйста, не делайте этого больше.");
+            throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги правете отново.");
         }
 
 		$this->book = Book::model()->with("owner")->membership(Yii::app()->user->id)->findByPk(intval($book_id));
 		if(!$this->book) {
-			throw new CHttpException(404, "Такого перевода не существует. Возможно, он удалён.");
+			throw new CHttpException(404, "Няма такъв превод. Възможно е да е бил изтрит.");
 		}
 
 		$p = array("book_id" => $this->book->id, "user_id" => Yii::app()->user->id);
@@ -472,7 +472,7 @@ SQL;
 			Yii::app()->db->createCommand("DELETE FROM groups WHERE book_id = :book_id AND user_id = :user_id")->execute($p);
 		}
 
-        Yii::app()->user->setFlash("success", "Вы покинули перевод {$this->book->ahref}.");
+        Yii::app()->user->setFlash("success", "Вие напуснахте превода {$this->book->ahref}.");
         if(isset($_POST["ajax"]) && $_POST["ajax"] == 1) {
             echo "ok";
         } else {
@@ -487,23 +487,23 @@ SQL;
 
 	public function actionInvite_accept($book_id) {
 		$this->book = Book::model()->with("owner")->membership(Yii::app()->user->id)->findByPk(intval($book_id));
-		if(!$this->book) throw new CHttpException(404, "Такого перевода не существует. Возможно, он удалён.");
+		if(!$this->book) throw new CHttpException(404, "Няма такъв превод. Възможно е да е бил изтрит.");
 
 		if($this->book->facecontrol == Book::FC_OPEN) {
-			Yii::app()->user->setFlash("info", "В этом переводе больше не требуется вступать в группу.");
+			Yii::app()->user->setFlash("info", "В този превод не се изисква встъпване в група.");
 			$this->redirect($this->book->url);
 		}
 
 		// если я уже в группе, то я идём нахуй
 		if(!is_null($this->book->membership) && ($this->book->membership->status == GroupMember::MEMBER || $this->book->membership->status == GroupMember::MODERATOR)) {
 			$this->invite_delete();
-			Yii::app()->user->setFlash("success", "Вы уже состоите в этой группе перевода.");
+			Yii::app()->user->setFlash("success", "Вече участвате в тази група за превод.");
 			$this->redirect($this->book->url);
 		}
 
 		// проверяем, есть ли приглашение вообще
 		if(!$this->book->user_invited(Yii::app()->user->id)) {
-			throw new CHttpException(403, "Сожалеем, но ваше приглашение в группу устарело или отозвано пригласившим вас пользователем.");
+			throw new CHttpException(403, "Съжаляваме, но вашата покана е остаряла или е оттеглена от поканилия ви потребител.");
 		}
 
 		// вступаем в группу. status до этого - NULL, BANNED или либо CONTRIBUTOR
@@ -516,13 +516,13 @@ SQL;
 
 		// стираем инвайт и редиректимся на оглавление
 		$this->invite_delete();
-		Yii::app()->user->setFlash("success", "Добро пожаловать в группу перевода!");
+		Yii::app()->user->setFlash("success", "Добре дошли в групата за превод!");
 		$this->redirect($this->book->url);
 	}
 
 	public function actionInvite_decline($book_id) {
 		$this->book = Book::model()->with("owner")->membership(Yii::app()->user->id)->findByPk(intval($book_id));
-		if(!$this->book) throw new CHttpException(404, "Такого перевода не существует. Возможно, он удалён.");
+		if(!$this->book) throw new CHttpException(404, "Няма такъв превод. Възможно е да е бил изтрит.");
 
 		$this->invite_delete();
 
@@ -548,18 +548,18 @@ SQL;
 
 	public function actionDict_edit($book_id) {
 		if(!Yii::app()->request->isPostRequest) {
-			throw new CHttpException(400, "Вы не должны видеть эту страницу. Что бы к этому не привело, пожалуйста, не делайте этого больше.");
+			throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги правете отново.");
 		}
 
 		$book = $this->loadBook($book_id);
-		if(!$book->can("dict_edit")) throw new CHttpException(403, "Только модераторы могут редактировать словарь перевода.");
+		if(!$book->can("dict_edit")) throw new CHttpException(403, "Само модераторите могат да редактират речника за превод.");
 
 		$id = (int) $_POST["id"];
 		$ajax = $_POST["ajax"] || $_GET["ajax"];
 
 		if($id) {
 			$dict = Dict::model()->findByPk($id);
-			if(!$dict) throw new CHttpException(404, "Слова, которое вы пытаетесь отредактировать, нет в словаре этого перевода.");
+			if(!$dict) throw new CHttpException(404, "Думите, които се опитвате да редактирате, липсват в речника на този превод.");
 		} else {
 			$dict = new Dict();
 			$dict->book_id = $book->id;
@@ -582,11 +582,11 @@ SQL;
 
 	public function actionDict_rm($book_id) {
 		if(!Yii::app()->request->isPostRequest) {
-			throw new CHttpException(400, "Вы не должны видеть эту страницу. Что бы к этому не привело, пожалуйста, не делайте этого больше.");
+			throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги правете отново.");
 		}
 
 		$book = $this->loadBook($book_id);
-		if(!$book->can("dict_edit")) throw new CHttpException(403, "Только модераторы могут редактировать словарь перевода.");
+		if(!$book->can("dict_edit")) throw new CHttpException(403, "Само модераторите могат да редактират речника за превод.");
 
 
 
@@ -594,7 +594,7 @@ SQL;
 		$dict = Dict::model()->findByPk($id);
 		if(!$dict) throw new CHttpException(404, "Слова, которое вы пытаетесь отредактировать, нет в словаре этого перевода.");
 
-		if($dict->book_id != $book->id) throw new CHttpException(403, "Вы пытаетесь удалить слово из другого перевода. Нехорошо-с.");
+		if($dict->book_id != $book->id) throw new CHttpException(403, "Опитвате се да премахнете дума от друг превод. Това не е хубаво.");
 
 		$dict->delete();
 
@@ -603,11 +603,11 @@ SQL;
 
 	public function actionDict_copy($book_id) {
 		$book = $this->loadBook($book_id);
-		if(!$book->can("dict_edit")) throw new CHttpException(403, "Только модераторы могут редактировать словарь перевода.");
+		if(!$book->can("dict_edit")) throw new CHttpException(403, "Само модераторите могат да редактират речника за превод.");
 
 		if($_GET["from"]) {
 			$source = Book::model()->findByPk(intval($_GET["from"]));
-			if(!$source->can("dict_edit")) throw new CHttpException(403, "Вы можете копировать словарь только из того перевода, где являетесь модератором.");
+			if(!$source->can("dict_edit")) throw new CHttpException(403, "Можете да копирате речник само от превод, в който сте модератор.");
 
 			$srcDict = Dict::model()->book($source->id)->findAll();
 
@@ -634,9 +634,9 @@ SQL;
 				$sql = "INSERT INTO dict (book_id, user_id, term, descr) VALUES " . $sql;
 
 				Yii::app()->db->createCommand($sql)->execute($params);
-				Yii::app()->user->setFlash("success", "В словарь перенесено " . Yii::t("app", "{n} определение|{n} определения|{n} определений", $cntAdded) . " из перевода {$source->ahref}.");
+				Yii::app()->user->setFlash("success", "В речника са пренесени " . Yii::t("app", "{n} определение|{n} определения|{n} определения", $cntAdded) . " от превода {$source->ahref}.");
 			} else {
-				Yii::app()->user->setFlash("warning", "Ни одного нового слова в словаре перевода {$source->ahref} не найдено.");
+				Yii::app()->user->setFlash("warning", "Не е открита нито една дума в речника за превод на {$source->ahref}.");
 			}
 
 			$this->redirect($book->url);
