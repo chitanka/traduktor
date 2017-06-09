@@ -14,7 +14,7 @@
 <div id="Announces">
 <?php
 	if($dp->getTotalItemCount() == 0) {
-		echo "<div class='alert alert-info'>Ничего не найдено. Попробуйте расширить критерии поиска.</div>";
+		echo "<div class='alert alert-info'>Нищо не е намерено. Опитайте се да разширите критериите за търсене.</div>";
 	} else {
 		$this->widget('bootstrap.widgets.TbPager', array("pages" => $dp->pagination));
 		foreach($announces as $announce) {
