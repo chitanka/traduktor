@@ -52,7 +52,7 @@ var E = {
 		return false;
 	},
 	rm: function() {
-		if(!confirm("Вы уверены?")) return false;
+		if(!confirm("Сигурни ли сте?")) return false;
 
 		$("#form-rm [name=id]").val(E.editing);
 		$("#form-rm").submit();
@@ -86,7 +86,7 @@ var E = {
 $(E.init);
 </script>
 
-<h1>Мои закладки</h1>
+<h1>Моите отметки</h1>
 <ul class='nav nav-pills'>
 <?php
 	foreach(Yii::app()->params["bookmark_types"] as $k => $v) {
