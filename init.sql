@@ -1349,8 +1349,8 @@ SELECT pg_catalog.setval('books_id_seq', 1, false);
 --
 
 COPY catalog (id, pid, mp, title, available) FROM stdin WITH DELIMITER ',' NULL AS 'NULL';
-1,NULL,{1},Видео,true
-2,NULL,{2},Тексты,true
+1,NULL,{1},Текстове,true
+2,NULL,{2},Субтитри,true
 \.
 
 
@@ -1458,10 +1458,46 @@ COPY languages (id, typ, title) FROM stdin;
 5	10	френски
 6	10	италиански
 7	10	руски
-8	30	полски
-9	30	португалски
-10	30	румънски
-11	30	турски
+8	30	гръцки
+9	30	румънски
+10	30	турски
+11	30	полски
+12	30	чешки
+13	30	холандски
+14	30	португалски
+15	20	украински
+16	20	белоруски
+17	20	молдoвски
+18	30	шведски
+19	30	финландски
+20	30	норвежки
+21	30	датски
+22	30	албански
+23	20	арменски
+24	20	грузински
+25	30	шотландски
+26	30	ирландски
+27	30	исландски
+28	40	корейски
+29	20	литовски
+30	20	естонски
+31	30	сърбохърватски
+32	30	словашки
+33	30	словенски
+34	40	арабски
+35	40	иврит
+36	40	китайски
+37	40	японски
+38	40	монголски
+39	60	африкаанс
+40	40	хинди
+41	40	санскрит
+42	40	виетнамски
+43	40	индонезийски
+44	40	филипински
+45	40	пакистански
+46	200	древногръцки
+47	200	есперанто
 \.
 
 
@@ -1469,7 +1505,7 @@ COPY languages (id, typ, title) FROM stdin;
 -- Name: languages_id_seq; Type: SEQUENCE SET; Schema: public
 --
 
-SELECT pg_catalog.setval('languages_id_seq', 235, true);
+SELECT pg_catalog.setval('languages_id_seq', 48, true);
 
 
 --
@@ -2459,4 +2495,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-

@@ -32,8 +32,8 @@ Yii::app()->bootstrap->registerModal();
         </a>
         <nav>
             <ul id="header-menu">
-                <li><a href="/catalog/2"><span class="fa fa-book"></span> Текстове</a></li>
-                <li><a href="/catalog/1"><span class="fa fa-film"></span> Субтитри</a></li>
+                <li><a href="/catalog/1"><span class="fa fa-book"></span> Текстове</a></li>
+                <li><a href="/catalog/2"><span class="fa fa-film"></span> Субтитри</a></li>
                 <li><a href="/users"><span class="fa fa-users"></span> Преводачи</a></li>
 <!--                <li><a href="/blog">Блог</a></li>-->
                 <li><a href="/announces"><span class="fa fa-globe"></span> Анонси</a></li>
