@@ -32,7 +32,7 @@ class ChitankaLogin {
 			'pass' => $password,
 			'email' => $email,
 			'sex' => 'x',
-			'lang' => '45', // bulgarian
+			'lang' => '1', // bulgarian
 			'tos' => '1',
 		];
 		$coreUser->save(false);
