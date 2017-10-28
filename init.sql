@@ -1135,7 +1135,7 @@ CREATE TABLE userinfo (
     user_id integer NOT NULL,
     prop_id smallint NOT NULL,
     value text NOT NULL
-)
+);
 
 
 
