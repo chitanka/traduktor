@@ -254,7 +254,7 @@ return CMap::mergeArray(array(
 			"MacCentralEurope" => "MacCentralEurope (Централна Европа Macintosh)"
 		),
 		"book_types" => array("A" => "текст", "S" => "субтитри"),
-		"catalog_branches" => array(1 => "S", 2 => "A", 3 => "A"),
+		"catalog_branches" => array(1 => "A", 2 => "S"),
 		"book_topics" => array(
 			'S' => array(
 				0 => "Сериал",
