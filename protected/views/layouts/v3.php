@@ -12,17 +12,30 @@ $containerClass = $this->layoutOptions["fluid"] ? "container-fluid" : "container
 Yii::app()->bootstrap->registerModal();
 ?>
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="bg">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?php echo $this->pageTitle != "" ? ($this->pageTitle . " :: ") : ""; ?><?= Yii::app()->name; ?></title>
-    <meta name="description" content="Коллективни преводи на текстове и субтитри"/>
+    <meta name="description" content="Колективни преводи на текстове и субтитри"/>
     <link rel='icon' href='/i/favicon.ico' type='image/x-icon'>
     <link rel='shortcut icon' href='/i/favicon.ico' type='image/x-icon'>
     <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<div id="project-links">
+	<ul>
+		<li id="project-main"><a href="//chitanka.info">Библиотека</a></li>
+		<li id="project-biblioman"><a href="//biblioman.chitanka.info">Библиоман</a></li>
+		<li id="project-forum"><a href="//forum.chitanka.info">Форум</a></li>
+		<li id="project-prevodi" class="current"><a href="//prevodi.chitanka.info">Дачко</a></li>
+		<li id="project-wiki-workroom"><a href="//wiki.workroom.chitanka.info">Читалие</a></li>
+		<li id="project-rechnik"><a href="//rechnik.chitanka.info">Речник</a></li>
+		<li id="project-gramofonche"><a href="//gramofonche.chitanka.info">Грамофонче</a></li>
+		<li id="project-tools"><a href="//tools.chitanka.info">Сръчко</a></li>
+	</ul>
+</div>
 
 <header>
     <div class="<?= $containerClass; ?>" style="background-color:#fff;">
