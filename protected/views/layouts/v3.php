@@ -194,8 +194,8 @@ $excluded_routes = [
 $pattern = implode('|', array_map(function ($val) {return "($val)";}, $excluded_routes));
 $matches = [];
 preg_match("/{$pattern}/", Yii::app()->request->requestUri, $matches);
-if (count($matches) == 0) : ?>
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&locale=ru"></script>
+if (false && count($matches) == 0) : ?>
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&locale=bg"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
