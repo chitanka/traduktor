@@ -107,7 +107,7 @@ class ChapterController extends Controller {
 		$f = new Orig();
 		$f->with("seen", "bookmark", "trs.user")->chapter($chap->id);
 		$crit = new CDbCriteria(array(
-			"order" => ($chap->book->typ == "S" ? "t.t1" : "t.ord")
+			"order" => ($chap->book->isSubtitles() ? "t.t1" : "t.ord")
 		));
 		// $crit->mergeWith($filter->getCriteria()) или $filter->modifyCriteria($crit)
 		if($filter->show == 1) {
@@ -159,7 +159,7 @@ class ChapterController extends Controller {
 
 		$orig_dp = new CActiveDataProvider($f, array(
 			"criteria" => $crit,
-			"pagination" => array("pageSize" => 50)
+			"pagination" => array("pageSize" => $chap->book->isSubtitles() ? 200 : 50)
 		));
 		if($filter->show == 0) $orig_dp->totalItemCount = $chap->n_verses;
 

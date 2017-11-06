@@ -33,6 +33,10 @@
  * @property string $ac_membership
  */
 class Book extends CActiveRecord {
+
+	const TYPE_SUBTITLES = 'S';
+	const TYPE_TEXT = 'A';
+
 	/** @return Book */
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
@@ -383,5 +387,9 @@ class Book extends CActiveRecord {
 			),
 			"pagination" => array("pageSize" => 50)
 		));;
+	}
+
+	public function isSubtitles() {
+		return $this->typ === 'S';
 	}
 }
