@@ -502,6 +502,7 @@ class ChapterController extends Controller {
 					if($orig === false) break;
 
 					$n_verses++;
+					$orig->ord = $n_verses;
 					$writer->push($orig);
 				}
 				$writer->flush();
