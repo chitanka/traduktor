@@ -183,7 +183,8 @@ if (!Yii::app()->user->isGuest):
             <a href="/site/help">Помощ</a>
         </div>
         <div style="text-align: right; opacity: .6">
-			Създадено от <a href="http://romakhin.ru/" rel="nofollow">Дмитрий Ромахин</a>, <a href="https://github.com/chitanka/traduktor">донапаснато от Читанка</a>
+			Създадено от <a href="http://romakhin.ru/" rel="nofollow">Дмитрий Ромахин</a> &bull;
+			<a href="https://github.com/chitanka/traduktor"><span class="fa fa-code"></span> Донапаснато от Читанка</a>
         </div>
     </div>
 </footer>
