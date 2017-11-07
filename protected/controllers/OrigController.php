@@ -107,7 +107,9 @@ class OrigController extends Controller {
 		$pos = Yii::app()->db->createCommand("SELECT COUNT(*) FROM orig WHERE chap_id = :chap_id AND {$OrdFields[$orig->chap->book->typ]} < :ordval")
 			->queryScalar(array(":chap_id" => $orig->chap->id, ":ordval" => $ord_val));
 
-		$page = floor($pos / 50) + 1;
+		// TODO make this configurable and get it from config
+		$pageSize = $orig->chap->book->isSubtitles() ? 200 : 50;
+		$page = floor($pos / $pageSize) + 1;
 
 		$this->redirect($orig->chap->url . "?Orig_page={$page}#o{$orig->id}");
 	}
