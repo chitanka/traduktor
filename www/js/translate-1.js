@@ -981,9 +981,6 @@ $(function() {
 
 		var $this = $(this), $tdo = $this.find("td.o");
 		$tdo.children("div").css("min-height", $tdo.height());
-
-		var $aord = $tdo.find(".info a.ord");
-		$aord.attr("href", Book.url(Chap.id + "/" + id + $aord.text())).attr("title", "Ссылка на этот фрагмент");
 	});
 
 	$table.find("td.o").each(function() {

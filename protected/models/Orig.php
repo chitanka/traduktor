@@ -285,11 +285,10 @@ class Orig extends CActiveRecord {
 		$html = "<p class='text'>" . $body . "</p>";
 
 		$html .= "<p class='info'>";
+		$html .= "<a href='{$this->url}#{$this->ord}' class='ord' title='Връзка към този фрагмент'>#{$this->ord}</a>";
 		if($this->chap->book->typ == "S") {
-			$html .= "<a class='ord'>#{$this->ord}</a> &middot; ";
+			$html .= " &middot; ";
 			$html .= "<span class='t1'>" . $this->nicetime("t1") . "</span> &rarr; <span class='t2'>" . $this->nicetime("t2") . "</span>";
-		} else {
-			$html .= "<a href='{$this->url}#{$this->ord}' class='ord'>#{$this->ord}</a>";
 		}
 		if($filter && $filter->show != 0) $html .= " <a href='{$this->url}' class='ctx'>в контексте</a>";
 		$html .= "</p>";
