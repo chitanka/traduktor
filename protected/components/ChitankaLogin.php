@@ -20,7 +20,15 @@ class ChitankaLogin {
 		$coreUser = User::model()->findByAttributes(['login' => $chitankaUser['username']]);
 		if (!$coreUser) {
 			$coreUser = $this->createUser($chitankaUser['username'], $chitankaUser['password'], $chitankaUser['email']);
+		} else {
+			$hashedPassword = User::hashPass($chitankaUser['password']);
+			if ($coreUser->pass !== $hashedPassword) {
+				// save te hashed password in the DB so that the authenticate() routine can succeed later
+				$coreUser->pass = $hashedPassword;
+				$coreUser->save(false);
+			}
 		}
+		// revert to plain password in order to please the authenticate() routine
 		$coreUser->pass = $chitankaUser['password'];
 		$coreUser->login();
 	}
