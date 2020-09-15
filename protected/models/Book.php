@@ -37,6 +37,9 @@ class Book extends CActiveRecord {
 	const TYPE_SUBTITLES = 'S';
 	const TYPE_TEXT = 'A';
 
+	const PAGE_SIZE_SUBTITLES = 200;
+	const PAGE_SIZE_TEXT = 50;
+
 	/** @return Book */
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
@@ -391,5 +394,12 @@ class Book extends CActiveRecord {
 
 	public function isSubtitles() {
 		return $this->typ === 'S';
+	}
+
+	public function getPageSize() {
+		if ($this->isSubtitles()) {
+			return self::PAGE_SIZE_SUBTITLES;
+		}
+		return self::PAGE_SIZE_TEXT;
 	}
 }

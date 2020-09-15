@@ -159,7 +159,7 @@ class ChapterController extends Controller {
 
 		$orig_dp = new CActiveDataProvider($f, array(
 			"criteria" => $crit,
-			"pagination" => array("pageSize" => $chap->book->isSubtitles() ? 200 : 50)
+			"pagination" => array("pageSize" => $chap->book->getPageSize())
 		));
 		if($filter->show == 0) $orig_dp->totalItemCount = $chap->n_verses;
 
