@@ -122,68 +122,55 @@ class BookEditController extends BookBaseController {
 			throw new CHttpException(403, "Права доступа в перевод может определять только создатель перевода.");
 		}
 
-		$attributes = [
-			'facecontrol' => '1',
-			'ac_read' => 'a',
-			'ac_trread' => 'a',
-			'ac_gen' => 'a',
-			'ac_rate' => 'a',
-			'ac_comment' => 'a',
-			'ac_tr' => 'g',
-			'ac_blog_r' => 'a',
-			'ac_blog_c' => 'a',
-			'ac_blog_w' => 'g',
-			'ac_announce' => 'm',
-			'ac_chap_edit' => 'm',
-			'ac_book_edit' => 'o',
-			'ac_membership' => 'm',
-		];
+		if(isset($_POST["Book"])) {
+			$prev_facecontrol = $book->facecontrol;
 
-		$prev_facecontrol = $book->facecontrol;
+			$book->setAttributes($_POST["Book"]);
+			if($book->save()) {
+				if($book_id == 0) {
+					// Вступаем в группу сразу модератором
+					Yii::app()->db->createCommand("INSERT INTO groups (book_id, user_id, status) VALUES (:book_id, :user_id, 2)")
+						->query(array("book_id" => $book->id, "user_id" => Yii::app()->user->id));
 
-		$book->setAttributes($attributes);
-		if ($book->save()) {
-			if ($book_id == 0) {
-				// Вступаем в группу сразу модератором
-				Yii::app()->db->createCommand("INSERT INTO groups (book_id, user_id, status) VALUES (:book_id, :user_id, 2)")
-					->query(array("book_id" => $book->id, "user_id" => Yii::app()->user->id));
-
-				// Добавляем в закладки
-				Yii::app()->db->createCommand("
+					// Добавляем в закладки
+					Yii::app()->db->createCommand("
 						INSERT INTO bookmarks (user_id, book_id, ord)
 						VALUES
 						(:user_id, :book_id, (SELECT COALESCE(MAX(ord),0) + 1 FROM bookmarks WHERE user_id = :user_id AND orig_id IS NULL))
 					")->execute(array(
-					":user_id" => Yii::app()->user->id,
-					":book_id" => $book->id,
-				));
+						":user_id" => Yii::app()->user->id,
+						":book_id" => $book->id,
+					));
 
-				// Отправляем на очередь модерации, если выбран раздел каталога
-				if ($book->cat_id && !Yii::app()->user->can("cat_moderate")) {
-					Yii::app()->db->createCommand("SELECT moder_book_cat_put(:book_id)")->execute(array(":book_id" => $book->id));
+					// Отправляем на очередь модерации, если выбран раздел каталога
+					if($book->cat_id && !Yii::app()->user->can("cat_moderate")) {
+						Yii::app()->db->createCommand("SELECT moder_book_cat_put(:book_id)")->execute(array(":book_id" => $book->id));
+					}
+				} else {
+					// Если фейсконтроль понизился до FC_OPEN
+					if($prev_facecontrol != Book::FC_OPEN && $book->facecontrol == Book::FC_OPEN) {
+						// удаляем всех, кто ничего не сделал в группе
+						Yii::app()->db->createCommand("DELETE FROM groups WHERE book_id = :book_id AND status = :member AND n_trs = 0")
+							->execute(array(":member" => GroupMember::MEMBER, ":book_id" => $book->id));
+
+						// всем MEMBER присваиваем статус CONTRIBUTOR
+						Yii::app()->db->createCommand("UPDATE groups SET status = :contributor WHERE book_id = :book_id AND status = :member AND n_trs > 0")
+							->execute(array(":contributor" => GroupMember::CONTRIBUTOR, ":member" => GroupMember::MEMBER, ":book_id" => $book->id));
+
+						// @todo: все действия, назначенные для группы назначать роли "все"; поместить этот код до $book->save() (Book::beforeSave()?)
+						/*
+							foreach(array_keys(Yii::app()->params["ac_areas"]) as $ac) {
+								if($book->$ac == "g") $book->$ac = "a";
+							}
+						*/
+					}
 				}
-			} else {
-				// Если фейсконтроль понизился до FC_OPEN
-				if ($prev_facecontrol != Book::FC_OPEN && $book->facecontrol == Book::FC_OPEN) {
-					// удаляем всех, кто ничего не сделал в группе
-					Yii::app()->db->createCommand("DELETE FROM groups WHERE book_id = :book_id AND status = :member AND n_trs = 0")
-						->execute(array(":member" => GroupMember::MEMBER, ":book_id" => $book->id));
 
-					// всем MEMBER присваиваем статус CONTRIBUTOR
-					Yii::app()->db->createCommand("UPDATE groups SET status = :contributor WHERE book_id = :book_id AND status = :member AND n_trs > 0")
-						->execute(array(":contributor" => GroupMember::CONTRIBUTOR, ":member" => GroupMember::MEMBER, ":book_id" => $book->id));
-
-					// @todo: все действия, назначенные для группы назначать роли "все"; поместить этот код до $book->save() (Book::beforeSave()?)
-					/*
-                        foreach(array_keys(Yii::app()->params["ac_areas"]) as $ac) {
-                            if($book->$ac == "g") $book->$ac = "a";
-                        }
-                    */
-				}
+				$this->redirect($book->url);
 			}
-
-			$this->redirect($book->url);
 		}
+
+		$this->render("access", array("book" => $book));
 	}
 
 	public function actionRemove($book_id) {
