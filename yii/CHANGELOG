@@ -1,6 +1,178 @@
                    Yii Framework Change Log
                    ========================
 
+Version 1.1.28 February 28, 2023
+--------------------------------
+
+- Bug #4484: Set Last-Modified after sending cache control headers (jannis701, wtommyw)
+- Bug #4491: Fixed limit and Offset not working correctly with MSSQL version 11 (2012) and newer (shnoulle, wtommyw)
+- Bug #4497: PHP 8.1 compatibility: Fix unserialize null in CRedisCache (kenguest, wtommyw)
+- Bug #4499: PHP 8.1 compatibility: Fix deprecation warning in COciSchema (marcovtwout)
+- Bug #4500: PHP 8.1 compatibility: Fix deprecation warnings in CMysql classes (csears123)
+- Bug #4507: PHP 8.1 compatibility: Fix deprecation warning in CWebUser (marcovtwout, wtommyw)
+- Enh #4490: Added support for PostgreSQL 15 (sternix, marcovtwout)
+- Enh #4503: Update tests and code for PHP 8.1 compatibility, stop suppressing deprecation warnings in tests (wtommyw)
+- Enh #4505: Added support for PHP 8.2 (wtommyw)
+
+Version 1.1.27 November 21, 2022
+--------------------------------
+
+- Bug: PHP 8.1 compatibility: Fix CFileCache call of file_get_contents (Bregi)
+- Bug: CVE-2022-41922. Prevent RCE when deserializing untrusted user input (fi3wey, marcovtwout)
+
+Version 1.1.26 September 30, 2022
+--------------------------------
+
+- Bug #4453: Alpine Linux compatibility: Avoid using `GLOB_BRACE` in `CFileHelper::removeDirectory` (ivany4)
+- Enh #4386: Added support for PHP 8.1 (marcovtwout, JonathanArgentao, ivany4, csears123)
+- Enh #4386: Updated HTMLPurifier to version 4.15.0 for PHP 8.1 support (https://github.com/ezyang/htmlpurifier/blob/v4.15.0/NEWS) (marcovtwout)
+- Enh #4392: Added support for SSL to CRedisCache (andres101)
+
+Version 1.1.25 December 13, 2021
+--------------------------------
+
+- Bug #4226: Fix for Gii diff displaying "reset() expects parameter 1 to be array, integer given" (LeoZandvliet, marcovtwout)
+- Bug #4369: PHP 8.0 compatibility: Fix warning "Only the first byte will be assigned to the string offset" when generating code with Gii (marcovtwout)
+- Bug #4374: Fix for createUpdateCommand which did not accept just a table name when using MSSQL (c-schmitz)
+- Bug #4380: Prevent fatal errors while validating CSRF token of malformed requests (rob006)
+- Bug #4382: PHP 8.0 compatibility: Fix CFileLogRoute throwing TypeError when logfile cannot be opened (marcovtwout)
+
+Version 1.1.24 June 7, 2021
+--------------------------------
+
+- Bug #4339: "There is no active transaction" when transaction is autocommitted (twisted1919)
+- Bug #4343: Fix "driver does not support quoting" when using the driver pdo_odbc (xpohoc69)
+- Bug #4355: Fix errorhandler missing backtrace entries (georaldc, marcovtwout)
+- Enh #4349: Added CHtml option to omit type attribute from <script> tag (mohamedmalki, marcovtwout)
+- Enh #4351: Added CHtml option to omit CDATA wrapper from <script> and <style> contents (marcovtwout)
+- Enh #4354: Allow to set log file permissions for CFileLogRoute (jdayamx)
+- Chg #4344: Upgraded jQuery to 1.12.4 (marcovtwout)
+- Chg #4344: Upgraded jQuery UI to 1.12.1 (marcovtwout)
+
+Version 1.1.23 December 2, 2020
+-------------------------------
+
+- Bug #4291: The scheme (protocol) is deleted when validateIDN is enabled after validation (Argevollen)
+- Bug #4306: Add PHP 8 support (samdark)
+- Bug #4310: Items on memcache won't expire due to memcache difference in internal clock (nikolasr200)
+- Bug #4325: Add support for unicode strings beyond the BMP (like emojies) in `CJavaScript::encode()` (marcovtwout)
+- Bug: Fix CFileHelper::findFiles() to use correct directory separator under Windows (samdark)
+- Enh #4305: PHP 7.3 compatibility: Support giving cookies a SameSite=None attribute value (tomfotherby)
+- Enh #4308: PHP 7.3 compatibility: Add `samesite` as a session cookie option (tomfotherby)
+- Enh #4314: Exceptions thrown while loading fixtures now contain details about the error location (BBoom)
+- Enh #4314: Missing fixture files now throw exceptions (BBoom)
+- Enh #4315: Added change triggers to clickable checkbox rows in grid views, allowing other script to react to the changed checkbox states (BBoom)
+- Enh #4317: Added special option 'encode' to `$htmlOptions` argument in `CHtml::errorSummary` and `CHtml::error` (shidenko97)
+- Enh #4323: Add PostgreSQL 12 support (bio, d4rkstar, marcovtwout)
+- Chg #4293: Updated HTMLPurifier to version 4.13.0 (https://github.com/ezyang/htmlpurifier/blob/v4.13.0/NEWS) (marcovtwout)
+
+Version 1.1.22 January 16, 2020
+-------------------------------
+
+- Bug #4256: PHP 7 compatibility: PHP4 style constructor in Pear/Text/Diff3.php (kenguest)
+- Bug #4256: PHP 7 compatibility: Fixed deprecated usage of create_function() in markdown.php (samdark)
+- Bug #4261: PHP 7.2 compatibility: INTL_IDNA_VARIANT_2003 has been depreacated (machour)
+- Bug #4261: Updated HTMLPurifier to version 4.10.0 (https://github.com/ezyang/htmlpurifier/blob/v4.10.0/NEWS) (machour)
+- Bug #4279: PHP 7.4 compatibility: Drop use of accessing string offsets using curly braces (kenguest)
+- Enh #4273: PHP 7.3 compatibility: Add "sameSite" support for cookies (thekonz)
+
+Version 1.1.21 April 2, 2019
+----------------------------
+
+- Bug #4220: Fixed PHP 7.2 incompatibility caused by the use of `create_function` in CHttpRequest and CProfileLogRoute (martinpetrasch, freezy-sk)
+- Bug #4227: Fixed PHPUnit 6 compatibility (gianniszach)
+- Bug #4229: Remove deprecation errors from framework/web/js/source/jquery.yiiactiveform.js when using jQuery 3.1.1 (kenguest)
+- Bug #4234: CVE-2018-14773. Drop support for HTTP_X_REWRITE_URL (kenguest)
+- Bug #4238: Fixed intolerance to nulls in `CJavaScript::quote()` (stevoh6, ddziaduch)
+- Chg #4236: Freeze session before changing ini settings to be compatible with PHP 7.2 (vxk7m)
+
+Version 1.1.20 July 6, 2018
+---------------------------
+
+- Bug #4162: Adjusted Zend Escaper to be compatible with PHP <5.3 and fixed usage of non-existing Exceptions (cebe)
+- Bug #4167: Fixed PHP 7.2 incompatibility of "count()" in `CActiveFinder` and CController::renderDynamic() (softark, ThePepster)
+- Bug #4168: Fixed `CDbHttpSession` PHP 7.1 compatibility (csears123)
+- Bug #4179: Fixed MariaDB 10.2 current_timestamp() (yaBliznyk)
+- Bug #4182: CSecurityManager requires mcrypt extension to work, and for PHP 7.2 we need to install it from pecl (sergey-dryabzhinsky)
+- Bug #4191: Fixed "Headers already sent." error in CHttpSession (daniel1302)
+- Bug #4191: Fixed "CHtml::value() behaves differently for objects" for PHP 7.2 (daniel1302)
+- Bug #4197: Fixed PHP 7.2 assert with string argument is deprecated warning using Gii (ThePepster)
+- Bug #4198: Fixed PHP 7.2 SQLSRV lastInsertId (agusdrs)
+- Bug #4203: Fixed `CHttpCacheFilter::sendCacheControlHeader` PHP 7.2 compatibility (b1rdex)
+- Enh #4191: Added option for filter classes loaded by YiiBase autoloader (daniel1302)
+- Chg #4160: Updated HTMLPurifier to version 4.9.3 (takobell)
+
+Version 1.1.19 June 8, 2017
+---------------------------
+
+- Bug #4155: Ignore PHP 7.1 warnings about deprecated mcrypt (samdark)
+- Bug #4156: Timeout in checkMxPorts of mail validator is now configurable (kenguest, samdark)
+- Enh: Fixed PHPUnit 6 compatibility (samdark)
+- Enh: Reworked model error escaping to escape on output rather than in validators directly (Zaffy, samdark)
+
+Version 1.1.18 April 19, 2017
+-----------------------------
+
+- Bug #4004: Better fix for PostgreSQL Session storage (GuillaumeSmaha)
+- Bug #4015: Fixed bug with missing "disabled" attribute in internally rendered hidden fields (rob006)
+- Bug #4020: Fixed PHP 7 related bug in CCacheHttpSession when destroying not cached sessions (dirx)
+- Bug #4034: Fixed `CHttpSession::getIsStarted()` PHP 7 compatibility (tomotomo)
+- Bug #4043: Fixed `CJavaScript::quote()` to properly escape Unicode characters (samdark)
+- Bug #4061: Fixed "Fatal Error: Nesting level too deep - recursive dependency" error in `CArrayDataProvider` (kf99916, andrewnester)
+- Bug #4064: Fixed CHtml::beginForm which produced wrong HTML when using an anchor in the action URL of a GET form (Mytskine)
+- Bug #4069: Fixed error with `eCRedisCache::executeCommand()` when the previous connection timeout exception was catched (taobig)
+- Bug #4104: Fixed PHP 7 compatibiltiy in Text_Highlighter (samdark)
+- Bug #4111: Fixed PHP 7.1 incompatibility with CFileCache when `$embedExpiry=false` (cebe)
+- Bug #4130: Fixed PHP 7 added an interception of the ParseError exception for the eval() usage (devcommiter)
+- Bug #4133: Fixed PHP 7 usage of the func_get_args() functions in YiiBase.php (devcommiter)
+- Enh #2819: backported masking of CSRF tokens from Yii 2.0 (samdark)
+- Enh #4049: Added '//' as a proper beginning of absolute URL in createAbsoluteUrl() method (ksowa)
+- Enh #4075: Added CClientScript::hasPackage() (samdark)
+- Chg #4033: Updated Pear/Text used by Gii so it's PHP 7 compatible (samdark)
+- Chg #4103: Updated HTMLPurifier to version 4.9.2 (samdark)
+- Chg: Updated Text_Highlighter to version 0.7.3 (samdark)
+- Chg: Fixed PHP 7.1 incompatibility in Text_Highlighter (cebe)
+
+Version 1.1.17 January 13, 2016
+------------------------------
+- Bug #1191: Fixed undefined index in CListIterator when data removed in parent CList (steven-hadfield)
+- Bug #2881: CGridView was blocking refresh on filter field change event after previous filtering using ENTER key (sivir)
+- Bug #2921: Fixed CStatePersister read/write concurrency issue causing state data corruption (matteosistisette, samdark)
+- Bug #2993: Fixed MySQL datetime fields can have default CURRENT_TIMESTAMP (tomvdp)
+- Bug #3144: Fixed regression introduced in 1.1.16, whitespace before and after attributes in validation rules where not ignored (cebe)
+- Bug #3458: Fixed CGridView with enableHistory breaks queries containing '&' characters (nkovacs)
+- Bug #3476: Database sessions with Postgres did not work properly (c-schmitz)
+- Bug #3497: CErrorHandler messages for HTTP response codes were not matching RFCs (TeMPOraL)
+- Bug #3637: Fixed not quoting primary key in count statements (applee)
+- Bug #3696: Fixed broken case insensitiveness for Active Record count expressions introduced with fixed #268 (xt99)
+- Bug #3700: Undefined variable `$acceptedLanguage` in `CHttpRequest::getPreferredLanguage()` (cebe, ddebin)
+- Bug #3704: Fixed `CSecurityManager` to work properly is case `cryptAlgorithm` specified as array (samdark)
+- Bug #3715: `CSecurityManager::legacyDecrypt` in version 1.1.16 was not compatible with 1.1.15 method (DanaLuther)
+- Bug #3724: Fixed namespace prefix in WSDL generator for arrayType. (ametad)
+- Bug #3757: Fixed regression in 1.1.16 `CPgsqlSchema::dropIndex()` (samdark)
+- Bug #3764: Fixed regression in 1.1.16, `CEmailValidator::validateValue()` should not allow empty values to pass (cebe)
+- Bug #3833: Fixed `CHttpRequest::sendFile()` range support in case `mbstring.internal_encoding=UTF-8` (MonkeyMaster)
+- Bug #3869: jQuery Yii GridView now doesn't fail when refreshing grid via POST request (a-t)
+- Bug #3879: Numeric labels in CBreadCrumbs reindex after using array_merge (AloneCoder)
+- Bug #3890: Ensured forward compatibility of `CWebService::getMethodName()` (samdark)
+- Bug #3947: Fix error with `array_diff` when one of CDbCriteria->select contains "false" (askobara, cebe)
+- Bug #3974: Fixed warning when request parameter contains array (cmazx)
+- Bug #3976: Fixed MSSQL command builderto comply with the DELETE command syntax (odalecne)
+- Bug #3980: Fixed CRedisCache error when using `mbstring.func_overload` and UTF-8 as `mbstring.internal_encoding` (Lexx918)
+- Enh #2399: It is now possible to use table names containing spaces by introducing alias (devivan)
+- Enh #3457: CHttpRequest can now detect content type and decode JSON in REST method bodies. (Sibilino)
+- Enh #3686: Wrapper div of hidden fields in CForm now have style `display:none` instead of `visibility:hidden` to not affect the layout (cebe, alaabadran)
+- Enh #3738: It is now possible to override the value of 'required' html option in `CHtml::activeLabelEx()` (matteosistisette)
+- Enh #3812: Added 'validateValue' method to 'CBooleanValidator' class (UA2004)
+- Enh #3827: Added the $options parameter to be used in stream_socket_client in CRedisCache.
+- Enh #3872: Added database-based StatePersister implementation (AloneCoder)
+- Enh #3948: Enhanced CHttpRequest path info extraction for compatibility with PHP 7 (dmitrivereshchagin)
+- Enh #3949: Added `$overwriteAll` argument to `CConsoleCommand::copyFiles()` which can be set to true in noninteractive commands (dmitrivereshchagin)
+- Enh #3995: CAuthManager is now able to silence errors when using PHP 7 (samdark)
+- Enh #3998: Improved PHP 7 compatibility for CTimestampBehavior and CChoiceFormat, and for Travis CI (softark)
+- Enh: CApcCache is now able to handle PHP 7 APCu (samdark)
+- Chg #3776: Autoloader now doesn't error in case of non-existing namespaced classes so other autoloaders have chance to handle these (alexandernst)
+
 Version 1.1.16 December 21, 2014
 --------------------------------
 - Bug #264: Fixed wrong timestamp precision value in postgres schema (nineinchnick)
@@ -75,7 +247,7 @@ Version 1.1.16 December 21, 2014
 - Enh #1372: CDbCommandBuilder::createMultipleInsertCommand() now throws exception if data array is empty (cebe)
 - Enh #1515: Post-JOIN operations (use|force|ignore index()) support in relational queries (KonovalovMaxim, resurtm)
 - Enh #1593: Allow access to exception currently processed by CErrorHandler (klimov-paul)
-- Enh #1893: Added Schema and native connection support for the CUBRID DBMS (http://www.cubrid.org/) (kadishmal)
+- Enh #1893: Added Schema and native connection support for the CUBRID DBMS (https://www.cubrid.org/) (kadishmal)
 - Enh #2119: add `y` pattern to CDateTimeParser (mrpelle)
 - Enh #2540: Enable CJSON to use JsonSerializable interface when serializing objects (sammousa)
 - Enh #2630: CLinkPager $nextPageLabel, $prevPageLabel, $firstPageLabel and $lastPageLabel can now be false to disable the buttons (index0h)
@@ -131,7 +303,7 @@ Version 1.1.16 December 21, 2014
 - Chg #3298: ListView and GridView: Added check for the existence of a href attribute in link pager (dutchakdev)
 - Chg #3464: Updated multifile plugin used by CMultiFileUpload to version 1.48 (samdark)
 - Chg #3636: Upgraded jQuery UI to 1.11.2 (marcovtwout)
-- Chg: Updated the i18n data bundled with the framework to CLDR23.1 <http://cldr.unicode.org/index/downloads/cldr-23-1> this adds new locales and has many fixes and additional data for existing ones (cebe, dralshehri)
+- Chg: Updated the i18n data bundled with the framework to CLDR23.1 <http://unicode.org/Public/cldr/23.1/> this adds new locales and has many fixes and additional data for existing ones (cebe, dralshehri)
 - New #2955: Added official support for MariaDB (cebe, DaSourcerer)
 
 Version 1.1.15 June 29, 2014
@@ -408,7 +580,7 @@ Version 1.1.13 December 30, 2012
 - Chg: MSSQL unit tests updated and actualized, added SQLSRV driver support (resurtm)
 - Chg: Added Oracle unit tests (resurtm)
 - Chg: Updated CHttpCacheFilter to use dates as specified by RFC 1123 (bramp)
-- Chg: Added punycode.js v1.1.1 (http://mths.be/punycode) and IDNA Converter v0.8.0 (http://phlymail.com/en/downloads/idna-convert.html) to the vendors (third party libraries and utilities) (resurtm)
+- Chg: Added punycode.js v1.1.1 (https://mths.be/punycode) and IDNA Converter v0.8.0 (http://phlymail.com/en/downloads/idna-convert.html) to the vendors (third party libraries and utilities) (resurtm)
 - New: Ported offline documentation viewer from yiidoc project. Mainly usable for translations but can be used for reading offline as well (samdark)
 
 Version 1.1.12 August 19, 2012

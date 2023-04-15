@@ -3,9 +3,9 @@
  * CArrayDataProvider class file.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright 2008-2013 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 /**
@@ -129,7 +129,7 @@ class CArrayDataProvider extends CDataProvider
 	 */
 	protected function sortData($directions)
 	{
-		if(empty($directions))
+		if(empty($directions) || empty($this->rawData))
 			return;
 		$args=array();
 		$dummy=array();
@@ -147,6 +147,13 @@ class CArrayDataProvider extends CDataProvider
 			$dummy[]=&$direction;
 			unset($direction);
 		}
+
+		// This fix is used for cases when main sorting specified by columns has equal values
+		// Without it it will lead to Fatal Error: Nesting level too deep - recursive dependency?
+		$args[]=range(1,count($this->rawData));
+		$args[]=SORT_ASC;
+		$args[]=SORT_NUMERIC;
+
 		$args[]=&$this->rawData;
 		call_user_func_array('array_multisort', $args);
 	}
