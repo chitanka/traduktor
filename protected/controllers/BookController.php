@@ -592,7 +592,7 @@ SQL;
 
 		$id = (int) $_POST["id"];
 		$dict = Dict::model()->findByPk($id);
-		if(!$dict) throw new CHttpException(404, "Слова, которое вы пытаетесь отредактировать, нет в словаре этого перевода.");
+		if(!$dict) throw new CHttpException(404, "Думите, които опитвате да редактирате, липсват в речника на този превод.");
 
 		if($dict->book_id != $book->id) throw new CHttpException(403, "Опитвате се да премахнете дума от друг превод. Това не е хубаво.");
 
