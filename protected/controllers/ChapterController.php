@@ -59,7 +59,7 @@ class ChapterController extends Controller {
 		$chap_id = (int) $chap_id;
 		$chap = Chapter::model()->with("book.membership")->findByPk((int) $chap_id);
 
-		if(!$chap) throw new CHttpException(404, "Главы не существует. Возможно, она была удалена. <a href='/book/{$book_id}/'>Вернуться к оглавлению перевода</a>.");
+		if(!$chap) throw new CHttpException(404, "Главата не съществува. Възможно е била изтрита. <a href='/book/{$book_id}/'>Връщане към главната страница на превода.</a>.");
 		if($chap->book->id != $book_id) $this->redirect($chap->book->getUrl($chap_id));
 
 		// ac_read для всего перевода. Если нельзя в весь перевод, редиректим в оглавление перевода, пусть контроллер Book объясняет, почему да как.
@@ -74,13 +74,13 @@ class ChapterController extends Controller {
 			$reason = BookBanReason::model()->findByPk($chap->book->id);
 			if(!$reason) $reason = new BookBanReason();
 
-			if(!$chap->book->can("read")) throw new CHttpException(403, "Сожалеем, но этот перевод заблокирован по заявке правообладателей.");
+			if(!$chap->book->can("read")) throw new CHttpException(403, "Съжаляваме, но този превод е блокиран по заявка на правообладателите.");
 		}
 
 		// ac_read для этой главы
 		if($check_can_read && !$chap->can("read")) {
 			$msg = $chap->deniedWhy;
-			$msg .= "<br /><br /><a href='{$chap->book->url}'>Вернуться к оглавлению</a>.";
+			$msg .= "<br /><br /><a href='{$chap->book->url}'>Връщане към главната страница на превода.</a>.";
 			throw new CHttpException(403, $msg);
 		}
 
@@ -121,7 +121,7 @@ class ChapterController extends Controller {
 			$u = User::model()->findByAttributes(array("login" => $filter->show_user));
 			if(!$u) {
 				$filter->show = 0;
-				Yii::app()->user->setFlash("error", "Пользователя " . CHtml::encode($filter->show_user) . " не существует.");
+				Yii::app()->user->setFlash("error", "Потребител " . CHtml::encode($filter->show_user) . " не съществува.");
 			} else {
 				$crit->addCondition("trs.user_id = {$u->id}");
 				$f->together();
@@ -211,12 +211,12 @@ class ChapterController extends Controller {
 
 	public function actionTimeshift($book_id, $chap_id) {
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Вы не можете изменять оригинал в этом переводе.");
-		if($chap->book->typ != "S") throw new CHttpException(404, "Изменять тайминг можно только у субтитров.");
+		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Не можете да променяте оригинала в този превод.");
+		if($chap->book->typ != "S") throw new CHttpException(404, "Таймингът може да се променя само при субтитрите.");
 
 		foreach(array("from", "to", "value") as $k) {
 			if($_POST[$k] != "" && !preg_match('/^-?\d+:\d+:\d+\.\d+$/', $_POST[$k], $res)) {
-				Yii::app()->user->setFlash("error", "Вы указали время в неправильном формате (" . CHtml::encode($_POST[$k]) . "). Хотелось бы видеть что-то вроде 01:23:45.678 (что означает 1 час 23 минуты 45 целых 678 сотых секунды).");
+				Yii::app()->user->setFlash("error", "Отбелязали сте времето в грешен формат (" . CHtml::encode($_POST[$k]) . "). Бихме искали да виждаме нещо тип 01:23:45.678 (което означава 1 час 23 минути 45 цяло и 678 стотни от секундата).");
 				$this->redirect($chap->url);
 			}
 		}
@@ -239,8 +239,8 @@ class ChapterController extends Controller {
 
 	public function actionRenum($book_id, $chap_id) {
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Вы не можете изменять оригинал в этом переводе.");
-		if($chap->book->typ != "S") throw new CHttpException(404, "Изменять тайминг можно только у субтитров.");
+		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Не можете да променяте оригинала в този превод.");
+		if($chap->book->typ != "S") throw new CHttpException(404, "Таймингът може да се променя само на субтитрите.");
 
 		$mode = (int) $_POST["mode"];
 		if($mode == 1) {
@@ -255,7 +255,7 @@ class ChapterController extends Controller {
 
 	public function actionReady($book_id, $chap_id) {
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->can("gen")) throw new CHttpException(403, "Вы не можете скачивать готовый перевод. " . $chap->getWhoCanDoIt("gen"));
+		if(!$chap->can("gen")) throw new CHttpException(403, "Не можете да свалите готовия превод. " . $chap->getWhoCanDoIt("gen"));
 
 		$options = new GenOptions();
 		$options->chap = $chap;
@@ -277,7 +277,7 @@ class ChapterController extends Controller {
 		}
 
 		if($chap->status != Chapter::STATUS_NONE && $chap->status != Chapter::STATUS_READY) {
-			Yii::app()->user->setFlash("info", "Внимание! Этот перевод, возможно, ещё не готов, так как модераторы установили для него статус &laquo;" . Yii::app()->params["translation_statuses"][$chap->status] . "&raquo;");
+			Yii::app()->user->setFlash("info", "Внимание! Този превод, възможно, още не е готов, затова модераторите са го маркирали със статут &laquo;" . Yii::app()->params["translation_statuses"][$chap->status] . "&raquo;");
 		}
 
 		if($chap->n_vars == 0) {
@@ -288,7 +288,7 @@ class ChapterController extends Controller {
 			$this->side_view = array("ready_read_side" => array("chap" => $chap, "options" => $options, "authors" => $authors));
 			$this->render("ready_read", array("chap" => $chap, "generator" => $G));
 		} else {
-			throw new CHttpException(404, "Эта страница должна быть, но её, тем не менее, нет.");
+			throw new CHttpException(404, "Тази страница трябва да съществува, но въпреки това я няма.");
 		}
 	}
 
@@ -326,7 +326,7 @@ class ChapterController extends Controller {
 
 	public function actionDownload($book_id, $chap_id) {
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->can("gen")) throw new CHttpException(403, "Вы не можете скачивать готовый перевод. " . $chap->getWhoCanDoIt("gen"));
+		if(!$chap->can("gen")) throw new CHttpException(403, "Не можете да сваляте готов превод. " . $chap->getWhoCanDoIt("gen"));
 
 		$options = new GenOptions();
 		$options->chap = $chap;
@@ -510,7 +510,7 @@ class ChapterController extends Controller {
 //				exit;
 			} catch (CDbException $e) {
 				// Произошла ошибка записи в базу данных, скорее всего - хуёвая кодировка.
-				Yii::app()->user->setFlash("error", "Произошла ошибка базы данных. Скорее всего, ваш файл сохранён в неправильной кодировке. Или что-то сломалось у нас, но без паники, мы уже пытаемся это починить.");
+				Yii::app()->user->setFlash("error", "Стана грешка в базата данни. Най-вероятно вашият файл е запазен в грешен форман. Или нещо се е счупило при нас, без паника, вече се опитваме да поправим проблема.");
 				$this->redirect($chap->getUrl("import"));
 			} catch (OrigReaderException $e) {
 				// Ошибка Reader'а
@@ -598,18 +598,18 @@ class ChapterController extends Controller {
 
 		if($chap_id != 0) {
 			$chap = $this->loadChapter($book_id, $chap_id, false);
-			if(!$chap->book->can("read")) throw new CHttpException(403, "Доступ в перевод закрыт его владельцем.");
+			if(!$chap->book->can("read")) throw new CHttpException(403, "Достъпът до превода е затворен от собственика му.");
 		} else {
 			$chap = new Chapter();
 
 			$chap->book = Book::model()->with("membership")->findByPk($book_id);
-			if(!$chap->book) throw new CHttpException(404, "Вы пытаетесь создать новую главу в несуществующем переводе.");
+			if(!$chap->book) throw new CHttpException(404, "Опитвате да създадете нова в глава в несъществуващ превод.");
 
 			$chap->book_id = $book_id;
 		}
 
 		if(!$chap->book->can("chap_edit")) {
-			throw new CHttpException(403, "Вы не можете редактировать оглавление в этом переводе.");
+			throw new CHttpException(403, "Не можете да редактирате съдържанието на този превод.");
 		}
 
 		// $overridedId - ID главы с особыми правами в этом переводе
@@ -665,7 +665,7 @@ class ChapterController extends Controller {
 		$chap = $this->loadChapter($book_id, $chap_id);
 
 		if(!$chap->book->can("chap_edit")) {
-			throw new CHttpException(403, "Вы не можете удалять главы в этом переводе.");
+			throw new CHttpException(403, "Не можете да триете глави в този превод.");
 		}
 
 		if($_POST["really"] == 1) {
@@ -677,7 +677,7 @@ class ChapterController extends Controller {
 
 	public function actionRate_tr($book_id, $chap_id) {
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->can("rate") || !$chap->can("trread")) throw new CHttpException(403, "Вы не можете оценивать версии в этом переводе.");
+		if(!$chap->can("rate") || !$chap->can("trread")) throw new CHttpException(403, "Не можете да оценявате версиите в този превод.");
 
 		$user = Yii::app()->user->model;
 
@@ -689,16 +689,16 @@ class ChapterController extends Controller {
 
 		/** @var Translation $tr */
 		$tr = Translation::model()->with("mark", "user")->findByPk($id, array("condition" => "chap_id = :chap_id", "params" => array(":chap_id" => $chap->id)));
-		if(!$tr) throw new CHttpException(404, "Версия перевода удалена.");
+		if(!$tr) throw new CHttpException(404, "Версията на превода е изтрита.");
 
-		if($tr->user_id == $user->id) throw new CHttpException(403, "Нельзя ставить оценки собственным переводам.");
+		if($tr->user_id == $user->id) throw new CHttpException(403, "Не можете да оценявате собствените си преводи.");
 
 		$mark = (int) $_POST["mark"];
 		if($mark < -1) $mark = -1;
 		elseif($mark > 1) $mark = 1;
 
 		if($mark < 0 && $chap->book->membership->status != GroupMember::MODERATOR)
-			throw new CHttpException(403, "Только модераторы могут ставить минусы.");
+			throw new CHttpException(403, "Само модераторите могат да слагат минуси.");
 
 		$JSON = array("id" => $id);
 
@@ -766,7 +766,7 @@ class ChapterController extends Controller {
 
 		/** @var Translation $tr */
 		$tr = Translation::model()->with("marks.user")->findByPk((int) $_GET["id"]);
-		if(!$tr) throw new CHttpException(404, "Версия перевода удалена.");
+		if(!$tr) throw new CHttpException(404, "Версията на превода е изтрита.");
 
 		// Проверяем, верны ли показания в translate.rating и translate.n_votes, раз уж мы всё равно загрузили все оценки
 		$n_votes = count($tr->marks);
@@ -796,7 +796,7 @@ class ChapterController extends Controller {
 
 		/** @var Translation $tr */
 		$tr = Translation::model()->with("marks.user")->findByPk((int) $_GET["id"]);
-		if(!$tr) throw new CHttpException(404, "Версия перевода удалена.");
+		if(!$tr) throw new CHttpException(404, "Версията на превода е изтрита.");
 
 		// Проверяем, верны ли показания в translate.rating и translate.n_votes, раз уж мы всё равно загрузили все оценки
 		$n_votes = count($tr->marks);
