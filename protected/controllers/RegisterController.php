@@ -33,7 +33,7 @@ class RegisterController extends Controller {
 				"code" => $invite
 			]);
 			if(!$invite) {
-				Yii::app()->user->setFlash("error", "Ваше приглашение не обнаружено. Тому может быть несколько причин: приглашение могло устареть, оно могло быть отозвано отправителем или ваша почтовая система исказила ссылку на регистрацию, по которой вы перешли.");
+				Yii::app()->user->setFlash("error", "Вашата покана не е открита. Причините може да са няколко: поканата може да е изтекла, може да е била изтеглена обратно от подателя или вашата поща може да е променила линка, по който сте стигнали тук.");
 				$this->redirect("/");
 			}
 
@@ -47,7 +47,7 @@ class RegisterController extends Controller {
 				$invite->delete();
 
 				// И пиздуем на главную с флагом "fresh meat"
-				Yii::app()->user->setFlash("success", "Рады видеть вас в наших жидких рядах, {$invite->buddy->login}! На вас вся надежда. Вводите ваш старый пароль.");
+				Yii::app()->user->setFlash("success", "Радваме се да ви видим в рехавите ни редици, {$invite->buddy->login}! Разчитаме на вас. Въведете старата си парола.");
 				Yii::app()->user->setState("loginAs", $invite->buddy->login);
 				$this->redirect("/");
 			}
@@ -112,11 +112,11 @@ class RegisterController extends Controller {
 			}
 
 			if(!$user) {
-				Yii::app()->user->setFlash("error", "Пользователь не найден.");
+				Yii::app()->user->setFlash("error", "Потребителят не е открит.");
 			} else {
 				$token = RemindToken::gen($user);
 
-				$message = new YiiMailMessage("Ваш пароль на " . Yii::app()->name);
+				$message = new YiiMailMessage("Вашата парола за " . Yii::app()->name);
 				$message->view = "remind";
 				$message->from = Yii::app()->params["adminEmail"];
 				$message->addTo($user->email);
@@ -147,9 +147,9 @@ class RegisterController extends Controller {
 		if(Yii::app()->request->isPostRequest) {
 			$pass = $_POST["pass"];
 			if(strlen($pass) < 8) {
-				Yii::app()->user->setFlash("error", "Пароль не может быть короче 8 символов. Напрягите воображение.!");
+				Yii::app()->user->setFlash("error", "Паролата не може да бъде по-кратка от 8 символа. Включете въображението си.!");
 			} elseif($pass != $_POST["pass2"]) {
-				Yii::app()->user->setFlash("error", "Пароли не совпадают, попробуйте ещё раз!");
+				Yii::app()->user->setFlash("error", "Паролите не съвпадат, пробвайте пак!");
 			} else {
 				/** @todo: чувак, немножко отпустит - перепиши этот кусок, некрасиво */
 				$user->pass = User::hashPass($pass);
@@ -160,7 +160,7 @@ class RegisterController extends Controller {
 
 				$token->delete();
 
-				Yii::app()->user->setFlash("success", "Рады видеть вас снова!");
+				Yii::app()->user->setFlash("success", "Радваме се да ви видим отново!");
 				$this->redirect("/");
 			}
 		}
