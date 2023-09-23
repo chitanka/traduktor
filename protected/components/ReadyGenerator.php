@@ -58,12 +58,12 @@ abstract class ReadyGenerator_base {
 		if($this->chap->status != Chapter::STATUS_NONE && $this->chap->status != Chapter::STATUS_READY) {
 			$o->t1 = Orig::ms2std($o->mstime("t2") + 10);
 			$o->t2 = Orig::ms2std($o->mstime("t2") + 1500);
-			$this->verse($o->t1, $o->t2, "Внимание! Этот перевод, возможно, ещё не готов.{$this->eol}Его статус: " . Yii::app()->params["translation_statuses"][$this->chap->status]);
+			$this->verse($o->t1, $o->t2, "Внимание! Този превод, възможно, още не е готов.{$this->eol}Неговият статут: " . Yii::app()->params["translation_statuses"][$this->chap->status]);
 		}
 
 		if(!$skip_credits) {
 			// Переведено пользователями
-			$this->verse(Orig::ms2std($o->mstime("t2") + 10), Orig::ms2std($o->mstime("t2") + 2500), "Переведено на Нотабеноиде{$this->eol}http://" . Yii::app()->params["domain"] . $this->chap->url);
+			$this->verse(Orig::ms2std($o->mstime("t2") + 10), Orig::ms2std($o->mstime("t2") + 2500), "Преведено в Нотабеноид{$this->eol}http://" . Yii::app()->params["domain"] . $this->chap->url);
 
 			// Первые 16 переводчиков
 			arsort($this->translators);
@@ -78,13 +78,13 @@ abstract class ReadyGenerator_base {
 				$t2 = Orig::ms2std($t + 990);
 
 				$txt = "";
-				if($i == 0) $txt .= "Переводчики: ";
+				if($i == 0) $txt .= "Преводачи: ";
 				for($j = 0; $j < 4; $j++) {
 					if(!isset($this->translators[$i * 4 + $j])) break;
 					if($j) $txt .= ", ";
 					$txt .= $this->translators[$i * 4 + $j];
 				}
-				if($i == 3 && $nt > 16) $txt .= " и ещё " . Yii::t("app", "{n} человек|{n} человека|{n} человек", $nt - 16);
+				if($i == 3 && $nt > 16) $txt .= " и още " . Yii::t("app", "{n} человек|{n} души|{n} души", $nt - 16);
 
 				$this->verse($t1, $t2, $txt);
 
