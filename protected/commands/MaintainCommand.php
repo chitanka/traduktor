@@ -196,7 +196,7 @@ class MaintainCommand extends CConsoleCommand {
 		}
 
 		$n = count($users);
-		printf("Попробовали новый интерфейс: %d\nОстались: %d (%d%%)\nВернулись к старому: %d (%d%%)\n",
+		printf("Изпробвали новия интерфейс: %d\nОстанали: %d (%d%%)\nВърнали се към стария: %d (%d%%)\n",
 			$n,
 			$states[1], $states[1] / $n * 100,
 			$states[0], $states[0] / $n * 100
