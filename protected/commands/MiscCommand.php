@@ -27,7 +27,7 @@ class MiscCommand extends CConsoleCommand {
 
 		$users = User::model()->findAll($crt);
 		if(count($users) == 0) {
-			echo "Нет кандидатов для приглашения\n";
+			echo "Няма кандидати за покана\n";
 			return;
 		}
 
@@ -43,8 +43,8 @@ class MiscCommand extends CConsoleCommand {
 			$invite->to_email = $user->email;
 			if($giveinvites > 0) {
 				$invite->message = <<<TTT
-Вы можете пригласить сюда ещё {$giveinvites} человек. Для этого после восстановления членства, зайдите в свой профиль на
-вкладку «Приглашения».";
+Можете да поканите тук още {$giveinvites} души. За да го направите след възстановяването на членството, 
+					използвайте бутона "Покани" в профила си.";
 TTT;
 			}
 
