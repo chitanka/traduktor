@@ -6,10 +6,10 @@ class Announce extends BlogPost {
 
 	public function rules() {
 		return array(
-			array("body", "required", "message" => "Пожалуйста, введите текст анонса."),
-			array("body", "length", "max" => 4096, "tooLong" => "Текст анонса не может быть длиннее 4 килобайт."),
+			array("body", "required", "message" => "Молим, въведете текст за анонса."),
+			array("body", "length", "max" => 4096, "tooLong" => "Текстът на анонса не може да бъде по-дълъг от 4 килобайта."),
 			array("body", "safehtml"),
-			array("topics", "required", "message" => "Пожалуйста, выберите рубрику."),
+			array("topics", "required", "message" => "Молим, изберете рубрика."),
 			array("topics", "in", "range" => array_keys(Yii::app()->params["blog_topics"]["announce"])),
 		);
 	}
@@ -24,7 +24,7 @@ class Announce extends BlogPost {
 
 	public function attributeLabels() {
 		return array(
-			"body" => "Текст анонса",
+			"body" => "Текст на анонса",
 			"topics" => "Рубрика"
 		);
 	}
@@ -37,7 +37,7 @@ class Announce extends BlogPost {
 	public function afterValidate() {
 		if($this->isNewRecord) {
 			if($this->wasToday) {
-				$this->addError("body", "Нельзя анонсировать переводы чаще, чем один раз в сутки.");
+				$this->addError("body", "Не може да правите анонси повече от веднъж за денонощие");
 			}
 		}
 
