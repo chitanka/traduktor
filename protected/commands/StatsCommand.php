@@ -2,7 +2,7 @@
 class StatsCommand extends CConsoleCommand {
 
 	public function actionIndex() {
-		echo "Доступные миграции:\n  - " . join("\n  - ", array_keys($this->migrations)) . "\n";
+		echo "Достъпни миграции:\n  - " . join("\n  - ", array_keys($this->migrations)) . "\n";
 	}
 
 
@@ -10,10 +10,10 @@ class StatsCommand extends CConsoleCommand {
 
 	public function actionRclog() {
 		$month = date("Y-m");
-		echo "Эффективность ready cache за {$month}:\n\n";
+		echo "Ефективност ready cache за {$month}:\n\n";
 		$logfile = Yii::app()->basePath . "/runtime/cache{$month}.log";
 		if(!is_readable($logfile)) {
-			echo "Файл {$logfile} не открывается.\n";
+			echo "Файлът {$logfile} не се отваря.\n";
 			return;
 		}
 		$fh = fopen($logfile, "r");
