@@ -90,7 +90,7 @@ class Controller extends CController {
 			if(!$user->isGuest) {
 				if(!$user->model->can(User::CAN_LOGIN)) {
 					$user->logout();
-					Yii::app()->user->setFlash("error", "Сожалеем, но вы не член клуба.");
+					Yii::app()->user->setFlash("error", "Съжаляваме, но вие не сте член на клуба.");
 					$this->redirect("/");
 				}
 
@@ -99,7 +99,7 @@ class Controller extends CController {
 					->queryScalar(array(":user_id" => Yii::app()->user->id));
 
 				if($banned_until) {
-					$user->setFlash("warning", "Вы забанены на сайте до " . Yii::app()->dateFormatter->formatDateTime($banned_until, "medium", "") . " г. включительно.");
+					$user->setFlash("warning", "Имате бан до " . Yii::app()->dateFormatter->formatDateTime($banned_until, "medium", "") . " г. включително.");
 					$user->logout();
 				}
 			}
@@ -109,7 +109,7 @@ class Controller extends CController {
 
 	public function filterUsersOnly($filterChain) {
 		if(Yii::app()->user->isGuest) {
-			throw new CHttpException(403, "Вы должны войти на сайт или зарегистрироваться, чтобы попасть на эту страницу.");
+			throw new CHttpException(403, "За да видите тази страница, трябва да влезете в сайта или да се регистрирате.");
 		}
 
 		$filterChain->run();
