@@ -74,7 +74,7 @@ class OrigReaderSRT implements IOrigReader {
 		if($this->options->encoding != "UTF-8") {
 			$t = iconv($this->options->encoding, "UTF-8//IGNORE", $t);
 		} elseif(!mb_check_encoding($t, "utf-8")) {
-			$this->raiseError("Неправильная кодировка текста, выберите правильную.");
+			$this->raiseError("Грешен енкодинг на текста, изберете правилния.");
 		}
 
 		$t = trim($t);
@@ -93,7 +93,7 @@ class OrigReaderSRT implements IOrigReader {
 	public function raiseError($msg, $line = null) {
 		if($line === null) $line = $this->line;
 
-		if($line != 0) $this->errorMessage = "Ошибка в исходных данных в строке {$this->line}: ";
+		if($line != 0) $this->errorMessage = "Грешка в изходните данни в ред {$this->line}: ";
 		$this->errorMessage .= "{$msg}";
 
 		throw new OrigReaderException($this->errorMessage);
@@ -111,13 +111,13 @@ class OrigReaderSRT implements IOrigReader {
 
 		if($this->is_eod()) return false;
 		if(!is_numeric($t)) {
-			$this->raiseError("Ожидается число, получено '{$t}'");
+			$this->raiseError("Очаква се число, получено '{$t}'");
 		}
 
 		// Тайминг
 		$t = $this->getLine();
 		if(!preg_match('/^(\d{1,2}:\d{1,2}:\d{1,2}[,.]\d{1,3})\s*-->\s*(\d{1,2}:\d{1,2}:\d{1,2}[,.]\d{1,3})$/', $t, $res)) {
-			$this->raiseError("Ожидается тайм-код, получено '{$t}'");
+			$this->raiseError("Очаква се тайм-код, получено '{$t}'");
 		}
 		$orig->t1 = strtr($res[1], ",", ".");
 		$orig->t2 = strtr($res[2], ",", ".");
