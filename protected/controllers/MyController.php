@@ -89,7 +89,7 @@ class MyController extends Controller
     public function actionBookmarks_ord()
     {
         if (!is_array($_POST["b"])) {
-            echo "Неверный запрос";
+            echo "Грешно търсене";
             return;
         }
 
@@ -106,7 +106,7 @@ class MyController extends Controller
 
     public function actionBookmark_set()
     {
-        if (!is_array($_POST["B"])) throw new CHttpException(500, "Неверный запрос.");
+        if (!is_array($_POST["B"])) throw new CHttpException(500, "Грешно търсене.");
 
         // Есть ли уже такая закладка?
         $bookmark = Bookmark::model()->findByAttributes(array(
@@ -122,18 +122,18 @@ class MyController extends Controller
         $bookmark->setAttributes($_POST["B"]);
         if ($bookmark->typ == "o") {
             $orig = Orig::model()->with("chap.book")->findByPk($bookmark->obj_id);
-            if (!$orig) throw new CHttpException(404, "Фрагмент оригинала удалён.");
+            if (!$orig) throw new CHttpException(404, "Част от оригинала е изтрита.");
             $bookmark->url = $orig->url;
         } elseif ($bookmark->typ == "c") {
             $chap = Chapter::model()->with("book")->findByPk($bookmark->obj_id);
-            if (!$chap) throw new CHttpException(404, "Глава удалена");
+            if (!$chap) throw new CHttpException(404, "Главата е изтрита.");
             $bookmark->url = $chap->url;
         } elseif ($bookmark->typ == "b") {
             $book = Book::model()->findByPk($bookmark->obj_id);
-            if (!$book) throw new CHttpException(404, "Глава удалена");
+            if (!$book) throw new CHttpException(404, "Главата е изтрита. ");
             $bookmark->url = $book->url;
         } else {
-            throw new CHttpException(500, "Неверный запрос. Если вам интересны грязные подробности, то я не знаю, что такое тип закладки '{$bookmark->typ}'.");
+            throw new CHttpException(500, "Грешно търсене. Ако се интересувате от мръсните подробности, то не знам, кви са отметките тип '{$bookmark->typ}'.");
         }
         if ($bookmark->isNewRecord) {
             $bookmark->ord = Yii::app()->db->createCommand("SELECT MAX(ord) FROM bookmarks WHERE typ = :typ AND user_id = :user_id")
@@ -148,7 +148,7 @@ class MyController extends Controller
 
     public function actionBookmark_rm()
     {
-        if (!isset($_POST["id"])) throw new CHttpException(500, "Неверный запрос. Либо что-то сломалось у нас, либо вы желаете странного.");
+        if (!isset($_POST["id"])) throw new CHttpException(500, "Грешно търсене. Или нещо се е счупило при нас, или търсите нещо странно.");
 
         $ajax = isset($_GET["ajax"]) ? intval($_GET["ajax"]) : intval($_POST["ajax"]);
 
