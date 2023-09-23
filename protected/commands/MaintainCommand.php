@@ -49,10 +49,10 @@ class MaintainCommand extends CConsoleCommand {
 	}
 
 	public function actionDailyFixes() {
-		// Укорачиваем search_history
+		// Скъсяваме search_history
 		$this->execSQL("truncate search_history", "DELETE FROM search_history WHERE cdate < now() - interval '7 days'");
 
-		// Считаем глобальные показатели статистики
+		// Смятаме глобалните показатели на статистиката
 		$this->profileStart("global counters");
 		$global_stat = array(
 			"n_users" => Yii::app()->db->createCommand("SELECT reltuples::int FROM pg_class WHERE relname = 'users'")->queryScalar(),
@@ -81,7 +81,7 @@ class MaintainCommand extends CConsoleCommand {
 			COMMIT;
 		");
 
-		// @todo: Есть ли там автофикс на n_comments? Если нет - повесить, очень долго считается.
+		// @todo: Има ли там автофикс на n_comments? Ако няма да се сложи, смята се много дълго.
 		// orig: n_comments, n_trs
 		$this->execSQL("orig: (n_comments, n_trs)", "
 			BEGIN;
