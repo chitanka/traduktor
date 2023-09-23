@@ -30,7 +30,7 @@ class BookEditController extends BookBaseController {
 			$can = $book->can("book_edit");
 			if($this->action->id == "cat") $can |= Yii::app()->user->can("cat_moderate");
 			if(!$can) {
-				throw new CHttpException(403, "Вы не можете редактировать этот перевод. " . $book->getWhoCanDoIt("book_edit"));
+				throw new CHttpException(403, "Не можете да редактирате този превод. " . $book->getWhoCanDoIt("book_edit"));
 			}
 		}
 
@@ -119,7 +119,7 @@ class BookEditController extends BookBaseController {
 		$book = $this->loadBook($book_id, "access");
 
 		if(!$book->can("owner")) {
-			throw new CHttpException(403, "Права доступа в перевод может определять только создатель перевода.");
+			throw new CHttpException(403, "Правата за достъп до превода може да определя само създателят на превода.");
 		}
 
 		if(isset($_POST["Book"])) {
@@ -177,7 +177,7 @@ class BookEditController extends BookBaseController {
 		$book = $this->loadBook($book_id);
 
 		if(!$book->can("owner")) {
-			throw new CHttpException(403, "Удалить перевод может только его создатель.");
+			throw new CHttpException(403, "Само създателят на превода може да го изтрие.");
 		}
 
 		if($_POST["really"] == 1) {
