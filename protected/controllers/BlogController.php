@@ -69,7 +69,7 @@ class BlogController extends Controller {
 		$post_id = (int) $post_id;
 		$post = BlogPost::model()->with("author", "seen")->findByPk($post_id);
 
-		if(!$post) throw new CHttpException(404, "Поста не существует. Возможно, он удалён.");
+		if(!$post) throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит.");
 		if($post->book_id != 0) $this->redirect("/book/{$post->book_id}/blog/{$post->id}");
 		if(!isset(Yii::app()->params["blog_topics"]["common"][$post->topics])) $this->redirect("/blog");
 
@@ -89,7 +89,7 @@ class BlogController extends Controller {
 
 		if($comment_id) {
 			$parent = Comment::model()->with("post", "author")->findByPk($comment_id);
-			if(!$parent) throw new CHttpException(404, "Вы пытаетесь ответить на несуществующий комментарий");
+			if(!$parent) throw new CHttpException(404, "Опитвате да отговорите на несъществуващ коментар");
 		} else {
 			$parent = new Comment();
 			$parent->post = BlogPost::model()->with("author", "seen")->findByPk($post_id);
@@ -134,18 +134,18 @@ class BlogController extends Controller {
 		// Загружаем удаляемый комментарий вместе с постом
 		$comment = Comment::model()->with("post")->findByPk($comment_id);
 		if(!$comment) {
-			$json["error"] = "Вы пытаетесь удалить несуществующий комментарий. Бросьте, пустое.";
+			$json["error"] = "Опитвате да изтриете несъществуващ коментар. Зарежете.";
 		} else {
 			// Права доступа: свой комментарий, в моём посте, модератор блога
 			if(!$comment->can("delete")) {
-				$json["error"] = "Вы не можете удалить этот комментарий.";
+				$json["error"] = "Не можете да изтриете този коментар.";
 			}
 
 			// Удаляем комментарий
 			else if($comment->delete()) {
 				$comment->post->afterCommentRm($comment);
 			} else {
-				$json["error"] = "Не получилось удалить комментарий :(";
+				$json["error"] = "Изтриването на коментара не стана :(";
 			}
 		}
 
@@ -159,10 +159,10 @@ class BlogController extends Controller {
 
 		/** @var Comment $comment */
 		$comment = Comment::model()->with("post")->findByPk($comment_id);
-		if(!$comment) throw new CHttpException(404, "Комментарий удалён.");
+		if(!$comment) throw new CHttpException(404, "Коментарът е изтрит.");
 		if($comment->post_id != $post_id) throw new CHttpException(400, "");
-		if(!$comment->post->can("read")) throw new CHttpException(403, "У вас нет доступа в этот пост.");
-		if(!$comment->can("rate")) throw new CHttpException(403, "Вы не можете оценивать этот комментарий.");
+		if(!$comment->post->can("read")) throw new CHttpException(403, "Нямате достъп към този пост.");
+		if(!$comment->can("rate")) throw new CHttpException(403, "Не можете да оцените този коментар.");
 
 		$comment->rate((int) $_POST["mark"]);
 
@@ -178,10 +178,10 @@ class BlogController extends Controller {
 		if($post_id != 0) {
 			$post = BlogPost::model()->findByPk($post_id);
 			if(!$post) {
-				throw new CHttpException(404, "Поста не существует. Возможно, его удалили");
+				throw new CHttpException(404, "Постът не съществува, възможно е бил изтрит.");
 			}
 			if($post->user_id != Yii::app()->user->id and !Yii::app()->user->can("blog_moderate")) {
-				throw new CHttpException(403, "Вы можете редактировать только собственные посты");
+				throw new CHttpException(403, "Можете да редактирате само собствените си постове");
 			}
 			if($post->book_id != 0) $this->redirect("/book/{$post->book_id}/blog/{$post->id}/edit");
 		} else {
@@ -210,10 +210,10 @@ class BlogController extends Controller {
 
 		$post = BlogPost::model()->findByPk($post_id);
 		if(!$post) {
-			throw new CHttpException(404, "Поста не существует. Возможно, его уже удалили.");
+			throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит.");
 		}
 		if($post->user_id != Yii::app()->user->id and !Yii::app()->user->can("blog_moderate")) {
-			throw new CHttpException(403, "Вы можете удалять только собственные посты");
+			throw new CHttpException(403, "Можете да изтривате само свои постове");
 		}
 
 		$post->delete();
