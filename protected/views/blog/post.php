@@ -16,7 +16,7 @@
 	});
 </script>
 
-<a name="Comments"></a><h2>Комментарии</h2>
+<a name="Comments"></a><h2>Коментари</h2>
 <div class='comments'>
 	<?php
 		$view = Yii::app()->user->ini["t.iface"] == 1 ? "//blog/_comment-1" : "//blog/_comment";
@@ -45,7 +45,7 @@
 					<textarea name="Comment[body]"></textarea>
 				</div>
 				<div>
-					<input type="submit" value="Добавяне" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
+					<input type="submit" value="Добавяне" title="Или натиснете Ctrl+Enter" class="btn btn-mini btn-primary" />
 					<input type="button" value="Отмяна" class="btn btn-mini cancel" />
 					<input type="hidden" name="Comment[pid]" value="0" />
 				</div>
