@@ -39,8 +39,8 @@ class Dict extends CActiveRecord {
 
 	public function attributeLabels() {
 		return array(
-			"term" => "Слово",
-			"descr" => "Перевод",
+			"term" => "Дума",
+			"descr" => "Превод",
 		);
 	}
 
