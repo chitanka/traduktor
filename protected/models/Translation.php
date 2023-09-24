@@ -28,7 +28,7 @@ class Translation extends CActiveRecord {
 
 	public function rules() {
 		return array(
-			array("body", "required", "message" => "Пожалуйста, введите вашу версию перевода этого фрагмента."),
+			array("body", "required", "message" => "Молим, въведете вашата версия на превод на този фрагмент."),
 			array("body", "validateBody"),
 		);
 	}
