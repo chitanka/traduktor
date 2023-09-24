@@ -73,10 +73,10 @@ class RegInvite extends CActiveRecord {
 		if($this->type == "user") {
 			$this->foundBuddy = User::model()->byLogin($this->$param)->find();
 			if(!$this->foundBuddy) {
-				$this->addError("clue", "Пользователь с таким логином не найден.");
+				$this->addError("clue", "Потребител с такъв логин не е открит.");
 				return;
 			} elseif($this->foundBuddy->can(User::CAN_LOGIN)) {
-				$this->addError("clue", "Пользователь {$this->buddy->ahref} уже является членом клуба.");
+				$this->addError("clue", "Потребител {$this->buddy->ahref} вече е член на клуба.");
 				return;
 			} else {
 				$this->to_id = $this->foundBuddy->id;
@@ -87,7 +87,7 @@ class RegInvite extends CActiveRecord {
 			$this->to_email = $this->$param;
 			if($this->foundBuddy) {
 				if($this->foundBuddy->can(User::CAN_LOGIN)) {
-					$this->addError("clue", "Этот пользователь уже зарегистрирован на Нотабеноиде и является членом клуба.");
+					$this->addError("clue", "Този потребител вече е регистриран в Нотабеноид и е член на клуба.");
 					return;
 				} else {
 					$this->to_id = $this->foundBuddy->id;
@@ -101,7 +101,7 @@ class RegInvite extends CActiveRecord {
 		$i = Yii::app()->db->createCommand("SELECT 1 FROM reg_invites WHERE from_id = :from_id AND to_id = :to_id")
 			->queryScalar(["from_id" => $this->from_id, "to_id" => !is_null($this->foundBuddy) ? $this->foundBuddy->id : null]);
 		if($i) {
-			$this->addError("clue", "Вы уже приглашали этого пользователя.");
+			$this->addError("clue", "Вече сте канили този потребител.");
 			return;
 		}
 	}
@@ -122,7 +122,7 @@ class RegInvite extends CActiveRecord {
 	public function sendMail() {
 		$message = new YiiMailMessage();
 		$message->view = "reg_invite_new";
-		$message->subject = "Вас приглашают стать переводчиком \"Курсомир.Переводы\"";
+		$message->subject = "Канят ви да станете преводач \"Курсомир.Переводы\"";
 		$message->setBody(array("invite" => $this), "text/html");
 		$message->addTo($this->to_email);
 		$message->from = Yii::app()->params['adminEmail'];
