@@ -40,7 +40,7 @@ class Chapter extends CActiveRecord {
 
 	public function rules() {
 		return array(
-			array("title", "required", "message" => "Пожалуйста, введите заголовок"),
+			array("title", "required", "message" => "Молим, въведете заглавие"),
 			array("ord", "numerical", "integerOnly" => true),
 			array("status", "in", "range" => array_keys(Yii::app()->params["translation_statuses"])),
 			array("ac_read, ac_trread, ac_gen, ac_rate, ac_comment, ac_tr", "filter", "filter" => "trim"),
@@ -76,7 +76,7 @@ class Chapter extends CActiveRecord {
 				->query(array("book_id" => $this->book_id, "id" => $this->id));
 
 			if($r->rowCount > 0) {
-				$this->addError("ac_read", "В переводе только одна глава может иметь особые права доступа.");
+				$this->addError("ac_read", "В превода само една глава може да има специални права на достъп.");
 			}
 		}
 
@@ -207,7 +207,7 @@ class Chapter extends CActiveRecord {
 		if($t < 60) return $this->idle_time . " сек.";
 		if($t < 60 * 60) return round($this->idle_time / 60) . " мин.";
 		if($t < 60 * 60 * 24) return round($this->idle_time / 3600) . " час.";
-		if($t < 60 * 60 * 24 * 30) return round($this->idle_time / 86400) . " дней.";
+		if($t < 60 * 60 * 24 * 30) return round($this->idle_time / 86400) . " дни.";
 		if($t < 60 * 60 * 24 * 30 * 12) return round($this->idle_time / 2592000) . " мес.";
 		return "> 1 года.";
 	}
@@ -248,16 +248,16 @@ class Chapter extends CActiveRecord {
 
 		if($this->$ac == "") return $this->book->getWhoCanDoIt($what, $tools);
 
-		$msg = "Это " . ($this->$ac == "o" ? "может" : "могут") . " делать " . Yii::app()->params["ac_roles_title"][$this->$ac] . ".";
+		$msg = "Это " . ($this->$ac == "o" ? "може" : "могат") . " да правят " . Yii::app()->params["ac_roles_title"][$this->$ac] . ".";
 
 		if($this->$ac == "g") {
 			if($this->book->facecontrol == Book::FC_CONFIRM) {
-				$msg .= "Чтобы вступить в группу, нужно подать заявку владельцу ({$this->book->owner->ahref})" . ($this->book->ac_membership == "m" ? " или модераторам" : "") . ".";
+				$msg .= "За да встъпите в групата, трябва да подадете заявка на собственика ({$this->book->owner->ahref})" . ($this->book->ac_membership == "m" ? " или на модераторите" : "") . ".";
 				if($tools) $msg .= Yii::app()->controller->renderPartial("//book/_join", array("book" => $this->book), true);
 			} elseif($this->book->facecontrol == Book::FC_INVITE) {
-				$msg = "Чтобы вступить в группу, нужно получить приглашение от владельца ({$this->book->owner->ahref})" . ($this->book->ac_membership == "m" ? " или модераторов" : "") . ".";
+				$msg = "За да встъпите в групата трябва да получите покана от собственика ({$this->book->owner->ahref})" . ($this->book->ac_membership == "m" ? " или от модераторите" : "") . ".";
 				if($tools && $this->book->user_invited(Yii::app()->user->id)) {
-					$msg .= " Кстати, у вас это приглашение есть.<br /><br /><a href='" . $this->book->getUrl("invite_accept") . "' class='act'>Принять</a> | <a href='" . $this->book->getUrl("invite_decline") . "' class='act'>Отказать</a>";
+					$msg .= " Между другото, имате тази покана.<br /><br /><a href='" . $this->book->getUrl("invite_accept") . "' class='act'>Приемане</a> | <a href='" . $this->book->getUrl("invite_decline") . "' class='act'>Отказ</a>";
 				}
 			}
 		}
@@ -268,16 +268,16 @@ class Chapter extends CActiveRecord {
 	public function getDeniedWhy() {
 		if($this->can("read")) return "";
 
-		if($this->ac_read == "o") $msg = "Владелец перевода (" . $this->book->owner->ahref . ") закрыл доступ в эту главу для всех.";
-		elseif($this->ac_read == "m") $msg = "Эта глава доступна только модераторам этого перевода, которых назначает владелец (" . $this->book->owner->ahref . ").";
+		if($this->ac_read == "o") $msg = "Собственикът на превода (" . $this->book->owner->ahref . ") е затворил достъпа до тази глава за всички.";
+		elseif($this->ac_read == "m") $msg = "Тази глава е достъпна само за модераторите на този превод, които се определят от собственика (" . $this->book->owner->ahref . ").";
 		elseif($this->ac_read == "g") {
 			if($this->book->facecontrol == Book::FC_CONFIRM) {
-				$msg = "Чтобы войти в эту главу перевода, нужно вступить в группу перевода.";
+				$msg = "За да влезете в тази глава, трябва да сте част от групата на превода.";
 			} elseif($this->book->facecontrol == Book::FC_INVITE) {
-				$msg = "Чтобы войти в эту главу перевода, нужно получить приглашение от владельца (" . $this->book->owner->ahref . ")" . ($this->book->ac_membership == "m" ? " или модераторов" : "") . ".";
+				$msg = "За да влезете в тази глава на превода, трябва да получите покана от собственика (" . $this->book->owner->ahref . ")" . ($this->book->ac_membership == "m" ? " или от модераторите" : "") . ".";
 			}
 		}
-		else $msg = "Вы не можете войти в эту главу перевода.";
+		else $msg = "Не можете да влезете в тази глава на превода.";
 
 		return $msg;
 	}
