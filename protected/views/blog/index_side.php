@@ -25,7 +25,7 @@
 		echo "<a href='/blog/?topic={$k}'>{$v}</a>";
 		echo "</li>";
 	}
-	echo "<li class='buttons'><button class='btn btn-mini'>Показать</button></li>";
+	echo "<li class='buttons'><button class='btn btn-mini'>Показване</button></li>";
 	echo "<li" . (isset($topics) && is_array($topics) && count($topics) == 0 ? " class='active'" : "") . "><a href='/blog?topics=all'>Все</a></li>";
 ?>
 
@@ -35,8 +35,8 @@
 
 <?php
 	if(!Yii::app()->user->isGuest){
-		// echo "<p><a href='/blog/edit" . ($topic ? "?topics[]={$topic}" : "") . "'><i class='icon icon-pencil'></i> Написать пост</a></p>";
-		echo "<p><a href='/blog/edit/'><i class='icon icon-pencil'></i> Написать пост</a></p>";
+		// echo "<p><a href='/blog/edit" . ($topic ? "?topics[]={$topic}" : "") . "'><i class='icon icon-pencil'></i> Напиши пост</a></p>";
+		echo "<p><a href='/blog/edit/'><i class='icon icon-pencil'></i> Напиши пост</a></p>";
 	}
 ?>
 
