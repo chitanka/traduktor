@@ -19,7 +19,7 @@ class GenOptions extends CFormModel {
 		),
 		"A" => array(
 			"h" => "HTML",
-			"t" => "Текстовый файл",
+			"t" => "Текстов файл",
 		),
 	);
 	public static $extensions = array(
@@ -27,12 +27,12 @@ class GenOptions extends CFormModel {
 		"h" => "html", "t" => "txt",
 	);
 	public static $algorithm_options = array(
-		0 => "Версии с максимальным рейтингом",
-		1 => "Самые свежие версии",
+		0 => "Версии с най-висок рейтинг",
+		1 => "Най-новите версии",
 	);
 	public static $untr_options = array(
-		"o" => "Подставить фрагмент оригинала",
-		"s" => "Пропустить",
+		"o" => "Слагане на част от оригинала",
+		"s" => "Пропускане",
 	);
 	public static $crlf_options = array(
 		0 => "Windows (0D 0A)",
