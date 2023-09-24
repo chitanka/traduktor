@@ -21,15 +21,15 @@ class Userinfo extends CActiveRecord {
 	}
 
 	public static $Properties = array(
-		1 => array('Имя', 					'line', 60, 60),
+		1 => array('Име', 					'line', 60, 60),
 		2 => array('ICQ', 					'int', 16, 16),
 		3 => array('ЖЖ', 					'line', 16, 16),
-		4 => array('Домашняя страница', 	'line', 255, 60),
+		4 => array('Личен сайт', 	'line', 255, 60),
 		5 => array('skype', 				'line', 32, 16),
-		6 => array('День рождения', 		'date', 10, 16),
-		7 => array('Страна', 				'select', 'не скажу'),
-		8 => array('Город', 				'line', 60, 60),
-		9 => array('Несколько слов о себе', 'text', 3, 60, true),
+		6 => array('Дата на раждане', 		'date', 10, 16),
+		7 => array('Държава', 				'select', 'не казвам'),
+		8 => array('Град', 				'line', 60, 60),
+		9 => array('Няколко думи за вас', 'text', 3, 60, true),
 	);
 
 	public function getLabel() {
@@ -69,7 +69,7 @@ class Userinfo extends CActiveRecord {
 		}
 
 		if($this->prop_id == 7) {
-			if($this->value == 0 || $this->value == "не скажу") return "";
+			if($this->value == 0 || $this->value == "не казвам") return "";
 			return Yii::app()->params["countries"][$this->value];
 		}
 
