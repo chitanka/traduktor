@@ -20,7 +20,7 @@
 	echo "<div class='{$class}' id='cmt_{$comment->id}'>";
 
 	if($comment->isDeleted()) {
-		echo "<div class='text'>Удалённый комментарий.</div>";
+		echo "<div class='text'>Изтрит коментар.</div>";
 	} else {
 		echo "<div class='text'>";
 		$body = '<p>' . preg_replace('/\n{2,}/', '</p><p>', $comment->body) . '</p>';
@@ -35,7 +35,7 @@
 		echo "<a href='#cmt_{$comment->id}' class='a ajax'>#</a> &middot; ";
 
 		// if($comment->can("reply")) ...
-		if(!isset($disable_reply) and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re ajax'>Ответить</a> ";
+		if(!isset($disable_reply) and !Yii::app()->user->isGuest) echo "<a href='#cmt_{$comment->id}' class='re ajax'>Отговор</a> ";
 
 		if(!isset($disable_dot)) echo "<a href='#' class='dot b'><i class='i icon-flag'></i></a> ";
 		if(!isset($disable_delete) and $comment->can("delete")) echo "<a href='#' class='rm b'><i class='i icon-remove'></i></a>  ";
