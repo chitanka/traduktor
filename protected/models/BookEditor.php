@@ -11,13 +11,13 @@ class BookEditor extends Book {
 
 	public function rules() {
 		return array_merge(parent::rules(), array(
-			array("typ", "in", "range" => array_keys(Yii::app()->params["book_types"]), "message" => "Неверный тип перевода."),
+			array("typ", "in", "range" => array_keys(Yii::app()->params["book_types"]), "message" => "Грешен тип на превода."),
 			array("s_lang, t_lang", "numerical", "integerOnly" => "true"),
 			array("s_title, t_title", "required"),
 			array("s_title, t_title", "clean"),
 			array("descr", "safehtml"),
 			array("rm_img", "boolean"),
-			array("new_img", "file", "allowEmpty" => true, "types" => "jpg, gif, png, jpeg", "wrongType" => "Неверный формат файла. Пожалуйста, загружайте JPG, PNG или GIF"),
+			array("new_img", "file", "allowEmpty" => true, "types" => "jpg, gif, png, jpeg", "wrongType" => "Грешен формат на файла. Молим, качвайте JPG, PNG или GIF"),
 
 			array("ac_read, ac_trread, ac_rate, ac_comment, ac_gen, ac_tr, ac_blog_r, ac_blog_c, ac_blog_w", "in", "range" => array("a", "g", "m", "o")),
 			array("ac_announce", "in", "range" => array("g", "m", "o")),
@@ -29,7 +29,7 @@ class BookEditor extends Book {
 		Yii::log("not_in_new {$attr}: '{$this->$attr}'");
 		if(empty($this->$attr)) return;
 		if(!$this->isNewRecord) {
-			$this->addError($attr, $this->getAttributeLabel("typ") . " можно указать только при создании перевода.");
+			$this->addError($attr, $this->getAttributeLabel("typ") . " Може да се отбележат само при създаване на превод.");
 		}
 	}
 	public function clean($attr, $params) {
