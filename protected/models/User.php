@@ -65,55 +65,55 @@ class User extends CActiveRecord {
 
 	public function attributeLabels() {
 		return array(
-			"verifyCode" => "Код проверки",
+			"verifyCode" => "Код за проверка",
 			"login" => "Логин",
-			"pass" => "Пароль",
+			"pass" => "Парола",
 			"email" => "E-mail",
 			"sex" => "Пол",
-			"lang" => "Родной язык",
-			"tos" => "Я прочитал <a href='/site/TOS/'>Правила использования сервиса</a> и согласен с ними.",
+			"lang" => "Майчин език",
+			"tos" => "Прочетох <a href='/site/TOS/'>правилата за ползване </a> и съм съгласен с тях.",
 
 			'id' => 'ID',
-			'cdate' => 'Зарегистрирован',
-			'lastseen' => 'Последний раз был на сайте',
+			'cdate' => 'Регистриран',
+			'lastseen' => 'Последно влизане',
 			'can' => 'Права',
 			'upic' => 'Аватар',
 			'ini' => 'Настройки',
-			'rate_t' => 'Рейтинг переводов',
-			'rate_c' => 'Рейтинг комментариев',
+			'rate_t' => 'Рейтинг на преводите',
+			'rate_c' => 'Рейтинг на коментарите',
 			'rate_u' => 'Карма',
-			'n_trs' => 'Версий перевода',
-			'n_comments' => 'Комментариев',
-			'state' => 'Статус пользователя',
+			'n_trs' => 'Версии на перевода',
+			'n_comments' => 'Коментари',
+			'state' => 'Статус на потребителя',
 
-			"pass2" => "Ещё раз",
-			"remember" => "Запомнить меня на сайте",
+			"pass2" => "Още веднъж",
+			"remember" => "Запомни ме",
 		);
 	}
 
 	public function rules() {
 		return array(
 			// on => "login"
-			array('login, pass', 'required', "on" => "login", "message" => "Пожалуйста, введите {attribute}"),
+			array('login, pass', 'required', "on" => "login", "message" => "Молим, въведете {attribute}"),
 			array('remember', 'boolean', "on" => "login"),
 
 			// on => "register"
-			array("login, pass, email, sex, lang", "required", "message" => "Укажите {attribute}.", "on" => "register"),
+			array("login, pass, email, sex, lang", "required", "message" => "Укажете {attribute}.", "on" => "register"),
 			array("login, email", "filter", "filter" => "trim", "on" => "register"),
-			array("login", "length", "min" => 2, "max" => 50, "tooShort" => "Слишком короткий логин", "tooLong" => "Слишком длинный логин", "on" => "register"),
-			array('login', 'match', 'pattern' => '/^[A-Za-z\d_]+$/', "message" => "Недопустимый символ", "on" => "register"),
-			array("login", "unique", "caseSensitive" => false, "message" => "Такой логин уже используется, придумайте другой.", "on" => "register"),
-			array("pass, pass2", "length", "min" => 5, "max" => 32, "tooShort" => "Слишком короткий пароль", "tooLong" => "Слишком длинный пароль", "on" => "register"),
-			array("pass", "compare", "compareAttribute" => "pass2", "message" => "Пароли не совпадают.", "on" => "register"),
+			array("login", "length", "min" => 2, "max" => 50, "tooShort" => "Прекалено кратък логин", "tooLong" => "Прекалено дълъг логин", "on" => "register"),
+			array('login', 'match', 'pattern' => '/^[A-Za-z\d_]+$/', "message" => "Недопустим символ", "on" => "register"),
+			array("login", "unique", "caseSensitive" => false, "message" => "Този логин вече се използва, измислете друг.", "on" => "register"),
+			array("pass, pass2", "length", "min" => 5, "max" => 32, "tooShort" => "Прекалено къса парола", "tooLong" => "Прекалено дълга парола", "on" => "register"),
+			array("pass", "compare", "compareAttribute" => "pass2", "message" => "Паролите не съвпадат.", "on" => "register"),
 			array("pass2", "safe", "on" => "register"),
-			array("email", "length", "max" => 255, "tooLong" => "Слишком длинный адрес электронной почты", "on" => "register"),
-			array("email", "email", "checkPort" => false, "message" => "Неверный адрес электронной почты.", "on" => "register, edit-admin"),
-			array("email", "unique", "caseSensitive" => false, "message" => "Пользователь с таким адресом электронной почты уже зарегистрирован.", "on" => "register, edit-admin"),
-			array("sex", "in", "range" => array("m", "f"), "message" => "Вы должны быть либо мужчиной, либо, ещё лучше, женщиной.", "on" => "register"),
-			array("sex", "in", "range" => array("m", "f", "x", "-"), "message" => "Пол - это m, f, x или дефис.", "on" => "edit-admin"),
-			array("lang", "numerical", "integerOnly" => true, "min" => 1, "message" => "Этот язык нам, увы, неизвестен.", "on" => "register"),
-			array("verifyCode", "captcha", "message" => "Вы неправильно ввели буквы с картинки.", "on" => "register"),
-			array("tos", "compare", "compareValue" => "1", "message" => "Вы должны прочитать и согласиться с правилами.", "on" => "register"),
+			array("email", "length", "max" => 255, "tooLong" => "Прекалено дълъг адрес на електронната поща.", "on" => "register"),
+			array("email", "email", "checkPort" => false, "message" => "Грешен адрес на електронната поща.", "on" => "register, edit-admin"),
+			array("email", "unique", "caseSensitive" => false, "message" => "Вече има регистриран потребител с тази електронна поща", "on" => "register, edit-admin"),
+			array("sex", "in", "range" => array("m", "f"), "message" => "Трябва да бъдете мъж, или, още по-добре, жена.", "on" => "register"),
+			array("sex", "in", "range" => array("m", "f", "x", "-"), "message" => "Полът - това е m, f, x или тире.", "on" => "edit-admin"),
+			array("lang", "numerical", "integerOnly" => true, "min" => 1, "message" => "За жалост, този език ни е неизвестен.", "on" => "register"),
+			array("verifyCode", "captcha", "message" => "Въвели сте грешно символите от картинката.", "on" => "register"),
+			array("tos", "compare", "compareValue" => "1", "message" => "Длъжни сте да прочетете и да се съгласите с правилата.", "on" => "register"),
 
 			array("ini", "type", "type" => "array", "on" => "settings"),
 
@@ -239,9 +239,9 @@ class User extends CActiveRecord {
 		} elseif($this->_identity->errorCode == UserIdentity::ERROR_USER_DELETED) {
 			$this->addError("pass", "Ваш аккаунт удалён.");
 		} elseif($this->_identity->errorCode == UserIdentity::ERROR_USER_INACTIVE) {
-			$this->addError("pass", "Логин и пароль верны, однако, вы не член клуба. Чтобы попасть внутрь, вам нужно получить приглашение от члена клуба. ВНИМАНИЕ! Не надо писать в техподдержку, пожалуйста.");
+			$this->addError("pass", "Логинът и паролата са верни, но вие не сте член на клуба. За да влезете, трябва да получите покана от член на клуба. ВНИМАНИЕ! Недейте да пишете на поддръжката, моля.");
 		} else {
-			$this->addError("pass", "Нет, неправильно.");
+			$this->addError("pass", "Не, грешка.");
 		}
 
 		return false;
@@ -383,24 +383,24 @@ class User extends CActiveRecord {
 		// Уведомление по мылу, если надо
 		if($this->ini_get(self::INI_MAIL_NOTICES)) {
 			$subj = array(
-				Notice::INVITE => "Приглашение в группу перевода",
-				Notice::JOIN_REQUEST => "Заявка на вступление в группу перевода",
-				Notice::JOIN_ACCEPTED => "Заявка принята",
-				Notice::JOIN_DENIED => "Заявка отклонена",
-				Notice::EXPELLED => "Исключение из группы",
+				Notice::INVITE => "Покана в групата на превод",
+				Notice::JOIN_REQUEST => "Заявка за встъпване в групата на превод",
+				Notice::JOIN_ACCEPTED => "Заявката е приета",
+				Notice::JOIN_DENIED => "Заявката е отклонена",
+				Notice::EXPELLED => "Изключване от групата",
 				Notice::BANNED => "Бан",
-				Notice::UNBANNED => "Бан снят",
-				Notice::CROWNED => "Назначение модератором",
-				Notice::DEPOSED => "Лишение модераторских полномочий",
-				Notice::CHAPTER_ADDED => "Новая глава в переводе, за которым вы следите",
-				Notice::CHAPTER_STATUS => "Изменился статус перевода, за которым вы следите"
+				Notice::UNBANNED => "Банът е свален",
+				Notice::CROWNED => "Назначение като модератор",
+				Notice::DEPOSED => "Лишаване от модераторски права",
+				Notice::CHAPTER_ADDED => "Нова глава в превод, който следите",
+				Notice::CHAPTER_STATUS => "Статусът на превод, който следите се промени"
 			);
 			$msg = new YiiMailMessage();
 			$msg->view = "notice";
 			$msg->subject = $subj[$Notice->typ];
 			$msg->setBody(array("Notice" => $Notice, "user" => $this), "text/html");
 			$msg->addTo($this->email);
-			$msg->setFrom(array(Yii::app()->params["adminEmail"] => "Оповещение"));
+			$msg->setFrom(array(Yii::app()->params["adminEmail"] => "Известие"));
 			Yii::app()->mail->send($msg);
 		}
 
