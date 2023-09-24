@@ -11,22 +11,22 @@ class UserSettings extends User {
 	public function rules() {
 		return array_merge(parent::rules(), array(
 			array("email", "required"),
-			array("email", "length", "max" => 255, "tooLong" => "Слишком длинный адрес электронной почты"),
-			array("email", "email", "checkPort" => false, "message" => "Неверный адрес электронной почты."),
+			array("email", "length", "max" => 255, "tooLong" => "Прекалено дълъг адрес на електронната поща"),
+			array("email", "email", "checkPort" => false, "message" => "Грешен адрес на електронната поща."),
 			array("email", "unique",
 				"className" => "User",
 				"caseSensitive" => false,
 				"criteria" => new CDbCriteria(array(
 					"condition" => "id != " . Yii::app()->user->id
 				)),
-				"message" => "Пользователь с таким адресом электронной почты уже зарегистрирован."
+				"message" => "Потребител с такава електронна поща вече е регистриран."
 			),
 
-			array("sex", "in", "range" => array("x", "m", "f"), "message" => "Вы должны быть либо мужчиной, либо, ещё лучше, женщиной."),
+			array("sex", "in", "range" => array("x", "m", "f"), "message" => "Трябва да сте или мъж, или, още по-добре, жена."),
 
 			array("new_pass, new_pass2", "filter", "filter" => "trim"),
-			array("new_pass, new_pass2", "length", "min" => 5, "max" => 32, "tooShort" => "Слишком короткий новый пароль.", "tooLong" => "Слишком длинный новый пароль."),
-			array("new_pass2", "compare", "compareAttribute" => "new_pass", "message" => "Новые пароли не совпадают, вы где-то опечатались."),
+			array("new_pass, new_pass2", "length", "min" => 5, "max" => 32, "tooShort" => "Прекалено кратка нова парола.", "tooLong" => "Прекалено дълга нова парола."),
+			array("new_pass2", "compare", "compareAttribute" => "new_pass", "message" => "Новите пароли не съвпадат, някъде сте направили грешка."),
 			array("old_pass", "change_pass"),
 
 			// array("ini", "type", "type" => "array"),
@@ -43,7 +43,7 @@ class UserSettings extends User {
 		if(empty($this->$param)) return;
 		if($this->hasErrors()) return;
 		if(empty($this->new_pass)) {
-			$this->addError("new_pass", "Введите новый пароль!");
+			$this->addError("new_pass", "Въведете нова парола!");
 			return;
 		}
 		if(!$this->validate(array("new_pass", "new_pass2"))) return;
@@ -51,7 +51,7 @@ class UserSettings extends User {
 		echo "<h3>check old pass</h3>";
 		$ui = new UserIdentity(Yii::app()->user->login, $this->old_pass);
 		if(!$ui->authenticate()) {
-			$this->addError("old_pass", "Неверный пароль. Если вы не можете его вспомнить, вам <a href='/register/remind'>сюда</a>.");
+			$this->addError("old_pass", "Грешна парола. Ако не можете да си я спомните, цъкнете <a href='/register/remind'>тук</a>.");
 		} else {
 			echo "<p>check ok</p>";
 			$this->pass = self::hashPass($this->new_pass);
