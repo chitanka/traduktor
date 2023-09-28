@@ -54,7 +54,7 @@
 					<textarea name="Comment[body]"></textarea>
 				</div>
 				<div>
-					<input type="submit" value="Добавяне на коментар" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
+					<input type="submit" value="Добавяне на коментар" title="Или натиснете Ctrl+Enter" class="btn btn-mini btn-primary" />
                     <input type="button" value="Отмяна" class="btn btn-mini cancel" />
 					<input type="hidden" name="Comment[pid]" value="0" />
 				</div>
@@ -62,11 +62,11 @@
 		</div>
 	</div>
 
-	<p class="cmt_0_btn"><i class="i icon-comment"></i> <a href="#" class="re ajax">Комментировать пост</a></p>
+	<p class="cmt_0_btn"><i class="i icon-comment"></i> <a href="#" class="re ajax">Коментиране на пост</a></p>
 
 	<?php else: ?>
 	<p class="info">
-		Вы не можете писать комментарии в блоге этого перевода.
+		Не можете да пишете постове в блога на този превод.
 	</p>
 	<?php endif; ?>
 
