@@ -19,7 +19,7 @@ var E = {
 		});
 	},
 	rm: function() {
-		if(!confirm("Вы абсолютно уверены, что хотите удалить этот перевод?\nОдним движением мышки вы сейчас можете\nуничтожить труд десятков людей!")) return;
+		if(!confirm("Абсолютно ли сте сигурни, че искате да изтриете този превод?\С едно движение на мишката можете да изтриете работата на десетки хора!")) return;
 
 		$("#form-rm").submit();
 	}
@@ -46,7 +46,7 @@ $(E.init);
 
 	if(!$book->isNewRecord) {
 		echo "<div class='control-group'><label class='control-label'>Раздел от каталога:</label><div class='controls'>";
-		echo $book->cat_id ? $book->cat->title : "Не задан";
+		echo $book->cat_id ? $book->cat->title : "Не е зададен";
 		echo " &larr; <a href='" . $book->getUrl("edit/cat") . "' class='act'>Изменить</a>";
 		echo "</div></div>";
 	}
@@ -55,7 +55,7 @@ $(E.init);
 	echo $form->textFieldRow($book, "s_title", array("class" => "span6"));
 	echo $form->dropDownListRow($book, "t_lang", Yii::app()->langs->select());
 	echo $form->textFieldRow($book, "t_title", array("class" => "span6"));
-	echo $form->textAreaRow($book, "descr", array("class" => "span6", "hint" => "Здесь можно использовать HTML-теги"));
+	echo $form->textAreaRow($book, "descr", array("class" => "span6", "hint" => "Тук могат да се използват HTML-тагове"));
 
 ?>
 <div class="control-group <?=$book->hasErrors("new_img") ? " error" : ""; ?>">
@@ -66,13 +66,13 @@ $(E.init);
 		if(is_object($book->img) && $book->img->exists) {
 			echo "<div id='img_preview'>";
 			echo $book->img->tag;
-			echo "<label class='checkbox'>" . $form->checkBox($book, "rm_img") . " удалить</label>";
+			echo "<label class='checkbox'>" . $form->checkBox($book, "rm_img") . " изтриване</label>";
 			echo "</div>";
 		}
 		echo $form->fileField($book, "new_img");
 		echo $form->error($book, "new_img");
 	?>
-	<p class="help-block">Картинка будет уменьшена до нужных размеров автоматически.</p>
+	<p class="help-block">Картинката ще бъде смалена до нужните размери автоматично.</p>
 	</div>
 </div>
 
