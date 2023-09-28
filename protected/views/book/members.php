@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = $book->fullTitle . " - переводчики";
+	$this->pageTitle = $book->fullTitle . " - преводачи";
 
 	Yii::app()->getClientScript()
 		->registerScriptFile("/js/book.js?1");
@@ -48,7 +48,7 @@ $(P.init);
 		$A = $book->role_areas("g");
 		if(count($A) > 0) {
 			foreach($A as $ac) {
-				if($group_needed == "") $group_needed = "В этом переводе нужно состоять в группе переводчиков, чтобы ";
+				if($group_needed == "") $group_needed = "В този превод трябва да сте групата на преводачите, за да ";
 				else $group_needed .= ", ";
 				$group_needed .= Yii::app()->params["ac_areas"][$ac];
 			}
@@ -61,42 +61,42 @@ $(P.init);
 				<?php if($group_needed != ""): ?><p><?=$group_needed; ?></p><?php endif; ?>
 				<div id="join_btn">
 					<button type="button" onclick="$('#join_btn').hide(); $('#join_msg').show(); $('#join_msg [name=message]').focus();" class="btn btn-success">
-						<i class="icon-plus icon-white"></i> Вступить в группу
+						<i class="icon-plus icon-white"></i> Встъпване в групата
 					</button>
 				</div>
 				<div id="join_msg">
 					<label>
-						Ваша заявка сначала будет рассмотрена <?php echo $book->ac_membership == "m" ? "модераторами" : "создателем перевода"; ?>.
-						Вы можете написать им короткое сообщение:
+						Вашата заявка ще бъде разгледана от <?php echo $book->ac_membership == "m" ? "модераторите" : "създателя на превода"; ?>.
+						Можете да им напишете кратко съобщение:
 					</label>
 					<input type="text" name="message" maxlength="200" class="span4" />
 					<label class="checkbox">
-						<input type="checkbox" name="bm" value="1" checked /> добавить перевод в закладки
+						<input type="checkbox" name="bm" value="1" checked /> добавяне на превода в отметките
 					</label>
-					<button type="submit" class="btn"><i class="icon-ok"></i> Отправить заявку</button>
-					<button type="button" class="btn" onclick="$('#join_btn').show(); $('#join_msg').hide(); $('#join_msg [name=message]').focus();"><i class="icon-remove"></i> Отмена</button>
+					<button type="submit" class="btn"><i class="icon-ok"></i> Изпращане на заявка</button>
+					<button type="button" class="btn" onclick="$('#join_btn').show(); $('#join_msg').hide(); $('#join_msg [name=message]').focus();"><i class="icon-remove"></i> Отмяна</button>
 				</div>
 			</form>
 <?php
 		} elseif($book->facecontrol == Book::FC_INVITE and $group_needed != "") {
 			echo "<div class='well'>";
 			echo "<p>{$group_needed}</p>";
-			echo "<p>Однако, чтобы стать членом этой группы, нужно получить персональное приглашение от " . ($book->ac_membership == "m" ? "модераторов" : "создателя перевода") . ".</p>";
+			echo "<p>Но, за да станете член на тази група, трябва да получите персонална покана от " . ($book->ac_membership == "m" ? "модераторите" : "създателя на превода") . ".</p>";
 			if($book->user_invited(Yii::app()->user->id)) {
-				echo "<p>И, кстати, это приглашение у вас есть.</p>";
-				echo "<a href='" . $book->url("invite_accept") . "' class='act'>Принять</a> | <a href='" . $book->url("invite_decline") . "' class='act'>Отказать</a>";
+				echo "<p>И, между другото, вече имате тази покана.</p>";
+				echo "<a href='" . $book->url("invite_accept") . "' class='act'>Приемане</a> | <a href='" . $book->url("invite_decline") . "' class='act'>Отказать</a>";
 			}
 			echo "</div>";
 		}
 	} else {
 ?>
-		<form method="post" id="leave-box" class="well" action="<?=$book->url("members_leave"); ?>" onsubmit="return confirm('Вы уверены, что хотите выйти из этой группы?')">
-			<input type="submit" value="Покинуть группу" class="btn btn-danger" />
+		<form method="post" id="leave-box" class="well" action="<?=$book->url("members_leave"); ?>" onsubmit="return confirm('Сигурни ли сте, че искате да излезете от тази група?')">
+			<input type="submit" value="Напускане на групата" class="btn btn-danger" />
 			<p class="help-block"><?php
 				if($book->facecontrol == Book::FC_INVITE) {
-					echo "Кстати, для того, чтобы вернуться в группу, вам нужно будет опять получить приглашение от " . ($book->ac_membership == "m" ? "модераторов" : "создателя перевода") . ".";
+					echo "Между другото, за да се върнете в групата, трябва да получите покана от " . ($book->ac_membership == "m" ? "модераторите" : "създателя на превода") . ".";
 				} elseif($book->facecontrol == Book::FC_CONFIRM) {
-					echo "Кстати, что для того, чтобы вернуться в группу, вам нужно будет снова ждать решения " . ($book->ac_membership == "m" ? "модераторов" : "создателя перевода") . ".";
+					echo "Между другото, за да се върнете в групата, отново ще трябва да чакате решението на " . ($book->ac_membership == "m" ? "модераторите" : "създателя на превода") . ".";
 				}
 			?></p>
 		</form>
@@ -125,10 +125,10 @@ $(P.init);
 <thead>
 	<tr>
 		<th>#</th>
-		<th>Пользователь</th>
-		<th>Версий перевода</th>
+		<th>Потребител</th>
+		<th>Версии на превода</th>
 		<th>Рейтинг</th>
-		<th>Средний рейтинг</th>
+		<th>Среден рейтинг</th>
 	</tr>
 </thead>
 <tbody>
@@ -144,8 +144,8 @@ $(P.init);
 		if($member->membership->status == GroupMember::MODERATOR) echo "<i class='icon-briefcase' title='Модератор'></i> ";
 		echo $member->ahref;
 		if($member->id == $book->owner_id) echo " (создатель)";
-		elseif($member->membership->status == GroupMember::CONTRIBUTOR and $book->facecontrol != Book::FC_OPEN) echo " (не в группе)";
-		elseif($member->membership->status == GroupMember::BANNED) echo " (забанен)";
+		elseif($member->membership->status == GroupMember::CONTRIBUTOR and $book->facecontrol != Book::FC_OPEN) echo " (не е в групата)";
+		elseif($member->membership->status == GroupMember::BANNED) echo " (баннат)";
 		echo "</td>";
 
 		echo "<td>";
@@ -176,17 +176,17 @@ $(P.init);
 <?php if($this->book->can("membership")): ?>
 	<div id="inquisition">
 		<?php if($this->book->facecontrol != Book::FC_OPEN): ?>
-			<button onclick="GM.status_set(0)"  type="button" class="btn btn-inverse"><i class="icon-remove icon-white"></i> Выгнать вон</button>
+			<button onclick="GM.status_set(0)"  type="button" class="btn btn-inverse"><i class="icon-remove icon-white"></i> Изгонване</button>
 		<?php endif ?>
-		<button onclick="GM.status_set(-1)" type="button" class="btn btn-inverse"><i class="icon-ban-circle icon-white"></i> Забанить / Разбанить</button>
+		<button onclick="GM.status_set(-1)" type="button" class="btn btn-inverse"><i class="icon-ban-circle icon-white"></i> Бан / Сваляне на бана</button>
 		<?php if($this->book->owner_id == Yii::app()->user->id): ?>
-			<button onclick="GM.status_set(2)" type="button" class="btn btn-inverse"><i class="icon-fire icon-white"></i> Назначить / Разжаловать модераторов</button>
+			<button onclick="GM.status_set(2)" type="button" class="btn btn-inverse"><i class="icon-fire icon-white"></i> Назначаване / Разжалване на модераторите</button>
 		<?php endif ?>
 	</div>
 	<div id="inquisition-actions">
 		<p><strong class='note'></strong></p>
 		<button type="submit" class="btn btn-danger">Ok</button>
-		<button type="button" onclick="GM.cancel()" class="btn btn-success">Отмена</button>
+		<button type="button" onclick="GM.cancel()" class="btn btn-success">Отмяна</button>
 	</div>
 	</form>
 <?php endif; ?>
@@ -199,15 +199,15 @@ $(P.init);
 <h2>Покана на преводачи</h2>
 <?php if($this->book->n_invites <= 0) { ?>
 	<p class="info">
-		Сегодня вы больше не можете приглашать людей в этот перевод.
+		Днес не можете да каните повече хора в този превод.
 	</p>
 <?php } else { ?>
 	<form method="post" class="form-inline">
 		<input type="text" name="invite" class="span4" />
 		<input type="submit" value="Пригласить" class="btn" />
 		<p class="help-block">
-			Можно указать несколько ников через запятую. Сегодня вы можете отправить ещё
-			<?=Yii::t("app", "<b>{n}</b> приглашение|<b>{n}</b> приглашения|<b>{n}</b> приглашений", $this->book->n_invites); ?>.
+			Можете да укажете няколко ника през запетая. Днес можете да изпратите още
+			<?=Yii::t("app", "<b>{n}</b> покана|<b>{n}</b> покани|<b>{n}</b> покани", $this->book->n_invites); ?>.
 		</p>
 	</form>
 <?php } ?>
@@ -219,7 +219,7 @@ $(P.init);
 		$cnt = 0;
 		foreach($invited_dp->getData() as $invited) {
 			if($cnt++) echo ", ";
-			$title = "Пригласил {$invited->from_login} " . Yii::app()->dateFormatter->formatDateTime($invited->cdate, "medium", "short");
+			$title = "Поканил {$invited->from_login} " . Yii::app()->dateFormatter->formatDateTime($invited->cdate, "medium", "short");
 			echo "<a href='{$invited->url}' class='user' title='{$title}'>{$invited->login}</a>";
 		}
 	?>
@@ -232,15 +232,15 @@ $(P.init);
 
 
 <?php if($this->book->can("membership") and $this->book->facecontrol == Book::FC_CONFIRM and $queue_dp->totalItemCount > 0): ?>
-<h2>Заявки на вступление в группу</h2>
+<h2>Заявки за встъпване в групата</h2>
 <form method="post">
 <table class="table table-condensed table-striped table-oneline ">
 <thead><tr>
-	<th>Дата заявки</th>
-	<th>Принять</th>
-	<th>Отказать</th>
+	<th>Дата на заявката</th>
+	<th>Приемане</th>
+	<th>Отказ</th>
 	<th>Ник</th>
-	<th class="main">Сообщение</th>
+	<th class="main">Съобщение</th>
 </tr></thead>
 <?php
 	foreach($queue_dp->getData() as $member) {
