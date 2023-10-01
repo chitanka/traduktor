@@ -21,7 +21,7 @@
 	<div class="controls">
 		<?php echo $form->textField($model, 'login'); ?>
 		<span class="help-inline">
-			<a href="/register/">зарегистрироваться</a>
+			<a href="/register/">регистрация</a>
 		</span>
 	</div>
 </div>
@@ -31,7 +31,7 @@
 	<div class="controls">
 		<?php echo $form->passwordField($model,'pass'); ?>
 		<span class="help-inline">
-			<a href="/register/remind">забыли?</a>
+			<a href="/register/remind">Забравихте ли я?</a>
 		</span>
 	</div>
 </div>
@@ -40,13 +40,13 @@
 	<div class="controls">
 		<label class="checkbox">
 			<?php echo $form->checkBox($model,'remember'); ?>
-			Запомнить меня на сайте
+			Запомни ме на сайта
 		</label>
 	</div>
 </div>
 
 <div class="form-actions">
-	<?php echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Войти", array("type" => "submit", "class" => "btn btn-primary")) . " "; ?>
+	<?php echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Влизане", array("type" => "submit", "class" => "btn btn-primary")) . " "; ?>
 </div>
 
 <?php $this->endWidget(); ?>
