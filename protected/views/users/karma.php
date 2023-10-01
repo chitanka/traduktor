@@ -79,7 +79,7 @@ $(KarmaSet.init);
 			echo $html[$z];
 			echo "</ul>";
 		} else {
-			echo $dir == "out" ? "Никому" : "Никто";
+			echo $dir == "out" ? "На никого" : "Никой";
 		}
 		echo "</div>";
 	}
