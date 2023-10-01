@@ -4,7 +4,7 @@
 	 * @var Chapter $chap
 	 */
 
-	$this->pageTitle = "Импортиране на текст в превода {$chap->book->fullTitle}";
+	$this->pageTitle = "Вмъкване на текст в превода {$chap->book->fullTitle}";
 
 	Yii::app()->bootstrap->registerTabs();
 ?>
@@ -26,7 +26,7 @@ var I = {
 </p>
 <?php
 	if($chap->n_verses != 0) {
-		echo "<div class='alert alert-block alert-warning'><strong>Внимание!</strong> В тази глава вече има оригинален текст. Ако импортирате нов материал, старият текст ще бъде унищожен заедно с коментарите!</div>";
+		echo "<div class='alert alert-block alert-warning'><strong>Внимание!</strong> В тази глава вече има оригинален текст. Ако вмъквате нов материал, старият текст ще бъде унищожен заедно с коментарите!</div>";
 	}
 ?>
 <!-- form method='post' id='form-prepare-text' class="form-inline" action="<?=$chap->getUrl("import"); ?>" enctype="multipart/form-data" -->
@@ -78,10 +78,10 @@ var I = {
 	<div class="form-actions">
 		<button type="button" class="btn btn-success" onclick="location.href='<?=$chap->book->url; ?>'">
 			<i class="icon-remove icon-white"></i>
-			Отмена
+			Отмяна
 		</button>
 		<button type="submit" class="btn btn-primary pull-right">
-			Далее
+			Нататък
 			<i class="icon-white icon-arrow-right"></i>
 		</button>
 	</div>
