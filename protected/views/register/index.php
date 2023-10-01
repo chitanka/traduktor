@@ -24,8 +24,8 @@ function getAttrMinMaxLength($model, $attr, $default=[1, 32]) {
 <h1>Регистрация</h1>
 
 <p>
-	Как хорошо, что вы решили зарегистрироваться! После этой нехитрой процедуры вы сможете участвовать в переводах, как
-	добавляя свои версии, так и оценивая чужие, создавать свои переводы. Ваша жизнь кардинально изменится.
+	Колко е хубаво, че решихте да се регистрирате! След тази проста процедура ще можете да участвате в преводи, както
+	да добавяте свои преводи, така и да оценявате чужди преводи, да създавате свои преводи. Вашият живот кардинално ще се промени.
 </p>
 
 <?php
@@ -46,11 +46,11 @@ function getAttrMinMaxLength($model, $attr, $default=[1, 32]) {
 			array(
 				"clickableImage" => true,
 				"showRefreshButton" => false,
-				"imageOptions" => array("title" => "показать другую картинку", "class" => "captcha"),
+				"imageOptions" => array("title" => "показване на друга картинка", "class" => "captcha"),
 			)); ?>
 		<?php echo $form->textField($model, "verifyCode"); ?>
 		<?php echo $form->error($model, 'verifyCode'); ?>
-		<p class="help-block" title="На самом деле, это необходимо, чтобы убедиться, что вы умеете читать">Защита от роботов: введите буквы, которые видите на картинке, в любом регистре.</p>
+		<p class="help-block" title="Всъщност, това е нужно, за да се убедим, че можете да четете">Защита от роботи: въведете буквите, които виждате на картинката, без значение главни или малки.</p>
 	</div>
 </div>
 <?php
@@ -60,12 +60,12 @@ echo $form->textFieldRow(
 	"login",
 	[
 		"class" => "span6",
-		"hint" => "Латинские буквы, арабские цифры, интернациональный символ подчёркивания, от {$mm[0]} до {$mm[1]} штук."
+		"hint" => "Латински букви, арабски цифри, интернационалния символ за подчертаване от {$mm[0]} до {$mm[1]} символа."
 	]
 );
 ?>
 <div class="control-group <?=($model->hasErrors("pass") or $model->hasErrors("pass2")) ? " error" : ""; ?>">
-	<label class="control-label required">Пароль, 2 раза:</label>
+	<label class="control-label required">Парола, 2 пъти:</label>
 	<div class="controls">
 		<?php echo $form->passwordField($model, "pass", array("class" => "span3")); ?>
 		<?php echo $form->passwordField($model, "pass2", array("class" => "span3 offset5")); ?>
@@ -75,19 +75,19 @@ echo $form->textFieldRow(
 			<?php
 			$mm = getAttrMinMaxLength($model, "pass, pass2", [5, 32]);
 			?>
-			От <?=$mm[0]; ?> до <?=$mm[1]; ?> любых символов.
+			От <?=$mm[0]; ?> до <?=$mm[1]; ?> всякакви символи.
 		</p>
 	</div>
 </div>
 <?php
-	echo $form->textFieldRow($model, "email", array("class" => "span6", "hint" => "Мы не будем отправлять вам спам."));
-	echo $form->radioButtonListInlineRow($model, "sex", array("m" => "мужчина", "f" => "женщина"), array("hint" => "Чтобы знать, как к вам обращаться."));
+	echo $form->textFieldRow($model, "email", array("class" => "span6", "hint" => "Няма да ви изпращаме спам."));
+	echo $form->radioButtonListInlineRow($model, "sex", array("m" => "мъж", "f" => "жена"), array("hint" => "За да знаем как да се обръщаме към вас."));
 	echo $form->dropDownListRow($model, "lang", Yii::app()->langs->select());
 	echo $form->checkBoxRow($model, "tos");
 ?>
 <div class="form-actions">
 <?php
-	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Зарегистрироваться", array("type" => "submit", "class" => "btn btn-primary")) . " ";
+	echo CHtml::htmlButton("<i class='icon-ok icon-white'></i> Регистрация", array("type" => "submit", "class" => "btn btn-primary")) . " ";
 ?>
 </div>
 
