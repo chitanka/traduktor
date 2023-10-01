@@ -10,14 +10,14 @@
 	 */
 
 	$filters = array(
-		0 => "Всё",
-		1 => "Непереведённое",
-		7 => "С 2 и более версиями перевода",
-		3 => "С комментариями",
-		4 => "С новыми комментариями",
-		2 => "От переводчика",
-		5 => "Оригинал содержит",
-		6 => "Перевод содержит",
+		0 => "Всичко",
+		1 => "Непреведено",
+		7 => "С 2 и повече версии на превода",
+		3 => "С коментари",
+		4 => "С нови коментари",
+		2 => "От преводача",
+		5 => "Оригиналът съдържа",
+		6 => "Преводът съдържа",
 	);
 
 	Yii::app()->getClientScript()
@@ -29,7 +29,7 @@
 
 	Yii::app()->bootstrap->registerModal();
 
-	$this->pageTitle = "Перевод " . $chap->book->fullTitle . ": " . $chap->title;
+	$this->pageTitle = "Превод " . $chap->book->fullTitle . ": " . $chap->title;
 
 	/** @var Orig[] $orig */
 	$orig =  $orig_dp->getData();
@@ -39,7 +39,7 @@
 
 <div class="btn-toolbar" id='toolbar-main'>
 	<div class="btn-group">
-		<a href="<?=$chap->getUrl("go?nach=prev&ord={$chap->ord}"); ?>" class="btn btn-small" title="Предыдущая глава"><i class="icon-arrow-left"></i></a>
+		<a href="<?=$chap->getUrl("go?nach=prev&ord={$chap->ord}"); ?>" class="btn btn-small" title="Предишна глава"><i class="icon-arrow-left"></i></a>
 	</div>
 	<div class="btn-group">
 		<a href="<?=$chap->book->url; ?>" class="btn btn-small"><i class="icon-list"></i> Съдържание</a>
@@ -101,15 +101,15 @@
 <?php
 	if($orig_dp->totalItemCount == 0):
 		if($show == 0 || $chap->n_verses == 0) {
-			echo "<p class='alert alert-block'>В эту часть перевода ещё не загрузили оригинальный текст.";
-			if($chap->book->can("chap_edit")) echo " Не желаете ли <a href='" . $chap->getUrl("import") . "'>сделать это сейчас</a>?";
+			echo "<p class='alert alert-block'>В тази част на превода още не е качен оригинален текст.";
+			if($chap->book->can("chap_edit")) echo " Не желаете ли <a href='" . $chap->getUrl("import") . "'>Направи това сега</a>?";
 			echo "</p>";
 		} else {
-			echo "<p class='alert alert-info'>Ничего не найдено. <a href='{$chap->url}'>Показать весь перевод.</a></p>";
+			echo "<p class='alert alert-info'>Нищо не е намерено. <a href='{$chap->url}'>Показване на целия превод.</a></p>";
 		}
 	else:
 		if(!$chap->book->can("trread")) {
-			echo "<div class='alert alert-danger'>Владелец перевода установил такие права доступа, что вы не можете просматривать чужие версии перевода здесь.</div>";
+			echo "<div class='alert alert-danger'>Собственикът на превода е установил такива права, че вие не можете да гледате чужди версии на превода тук.</div>";
 		}
 ?>
 
@@ -127,13 +127,13 @@
 	<?php
 		$user = Yii::app()->user;
 		$pos = $orig_dp->pagination->currentPage * $orig_dp->pagination->pageSize;
-		// Опции Translate::render() для автора версии перевода
+		// Опции Translate::render() за автора на версията на превода
 		$tr_opts_owner = array(
 			"edit" => true, // $chap->book->membership->status == GroupMember::MODERATOR,
 			"rm" => true,
 			"rate" => false,
 		);
-		// Опции Translate::render() для всех остальных версий
+		// Опции Translate::render() за всички останали версии
 		$tr_opts = array(
 			"edit" => $chap->book->membership->status == GroupMember::MODERATOR,
 			"rm" => $chap->book->membership->status == GroupMember::MODERATOR,
@@ -183,7 +183,7 @@
 				if($pos == 1) {
 					echo "<td class='o' rowspan='100'>";
 					echo "<p style='margin: 30px 0; text-align: center;'>";
-					echo "Сожалеем, но текст оригинала доступен только <a href='/register'>зарегистрированным</a> пользователям.";
+					echo "Съжаляваме, но текстът на оригинала е достъпен само за <a href='/register'>регистрирани</a> потребители.";
 					echo "</p>";
 					echo "</td>";
 				}
@@ -192,7 +192,7 @@
 				$html = $o->render($filter);
 				echo $html;
 				if($chap->book->can("chap_edit")) echo " <a href='#' class='e'><i class='icon-edit'></i></a>";
-				if($show != 0) echo " <a href='{$o->url}' class='ctx'>в контексте</a>";
+				if($show != 0) echo " <a href='{$o->url}' class='ctx'>в контекст</a>";
 				echo "</td>";
 			}
 
@@ -200,12 +200,12 @@
 			if($o->n_comments > 0) {
 				if($o->n_comments > $o->seen->n_comments) {
 					$n_new = $o->n_comments - $o->seen->n_comments;
-					echo "<a href='#' class='c' title='Комментариев: {$o->n_comments}, новых: {$n_new}'>{$o->seen->n_comments}+{$n_new} <i class='icon-nb-comment new'></i></a> ";
+					echo "<a href='#' class='c' title='Коментари: {$o->n_comments}, нови: {$n_new}'>{$o->seen->n_comments}+{$n_new} <i class='icon-nb-comment new'></i></a> ";
 				} else {
-					echo "<a href='#' class='c' title='Комментариев: {$o->n_comments}'>{$o->n_comments} <i class='icon-nb-comment'></i></a> ";
+					echo "<a href='#' class='c' title='Коментари: {$o->n_comments}'>{$o->n_comments} <i class='icon-nb-comment'></i></a> ";
 				}
 			} else {
-				if($chap->can("comment")) echo "<a href='#' class='c add' title='Написать комментарий'><i class='icon-nb-comment'></i></a> ";
+				if($chap->can("comment")) echo "<a href='#' class='c add' title='Писане на коментар'><i class='icon-nb-comment'></i></a> ";
 			}
 			if($chap->can("tr")) echo "<a href='#' class='t'>&raquo;&raquo;&raquo;</a> ";
 			echo "</td>";
@@ -286,18 +286,18 @@
 	<form method="post" class="form-inline" action="<?=$chap->getUrl("timeshift"); ?>">
 		<div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Сдвинуть тайминг</h3>
+            <h3>Промяна на тайминг</h3>
 		</div>
         <div class="modal-body">
             <div class="control-group advanced">
-                <label class="control-label">Сдвинуть субтитры во временном промежутке</label>
+                <label class="control-label">Промяна на субтитрите във времеви промеждутък</label>
                 <div class="controls">
                     <input type="text" name="from" placeholder="ЧЧ:ММ:СС.ммм" value="00:00:00.000" /> &mdash;
                     <input type="text" name="to" placeholder="ЧЧ:ММ:СС.ммм" value="23:59:59.999" />
                 </div>
             </div>
 			<div class="control-group">
-                <label class="control-label">Сдвинуть <a href="#" class="ajax advanced">все субтитры</a> на время:</label>
+                <label class="control-label">Промяна на <a href="#" class="ajax advanced">всички субтитри</a> с време:</label>
 				<div class="controls">
 					<input type="text" name="value" placeholder="ЧЧ:ММ:СС.ммм" value="00:00:00.000" autofocus />
 				</div>
