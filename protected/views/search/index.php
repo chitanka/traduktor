@@ -98,8 +98,8 @@ HTML;
 			echo "от " . $book->owner->ahref;
 
 			if(!$filter->cat && $book->cat_id) echo " <small class='cat'><a href='/search?cat={$book->cat_id}'>{$book->cat->title}</a></small> ";
-			if($filter->sort == 3) echo "<br />создано " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->cdate);
-			elseif($filter->sort == 4) echo "<br />последняя активность " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->last_tr);
+			if($filter->sort == 3) echo "<br />създадено " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->cdate);
+			elseif($filter->sort == 4) echo "<br />последна активност " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->last_tr);
 			echo "</div>";
 
 			echo "</li>";
