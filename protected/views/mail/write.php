@@ -4,7 +4,7 @@
 	 * @var Mail $reply или null
 	 */
 
-	$this->pageTitle = $reply ? "Ответить" : "Написать письмо";
+	$this->pageTitle = $reply ? "Отговор" : "Напиши писмо";
 ?>
 <style type="text/css">
 #Mail_body {height:300px;}
@@ -17,7 +17,7 @@ var W = {
 
 		$("#form-write #Mail_body").keyup(function(e) {
 			if(e.ctrlKey && e.which == 13) {
-				if(confirm("Отправить письмо?")) $("#form-write").submit();
+				if(confirm("Изпращане на писмото?")) $("#form-write").submit();
 			}
 		});
 	}
@@ -29,7 +29,7 @@ $(W.init);
 </script>
 
 <?php
-	echo "<h1>" . ($reply ? "Ответить" : "Написать письмо") . "</h1>";
+	echo "<h1>" . ($reply ? "Отговор" : "Писане на писмо") . "</h1>";
 
 	/** @var TbActiveForm $form */
 	$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -48,7 +48,7 @@ $(W.init);
 		$quote = "> " . str_replace("\n", "\n> ", $quote);
 		$message->body = $quote;
 	}
-	echo $form->textAreaRow($message, "body", array("class" => "span6", "hint" => "Здесь можно использовать некоторые HTML-теги"));
+	echo $form->textAreaRow($message, "body", array("class" => "span6", "hint" => "Тук можете да използвате някои HTML-тагове"));
 ?>
 <div class="form-actions">
 <?php
