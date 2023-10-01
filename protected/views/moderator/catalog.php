@@ -18,7 +18,7 @@
 		save_html: "",
 
 		init: function() {
-			$("#Tree a.c").attr("title", "Создать подраздел");
+			$("#Tree a.c").attr("title", "Създаване на подраздел");
 //		console.log("T.init()");
 //		$("#Tree a.t").click(T.select);
 		},
@@ -39,7 +39,7 @@
 				var html =
 					"<form method='post' id='ed' class='form-inline'>" +
 						"<input type='text' name='title' class='' /> " +
-						"<input type='submit' value='сохранить' /> " +
+						"<input type='submit' value='запазване' /> " +
 						"<input type='button' value='подраздел' /> " +
 						"</form>";
 
@@ -157,16 +157,16 @@
 
 		<form method="post" action="/moderator/catswap/id/<?=$edit_node->id; ?>" id="swap">
 			<p>
-				Выберите раздел, с которым нужно поменять текущий местами. Учтите, что он должен иметь такой же уровень вложенности.
-				Подразделы будут перенесены соответственно.
+				Изберете раздела, с който да смените местата с текущия. Имайте предвид, че той трябва да има същото ниво на вложеност.
+				Подразделите ще бъдат пренесени съответно.
 			</p>
 			<input type="hidden" name="id2">
-			<input type="button" value="Отмена" class="btn" onclick="T.sel2_cancel()" />
+			<input type="button" value="Отмяна" class="btn" onclick="T.sel2_cancel()" />
 		</form>
 
 		<form method="post" action="/moderator/chpid/id/<?=$edit_node->id; ?>" id="chpid">
 			<p>
-				Выберите раздел, с которым станет новым "родительским" разделом для выбранного.
+				Изберете раздел, който ще стане новият "родителски" раздел за избрания.
 			</p>
 			<input type="hidden" name="id2">
 			<input type="button" value="Отмена" class="btn" onclick="T.sel2_cancel()" />
@@ -194,8 +194,8 @@
 		<?php $this->endWidget(); ?>
 
 		<p>
-			Если перед тем, как вы решили что-нибудь изменить, эта страница была давно открыта в браузере, обновите её,
-			чтобы убедиться, что другие модераторы ничего не поменяли до вас.
+			Ако преди да промените нещо, страницата е била отворена дълго в бразуъра, опреснете я,
+			за да се убедите, че другите модератори не са променили нещо преди вас.
 		</p>
 	</div>
 
