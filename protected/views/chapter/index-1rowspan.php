@@ -98,7 +98,7 @@ if($orig_dp->totalItemCount == 0):
 	}
 else:
 	if(!$chap->book->can("trread")) {
-		echo "<div class='alert alert-danger'>Собственикът на превода е установил такива права, че не можете да гледа чужди версии на превода тук. </div>";
+		echo "<div class='alert alert-danger'>Собственикът на превода е установил такива права, че не можете да гледате чужди версии на превода тук. </div>";
 	}
 ?>
 
