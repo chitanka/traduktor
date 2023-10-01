@@ -3,7 +3,7 @@
 		src="http://<?=Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
 </p>
 <p>
-	<?=$comment->author->ahref; ?> оставил<?=$comment->author->sexy(); ?> нов коментар във вашия пост
+	<?=$comment->author->ahref; ?> написа<?=$comment->author->sexy(); ?> нов коментар във вашия пост
 	<a href="<?=$post->url; ?>">
 		<?=$post->title; ?>
 	</a>.
