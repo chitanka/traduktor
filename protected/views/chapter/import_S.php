@@ -32,18 +32,18 @@ form.form-hide-errors .error span.help-block {display:none;}
 
 	echo $form->errorSummary($options);
 
-	echo $form->fileFieldRow($options, "src", array("hint" => "Не более 1 мегабайта, пожалуйста"));
+	echo $form->fileFieldRow($options, "src", array("hint" => "Не повече от 1 мегабайт, молим."));
 	echo $form->dropDownListRow($options, "format", array("srt" => "SRT"));
 	echo $form->dropDownListRow($options, "encoding", Yii::app()->params["encodings"]);
 ?>
 <div class="form-actions">
 	<button type="submit" class="btn btn-primary">
 		<i class="icon-ok icon-white"></i>
-		Импортировать
+		Вмъкване
 	</button>
 	<button type="button" class="btn btn-success" onclick="location.href='<?=$chap->book->url; ?>'">
 		<i class="icon-remove icon-white"></i>
-		Отмена
+		Отмяна
 	</button>
 </div>
 <?php
