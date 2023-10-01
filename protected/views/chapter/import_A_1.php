@@ -26,7 +26,7 @@ var I = {
 </p>
 <?php
 	if($chap->n_verses != 0) {
-		echo "<div class='alert alert-block alert-warning'><strong>Внимание!</strong> В тази глава вече има оригинален текст. Ако вмъквате нов материал, старият текст ще бъде унищожен заедно с коментарите!</div>";
+		echo "<div class='alert alert-block alert-warning'><strong>Внимание!</strong> В тази глава вече има оригинален текст. Ако вмъквате нов материал, старият текст ще бъде унищожен заедно с преводите и коментарите!</div>";
 	}
 ?>
 <!-- form method='post' id='form-prepare-text' class="form-inline" action="<?=$chap->getUrl("import"); ?>" enctype="multipart/form-data" -->
