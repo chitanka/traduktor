@@ -9,14 +9,14 @@
 	 */
 
 	$filters = array(
-		0 => "Всё",
-		1 => "Непереведённое",
-		7 => "С 2 и более версиями перевода",
-		3 => "С комментариями",
-		4 => "С новыми комментариями",
-		2 => "От переводчика",
-		5 => "Оригинал содержит",
-		6 => "Перевод содержит",
+		0 => "Всичко",
+		1 => "Непреведено",
+		7 => "С 2 и повече версии на превода",
+		3 => "С коментари",
+		4 => "С нови коментари",
+		2 => "От преводача",
+		5 => "Оригиналът съдържа",
+		6 => "Преводът съдържа",
 	);
 
 	Yii::app()->getClientScript()
@@ -73,7 +73,7 @@
 		<a href="#filter-modal" data-toggle="modal" class="btn btn-small">
 			<i class="icon-glass"></i> Филтър:
 			<?php
-				if($show == 2) echo "от переводчика {$show_user}";
+				if($show == 2) echo "от преводач {$show_user}";
 				else echo mb_strtolower($filters[$show]);
 			?>
 		</a>
@@ -109,11 +109,11 @@
 <?php
 	if($orig_dp->totalItemCount == 0):
 		if($show == 0 || $chap->n_verses == 0) {
-			echo "<p class='alert alert-block'>В эту часть перевода ещё не загрузили оригинальный текст.";
-			if($chap->book->can("chap_edit")) echo " Не желаете ли <a href='" . $chap->getUrl("import") . "'>сделать это сейчас</a>?";
+			echo "<p class='alert alert-block'>В тази част на превода още не е качен оригинален текст.";
+			if($chap->book->can("chap_edit")) echo " Исктате ли <a href='" . $chap->getUrl("import") . "'>да го направите сега</a>?";
 			echo "</p>";
 		} else {
-			echo "<p class='alert alert-info'>Ничего не найдено. <a href='{$chap->url}'>Показать весь перевод.</a></p>";
+			echo "<p class='alert alert-info'>Нищо не е намерено. <a href='{$chap->url}'>Показване на целия превод.</a></p>";
 		}
 	else:
 		if(!$chap->book->can("trread")) {
@@ -161,11 +161,11 @@
 
 			if(!Yii::app()->user->isGuest) {
 				if($o->bookmark->id) {
-					$title = "Закладка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
+					$title = "Отметка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
 					$html = "<i class='icon-star'></i>";
 					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b set' title='{$title}'>{$html}</a>";
 				} else {
-					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b' title='Поставить закладку'><i class='icon-star-empty'></i></a>";
+					$bm = "<a href='#' onclick=\"return T.bm.set({$o->id})\" class='b' title='Поставя на отметка'><i class='icon-star-empty'></i></a>";
 				}
 			} else {
 				$bm = "";
@@ -200,12 +200,12 @@
 			if($o->n_comments > 0) {
 				if($o->n_comments > $o->seen->n_comments) {
 					$n_new = $o->n_comments - $o->seen->n_comments;
-					echo "<a href='#' class='c' title='Комментариев: {$o->n_comments}, новых: {$n_new}'>{$o->seen->n_comments}+{$n_new} <i class='icon-nb-comment new'></i></a> ";
+					echo "<a href='#' class='c' title='Коментари: {$o->n_comments}, новых: {$n_new}'>{$o->seen->n_comments}+{$n_new} <i class='icon-nb-comment new'></i></a> ";
 				} else {
-					echo "<a href='#' class='c' title='Комментариев: {$o->n_comments}'>{$o->n_comments} <i class='icon-nb-comment'></i></a> ";
+					echo "<a href='#' class='c' title='Коментари: {$o->n_comments}'>{$o->n_comments} <i class='icon-nb-comment'></i></a> ";
 				}
 			} else {
-				if($chap->can("comment")) echo "<a href='#' class='c add' title='Написать комментарий'><i class='icon-nb-comment'></i></a> ";
+				if($chap->can("comment")) echo "<a href='#' class='c add' title='Писане на коментар'><i class='icon-nb-comment'></i></a> ";
 			}
 			if($chap->can("tr")) echo "<a href='#' class='t'>&raquo;&raquo;&raquo;</a> ";
 			echo "</td>";
