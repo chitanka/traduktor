@@ -9,14 +9,14 @@
 	 */
 
 	$filters = array(
-		0 => "Всё",
-		1 => "Непереведённое",
-		7 => "С 2 и более версиями перевода",
-		3 => "С комментариями",
-		4 => "С новыми комментариями",
-		2 => "От переводчика",
-		5 => "Оригинал содержит",
-		6 => "Перевод содержит",
+		0 => "Всички",
+		1 => "Непреведени",
+		7 => "С 2 и повече версии на превода",
+		3 => "С коментари",
+		4 => "С нови коментари",
+		2 => "От преводачаа",
+		5 => "Оригиналът съдържа",
+		6 => "Переводът съдържа",
 	);
 
 	Yii::app()->clientScript
@@ -90,15 +90,15 @@
 <?php
 if($orig_dp->totalItemCount == 0):
 	if($show == 0 || $chap->n_verses == 0) {
-		echo "<p class='alert alert-info alert-block'>В эту часть перевода ещё не загрузили оригинальный текст.";
-		if($chap->book->can("chap_edit")) echo " Не желаете ли <a href='" . $chap->getUrl("import") . "'>сделать это сейчас</a>?";
+		echo "<p class='alert alert-info alert-block'>В тази част на превода няма оригинален текст.";
+		if($chap->book->can("chap_edit")) echo " Искате ли <a href='" . $chap->getUrl("import") . "'>да го направите сегас</a>?";
 		echo "</p>";
 	} else {
-		echo "<p class='alert alert-info alert-block'>Ничего не найдено. <a href='{$chap->url}'>Показать весь перевод.</a></p>";
+		echo "<p class='alert alert-info alert-block'>Нищо не е намерено. <a href='{$chap->url}'>Показване на целия превод.</a></p>";
 	}
 else:
 	if(!$chap->book->can("trread")) {
-		echo "<div class='alert alert-danger'>Владелец перевода установил такие права доступа, что вы не можете просматривать чужие версии перевода здесь.</div>";
+		echo "<div class='alert alert-danger'>Собственикът на превода е установил такива права, че не можете да гледа чужди версии на превода тук. </div>";
 	}
 ?>
 
@@ -109,7 +109,7 @@ else:
         <th><?=(Yii::app()->langs->Langs[$chap->book->s_lang][Langs::FORM_INF]); ?> оригинал</th>
 		<?php if($chap->book->can(orig_edit)): ?><th><a href="#" onclick="$('#Tr').toggleClass('translator-orig-editing'); return false;">...</a></th><?php endif; ?>
 		<?php if($chap->can("tr")): ?><th></th><?php endif; ?>
-        <th>Перевод  на <?=Yii::app()->langs->Langs[$chap->book->t_lang][Langs::FORM_INF]; ?></th>
+        <th>Превод  на <?=Yii::app()->langs->Langs[$chap->book->t_lang][Langs::FORM_INF]; ?></th>
         <th></th>
         <th><a href="#" onclick="$('#Tr').toggleClass('translator-tr-editing'); return false;">...</a></th>
 		<th></th>
@@ -197,7 +197,7 @@ else:
 			} else {
 				echo "<a href='#' class='ord'>{$o->ord}</a> {$bm}";
 			}
-			if($show != 0) echo " <a href='{$o->url}' class='ctx'>в контекста</a>";
+			if($show != 0) echo " <a href='{$o->url}' class='ctx'>в контекст</a>";
 			echo "</div>";
 
 			echo "</td>";
