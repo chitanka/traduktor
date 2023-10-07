@@ -237,9 +237,9 @@ class User extends CActiveRecord {
 			Yii::app()->user->login($this->_identity, $duration);
 			return true;
 		} elseif($this->_identity->errorCode == UserIdentity::ERROR_USER_DELETED) {
-			$this->addError("pass", "Ваш аккаунт удалён.");
+			$this->addError("pass", "Вашият профил е изтрит.");
 		} elseif($this->_identity->errorCode == UserIdentity::ERROR_USER_INACTIVE) {
-			$this->addError("pass", "Логинът и паролата са верни, но вие не сте член на клуба. За да влезете, трябва да получите покана от член на клуба. ВНИМАНИЕ! Недейте да пишете на поддръжката, моля.");
+			$this->addError("pass", "Логинът и паролата са верни, но вие не сте член на клуба. За да влезете, трябва да получите покана от член на клуба. ВНИМАНИЕ! Недейте да пишете на поддръжката, молим.");
 		} else {
 			$this->addError("pass", "Не, грешка.");
 		}
