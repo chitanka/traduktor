@@ -104,7 +104,7 @@
   parse_str($_SERVER['QUERY_STRING'], $queryString);
   $readyLink = 'ready?' . http_build_query($queryString);
   ?>
-	<a href="<?=$chap->getUrl($readyLink);?>" title="Чтобы поделиться ей, нажмите правой кнопкой мыши и выберите &quot;Скопировать адрес ссылки&quot;"><i class="icon-share"></i> Връзка към тази страница</a><br />
+	<a href="<?=$chap->getUrl($readyLink);?>" title="За да я споделите, натиснете десния бутон на мишката и изберете &quot;Копиране на адреса на връзката&quot;"><i class="icon-share"></i> Връзка към тази страница</a><br />
 	<a href="<?=$chap->book->url; ?>"><i class="icon-list"></i> Съдържание на превода</a><br />
 	<a href="<?=$chap->getUrl(); ?>"><i class="icon-fire"></i> Интерфейс на превода</a>
 </div>
