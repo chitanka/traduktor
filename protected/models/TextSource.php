@@ -34,7 +34,7 @@ class TextSource extends CFormModel {
 				$file = CUploadedFile::getInstanceByName("TextSource[file]");
 				$this->text = file_get_contents($file->tempName, false, null, -1, 500 * 1024);
 				if($this->text === false) {
-					$this->addError("file", "Файлът не се зареди. Възможно да е прекалено голям.");
+					$this->addError("file", "Файлът не се зареди. Възможно, е прекалено голям.");
 					return false;
 				}
 
