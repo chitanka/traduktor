@@ -73,7 +73,7 @@ $this->pageTitle = "Каталог на преводите";
     if ($books_dp->totalItemCount) {
         $books = $books_dp->data;
 
-        echo "<h3>" . Yii::t("app", "{n} превода|{n} превода|{n} превода", $books_dp->totalItemCount) . "</h3>";
+        echo "<h3>" . Yii::t("app", "{n} превод|{n} превода|{n} превода", $books_dp->totalItemCount) . "</h3>";
         $this->widget('bootstrap.widgets.TbPager', array("pages" => $books_dp->pagination));
         echo "<ul class='booklist has-icons'>";
         foreach ($books as $book) {
