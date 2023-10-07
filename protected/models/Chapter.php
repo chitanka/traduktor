@@ -33,7 +33,7 @@ class Chapter extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			"title" => "Заглавие",
-			"ord" => "Порядок",
+			"ord" => "Ред",
 			"status" => "Статус"
 		);
 	}
