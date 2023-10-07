@@ -13,7 +13,7 @@ class UserEditor extends User {
 		4 => array('Личен сайт', 	'url', 255, 60),
 		5 => array('skype', 				'skype', 32, 16),
 		6 => array('Дата на раждане', 		'bdate', 10, 16),
-		7 => array('Държава', 				'country_id', 'не скажу'),
+		7 => array('Държава', 				'country_id', 'не казвам'),
 		8 => array('Град', 				'city', 60, 60),
 		9 => array('Няколко думи за мен', 'bio', 3, 60, true),
 	);
