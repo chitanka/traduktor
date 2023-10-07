@@ -217,7 +217,7 @@ class OrigController extends Controller {
 		$comment = Comment::model()->findByPk($comment_id);
 		$comment->orig = $orig;
 
-		if(!$comment) throw new CHttpException(404, "Комментарий, вероятно, удалён.");
+		if(!$comment) throw new CHttpException(404, "Коментарът, вероятно, е изтрит.");
 		if(!$comment->can("edit")) throw new CHttpException(403, "Собствените коментари могат да се редактират в рамките час след постването им. Вероятно, времето е изминало.");
 
 		if(isset($_POST["C"])) {
@@ -238,7 +238,7 @@ class OrigController extends Controller {
 
 		/** @var Comment $comment */
 		$comment = Comment::model()->with("orig")->findByPk($comment_id);
-		if(!$comment) throw new CHttpException(404, "Комментарий удалён.");
+		if(!$comment) throw new CHttpException(404, "Коментарът е изтрит.");
 		if($comment->orig_id != $orig_id) throw new CHttpException(400, "");
 		if(!$comment->can("rate")) throw new CHttpException(403, "Не можете да дадете оценка на този коментар.");
 
