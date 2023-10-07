@@ -3,8 +3,8 @@ class ModeratorController extends Controller {
 	public $layout = "column1";
 
 	public $areas = array(
-		"catalog" => "Структура каталога",
-		"book_cat" => "Переводы по разделам"
+		"catalog" => "Структура на каталога",
+		"book_cat" => "Преводи по раздели"
 	);
 	public $area = "";
 
@@ -86,7 +86,7 @@ class ModeratorController extends Controller {
 		// Есть ли переводы в этом разделе?
 //		$has_offers = Yii::app()->db->createCommand("SELECT 1 FROM books WHERE cat_id = :id LIMIT 1")->query(array(":id" => $cat->id))->count();
 //		if($has_offers) {
-//			Yii::app()->user->setFlash("error", "В этом разделе есть объявления, сначала нужно удалить или перенести их.");
+//			Yii::app()->user->setFlash("error", "В този раздел има обяви, първо трябва да ги изтриете или пренесете.");
 //			$this->redirect("/moderator/catalog");
 //		}
 
@@ -104,7 +104,7 @@ class ModeratorController extends Controller {
 		$cat2 = Category::model()->findByPk($id2);
 		$mp_len = count($cat1->mp);
 		if(count($cat2->mp) != $mp_len) {
-			Yii::app()->user->setFlash("error", "Разделы должны находиться на одном уровне вложенности.");
+			Yii::app()->user->setFlash("error", "Разделите трябва да се намират на едно ниво на вложеност.");
 			$this->redirect("/moderator/catalog/?edit={$id}");
 		}
 
@@ -142,15 +142,15 @@ class ModeratorController extends Controller {
 		$debug_dry = false;
 
 		$handle = Category::model()->findByPk(intval($id));
-		if(!$handle) throw new CHttpException(404, "Раздела не существует");
+		if(!$handle) throw new CHttpException(404, "Разделът не съществува");
 
 		$parent = Category::model()->findByPk(intval($_POST["id2"]));
-		if(!$parent) throw new CHttpException(404, "Родительский раздел удалён.");
+		if(!$parent) throw new CHttpException(404, "Основният раздел е изтрит.");
 
 		if($parent->id == $handle->id) {
-			Yii::app()->user->setFlash("error", "Перемещение раздела в самого себя &ndash; благородная, но, увы, недостижимая цель.");
+			Yii::app()->user->setFlash("error", "Местенето на раздела в самия него &ndash; е благородна, но уви, непостижиа цел.");
 		} elseif(array_intersect_assoc($handle->mp, $parent->mp) == $handle->mp) {
-			Yii::app()->user->setFlash("error", "Нельзя переместить раздел в его подраздел.");
+			Yii::app()->user->setFlash("error", "Не може да преместите раздел в негов подраздел.");
 		} else {
 			if($debug) echo "Handle: {$handle->dump}<br />";
 			if($debug) echo "Parent: {$parent->dump}<br />";
@@ -269,7 +269,7 @@ class ModeratorController extends Controller {
 
 		$T = Yii::app()->params["blog_topics"]["common"];
 		if(!isset($T[$topic])) {
-			echo json_encode(["error" => "Нет такой рубрики ($topic)."]);
+			echo json_encode(["error" => "Няма такава рубрика ($topic)."]);
 		} else {
 			Yii::app()->db
 				->createCommand("UPDATE blog_posts SET topics = :topic WHERE id = :id")
