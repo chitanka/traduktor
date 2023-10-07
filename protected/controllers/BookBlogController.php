@@ -175,7 +175,7 @@ class BookBlogController extends BookBaseController {
 			throw new CHttpException(403, "Нямате достъп до блога на този превод " . $book->getWhoCanDoIt("blog_r"));
 		}
 		if(!$book->can("blog_c")) {
-			throw new CHttpException(403, "Не можете да оцените коментари в блога на този превод " . $book->getWhoCanDoIt("blog_c"));
+			throw new CHttpException(403, "Не можете да оценявате коментари в блога на този превод " . $book->getWhoCanDoIt("blog_c"));
 		}
 
 		if(!Yii::app()->request->isPostRequest) throw new CHttpException(400, "");
