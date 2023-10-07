@@ -60,7 +60,7 @@ class Controller extends CController {
 
 			if($user->can("betatest")) {
 				$A = Yii::app()->params["blog_topics"];
-				$A["common"][70] = "Стройплощадка";
+				$A["common"][70] = "Строеж";
 				Yii::app()->params["blog_topics"] = $A;
 			}
 
