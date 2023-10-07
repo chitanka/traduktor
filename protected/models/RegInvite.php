@@ -94,7 +94,7 @@ class RegInvite extends CActiveRecord {
 				}
 			}
 		} else {
-			$this->addError("type", "Ошибка формы");
+			$this->addError("type", "Грешка във формата");
 		}
 
 		// Проверяем, не приглашали ли мы его уже ранее
