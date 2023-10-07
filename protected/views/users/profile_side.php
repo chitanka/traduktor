@@ -13,7 +13,7 @@
 		$d1 = new DateTime();
 		$siteAge = $d1->diff(date_create($user->cdate));
 		if($siteAge->days > 0) {
-			echo " (" . Yii::t("app", "{n}&nbsp;ден|{n}&nbsp;дена|{n}&nbsp;дена", $siteAge->days) . ")";
+			echo " (" . Yii::t("app", "{n}&nbsp;ден|{n}&nbsp;дни|{n}&nbsp;дни", $siteAge->days) . ")";
 		} else {	//!M Да се провери третия вариант ^^^
 			echo " (" . $user->sexy("регистриран", "регистрирана", "регистрирано") . " днес)";
 		}
