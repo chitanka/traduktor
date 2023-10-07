@@ -43,7 +43,7 @@
 	$s = [0 => 0, 1 => 0];
 	foreach($higgsStat as $uid => $iface) $s[$iface]++;
 	$n = $s[0] + $s[1];
-	$titles = [1 => "Пользуются новым интерфейсом", 0 => "Използват стар интерфейс"];
+	$titles = [1 => "Използване на новия интерфейс", 0 => "Използват стар интерфейс"];
 	$bgs = [
 		1 => "http://s0.tchkcdn.com/g2-YZRz499x09ztrOPemU-Mng/news/640x0/w/1/1-9-7-9-25979/8f1844ac309a05520b968908bab3be88_2012_07_04t073720z_400716851_gm1e87417br01_rtrmadp_3_science_higgs.jpg",
 		0 => "http://cds.cern.ch/record/1277689/files/dirac-at-cern-by-sandra-hoogeboom_06(1)_image.jpg?subformat=icon"
