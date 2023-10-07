@@ -53,6 +53,6 @@
 		</div>
 	</div>
 
-	<p class="cmt_0_btn"><i class="i icon-comment"></i> <a href="#" class="re ajax">Комментировать пост</a></p>
+	<p class="cmt_0_btn"><i class="i icon-comment"></i> <a href="#" class="re ajax">Коментирай пост</a></p>
 	<?php endif; ?>
 </div>
