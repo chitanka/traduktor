@@ -174,7 +174,7 @@ else:
 			if(!Yii::app()->user->isGuest) {
 				echo "<td class='b' {$rowspan}>";
 				if($o->bookmark->id) {
-					$title = "Закладка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
+					$title = "Отметка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
 					echo "<i class='i icon-star' title='{$title}'></i>";
 				} else {
 					echo "<i class='i icon-star-empty'></i>";
