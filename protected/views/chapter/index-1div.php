@@ -74,7 +74,7 @@
 						echo "<li><label><input type='radio' name='show' value='{$k}' " . ($k == $filter->show ? " checked" : "") . "/> ";
 						if($k == 2) {
 							echo " <input type='text' name='show_user' placeholder='От преводача' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
-							if(!$user->isGuest) echo "title='Ctrl+I: вставить ваш ник' ";
+							if(!$user->isGuest) echo "title='Ctrl+I: слагане на вашия ник' ";
 							echo "/>";
 						} elseif($k == 5) {
 							echo " <input type='text' name='to' placeholder='Оригиналът съдържа' class='span3' value='" . CHtml::encode($filter->to) . "' />";
