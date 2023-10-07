@@ -248,7 +248,7 @@ class Chapter extends CActiveRecord {
 
 		if($this->$ac == "") return $this->book->getWhoCanDoIt($what, $tools);
 
-		$msg = "Это " . ($this->$ac == "o" ? "може" : "могат") . " да правят " . Yii::app()->params["ac_roles_title"][$this->$ac] . ".";
+		$msg = "Това " . ($this->$ac == "o" ? "може" : "могат") . " да правят " . Yii::app()->params["ac_roles_title"][$this->$ac] . ".";
 
 		if($this->$ac == "g") {
 			if($this->book->facecontrol == Book::FC_CONFIRM) {
