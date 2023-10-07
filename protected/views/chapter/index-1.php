@@ -97,7 +97,7 @@ function getQS($merge = null, $unset = null)
                             echo "<li><label><input type='radio' name='show' value='{$k}' " . ($k == $filter->show ? " checked" : "") . "/> ";
                             if ($k == 2) {
                                 echo " <input type='text' name='show_user' placeholder='От преводaча' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
-                                if (!$user->isGuest) echo "title='Ctrl+I: вставить ваш ник' ";
+                                if (!$user->isGuest) echo "title='Ctrl+I: слагане на вашия ник' ";
                                 echo "/>";
                             } elseif ($k == 5) {
                                 echo " <input type='text' name='to' placeholder='Оригиналът съдържа' class='span3' value='" . CHtml::encode($filter->to) . "' />";
@@ -137,7 +137,7 @@ function getQS($merge = null, $unset = null)
 
 
 <!--        <div class="group">-->
-<!--            <a href="<?= $chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>-->
+<!--            <a href="<?= $chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Стар интерфейс"></i></a>-->
 <!--        </div>-->
 
         <div class="tb-progress group"></div>
