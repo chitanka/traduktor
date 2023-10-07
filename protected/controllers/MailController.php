@@ -96,7 +96,7 @@ class MailController extends Controller {
 		if(isset($_POST["Mail"])) {
 			$message->setAttributes($_POST["Mail"]);
 			if($message->send()) {
-				Yii::app()->user->setFlash("success", "Письмо отправлено " . $message->buddy->ahref);
+				Yii::app()->user->setFlash("success", "Писмото е изпратено " . $message->buddy->ahref);
 				$this->redirect("/my/mail");
 			}
 		}
