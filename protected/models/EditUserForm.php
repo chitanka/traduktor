@@ -12,7 +12,7 @@ class EditUserForm extends CFormModel {
 		4 => array('Лична страница', 	'url', 255, 60),
 		5 => array('skype', 				'skype', 32, 16),
 		6 => array('Дата на раждане', 		'bdate', 10, 16),
-		7 => array('Държава', 				'country_id', 'не скажу'),
+		7 => array('Държава', 				'country_id', 'не казвам'),
 		8 => array('Град', 				'city', 60, 60),
 		9 => array('Няколко думи за вас', 'bio', 3, 60, true),
 	);
