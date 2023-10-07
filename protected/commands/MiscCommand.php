@@ -43,7 +43,7 @@ class MiscCommand extends CConsoleCommand {
 			$invite->to_email = $user->email;
 			if($giveinvites > 0) {
 				$invite->message = <<<TTT
-Можете да поканите тук още {$giveinvites} души. За да го направите след възстановяването на членството, 
+Можете да поканите тук още {$giveinvites} души. За да го направите след възстановяване на членството, 
 					използвайте бутона "Покани" в профила си.";
 TTT;
 			}
