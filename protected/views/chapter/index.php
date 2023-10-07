@@ -193,7 +193,7 @@
 			}
 			echo $html;
 			if($chap->book->can("chap_edit")) echo " <a href='#' class='e'><i class='icon-edit'></i></a>";
-			if($show != 0) echo " <a href='{$o->url}' class='ctx'>в контексте</a>";
+			if($show != 0) echo " <a href='{$o->url}' class='ctx'>в контекст</a>";
 			echo "</td>";
 
 			echo "<td class='u'>";
