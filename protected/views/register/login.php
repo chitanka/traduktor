@@ -2,7 +2,7 @@
 	$this->pageTitle = "Вход";
 ?>
 
-<h1>Вход на сайт</h1>
+<h1>Вход в сайта</h1>
 
 <?php
 	/** @var TbActiveForm $form */
