@@ -1,5 +1,5 @@
 <div class="tools">
-    <h5>Стройплощадка</h5>
+    <h5>Строеж</h5>
 	<p>Този блог е достъпен:</p>
 	<?php
 		foreach(WebUser::getRoles("betatest") as $i => $login) {
