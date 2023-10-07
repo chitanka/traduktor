@@ -203,7 +203,7 @@ endif;
 
 if (!$user->isGuest && $chap->status == Chapter::STATUS_READY) {
     echo "<p class='alert alert-block alert-info'>Модераторите са отбелязали тази глава като готова, затова не може нито да се добавят нови версии на превода, нито да се оценяват съществуващите. ";
-    if ($chap->book->can("owner")) echo " Впрочем, вы &mdash; владелец перевода и можете делать тут, что захотите.";
+    if ($chap->book->can("owner")) echo " Впрочем, вие &mdash; сте собственик на превода и можете да правите тук каквото си поискате.";
     elseif ($chap->book->can("chap_edit")) echo " Тъй като вие сте модератор, можете да промените статута на превода, чрез натискане на <i class='icon-pencil'></i> в <a href='{$chap->book->url}'>заглавие на превода</a>.";
     echo "</p>";
 }
