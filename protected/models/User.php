@@ -248,6 +248,9 @@ class User extends CActiveRecord {
 	}
 
 	public function can($what) {
+		if ($this->can === null) {
+			return 0;
+		}
 		return $this->can[$what];
 	}
 
