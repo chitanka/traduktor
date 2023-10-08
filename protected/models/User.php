@@ -305,27 +305,27 @@ class User extends CActiveRecord {
 	}
 
 	public function getUpicPath() {
-		if($this->upic[0] == 0) return "";
+		if($this->hasDefaultPicture()) return "";
 		return $this->upicDir . "/{$this->upicName}.jpg";
 	}
 
 	public function getUpicPathBig() {
-		if($this->upic[0] == 0) return "";
+		if($this->hasDefaultPicture()) return "";
 		return $this->upicDir . "/{$this->upicName}_big.jpg";
 	}
 
 	public function getUpicUrl() {
-		if($this->upic[0] == 0) return "/i/avatar_placeholder.png";
+		if($this->hasDefaultPicture()) return "/i/avatar_placeholder.png";
 		return "/i/upic/" . floor($this->id / 1000) . "/" . $this->upicName . ".jpg";
 	}
 
 	public function getUpicUrlBig() {
-		if($this->upic[0] == 0) return "";
+		if($this->hasDefaultPicture()) return "";
 		return "/i/upic/" . floor($this->id / 1000) . "/" . $this->upicName . "_big.jpg";
 	}
 
 	public function upicUnlink() {
-		if($this->upic[0] == 0) return false;
+		if($this->hasDefaultPicture()) return false;
 		@unlink($this->upicPath);
 		@unlink($this->upicPathBig);
 		$this->upic = array(0, 0, 0);
@@ -405,5 +405,9 @@ class User extends CActiveRecord {
 		}
 
 		return true;
+	}
+
+	protected function hasDefaultPicture(): bool {
+		return $this->upic === null || $this->upic[0] == 0;
 	}
 }
