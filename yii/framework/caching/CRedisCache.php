@@ -3,19 +3,19 @@
  * CRedisCache class file
  *
  * @author Carsten Brandt <mail@cebe.cc>
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright 2008-2013 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 /**
- * CRedisCache implements a cache application component based on {@link http://redis.io/ redis}.
+ * CRedisCache implements a cache application component based on {@link https://redis.io/ redis}.
  *
  * CRedisCache needs to be configured with {@link hostname}, {@link port} and {@link database} of the server
  * to connect to. By default CRedisCache assumes there is a redis server running on localhost at
  * port 6379 and uses the database number 0.
  *
- * CRedisCache also supports {@link http://redis.io/commands/auth the AUTH command} of redis.
+ * CRedisCache also supports {@link https://redis.io/commands/auth the AUTH command} of redis.
  * When the server needs authentication, you can set the {@link password} property to
  * authenticate with the server after connect.
  *
@@ -30,6 +30,7 @@
  *             'hostname'=>'localhost',
  *             'port'=>6379,
  *             'database'=>0,
+ *             'options'=>STREAM_CLIENT_CONNECT,
  *         ),
  *     ),
  * )
@@ -60,9 +61,18 @@ class CRedisCache extends CCache
 	 */
 	public $database=0;
 	/**
+	 * @var int the options to pass to the flags parameter of stream_socket_client when connecting to the redis server. Defaults to STREAM_CLIENT_CONNECT.
+	 * @see https://php.net/manual/en/function.stream-socket-client.php
+	 */
+	public $options=STREAM_CLIENT_CONNECT;
+	/**
 	 * @var float timeout to use for connection to redis. If not set the timeout set in php.ini will be used: ini_get("default_socket_timeout")
 	 */
 	public $timeout=null;
+	/**
+	* @var boolean Send sockets over SSL protocol. Default state is false.
+	*/
+	public $ssl=false;
 	/**
 	 * @var resource redis socket connection
 	 */
@@ -79,21 +89,27 @@ class CRedisCache extends CCache
 			$this->hostname.':'.$this->port,
 			$errorNumber,
 			$errorDescription,
-			$this->timeout ? $this->timeout : ini_get("default_socket_timeout")
+			$this->timeout ? $this->timeout : ini_get("default_socket_timeout"),
+			$this->options
 		);
 		if ($this->_socket)
 		{
+			if($this->ssl)
+				stream_socket_enable_crypto($this->_socket,true,STREAM_CRYPTO_METHOD_TLS_CLIENT);
 			if($this->password!==null)
 				$this->executeCommand('AUTH',array($this->password));
 			$this->executeCommand('SELECT',array($this->database));
 		}
 		else
+		{
+			$this->_socket = null;
 			throw new CException('Failed to connect to redis: '.$errorDescription,(int)$errorNumber);
+		}
 	}
 
 	/**
 	 * Executes a redis command.
-	 * For a list of available commands and their parameters see {@link http://redis.io/commands}.
+	 * For a list of available commands and their parameters see {@link https://redis.io/commands}.
 	 *
 	 * @param string $name the name of the command
 	 * @param array $params list of parameters for the command
@@ -106,9 +122,9 @@ class CRedisCache extends CCache
 	 *   <li><code>string</code> or <code>null</code> for commands that return "bulk reply".</li>
 	 *   <li><code>array</code> for commands that return "Multi-bulk replies".</li>
 	 * </ul>
-	 * See {@link http://redis.io/topics/protocol redis protocol description}
+	 * See {@link https://redis.io/topics/protocol redis protocol description}
 	 * for details on the mentioned reply types.
-	 * @throws CException for commands that return {@link http://redis.io/topics/protocol#error-reply error reply}.
+	 * @throws CException for commands that return {@link https://redis.io/topics/protocol#error-reply error reply}.
 	 */
 	public function executeCommand($name,$params=array())
 	{
@@ -118,7 +134,7 @@ class CRedisCache extends CCache
 		array_unshift($params,$name);
 		$command='*'.count($params)."\r\n";
 		foreach($params as $arg)
-			$command.='$'.strlen($arg)."\r\n".$arg."\r\n";
+			$command.='$'.$this->byteLength($arg)."\r\n".$arg."\r\n";
 
 		fwrite($this->_socket,$command);
 
@@ -155,7 +171,7 @@ class CRedisCache extends CCache
 					if(($block=fread($this->_socket,$length))===false)
 						throw new CException('Failed reading data from redis connection socket.');
 					$data.=$block;
-					$length-=(function_exists('mb_strlen') ? mb_strlen($block,'8bit') : strlen($block));
+					$length-=$this->byteLength($block);
 				}
 				return substr($data,0,-2);
 			case '*': // Multi-bulk replies
@@ -170,6 +186,17 @@ class CRedisCache extends CCache
 	}
 
 	/**
+	 * Counting amount of bytes in a string.
+	 *
+	 * @param string $str
+	 * @return int
+	 */
+	private function byteLength($str)
+	{
+		return function_exists('mb_strlen') ? mb_strlen($str, '8bit') : strlen($str);
+	}
+
+	/**
 	 * Retrieves a value from cache with a specified key.
 	 * This is the implementation of the method declared in the parent class.
 	 * @param string $key a unique key identifying the cached value
@@ -177,7 +204,10 @@ class CRedisCache extends CCache
 	 */
 	protected function getValue($key)
 	{
-		return $this->executeCommand('GET',array($key));
+		$value=$this->executeCommand('GET',array($key));
+		if ($value===null)
+			return false;
+		return $value;
 	}
 
 	/**
