@@ -7,15 +7,15 @@ class UserEditor extends User {
 	public $name, $icq, $lj, $url, $skype, $bdate, $bdate_y, $bdate_m, $bdate_d, $country_id, $city, $bio, $new_upic, $rm_upic;
 
 	public static $Properties = array(
-		1 => array('Имя', 					'name', 60, 60),
+		1 => array('Име', 					'name', 60, 60),
 		2 => array('ICQ', 					'icq', 16, 16),
 		3 => array('ЖЖ', 					'lj', 16, 16),
-		4 => array('Домашняя страница', 	'url', 255, 60),
+		4 => array('Личен сайт', 	'url', 255, 60),
 		5 => array('skype', 				'skype', 32, 16),
-		6 => array('Дата рождения', 		'bdate', 10, 16),
-		7 => array('Страна', 				'country_id', 'не скажу'),
-		8 => array('Город', 				'city', 60, 60),
-		9 => array('Несколько слов о себе', 'bio', 3, 60, true),
+		6 => array('Дата на раждане', 		'bdate', 10, 16),
+		7 => array('Държава', 				'country_id', 'не казвам'),
+		8 => array('Град', 				'city', 60, 60),
+		9 => array('Няколко думи за мен', 'bio', 3, 60, true),
 	);
 
 	public function rules() {
@@ -24,11 +24,11 @@ class UserEditor extends User {
 			array("name, icq, lj, url, skype, city", "clean"),
 			array("bio", "safehtml"),
 			array("bdate_y, bdate_m, bdate_d, country_id", "numerical", "integerOnly" => true),
-			array("icq", "match", "pattern" => '/^[\d -]+$/', "message" => "номер icq может состоять только из цифр и дефисов"),
-			array("lj", "match", "pattern" => '/^[a-z\d_-]+$/i', "message" => "введите ваш ник в ЖЖ"),
-			array("url", "url", "defaultScheme" => "http", "message" => "это не похоже на адрес сайта"),
+			array("icq", "match", "pattern" => '/^[\d -]+$/', "message" => "номерът на icq се състои от цифри и тирета"),
+			array("lj", "match", "pattern" => '/^[a-z\d_-]+$/i', "message" => "въведете ника си в ЖЖ"),
+			array("url", "url", "defaultScheme" => "http", "message" => "това не прилича на адрес на сайт"),
 			array("rm_upic", "boolean"),
-			array("new_upic", "file", "allowEmpty" => true, "types" => "jpg, gif, png, jpeg", "wrongType" => "Неверный формат файла. Пожалуйста, загружайте JPG, PNG или GIF"),
+			array("new_upic", "file", "allowEmpty" => true, "types" => "jpg, gif, png, jpeg", "wrongType" => "Грешен формат на файла. Молим, качвайте JPG, PNG или GIF"),
 		));
 	}
 
@@ -44,17 +44,17 @@ class UserEditor extends User {
 
 	public function attributeLabels() {
 		return array(
-			"name" => "Имя",
+			"name" => "Има",
 			"icq" => "ICQ",
 			"lj" => "ЖЖ",
-			"url" => "Домашняя страница",
+			"url" => "Личен сайт",
 			"skype" => "Skype",
-			"bdate" => "День рождения",
-			"country_id" => "Страна",
-			"city" => "Город",
-			"bio" => "Несколько слов о себе",
+			"bdate" => "Дата на раждане",
+			"country_id" => "Държава",
+			"city" => "Град",
+			"bio" => "Няколко думи за мен",
 			"new_upic" => "Аватар",
-			"rm_upic" => "удалить",
+			"rm_upic" => "Изтриване",
 		);
 	}
 

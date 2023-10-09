@@ -1,6 +1,6 @@
 <div class="tools">
-    <h5>Стройплощадка</h5>
-	<p>Этот блог доступен:</p>
+    <h5>Строеж</h5>
+	<p>Този блог е достъпен:</p>
 	<?php
 		foreach(WebUser::getRoles("betatest") as $i => $login) {
 			if($i) echo ", ";

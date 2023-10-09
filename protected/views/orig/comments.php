@@ -32,18 +32,18 @@
 					<textarea name="Comment[body]"></textarea>
 				</div>
 				<div>
-					<input type="submit" value="Добавяне" title="Или нажмите Ctrl+Enter" class="btn btn-mini btn-primary" />
+					<input type="submit" value="Добавяне" title="Или натиснете Ctrl+Enter" class="btn btn-mini btn-primary" />
 					<?php if(!is_null($orig->seen) && !$orig->seen->track): ?>
-						<input type="button" value="В мои обсуждения" class="btn btn-mini mytalks" title="Показывать новые комментарии к этому фрагменту в &laquo;Моих обсуждениях&raquo;" onclick="T.mytalks(<?=$orig->id; ?>, this)" />
+						<input type="button" value="В моите обсъждания" class="btn btn-mini mytalks" title="Показване на новите коментари към този фрагмент в  &laquo;Моих обсуждениях&raquo;" onclick="T.mytalks(<?=$orig->id; ?>, this)" />
 					<?php endif; ?>
-					<input type="button" value="Отмена" class="btn btn-mini cancel" />
-					<button type="button" class="btn btn-mini stop">Закрыть</button>
+					<input type="button" value="Отмяна" class="btn btn-mini cancel" />
+					<button type="button" class="btn btn-mini stop">Затваряне</button>
 					<input type="hidden" name="Comment[pid]" value="0" />
 				</div>
 			</form>
 		</div>
 	</div>
 
-	<p class="cmt_0_btn"><i class="i icon-comment"></i> <a href="#" class="re ajax">Комментировать фрагмент</a></p>
+	<p class="cmt_0_btn"><i class="i icon-comment"></i> <a href="#" class="re ajax">Коментар на фрагмент</a></p>
 	<?php endif; ?>
 </div>

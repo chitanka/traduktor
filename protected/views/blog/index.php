@@ -8,7 +8,7 @@
 #moder-topic-menu { position:absolute; margin-left: 220px; z-index: 100; background: #fff; padding: 15px; border-radius: 10px; border: 1px solid #777; box-shadow: 10px 10px 20px rgba(0,0,0,.3); }
 </style>
 
-<h1>Коллективный блог</h1>
+<h1>Колективен блог</h1>
 
 <div id="Lenta">
 <?php
@@ -43,7 +43,7 @@
 (function() {
 	var post_id = 0, $topicMenu = $("#moder-topic-menu");
 
-	$("#Lenta").find(".post .info .moder-topic").attr("title", "Изменить раздел").click(function(e) {
+	$("#Lenta").find(".post .info .moder-topic").attr("title", "Промени раздела").click(function(e) {
 		e.preventDefault();
 		var $this = $(this), $info = $this.parents(".info"), id = parseInt($this.parents(".post").attr("id").substr(5));
 		if(id == post_id) {

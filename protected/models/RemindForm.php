@@ -10,7 +10,7 @@ class RemindForm extends CFormModel {
 	public function rules() {
 		return array(
 			// login and pass are required
-			array("clue", "required", "message" => "Сюда нужно что-нибудь написать."),
+			array("clue", "required", "message" => "Трябва да напишете нещо тук."),
 			array("clue", "filter", "filter" => "trim"),
 		);
 	}
@@ -20,7 +20,7 @@ class RemindForm extends CFormModel {
 	 */
 	public function attributeLabels() {
 		return array(
-			"clue" => "Введите Ваш логин или e-mail, который указывали при регистрации, и пароль будет отправлен вам по электронной почте:",
+			"clue" => "Въведете вашия логин или e-mail-а, който се въвели при регистрацията, и паролата ще бъде изпратена на електронен адрес:",
 		);
 	}
 
@@ -28,12 +28,12 @@ class RemindForm extends CFormModel {
 		if(strpos($this->clue, "@") !== false) {
 			$user = User::model()->find("LOWER(email) = :email", array(":email" => mb_strtolower($this->clue)));
 			if(!$user) {
-				$this->addError("clue", "Пользователей с таким адресом электронной почты не зарегистрировано.");
+				$this->addError("clue", "Няма потребител, регистриран с такъв e-mail адрес.");
 			}
 		} else {
 			$user = User::model()->find("LOWER(login) = :login", array(":login" => mb_strtolower($this->clue)));
 			if(!$user) {
-				$this->addError("clue", "Пользователей с таким логином не зарегистрировано.");
+				$this->addError("clue", "Няма потребител с такъв логин.");
 			}
 		}
 

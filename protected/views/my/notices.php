@@ -43,7 +43,7 @@
 <script type="text/javascript">
 var N = {
 	init: function() {
-		$("#Notices a.rm").attr("title", "Удалить это оповещение");
+		$("#Notices a.rm").attr("title", "Изтриване на оповещението");
 		$("#Notices").delegate(".u a.rm", "click", N.rm_click);
 	},
 	rm_click: function(e) {
@@ -72,7 +72,7 @@ $(N.init);
 
 <?php if(isset($ajax) && !$ajax && $notices_dp->totalItemCount == 0): ?>
 <div class="alert alert-info">
-	У вас нет оповещений.
+	Нямате оповещения.
 </div>
 <?php else: ?>
 

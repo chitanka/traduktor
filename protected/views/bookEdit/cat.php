@@ -39,7 +39,7 @@ var T = {
 
 <p>
 	Ако не искате, можете да не избирате раздел, тогава вашият превод няма да се публикува в <a href="/catalog">каталога</a>,
-	и може да бъде намерен само чрез <a href='/search'>търсещата систему</a>. Модераторите могат да променят раздела на каталога, ако го сметнат за нужно.
+	и може да бъде намерен само чрез <a href='/search'>търсещата система</a>. Модераторите могат да променят раздела на каталога, ако сметнат за нужно.
 </p>
 
 <ul id="Tree">
@@ -81,7 +81,7 @@ var T = {
 		echo "<a class='btn btn-primary pull-right' href='" . $book->getUrl('edit/info') . "'>Пропускане <i class='icon-arrow-right icon-white'></i></a>";
 	} else {
 		echo "<a href='{$book->url}' class='btn'>Отмяна</a> ";
-		echo "<button class='btn' onclick='T.s(0)'>Да не се публикова в каталога</button> ";
+		echo "<button class='btn' onclick='T.s(0)'>Да не се публикува в каталога</button> ";
 	}
 ?>
 

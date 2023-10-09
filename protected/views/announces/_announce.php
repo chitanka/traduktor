@@ -27,7 +27,7 @@
 				echo "<span class='cmt'>";
 				if($announce->n_comments > 0) {
 					if($announce->n_new_comments) {
-						echo "<a href='{$announce->url}#Comments' title='Коментари: {$announce->n_comments}, новых: {$announce->n_new_comments}'><i class='icon-nb-comment new'></i> {$announce->seen->n_comments}+{$announce->n_new_comments}</a> ";
+						echo "<a href='{$announce->url}#Comments' title='Коментари: {$announce->n_comments}, нови: {$announce->n_new_comments}'><i class='icon-nb-comment new'></i> {$announce->seen->n_comments}+{$announce->n_new_comments}</a> ";
 					} else {
 						echo "<a href='{$announce->url}#Comments' title='Коментари: {$announce->n_comments}'><i class='icon-nb-comment'></i> {$announce->n_comments}</a> ";
 					}

@@ -36,7 +36,7 @@ class Orig extends CActiveRecord {
 
 		$this->$attr = trim($this->$attr);
 		if(!preg_match('/^\d+:\d+:\d+([,.]\d+)?$/', $this->$attr)) {
-			$this->addError($attr, "Пожалуйста, введите время " . ($attr == "t1" ? "начала" : "конца") . " субтитра в формате ЧЧ:ММ:СС.ммм (где ммм - миллисекунды)");
+			$this->addError($attr, "Молим, въведете време " . ($attr == "t1" ? "начало" : "край") . " на субтитъра във формат ЧЧ:ММ:СС.ммм ( ммм - милисекунди)");
 		}
 		$this->$attr = strtr($this->$attr, ",", ".");
 	}
@@ -212,9 +212,9 @@ class Orig extends CActiveRecord {
 		if( $this->chap->book->owner->id != Yii::app()->user->id and
 			$this->chap->book->owner->ini_get(User::INI_MAIL_COMMENTS)
 		) {
-			$msg = new YiiMailMessage("Новый комментарий в переводе \"{$this->chap->book->fullTitle}\"");
+			$msg = new YiiMailMessage("Нов коментар в превода \"{$this->chap->book->fullTitle}\"");
 			$msg->view = "orig_comment";
-			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - комментарий к переводу"));
+			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - коментар към превода"));
 			$msg->addTo($this->chap->book->owner->email);
 			$msg->setBody(array(
 				"comment" => $comment,
@@ -233,9 +233,9 @@ class Orig extends CActiveRecord {
 			$parent->author->id != $this->chap->book->owner->id &&
 			$parent->author->ini_get(User::INI_MAIL_COMMENTS)
 		) {
-			$msg = new YiiMailMessage("Ответ на ваш комментарий в переводе \"{$this->chap->book->fullTitle}\"");
+			$msg = new YiiMailMessage("Отговор на ваш коментар в превод \"{$this->chap->book->fullTitle}\"");
 			$msg->view = "orig_reply";
-			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - комментарий"));
+			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - коментар"));
 			$msg->addTo($parent->author->email);
 			$msg->setBody(array(
 				"comment" => $comment,
@@ -290,7 +290,7 @@ class Orig extends CActiveRecord {
 			$html .= " &middot; ";
 			$html .= "<span class='t1'>" . $this->nicetime("t1") . "</span> &rarr; <span class='t2'>" . $this->nicetime("t2") . "</span>";
 		}
-		if($filter && $filter->show != 0) $html .= " <a href='{$this->url}' class='ctx'>в контексте</a>";
+		if($filter && $filter->show != 0) $html .= " <a href='{$this->url}' class='ctx'>в контекст</a>";
 		$html .= "</p>";
 
 		if($this->chap->book->can("chap_edit")) {

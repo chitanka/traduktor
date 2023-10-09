@@ -300,16 +300,16 @@ class Book extends CActiveRecord {
 	public function getWhoCanDoIt($ac = "read", $tools = true) {
 		$ac = "ac_" . $ac;
 
-		$msg = "Это " . ($this->$ac == "o" ? "может" : "могут") . " делать " . Yii::app()->params["ac_roles_title"][$this->$ac] . ".";
+		$msg = "Это " . ($this->$ac == "o" ? "може" : "могат") . " да правят " . Yii::app()->params["ac_roles_title"][$this->$ac] . ".";
 
 		if($this->$ac == "g") {
 			if($this->facecontrol == self::FC_CONFIRM) {
-				$msg .= " Чтобы вступить в группу, нужно подать заявку владельцу ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или модераторам" : "") . ".";
+				$msg .= " За да встъпите в групата, трябва да подадете заявка на собственика ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или на модераторите" : "") . ".";
 				if($tools) $msg .= Yii::app()->controller->renderPartial("//book/_join", array("book" => $this), true);
 			} elseif($this->facecontrol == self::FC_INVITE) {
-				$msg = "Чтобы вступить в группу, нужно получить приглашение от владельца ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или модераторов" : "") . ".";
+				$msg = "За да встъпите в групата трябва да получите покана от собственика ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или от модераторите" : "") . ".";
 				if($tools && $this->user_invited(Yii::app()->user->id)) {
-					$msg .= " Кстати, у вас это приглашение есть.<br /><br /><a href='" . $this->getUrl("invite_accept") . "' class='act'>Приемане</a> | <a href='" . $this->getUrl("invite_decline") . "' class='act'>Отказ</a>";
+					$msg .= " Между другото, имате тази покана.<br /><br /><a href='" . $this->getUrl("invite_accept") . "' class='act'>Приемане</a> | <a href='" . $this->getUrl("invite_decline") . "' class='act'>Отказ</a>";
 				}
 			}
 		}
@@ -321,21 +321,21 @@ class Book extends CActiveRecord {
 		if($this->can("read")) return "";
 
 		if($this->checkMembershipStatus(GroupMember::BANNED)) {
-			$msg = "Вы не можете войти в перевод &laquo;{$this->fullTitle}&raquo;, так как его владелец или модераторы забанили вас.";
+			$msg = "Не можете да влезете в превод &laquo;{$this->fullTitle}&raquo;, тъй като собственикът или модераторите са ви баннали.";
 		} elseif($this->ac_read == "o") {
-			$msg = "Владелец перевода &laquo;{$this->fullTitle}&raquo;, {$this->owner->ahref}, закрыл доступ в него для всех.";
+			$msg = "Собствеинкът на превода &laquo;{$this->fullTitle}&raquo;, {$this->owner->ahref}, е затворил достъпа до него за всички.";
 		} elseif($this->ac_read == "m") {
-			$msg = "Перевод &laquo;{$this->fullTitle}&raquo; доступен только модераторам этого перевода, которых назначает владелец ({$this->owner->ahref}).";
+			$msg = "Преводът &laquo;{$this->fullTitle}&raquo; е достъпен само за модераторите, определени от собственика ({$this->owner->ahref}).";
 		} elseif($this->ac_read == "g") {
 			if($this->facecontrol == Book::FC_CONFIRM) {
-				$msg = "Чтобы войти в перевод &laquo;{$this->fullTitle}&raquo;, нужно вступить в группу перевода. ";
+				$msg = "За да влезете в превод &laquo;{$this->fullTitle}&raquo;, трябва да встъпите в групата на превода. ";
 			} elseif($this->facecontrol == Book::FC_INVITE) {
-				$msg = "Чтобы войти в перевод &laquo;{$this->fullTitle}&raquo;, нужно получить приглашение от владельца ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или модераторов" : "") . ".";
+				$msg = "За да влезете в превод &laquo;{$this->fullTitle}&raquo;, трябва да получите покана от собственика ({$this->owner->ahref})" . ($this->ac_membership == "m" ? " или от модераторите" : "") . ".";
 			} else {
-				$msg = "Между нами говоря, такого не должно быть. Создатель перевода &laquo;{$this->fullTitle}&raquo;, {$this->owner->ahref}, разрешил вход только для членов группы, а саму группу отменил. То есть, чтобы зайти в перевод, нужно быть членом группы, которой нет. Попробуйте хлопнуть одной ладонью.";
+				$msg = "Между нас казано, това не трябва да е така. Създателят на превода &laquo;{$this->fullTitle}&raquo;, {$this->owner->ahref}, е разрешил входа само за членове на групата, а е изтрил самата група. Тоест, за да влезете в превода, трябва да сте член на група, която не съществува. Опитайте да пляснете с една ръка.";
 			}
 		} else {
-			$msg = "Вы не можете войти в этот перевод.";
+			$msg = "Не можете да влезете в този превод.";
 		}
 
 		return $msg;

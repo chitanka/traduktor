@@ -15,11 +15,11 @@ class BlogPost extends CActiveRecord {
 		if(Yii::app()->user->id != 1) unset($topics[64]);
 
 		return array(
-			array("title", "required", "message" => "Пожалуйста, введите заголовок."),
-			array("body", "required", "message" => "Пожалуйста, введите текст поста."),
+			array("title", "required", "message" => "Молим, въведете заглавие."),
+			array("body", "required", "message" => "Молим, въведете текста на поста."),
 			array("title", "filter", "filter" => "strip_tags"),
 			array("body", "safehtml"),
-			array("topics", "required", "message" => "Пожалуйста, выберите рубрику."),
+			array("topics", "required", "message" => "Молим, изберете рубрика."),
 			array("topics", "in", "range" => array_keys($topics)),
 		);
 	}
@@ -32,8 +32,8 @@ class BlogPost extends CActiveRecord {
 
 	public function attributeLabels() {
 		return array(
-			"title" => "Заголовок",
-			"body" => "Текст поста",
+			"title" => "Заглавие",
+			"body" => "Текст на поста",
 			"topics" => "Рубрика"
 		);
 	}
@@ -184,7 +184,7 @@ class BlogPost extends CActiveRecord {
 	* @param Comment $parent - родительский комментарий (пустой объект, если в корень)
 	*/
 	protected function comment_mail($comment, $parent, $debug = false) {
-		$subj = "Комментарий в посте ";
+		$subj = "Коментар в поста ";
 		if($this->title == "")
 			$subj .= "{$this->author->login} от " . Yii::app()->dateFormatter->formatDateTime($this->cdate, "medium", "short");
 		else
@@ -196,7 +196,7 @@ class BlogPost extends CActiveRecord {
 		) {
 			$msg = new YiiMailMessage($subj);
 			$msg->view = "comment_post";
-			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - комментарий"));
+			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - коментар"));
 			$msg->addTo($this->author->email);
 			$msg->setBody(array(
 				"comment" => $comment,
@@ -218,7 +218,7 @@ class BlogPost extends CActiveRecord {
 		) {
 			$msg = new YiiMailMessage($subj);
 			$msg->view = "comment_reply";
-			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - комментарий"));
+			$msg->setFrom(array(Yii::app()->params["commentEmail"] => Yii::app()->user->login . " - коментар"));
 			$msg->addTo($parent->author->email);
 			$msg->setBody(array(
 				"comment" => $comment,

@@ -87,7 +87,7 @@ class AnnouncesController extends BookBaseController {
 		$post = BlogPost::model()->with("author", "seen")->findByPk($post_id, "t.topics BETWEEN 80 AND 89 AND book_id = :book_id", array(":book_id" => $book->id));
 		$post->book = $this->book;
 
-		if(!$post || !$post->isAnnounce) throw new CHttpException(404, "Анонса не существует. Возможно, он удалён.");
+		if(!$post || !$post->isAnnounce) throw new CHttpException(404, "Анонсът не съществува. Възможно е бил изтрит.");
 
 		$comments = Comment::model()->with("author")->post($post->id)->newer($post->seen->seen)->findAll();
 
@@ -105,11 +105,11 @@ class AnnouncesController extends BookBaseController {
 
 		$this->loadBook($book_id);
 		// анонсы у нас могут все неанонимы комментировать, я так понял?
-//		if(!$this->book->can("blog_c")) throw new CHttpException(403, "Вы не можете оставлять комментарии в блоге этого перевода. " . $this->book->getWhoCanDoIt("blog_c"));
+//		if(!$this->book->can("blog_c")) throw new CHttpException(403, "Не можете да оставяте коментари в блога на този превод. " . $this->book->getWhoCanDoIt("blog_c"));
 
 		if($comment_id) {
 			$parent = Comment::model()->with("post", "author")->findByPk($comment_id, "post_id = :post_id", array(":post_id" => $post_id));
-			if(!$parent) throw new CHttpException(404, "Вы пытаетесь ответить на несуществующий комментарий.");
+			if(!$parent) throw new CHttpException(404, "Опитвате да отговорите на несъществуващ коментар.");
 		} else {
 			$parent = new Comment();
 			$parent->post = BlogPost::model()->with("author", "seen")->findByPk($post_id);
@@ -156,20 +156,20 @@ class AnnouncesController extends BookBaseController {
 		// Загружаем удаляемый комментарий вместе с постом
 		$comment = Comment::model()->with("post")->findByPk($comment_id);
 		if(!$comment) {
-			$json["error"] = "Вы пытаетесь удалить несуществующий комментарий. Бросьте, пустое.";
+			$json["error"] = "Опитвате да изтриете несъществуващ коментар. Зарежете.";
 		} else {
 			$comment->post->book = $this->book;
 
 			// Права доступа: свой комментарий, в моём посте, модератор блога
 			if(!$comment->can("delete")) {
-				$json["error"] = "Вы не можете удалить этот комментарий.";
+				$json["error"] = "Не можете да изтриете този коментар.";
 			}
 
 			// Удаляем комментарий
 			else if($comment->delete()) {
 				$comment->post->afterCommentRm($comment);
 			} else {
-				$json["error"] = "Не получилось удалить комментарий :(";
+				$json["error"] = "Изтриването на коментара не стана :(";
 			}
 		}
 

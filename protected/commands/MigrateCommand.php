@@ -24,7 +24,7 @@ class MigrateCommand extends CConsoleCommand {
 	}
 
 	public function actionIndex() {
-		echo "Доступные миграции:\n  - " . join("\n  - ", array_keys($this->migrations)) . "\n";
+		echo "Достъпни миграции:\n  - " . join("\n  - ", array_keys($this->migrations)) . "\n";
 	}
 
 	public function actionLanguages() {

@@ -64,7 +64,7 @@
 <h1><?=$book->fullTitle; ?></h1>
 <?php
 	if($book->opts_get(Book::OPTS_BAN_COPYRIGHT)) {
-		echo "<div class='alert alert-box alert-danger'>Внимание! Этот перевод заблокирован по заявке правообладателя и из-за этого доступен только группе переводчиков. Всё, что вы здесь видите, должно оставаться секретом.</div>";
+		echo "<div class='alert alert-box alert-danger'>Внимание! Този превод е блокиран по сигнал на правообладателя, затова е достъпен само в групата на преводачите. Всичко, което виждате тук, трябва да остане тайна.</div>";
 	}
 ?>
 <div id='Info'>
@@ -72,7 +72,7 @@
 		if($book->img->exists) echo $book->img->tag;
 
 		if($book->ac_read == 'o') {
-			echo "<div class='alert alert-block'><h4 class='alert-heading'>Внимание!</h4>Этот перевод видите только вы. Изменить уровень доступа можно в <a href='" . $book->getUrl("edit/access") . "'>редакторе прав доступа</a>.</div>";
+			echo "<div class='alert alert-block'><h4 class='alert-heading'>Внимание!</h4>Само вие виждате този превод. Можете да промените достъпа към него в <a href='" . $book->getUrl("edit/access") . "'>редактора за права за достъп</a>.</div>";
 		}
 
 		if($book->cat_id || $book->can("book_edit")) {
@@ -153,8 +153,8 @@
 	<?php if($book->typ == "S") echo "<td></td>"; ?>
 	<th class='t'>Заглавие</th>
 	<th title='Променя се от <?php echo $book->ac_chap_edit == "m" ? "модераторите" : "собственика"; ?>.' style='cursor:help;'>Статус</th>
-	<th title='Когда в последний раз была добавлена, удалена или отредактирована последняя версия перевода или изменился оригинальный текст.' style='cursor:help;'>Активност</th>
-	<th title='Фрагментов переведено / всего. Наведите курсор на цифры, чтобы узнать Коэффициент Плюрализма, среднее количество вариантов перевода одного фрагмента.' style='cursor:help; text-align:center;' colspan='2'>Готово</th>
+	<th title='Кога е била добавена за последно, изтрита или редактирана последната версия на превода или се е променил оригиналният текст.' style='cursor:help;'>Активност</th>
+	<th title='Преведени части / общо. Поставете курсора на мишката, за да разберете Коефициента на Плурализъм, средно количество варианти на тази част от превода.' style='cursor:help; text-align:center;' colspan='2'>Готово</th>
 	<?php if($book->can("chap_edit")) echo "<th class='e'></th>"; ?>
 </tr></thead>
 <tbody>
@@ -184,7 +184,7 @@
 		if($chap->n_verses == 0) {
 			echo "<td colspan='3'>";
 			if($book->can("chap_edit")) echo "<i class='icon-upload'></i> <a href='" . $chap->getUrl("import") . "'>вмъкване на оригинала</a>";
-			else echo "(пусто)";
+			else echo "(празно)";
 			echo "</td>";
 		} else {
 			echo "<td>";

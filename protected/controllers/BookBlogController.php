@@ -27,7 +27,7 @@ class BookBlogController extends BookBaseController {
 		$this->loadBook($book_id);
 
 		if(!$this->book->can("blog_r")) {
-			throw new CHttpException(403, "У вас нет доступа в блог этого перевода. " . $this->book->getWhoCanDoIt("blog_r"));
+			throw new CHttpException(403, "Нямате достъп до блога на този превод. " . $this->book->getWhoCanDoIt("blog_r"));
 		}
 
 		$criteria = new CDbCriteria();
@@ -58,11 +58,11 @@ class BookBlogController extends BookBaseController {
 		$post_id = (int) $post_id;
 
 		if(!$this->book->can("blog_r")) {
-			throw new CHttpException(403, "У вас нет доступа в блог этого перевода. " . $this->book->getWhoCanDoIt("blog_r"));
+			throw new CHttpException(403, "Нямате достъп до блога на този превод " . $this->book->getWhoCanDoIt("blog_r"));
 		}
 
 		$post = BlogPost::model()->with("author", "seen")->findByPk($post_id);
-		if(!$post) throw new CHttpException(404, "Поста не существует. Возможно, он удалён. Почитайте лучше <a href='" . $this->book->getUrl('blog') . "'>другие посты</a> в блоге этого перевода.");
+		if(!$post) throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит. По-добре почетете <a href='" . $this->book->getUrl('blog') . "'>други постове</a> в блога на този превод.");
 		$post->book = $this->book;
 
 		if($post->book_id == 0) $this->redirect("/blog/{$post_id}");
@@ -85,12 +85,12 @@ class BookBlogController extends BookBaseController {
 		$comment_id = (int) $comment_id;
 
 		$this->loadBook($book_id);
-		if(!$this->book->can("blog_r")) throw new CHttpException(403, "У вас нет доступа в блог этого перевода. " . $this->book->getWhoCanDoIt("blog_r"));
-		if(!$this->book->can("blog_c")) throw new CHttpException(403, "Вы не можете оставлять комментарии в блоге этого перевода. " . $this->book->getWhoCanDoIt("blog_c"));
+		if(!$this->book->can("blog_r")) throw new CHttpException(403, "Нямате достъп до блога на този превод " . $this->book->getWhoCanDoIt("blog_r"));
+		if(!$this->book->can("blog_c")) throw new CHttpException(403, "Не можете да коментирате в блога на този превод " . $this->book->getWhoCanDoIt("blog_c"));
 
 		if($comment_id) {
 			$parent = Comment::model()->with("post", "author")->findByPk($comment_id);
-			if(!$parent) throw new CHttpException(404, "Вы пытаетесь ответить на несуществующий комментарий.");
+			if(!$parent) throw new CHttpException(404, "Опитвате да отговорите на несъществуващ коментар.");
 		} else {
 			$parent = new Comment();
 			$parent->post = BlogPost::model()->with("author", "seen")->findByPk($post_id);
@@ -132,10 +132,10 @@ class BookBlogController extends BookBaseController {
 		$comment_id = (int) $comment_id;
 
 		if(!$this->book->can("blog_r")) {
-			throw new CHttpException(403, "У вас нет доступа в блог этого перевода. " . $this->book->getWhoCanDoIt("blog_r"));
+			throw new CHttpException(403, "Нямате достъп до блога на този превод " . $this->book->getWhoCanDoIt("blog_r"));
 		}
 		if(!$this->book->can("blog_c")) {
-			throw new CHttpException(403, "Вы не можете удалять комментарии в блоге этого перевода. " . $this->book->getWhoCanDoIt("blog_c"));
+			throw new CHttpException(403, "Не можете да триете коментари в блога на този превод " . $this->book->getWhoCanDoIt("blog_c"));
 		}
 
 		if(!Yii::app()->request->isPostRequest) $this->redirect("/book/{$book_id}/blog/{$post_id}");
@@ -146,20 +146,20 @@ class BookBlogController extends BookBaseController {
 		// Загружаем удаляемый комментарий вместе с постом
 		$comment = Comment::model()->with("post")->findByPk($comment_id);
 		if(!$comment) {
-			$json["error"] = "Вы пытаетесь удалить несуществующий комментарий. Бросьте, пустое.";
+			$json["error"] = "Опитвате да изтриете несъществуващ коментар. Зарежете.";
 		} else {
 			$comment->post->book = $this->book;
 
 			// Права доступа: свой комментарий, в моём посте, модератор блога
 			if(!$comment->can("delete")) {
-				$json["error"] = "Вы не можете удалить этот комментарий.";
+				$json["error"] = "Не можете да изтриете този коментар.";
 			}
 
 			// Удаляем комментарий
 			else if($comment->delete()) {
 				$comment->post->afterCommentRm($comment);
 			} else {
-				$json["error"] = "Не получилось удалить комментарий :(";
+				$json["error"] = "Изтриването на коментара не стана :(";
 			}
 		}
 
@@ -172,19 +172,19 @@ class BookBlogController extends BookBaseController {
 		$comment_id = (int) $comment_id;
 
 		if(!$book->can("blog_r")) {
-			throw new CHttpException(403, "У вас нет доступа в блог этого перевода. " . $book->getWhoCanDoIt("blog_r"));
+			throw new CHttpException(403, "Нямате достъп до блога на този превод " . $book->getWhoCanDoIt("blog_r"));
 		}
 		if(!$book->can("blog_c")) {
-			throw new CHttpException(403, "Вы не можете оценивать комментарии в блоге этого перевода. " . $book->getWhoCanDoIt("blog_c"));
+			throw new CHttpException(403, "Не можете да оценявате коментари в блога на този превод " . $book->getWhoCanDoIt("blog_c"));
 		}
 
 		if(!Yii::app()->request->isPostRequest) throw new CHttpException(400, "");
 
 		/** @var Comment $comment */
 		$comment = Comment::model()->with("post")->findByPk($comment_id);
-		if(!$comment) throw new CHttpException(404, "Комментарий удалён.");
+		if(!$comment) throw new CHttpException(404, "Коментарът е изтрит.");
 		if($comment->post_id != $post_id) throw new CHttpException(400, "");
-		if(!$comment->can("rate")) throw new CHttpException(403, "Вы не можете оценивать этот комментарий.");
+		if(!$comment->can("rate")) throw new CHttpException(403, "Не можете да оцените този коментар.");
 
 		$comment->rate((int) $_POST["mark"]);
 
@@ -200,20 +200,20 @@ class BookBlogController extends BookBaseController {
 		$post_id = (int) $post_id;
 
 		if(!$this->book->can("blog_r") || !$this->book->can("blog_w")) {
-			throw new CHttpException(403, "Вы не можете писать и редактировать посты в блоге этого перевода. " . $this->book->getWhoCanDoIt("blog_w"));
+			throw new CHttpException(403, "Не можете да пишете и редактирате постове в блога на този превод. " . $this->book->getWhoCanDoIt("blog_w"));
 		}
 
 		if($post_id != 0) {
 			$post = BlogPost::model()->findByPk($post_id);
 			if(!$post) {
-				throw new CHttpException(404, "Поста не существует. Возможно, его удалили.");
+				throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит.");
 			}
 			if($post->user_id != Yii::app()->user->id and !Yii::app()->user->can("blog_moderate")) {
-				throw new CHttpException(403, "Вы можете редактировать только собственные посты.");
+				throw new CHttpException(403, "Можете да редактирате само своите постове.");
 			}
 			if($post->book_id == 0) $this->redirect("/blog/{$post->id}/edit");
 			if($post->book_id != $this->book->id) $this->redirect("/book/{$post->book_id}/blog/{$post->id}/edit");
-			if($post->isAnnounce) throw new CHttpException(404, "Поста не существует. Возможно, его удалили.");
+			if($post->isAnnounce) throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит.");
 		} else {
 			$post = new BlogPost();
 			$post->user_id = Yii::app()->user->id;
@@ -241,19 +241,19 @@ class BookBlogController extends BookBaseController {
 		$post_id = (int) $post_id;
 
 		if(!$this->book->can("blog_r") || !$this->book->can("blog_w")) {
-			throw new CHttpException(403, "Вы не можете удалять посты в блоге этого перевода. " . $this->book->getWhoCanDoIt("blog_w"));
+			throw new CHttpException(403, "Не можете да триете постове в блога на този превод. " . $this->book->getWhoCanDoIt("blog_w"));
 		}
 
 		if(!$_POST["really"]) $this->redirect("/blog");
 
 		$post = BlogPost::model()->findByPk($post_id);
 		if(!$post) {
-			throw new CHttpException(404, "Поста не существует. Возможно, его уже удалили.");
+			throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит.");
 		}
 		if($post->user_id != Yii::app()->user->id and !Yii::app()->user->can("blog_moderate")) {
-			throw new CHttpException(403, "Вы можете удалять только собственные посты.");
+			throw new CHttpException(403, "Можете да триете само собствените си постове.");
 		}
-		if($post->isAnnounce) throw new CHttpException(404, "Поста не существует. Возможно, его уже удалили.");
+		if($post->isAnnounce) throw new CHttpException(404, "Постът не съществува. Възможно е бил изтрит.");
 		$post->book_id = $this->book->id;
 		$post->book = $this->book;
 

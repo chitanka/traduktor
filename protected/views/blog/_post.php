@@ -20,16 +20,16 @@
 
 	$T = array();
 	if($has["edit"]) {
-		$T[] = "<a href='" . $post->getUrl("edit") . "'>править</a>";
+		$T[] = "<a href='" . $post->getUrl("edit") . "'>Редактиране</a>";
 	}
 	if($placement == "talks") {
-		$T[] = "<a href='/my/comments/rm/?post_id={$post->id}' class='talks'>не показывать</a>";
+		$T[] = "<a href='/my/comments/rm/?post_id={$post->id}' class='talks'>Скрий</a>";
 	} else {
 		if(!$user->isGuest && $has["mytalks"]) {
 			// ! ЗАГЛУШКА !
-			// if(!$post->seen->track) $T[] = "<a href='/my/comments/add?post_id={$post->id}' onclick='return Blog.my({$post->id}, this)' class='talks'>в мои обсуждения</a>";
-			// else $T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Пост в ваших обсуждениях' class='talks'>&rarr;</a>";
-			$T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Пост в ваших обсуждениях' class='talks'>&rarr;</a>";
+			// if(!$post->seen->track) $T[] = "<a href='/my/comments/add?post_id={$post->id}' onclick='return Blog.my({$post->id}, this)' class='talks'>В моите обсъждания</a>";
+			// else $T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Постът е във вашите обсъждания' class='talks'>&rarr;</a>";
+			$T[] = "<a href='/my/comments/?mode=p#post_{$post->id}' title='Постът е във вашите обсъждания' class='talks'>&rarr;</a>";
 		}
 	}
 
@@ -70,12 +70,12 @@
 
 	echo "<span class='cmt'>";
 	if($post->n_comments != 0) {
-		echo " <a href='{$post->url}#Comments'>" . Yii::t("app", "{n} комментарий|{n} комментария|{n} комментариев", $post->n_comments) . "</a>";
+		echo " <a href='{$post->url}#Comments'>" . Yii::t("app", "{n} комментара|{n} комментара|{n} комментара", $post->n_comments) . "</a>";
 		if($post->n_new_comments != 0) {
-			echo " / <a href='{$post->url}#cmt_new' class='new'>" . Yii::t("app", "{n} новый|{n} новых|{n} новых", $post->n_new_comments) . "</a>";
+			echo " / <a href='{$post->url}#cmt_new' class='new'>" . Yii::t("app", "{n} нови|{n} нови|{n} нови", $post->n_new_comments) . "</a>";
 		}
 	} else {
-		echo "<a href='{$post->url}#Comments'>комментировать</a>";
+		echo "<a href='{$post->url}#Comments'>Коментирай</a>";
 	}
 	echo "</span> ";
 

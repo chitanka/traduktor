@@ -97,7 +97,7 @@ function getQS($merge = null, $unset = null)
                             echo "<li><label><input type='radio' name='show' value='{$k}' " . ($k == $filter->show ? " checked" : "") . "/> ";
                             if ($k == 2) {
                                 echo " <input type='text' name='show_user' placeholder='От преводaча' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
-                                if (!$user->isGuest) echo "title='Ctrl+I: вставить ваш ник' ";
+                                if (!$user->isGuest) echo "title='Ctrl+I: слагане на вашия ник' ";
                                 echo "/>";
                             } elseif ($k == 5) {
                                 echo " <input type='text' name='to' placeholder='Оригиналът съдържа' class='span3' value='" . CHtml::encode($filter->to) . "' />";
@@ -137,7 +137,7 @@ function getQS($merge = null, $unset = null)
 
 
 <!--        <div class="group">-->
-<!--            <a href="<?= $chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>-->
+<!--            <a href="<?= $chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Стар интерфейс"></i></a>-->
 <!--        </div>-->
 
         <div class="tb-progress group"></div>
@@ -189,22 +189,22 @@ if ($orig_dp->totalItemCount == 0):
     $tableClasses[] = "empty";
     if ($filter->show == 0 || $chap->n_verses == 0) {
         $tableEmpty = true;
-        echo "<p class='alert alert-block' id='alert-empty'>В этой части перевода отсутствует текст оригинала.";
-        if ($chap->book->can("chap_edit")) echo " Если хотите, вы можете <a href='" . $chap->getUrl("import") . "'>загрузить его</a> или <a href='#' class='create'>создать первый фрагмент</a>.";
+        echo "<p class='alert alert-block' id='alert-empty'>В тази част на превода отсъства оригинален текст.";
+        if ($chap->book->can("chap_edit")) echo " Ако искате, можете <a href='" . $chap->getUrl("import") . "'>да го качите</a> или <a href='#' class='create'>да създадете нов фрагмент.</a>.";
         echo "</p>";
     } else {
-        echo "<p class='alert alert-info'>Ничего не найдено. <a href='{$chap->url}'>Показать весь перевод.</a></p>";
+        echo "<p class='alert alert-info'>Нищо не е намерено. <a href='{$chap->url}'>Показване на целия превод.</a></p>";
     }
 else:
     if (!$chap->book->can("trread")) {
-        echo "<div class='alert alert-danger'>Владелец перевода установил такие права доступа, что вы не можете просматривать чужие версии перевода здесь.</div>";
+        echo "<div class='alert alert-danger'>Собственикът на превода е установил такъв достъп, че вие не можете да видите други версии на превода тук.</div>";
     }
 endif;
 
 if (!$user->isGuest && $chap->status == Chapter::STATUS_READY) {
-    echo "<p class='alert alert-block alert-info'>Модераторы перевода пометили эту главу как готовую, поэтому ни добавлять новые версии перевода, ни оценивать существующие нельзя. ";
-    if ($chap->book->can("owner")) echo " Впрочем, вы &mdash; владелец перевода и можете делать тут, что захотите.";
-    elseif ($chap->book->can("chap_edit")) echo " Вы, так как сами являетесь модератором, можете изменить статус перевода, нажав на кнопку <i class='icon-pencil'></i> в <a href='{$chap->book->url}'>оглавлении перевода</a>.";
+    echo "<p class='alert alert-block alert-info'>Модераторите са отбелязали тази глава като готова, затова не може нито да се добавят нови версии на превода, нито да се оценяват съществуващите. ";
+    if ($chap->book->can("owner")) echo " Впрочем, вие &mdash; сте собственик на превода и можете да правите тук каквото си поискате.";
+    elseif ($chap->book->can("chap_edit")) echo " Тъй като вие сте модератор, можете да промените статута на превода, чрез натискане на <i class='icon-pencil'></i> в <a href='{$chap->book->url}'>заглавие на превода</a>.";
     echo "</p>";
 }
 
@@ -249,7 +249,7 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
             if (!Yii::app()->user->isGuest) {
                 echo "<td class='b'>";
                 if (!is_null($o->bookmark) && $o->bookmark->id) {
-                    $title = "Закладка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
+                    $title = "Отметка" . ($o->bookmark->note != "" ? (": &quot;" . CHtml::encode($o->bookmark->note) . "&quot;") : "");
                     echo "<a href='#'><i class='icon-star' title='{$title}'></i></a>";
                 } else {
                     echo "<a href='#'><i class='i icon-star-empty'></i></a>";
@@ -347,27 +347,27 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
         <form method="post" class="form-inline" action="<?= $chap->getUrl("timeshift"); ?>">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
-                <h3>Сдвинуть тайминг</h3>
+                <h3>Промяна на тайминга</h3>
             </div>
             <div class="modal-body">
                 <div class="control-group advanced">
-                    <label class="control-label">Сдвинуть субтитры во временном промежутке</label>
+                    <label class="control-label">Промяна на тайминга във времевия интервал</label>
                     <div class="controls">
                         <input type="text" name="from" placeholder="ЧЧ:ММ:СС.ммм" value="00:00:00.000"/> &mdash;
                         <input type="text" name="to" placeholder="ЧЧ:ММ:СС.ммм" value="23:59:59.999"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">Сдвинуть <a href="#" class="ajax advanced">все субтитры</a> на
-                        время:</label>
+                    <label class="control-label">Промяна на <a href="#" class="ajax advanced">всички субтитри</a> с
+                        </label>
                     <div class="controls">
                         <input type="text" name="value" placeholder="ЧЧ:ММ:СС.ммм" value="00:00:00.000" autofocus/>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Поехали</button>
-                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <button type="submit" class="btn btn-primary">Започни</button>
+                <a href="#" class="btn" data-dismiss="modal">Отмяна</a>
             </div>
         </form>
     </div>
@@ -377,14 +377,14 @@ if (Yii::app()->user->ini["t.oe_hide"]) $tableClasses[] = "translator-oe-hide";
     <form method="post" class="form-inline" action="<?= $chap->getUrl("renum"); ?>">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Перенумеровать субтитры</h3>
+            <h3>Преномериране на субтитри</h3>
         </div>
         <div class="modal-body">
-            Номер субтитра, серая циферка рядом с его таймингом, в сущности, ни на что не влияет, субтитры сортируются
-            по времени.
-            Если вы добавляете новый титр, его номер может выбиваться из плавного течения номеров. Этот инструмент
-            расставит всем
-            титрам номера в хронологическом порядке.
+            Номерът на титъра, сивата цифричка до тайминга му на практика не влияее на нищо. Субтитрите се сортират
+            по време.
+            Ако добавяте нов титър, номерът му може да промени номерацията. Този инструмент
+            ще сложи на
+            титри номера в хронологичен ред.
         </div>
         <div class="modal-footer">
             <input type="hidden" name="mode" value="1"/>

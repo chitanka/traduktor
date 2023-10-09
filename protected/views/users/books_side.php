@@ -7,7 +7,7 @@
 	 */
 ?>
 <div class='tools'>
-	<h5>Сортировка</h5>
+	<h5>Сортиране</h5>
 	<form method="get">
 	<ul class="nav nav-list"><?php
 		foreach($orderOptions as $i => $o) {

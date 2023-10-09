@@ -15,7 +15,7 @@ class MyCommentsController extends Controller {
 
 	public function actionIndex() {
 		$user = Yii::app()->user;
-		$modes = array("p" => "в постах", "o" => "в фрагментах оригинала");
+		$modes = array("p" => "в постове", "o" => "във фрагменти от оригинала");
 
 		if(key_exists("mode", $_GET) and isset($modes[$_GET["mode"]])){
 			$mode = $_GET["mode"];
@@ -91,9 +91,9 @@ class MyCommentsController extends Controller {
 		if($orig_id) {
 			$orig = Orig::model()->with("chap.book.membership")->findByPk($orig_id);
 			if(!$orig) {
-				throw new CHttpException(404, "Вы пытаетесь добавить несуществующий фрагмент оригинала в &laquo;мои обсуждения&raquo;. Скорее всего, его удалили");
+				throw new CHttpException(404, "Опитвате да добавите несъществуващ фрагмент на оригинала в &laquo;моите обсъждания&raquo;. Най-вероятно е изтрит");
 			} elseif(!$orig->chap->can("read")) {
-				throw new CHttpException(403, "Вы не можете добавить этот фрагмент в &laquo;мои обсуждения&raquo; так как у вас больше нет доступа этот перевод.");
+				throw new CHttpException(403, "Не можете да добавите този фрагмент в &laquo;моите обсъждания&raquo; тъй като нямате достъп до този превод.");
 			} else {
 				$orig->setTrack();
 			}
@@ -101,14 +101,14 @@ class MyCommentsController extends Controller {
 			$post = BlogPost::model()->with("book", "seen")->findByPk($post_id);
 
 			if(!$post) {
-				throw new CHttpException(404, "Вы пытаетесь добавить несуществующий пост в &laquo;мои обсуждения&raquo;. Скорее всего, его удалили.");
+				throw new CHttpException(404, "Опитвате да добавите несъществуващ пост в &laquo;моите обсъждания&raquo;. Най-вероятно е изтрит.");
 			} else if($post->book_id != 0 and !$post->book->can("blog_r")) {
-				throw new CHttpException(403, "Вы не можете добавить этот пост в &laquo;мои обсуждения&raquo; так как у вас нет доступа в блог перевода.");
+				throw new CHttpException(403, "Не можете да добавите този пост в &laquo;моите обсъждания&raquo; тъй като нямате достъп до блога на този превод.");
 			} else {
 				$post->setTrack();
 			}
 		} else {
-			throw new CHttpException(500, "Неверный запрос.");
+			throw new CHttpException(500, "Грешно търсене.");
 		}
 
 		if($_POST["ajax"]) {
@@ -134,7 +134,7 @@ class MyCommentsController extends Controller {
 
 			$this->redirect("/my/comments/?mode=p");
 		} else {
-			throw new CHttpException(500, "Неверный запрос.");
+			throw new CHttpException(500, "Грешно търсене.");
 		}
 
 	}

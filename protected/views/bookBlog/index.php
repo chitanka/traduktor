@@ -29,10 +29,10 @@
 ?>
 	<div class='alert alert-info' id="info_empty">
 		<?php
-			if($topic) echo "В этом разделе нет постов. <a href='" . $book->getUrl("blog") . "'>Показать посты из всех разделов</a>.";
-			else echo "Блог перевода пуст.";
+			if($topic) echo "В този раздел няма постове. <a href='" . $book->getUrl("blog") . "'>Показване на постове от всички раздели</a>.";
+			else echo "Блогът на превода е празен.";
 
-			if($book->can("blog_w")) echo " <a href='" . $book->getUrl("blog/edit" . ($topic ? "?topic={$topic}" : "")) . "' class='act'>Написать первый пост</a>.";
+			if($book->can("blog_w")) echo " <a href='" . $book->getUrl("blog/edit" . ($topic ? "?topic={$topic}" : "")) . "' class='act'>Напишете първия пост</a>.";
 		?>
 	</div>
 	<table class="items" id="Chapters"></table>

@@ -3,19 +3,19 @@
          src="http://<?=Yii::app()->params["domain"]; ?>/i/logo.png" alt="Курсомир.Переводы">
 </p>
 <p>
-    Добрый день, <?=$user->login; ?>!
+    Здравейте, <?=$user->login; ?>!
 </p>
 <p>
     <?=nl2br($Notice->render()); ?>
 </p>
 <address style="margin-top: 20px; border-top: 1px solid gray; width: 200px;">
-    С уважением,<br>
+    С уважение,<br>
     "КУРСОМИР"
 </address>
 <p style="color: #777; font-style: italic;">
-    P. S. Это письмо написано искусственным интеллектом, отвечать на него не надо. <br>
-    Вы получаете эти письма потому, что включили пересылку
-    <a href='http://<?=Yii::app()->params["domain"]; ?>/my/notices'>оповещений</a>
-    на электронную почту. Отключить её можно на странице
-    <a href='http://<?=Yii::app()->params["domain"]; ?>/register/settings'>настроек сайта</a>.
+    P. S. Това писмо е написано от изкуствен интелект. Не му отговаряйте. <br>
+    Получавате тези писма, защото се включили препращане на
+    <a href='http://<?=Yii::app()->params["domain"]; ?>/my/notices'>оповещения</a>
+    на електронната си поща. Можете да я изключите на страницата на
+    <a href='http://<?=Yii::app()->params["domain"]; ?>/register/settings'>настройките на сайта</a>.
 </p>

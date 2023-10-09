@@ -4,7 +4,7 @@
  * @var Category            $tree
  * @var CActiveDataProvider $books_dp
  */
-$this->pageTitle = "Каталог переводов";
+$this->pageTitle = "Каталог на преводите";
 ?>
 <style type="text/css">
     #Tree div.n {
@@ -61,8 +61,8 @@ $this->pageTitle = "Каталог переводов";
 
     <?php if (!is_null($cat)): ?>
         <p>
-            <a href="/search?cat=<?= $cat->id ?>&sort=3">Что нового?</a> |
-            <a href="/search?cat=<?= $cat->id ?>&sort=4">Что сейчас переводят?</a>
+            <a href="/search?cat=<?= $cat->id ?>&sort=3">Какво ново?</a> |
+            <a href="/search?cat=<?= $cat->id ?>&sort=4">Какво се превежда сега?</a>
         </p>
     <?php endif; ?>
 
@@ -73,7 +73,7 @@ $this->pageTitle = "Каталог переводов";
     if ($books_dp->totalItemCount) {
         $books = $books_dp->data;
 
-        echo "<h3>" . Yii::t("app", "{n} перевод|{n} перевода|{n} переводов", $books_dp->totalItemCount) . "</h3>";
+        echo "<h3>" . Yii::t("app", "{n} превод|{n} превода|{n} превода", $books_dp->totalItemCount) . "</h3>";
         $this->widget('bootstrap.widgets.TbPager', array("pages" => $books_dp->pagination));
         echo "<ul class='booklist has-icons'>";
         foreach ($books as $book) {
@@ -87,7 +87,7 @@ $this->pageTitle = "Каталог переводов";
         echo "</ul>";
         $this->widget('bootstrap.widgets.TbPager', array("pages" => $books_dp->pagination));
     } else {
-        echo "<div class='alert alert-block'>В этом разделе пока ещё нет ни одного перевода.</div>";
+        echo "<div class='alert alert-block'>В този раздел засега няма нито един превод.</div>";
     }
     ?>
 

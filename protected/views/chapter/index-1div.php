@@ -16,7 +16,7 @@
 
 	Yii::app()->bootstrap->registerModal();
 
-	$this->pageTitle = "Перевод " . $chap->book->fullTitle . ": " . $chap->title;
+	$this->pageTitle = "Превод " . $chap->book->fullTitle . ": " . $chap->title;
 	$this->layoutOptions["fluid"] = true;
 
 	/** @var Orig[] $orig */
@@ -74,7 +74,7 @@
 						echo "<li><label><input type='radio' name='show' value='{$k}' " . ($k == $filter->show ? " checked" : "") . "/> ";
 						if($k == 2) {
 							echo " <input type='text' name='show_user' placeholder='От преводача' class='span3' value='" . CHtml::encode($filter->show_user) . "' ";
-							if(!$user->isGuest) echo "title='Ctrl+I: вставить ваш ник' ";
+							if(!$user->isGuest) echo "title='Ctrl+I: слагане на вашия ник' ";
 							echo "/>";
 						} elseif($k == 5) {
 							echo " <input type='text' name='to' placeholder='Оригиналът съдържа' class='span3' value='" . CHtml::encode($filter->to) . "' />";
@@ -112,7 +112,7 @@
 	<?php endif; ?>
 
 	<div class="group">
-		<!--<a href="<?=$chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Старый	интерфейс"></i></a>-->
+		<!--<a href="<?=$chap->getUrl("switchiface"); ?>"><i class="icon-thumbs-down" title="Стар интерфейс"></i></a>-->
 		<a href="/blog/20938"><i class="icon-bullhorn" title="Обсъждане в блога"></i></a>
 	</div>
 
@@ -166,15 +166,15 @@
 		$tableClasses[] = "empty";
 		if($filter->show == 0 || $chap->n_verses == 0) {
 			$tableEmpty = true;
-			echo "<p class='alert alert-block' id='alert-empty'>В этой части перевода отсутствует текст оригинала.";
-			if($chap->book->can("chap_edit")) echo " Если хотите, вы можете <a href='" . $chap->getUrl("import") . "'>загрузить его</a> или <a href='#' class='create'>создать первый фрагмент</a>.";
+			echo "<p class='alert alert-block' id='alert-empty'>В тази част от превода липсва оригинален текст.";
+			if($chap->book->can("chap_edit")) echo " Ако искате, можете да <a href='" . $chap->getUrl("import") . "'>качите</a> или <a href='#' class='create'>и създадете първи фрагмент</a>.";
 			echo "</p>";
 		} else {
-			echo "<p class='alert alert-info'>Ничего не найдено. <a href='{$chap->url}'>Показать весь перевод.</a></p>";
+			echo "<p class='alert alert-info'>Нищо не е намерено. <a href='{$chap->url}'>Показване на целия превод.</a></p>";
 		}
 	else:
 		if(!$chap->book->can("trread")) {
-			echo "<div class='alert alert-danger'>Владелец перевода установил такие права доступа, что вы не можете просматривать чужие версии перевода здесь.</div>";
+			echo "<div class='alert alert-danger'>Собственикът е установил такива права за достъп, че не можете да виждате чужди версии на превода тук.</div>";
 		}
 	endif;
 
@@ -282,7 +282,7 @@
 		</div>
 		<div id="dict-body">
 			<div id="dict-body-content">
-				Минутку...
+				Минутка...
             </div>
 		</div>
 		<?php if($chap->book->can("dict_edit")): ?>
@@ -307,26 +307,26 @@
     <form method="post" class="form-inline" action="<?=$chap->getUrl("timeshift"); ?>">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Сдвинуть тайминг</h3>
+            <h3>Преместване на тайминг</h3>
         </div>
         <div class="modal-body">
 			<div class="control-group advanced">
-				<label class="control-label">Сдвинуть субтитры во временном промежутке</label>
+				<label class="control-label">Преместване на титри във времевия промеждутък</label>
 				<div class="controls">
                     <input type="text" name="from" placeholder="ЧЧ:ММ:СС.ммм" value="00:00:00.000" /> &mdash;
                     <input type="text" name="to" placeholder="ЧЧ:ММ:СС.ммм" value="23:59:59.999" />
 				</div>
 			</div>
             <div class="control-group">
-                <label class="control-label">Сдвинуть <a href="#" class="ajax advanced">все субтитры</a> на время:</label>
+                <label class="control-label">Преместване <a href="#" class="ajax advanced">на всички субтитри</a> с:</label>
                 <div class="controls">
                     <input type="text" name="value" placeholder="ЧЧ:ММ:СС.ммм" value="00:00:00.000" autofocus />
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Поехали</button>
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+            <button type="submit" class="btn btn-primary">Започване</button>
+            <a href="#" class="btn" data-dismiss="modal">Отмяна</a>
         </div>
     </form>
 </div>
@@ -336,17 +336,17 @@
     <form method="post" class="form-inline" action="<?=$chap->getUrl("renum"); ?>">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Перенумеровать субтитры</h3>
+            <h3>Преномериране на субтитрите</h3>
         </div>
         <div class="modal-body">
-			Номер субтитра, серая циферка рядом с его таймингом, в сущности, ни на что не влияет, субтитры сортируются по времени.
-			Если вы добавляете новый титр, его номер может выбиваться из плавного течения номеров. Этот инструмент расставит всем
-			титрам номера в хронологическом порядке.
+			Номерът на титъра, сивата цифра до тайминъга, на практика, не влияе на нищо, титрите се сортират по време.
+			Ако добавяте нов титър, номерът му може да се различава от номерацията. Този инструмент ще направи номерацията
+			на титрите в хронологичен ред.
         </div>
         <div class="modal-footer">
 			<input type="hidden" name="mode" value="1" />
-            <button type="submit" class="btn btn-primary">Поехали</button>
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+            <button type="submit" class="btn btn-primary">Започни</button>
+            <a href="#" class="btn" data-dismiss="modal">Отмяна</a>
         </div>
     </form>
 </div>

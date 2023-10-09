@@ -3,12 +3,12 @@
 	 * @var Mail $message
 	 */
 
-	$this->pageTitle = "Письмо " . ($message->folder == Mail::INBOX ? "от" : "к") . " {$message->buddy->login}";
+	$this->pageTitle = "Писмо " . ($message->folder == Mail::INBOX ? "от" : "к") . " {$message->buddy->login}";
 ?>
 <script type="text/javascript">
 var P = {
 	rm: function() {
-		if(!confirm("Вы уверены, что хотите удалить это письмо?")) return false;
+		if(!confirm("Сигурни ли сте, че искате да изтриете това писмо?")) return false;
 		$("#form-rm").submit();
 	},
 	unseen: function() {
@@ -21,7 +21,7 @@ var P = {
 </script>
 
 <?php
-	echo "<h1>" . ($message->subj == "" ? "Письмо" : $message->subj) . "</h1>";
+	echo "<h1>" . ($message->subj == "" ? "Писмо" : $message->subj) . "</h1>";
 	echo "<div class='body'>";
 	echo Yii::app()->parser->parse($message->body);
 	echo "</div>";

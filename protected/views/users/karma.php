@@ -40,7 +40,7 @@ $(KarmaSet.init);
 		<div class="span3">
 			<h3>Вашата оценка</h3>
 			<?php echo $form->radioButtonList($my_mark, "mark", array(1 => "Положителна", 0 => "Никаква", -1 => "Отрицателна"), array("uncheckValue" => null)); ?>
-			<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> Поставетеь оценка</button>
+			<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i> Поставете оценка</button>
 		</div>
 		<div class="span5">
 			<h3>Комментари</h3>
@@ -79,7 +79,7 @@ $(KarmaSet.init);
 			echo $html[$z];
 			echo "</ul>";
 		} else {
-			echo $dir == "out" ? "Никому" : "Никто";
+			echo $dir == "out" ? "На никого" : "Никой";
 		}
 		echo "</div>";
 	}

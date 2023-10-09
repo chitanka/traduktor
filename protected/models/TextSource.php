@@ -2,7 +2,7 @@
 class TextSource extends CFormModel {
 	public $src_type = 1, $text, $file, $encoding, $url, $chopper;
 
-	public $choppers = array(1 => "по переносу строки", 2 => "по двум переносам строки", 0 => "не разбивать вообще, я сделаю это вручную");
+	public $choppers = array(1 => "през един ред", 2 => "през два реда", 0 => "не разбивай нищо, ще го направя ръчно");
 	public $choppers_delim = array(1 => "\n", 2 => "\n\n");
 
 	public function rules() {
@@ -19,8 +19,8 @@ class TextSource extends CFormModel {
 	public function attributeLabels() {
 		return array(
 			"file" => "Файл",
-			"chopper" => "Разбить на фрагменты",
-			"encoding" => "Кодировка",
+			"chopper" => "Разбиване на части",
+			"encoding" => "Кодиране",
 		);
 	}
 
@@ -34,7 +34,7 @@ class TextSource extends CFormModel {
 				$file = CUploadedFile::getInstanceByName("TextSource[file]");
 				$this->text = file_get_contents($file->tempName, false, null, -1, 500 * 1024);
 				if($this->text === false) {
-					$this->addError("file", "Файл не загрузился. Возможно, он слишком велик.");
+					$this->addError("file", "Файлът не се зареди. Възможно, е прекалено голям.");
 					return false;
 				}
 
@@ -42,13 +42,13 @@ class TextSource extends CFormModel {
 				if($this->encoding != "UTF-8") {
 					$this->text = iconv($this->encoding, "UTF-8//IGNORE", $this->text);
 				} elseif(!mb_check_encoding($this->text, "utf-8")) {
-					$this->addError("encoding", "Неправильная кодировка текста, выберите правильную.");
+					$this->addError("encoding", "Грешен енкодинг на текста, изберете правилния.");
 				}
 				break;
 			case 3:
 				exit;
 				if(!preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $this->url)) {
-					$this->addError("url", "Некорректный URL. Должно быть что-то вроде http://someawesomesite.ru/foo/bar/baz.html");
+					$this->addError("url", "Грешен URL. Трябва да бъде нещо от сорта на http://someawesomesite.ru/foo/bar/baz.html");
 					return false;
 				}
 
@@ -79,7 +79,7 @@ class TextSource extends CFormModel {
 				if($charset != "UTF-8" && $charset != "UTF8") {
 					$html = iconv($charset, "UTF-8", $html);
 				} elseif(!mb_check_encoding($html, "utf-8")) {
-					$this->addError("encoding", "Неправильная кодировка текста, выберите правильную.");
+					$this->addError("encoding", "Грешен енкодинг на текста, изберете правилния.");
 				}
 
 				$html = preg_replace('#<head>.+</head>#isU', '', $html);
@@ -104,7 +104,7 @@ class TextSource extends CFormModel {
 
 				break;
 			default:
-				$this->addError("src_typ", "Системная ошибка. Обратитесь в техподдержку.");
+				$this->addError("src_typ", "Системна грешка. Обърнете се към техническата поддръжка.");
 				return false;
 				break;
 		}
@@ -112,12 +112,12 @@ class TextSource extends CFormModel {
 		$this->text = trim($this->text);
 
 		if($this->text == "") {
-			$this->addError("src_typ", "Текст не обнаружен. Иногда это случается, если выбрать неправильную кодировку.");
+			$this->addError("src_typ", "Текстът не е открит. Понякога става така, когато избереш грешния енкодинг.");
 			return false;
 		}
 
 		if(mb_strlen($this->text) > 500 * 1024) {
-			$this->addError("src_typ", "Слишком большой текст. Пожалуйста, разбейте его на несколько глав, не более 500 КБ каждая.");
+			$this->addError("src_typ", "Текстът е прекалено голям. Молим, разбийте го на няколко глави, не по-голями от 500 КБ всяка.");
 			return false;
 		}
 
@@ -148,9 +148,9 @@ class TextSource extends CFormModel {
 
 		$warnings = array();
 		if($n_long > 0)
-			$warnings[] = "В тексте есть <strong>" . Yii::t("app", "{n} слишком длинный абзац.|{n} слишком длинных абзаца|{n} слишком длинных абзацев", $n_long) . "</strong>, они выделены красной полосой слева. Их будет неудобно переводить, разбейте их на менее крупные.";
+			$warnings[] = "В текста има <strong>" . Yii::t("app", "{n} прекалено дълъг абзац.|{n} прекалено дълги абзаци.|{n} прекалено дълги абзаци", $n_long) . "</strong>, те са отделени с червена линия вляво. Ще бъдат неудобни за превод, разбийте ги на по-малки парчета.";
 		if(count($text) > 5000)
-			$warnings[] = "Текст разбился на <strong>" . Yii::t("app", "{n} фрагмент|{n} фрагмента|{n} фрагментов", $n_verses) . "</strong>, возможно, вам стоит разделить текст на несколько глав.";
+			$warnings[] = "Текстът се разби на <strong>" . Yii::t("app", "{n} фрагмента|{n} фрагмента|{n} фрагмента", $n_verses) . "</strong>, възможно, ще е по-удобно ако разбиете текста на няколко глави.";
 		if(count($warnings)) {
 			Yii::app()->user->setFlash("warning", join("<br />", $warnings));
 		}

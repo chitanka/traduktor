@@ -3,7 +3,7 @@
 ?>
 <h1><?=$this->book->fullTitle; ?></h1>
 <p class="info">
-	Вы отказались от участия в этом переводе.
+	Отказахте участие в превода.
 </p>
 <p>
 	<a href="<?=$this->book->url; ?>">Съдържание на превода</a> |
@@ -13,5 +13,5 @@
 			echo '<a href="', htmlspecialchars($_SERVER['HTTP_REFERER'], ENT_QUOTES), '">Назад</a> | ';
 		}
 	?>
-	<a href="/">Главная</a>
+	<a href="/">Главна</a>
 </p>

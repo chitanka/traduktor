@@ -24,17 +24,17 @@ class Mail extends CActiveRecord {
 	const SENT = 2;
 
 	public static $folders = array(
-		self::INBOX => "входящие",
-		self::SENT => "исходящие",
+		self::INBOX => "Входящи",
+		self::SENT => "Изходящи",
 	);
 
 	public $sendTo;
 
 	public function attributeLabels() {
 		return array(
-			"sendTo" => "Кому",
+			"sendTo" => "На кого",
 			"subj" => "Тема",
-			"body" => "Сообщение",
+			"body" => "Съобщение",
 		);
 	}
 
@@ -46,18 +46,18 @@ class Mail extends CActiveRecord {
 
 	public function rules() {
 		return array(
-			array("sendTo", "required", "message" => "Пожалуйста, введите ник получателя письма."),
+			array("sendTo", "required", "message" => "Молим, въведете ника на получателя на писмото."),
 			array("sendTo", "validateSendTo"),
 			array("subj", "validateSubj"),
 			array("body", "validateBody"),
-			array("body", "required", "message" => "Письмо без текста &dash; слишком многозначительный акт коммуникации. Напишите что-нибудь."),
+			array("body", "required", "message" => "Писмото без текст е &dash; прекалено многозначителен начин за комуникация. Напишете нещо."),
 		);
 	}
 
 	public function validateSendTo($attr, $params) {
 		$buddy = User::model()->byLogin($this->$attr)->find();
 		if(!$buddy) {
-			$this->addError("sendTo", "Пользователя с таким ником не существует.");
+			$this->addError("sendTo", "Потребител с такъв ник не съществува.");
 			return;
 		}
 		$this->buddy = $buddy;
@@ -92,8 +92,8 @@ class Mail extends CActiveRecord {
 	public function send() {
 		if(!$this->validate()) return false;
 
-		if(!$this->isNewRecord) throw new CHttpException(500, "Системная ошибка Mail::send::notNewRecord");
-		if(!($this->buddy instanceof User)) throw new CHttpException(500, "Системная ошибка Mail::send::buddyNotUser");
+		if(!$this->isNewRecord) throw new CHttpException(500, "Системна грешка Mail::send::notNewRecord");
+		if(!($this->buddy instanceof User)) throw new CHttpException(500, "Системна грешка Mail::send::buddyNotUser");
 
 		// 2. Помещаем письмо в свои исходящие
 		$sent = clone $this;
@@ -113,9 +113,9 @@ class Mail extends CActiveRecord {
 
 		// 3. Если нужно, шлём почту получателю
 		if($this->buddy->ini_get(User::INI_MAIL_PMAIL)) {
-			$msg = new YiiMailMessage("Вам письмо! Тема: \"" . $this->subj . "\"");
+			$msg = new YiiMailMessage("Имате писмо! Тема: \"" . $this->subj . "\"");
 			$msg->view = "mail";
-			$msg->setFrom(array(Yii::app()->params["systemEmail"] => Yii::app()->user->login . " - письмо"));
+			$msg->setFrom(array(Yii::app()->params["systemEmail"] => Yii::app()->user->login . " - писмо"));
 			$msg->addTo($this->buddy->email);
 			$msg->setBody(array("message" => $this), "text/html");
 			Yii::app()->mail->send($msg);

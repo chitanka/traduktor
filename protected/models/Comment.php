@@ -27,7 +27,7 @@ class Comment extends CActiveRecord {
 
 	public function attributeLabels() {
 		return array(
-			"body" => "Комментарий",
+			"body" => "Коментар",
 		);
 	}
 
@@ -151,7 +151,7 @@ class Comment extends CActiveRecord {
 	* @param Comment $comment
 	*/
 	public function reply($comment) {
-		if(Yii::app()->user->isGuest) throw new CHttpException(500, "Анонимные комментарии запрещены");
+		if(Yii::app()->user->isGuest) throw new CHttpException(500, "Анонимните коментари са забранени.");
 
 		$comment->cdate = date("Y-m-d H:i:s");
 		$comment->author = Yii::app()->user->getModel();

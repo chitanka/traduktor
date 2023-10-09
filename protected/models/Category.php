@@ -13,7 +13,7 @@ class Category extends CActiveRecord {
 
 	public function rules() {
 		return array(
-			array("title", "required", "message" => "Введите название раздела"),
+			array("title", "required", "message" => "Въведете названието на раздела"),
 			array("title", "filter", "filter" => "htmlspecialchars"),
 			array("available", "boolean"),
 		);
@@ -29,7 +29,7 @@ class Category extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			"title" => "",
-			"available" => "Можно добавлять переводы",
+			"available" => "Може да се добавят преводи",
 		);
 	}
 
@@ -116,13 +116,13 @@ class Category extends CActiveRecord {
 	public function beforeDelete() {
 		$has_kids = Yii::app()->db->createCommand("SELECT 1 FROM catalog WHERE pid = :id LIMIT 1")->query(array(":id" => $this->id))->count();
 		if($has_kids) {
-			$this->addError("id", "У этого раздела есть подразделы, сначала удалите их.");
+			$this->addError("id", "Този раздел има подраздели, първо изтрийте тях.");
 			return false;
 		}
 
 		$has_books = Yii::app()->db->createCommand("SELECT 1 FROM books WHERE cat_id = :id LIMIT 1")->query(array(":id" => $this->id))->count();
 		if($has_books) {
-			$this->addError("id", "В этом разделе есть переводы, перенесите их в другой раздел.");
+			$this->addError("id", "В този раздел има преводи, преместете ги в друг раздел.");
 			return false;
 		}
 
@@ -208,7 +208,7 @@ class Category extends CActiveRecord {
     public static function getCategoryById($cat_id)
 	{
 		if (!is_numeric($cat_id) && $cat_id < 0){
-			throw new TypeError('Id категории должно быть числовым значением!');
+			throw new TypeError('Id на категорията трябва да бъде в цифров формат!');
 		}
 
 		return self::model()->findByPk($cat_id);

@@ -70,9 +70,9 @@ Yii::app()->bootstrap->registerModal();
 <!--                            <input type="submit" value="Войти" class="btn"/>-->
 <!--                        </form>-->
 <!--                    </li>-->
-<!--                    <li><a href="/register"><strong>Зарегистрироваться</strong></a></li>-->
-<!--                    <li><a href="/register/remind"><strong>Напомнить пароль</strong></a></li>-->
-<!--                    <li><p>Зарегистрировавшись, вы сможете добавлять свои версии перевода, ставить оценки переводам.</p></li>-->
+<!--                    <li><a href="/register"><strong>Регистрация</strong></a></li>-->
+<!--                    <li><a href="/register/remind"><strong>Напомняне на парола</strong></a></li>-->
+<!--                    <li><p>След регистрация ще можете да добавяте свои версии на превода, да слагате оценки на преводите.</p></li>-->
                 <?php else: ?>
                     <li>
                         <a href="<?= Yii::app()->user->url; ?>" accesskey="i">
@@ -106,7 +106,7 @@ Yii::app()->bootstrap->registerModal();
 							<span class="fa fa-cogs"></span>
 							Настройки
 						</a></li>
-<!--                    <li><a href="/register/logout"><strong>Выход</strong> До свидания :(</a></li>-->
+<!--                    <li><a href="/register/logout"><strong>Изход</strong> Довиждане :(</a></li>-->
                 <?php endif ?>
             </ul>
         </nav>
@@ -124,27 +124,27 @@ if (!Yii::app()->user->isGuest):
             <h3>Закладки</h3>
             <div class="btn-toolbar">
                 <div class="btn-group" data-toggle="buttons-radio" id="bookmarks-tb-sort">
-                    <button class="btn btn-mini" data-v="1" title="Сортировка по алфавиту">
+                    <button class="btn btn-mini" data-v="1" title="Сортиране по азбучен ред">
                         <i class="icon-text-height"></i>
                     </button>
-                    <button class="btn btn-mini" data-v="2" title="Сортировка по вашей активности">
+                    <button class="btn btn-mini" data-v="2" title="Сортиране по вашата активност">
                         <i class="icon-fire"></i>
                     </button>
-                    <button class="btn btn-mini" data-v="3" title="Сортировка по времени вступления в перевод">
+                    <button class="btn btn-mini" data-v="3" title="Сортиране по встъпването ви в превод">
                         <i class="icon-time"></i>
                     </button>
-                    <button class="btn btn-mini" data-v="5" title="Сортировка по времени добавления закладки">
+                    <button class="btn btn-mini" data-v="5" title="Сортиране по време на добавяне на отметка">
                         <i class="icon-shopping-cart"></i>
                     </button>
-                    <button class="btn btn-mini" data-v="4" title="Сортировка по готовности перевода">%</button>
-                    <button class="btn btn-mini" data-v="0" title="Ваша сортировка (таскайте закладки мышкой)">
+                    <button class="btn btn-mini" data-v="4" title="Сортиране по готовност на превода">%</button>
+                    <button class="btn btn-mini" data-v="0" title="Ваше сортиране (дърпайте опциите с мишката)">
                         <i class="icon-random"></i>
                     </button>
                 </div>
 
                 <div class="btn-group" data-toggle="buttons-radio" id="bookmarks-tb-title">
-                    <button class="btn btn-mini" data-v="s" title="Показывать названия на языке оригинала">О</button>
-                    <button class="btn btn-mini" data-v="t" title="Показывать названия на языке перевода">П</button>
+                    <button class="btn btn-mini" data-v="s" title="Показване на заглавията на езика на оригинала">О</button>
+                    <button class="btn btn-mini" data-v="t" title="Показване на заглавията на езика на превода">П</button>
                 </div>
                 <?php if (0): // @todo ?>
                     <div class="btn-group" id="bookmarks-tb-status">
@@ -153,17 +153,17 @@ if (!Yii::app()->user->isGuest):
                     </div>
                 <?php endif; ?>
                 <div class="btn-group pull-right">
-                    <button class="btn btn-mini" title="Удалить" id="bookmarks-tb-rm">
+                    <button class="btn btn-mini" title="Изтриване" id="bookmarks-tb-rm">
                         <i class="icon-remove"></i>
                     </button>
-                    <button class="btn btn-mini" title="Редактировать" id="bookmarks-tb-ed">
+                    <button class="btn btn-mini" title="Редактиране" id="bookmarks-tb-ed">
                         <i class="icon-edit"></i>
                     </button>
                 </div>
             </div>
         </div>
         <div class="modal-body" style="max-height:350px">
-            <p class='loading'>минуточку...</p>
+            <p class='loading'>Минутка...</p>
         </div>
     </div>
 <?php endif; ?>

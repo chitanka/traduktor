@@ -70,7 +70,7 @@ document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/code/
 			</p>
 HTML;
 	} else {
-		echo "<h3>" . Yii::t("app", "Намерен е {n} превод|Намерени са {n} превода|Намерени са {n} преводов", $dp->totalItemCount) . "</h3>";
+		echo "<h3>" . Yii::t("app", "Намерен е {n} превод|Намерени са {n} превода|Намерени са {n} превода", $dp->totalItemCount) . "</h3>";
 		$this->widget('bootstrap.widgets.TbPager', array("pages" => $dp->pagination, "header" => "<div class='pagination' style='margin-bottom:0'>"));
 ?>
 
@@ -98,8 +98,8 @@ HTML;
 			echo "от " . $book->owner->ahref;
 
 			if(!$filter->cat && $book->cat_id) echo " <small class='cat'><a href='/search?cat={$book->cat_id}'>{$book->cat->title}</a></small> ";
-			if($filter->sort == 3) echo "<br />создано " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->cdate);
-			elseif($filter->sort == 4) echo "<br />последняя активность " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->last_tr);
+			if($filter->sort == 3) echo "<br />създадено " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->cdate);
+			elseif($filter->sort == 4) echo "<br />последна активност " . Yii::app()->dateFormatter->format("d.MM.yyyy HH:mm", $book->last_tr);
 			echo "</div>";
 
 			echo "</li>";

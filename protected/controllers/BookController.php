@@ -292,7 +292,7 @@ SQL;
 			$this->book->save(array("n_invites"));
 			$user->setFlash("success", Yii::t("app", "Изпратена е {n} покана|Изпратени са {n} покани|Изпратени са {n} покани", $n) . ": {$invited}");
 		} else {
-			$user->setFlash("error", "Не е изпратена нито една покана. Може би неправилно сте въвели имената на потребителите или вече им е била изпратена покана или вече участват в превода.");		}
+			$user->setFlash("error", "Не е изпратена нито една покана. Може би неправилно сте въвели имената на потребителите или вече им е била изпратена покана, или вече участват в превода.");		}
 
 		return true;
 	}
@@ -457,7 +457,7 @@ SQL;
 
 	public function actionMembers_leave($book_id) {
         if(!Yii::app()->request->isPostRequest) {
-            throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги правете отново.");
+            throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, молим, не ги повтаряйте.");
         }
 
 		$this->book = Book::model()->with("owner")->membership(Yii::app()->user->id)->findByPk(intval($book_id));
@@ -548,7 +548,7 @@ SQL;
 
 	public function actionDict_edit($book_id) {
 		if(!Yii::app()->request->isPostRequest) {
-			throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги правете отново.");
+			throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги повтаряйте.");
 		}
 
 		$book = $this->loadBook($book_id);
@@ -582,7 +582,7 @@ SQL;
 
 	public function actionDict_rm($book_id) {
 		if(!Yii::app()->request->isPostRequest) {
-			throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги правете отново.");
+			throw new CHttpException(400, "Не би трябвало да виждате тази страница. Каквито и действия да са ви довели тук, моля, не ги повтаряйте.");
 		}
 
 		$book = $this->loadBook($book_id);
@@ -592,7 +592,7 @@ SQL;
 
 		$id = (int) $_POST["id"];
 		$dict = Dict::model()->findByPk($id);
-		if(!$dict) throw new CHttpException(404, "Слова, которое вы пытаетесь отредактировать, нет в словаре этого перевода.");
+		if(!$dict) throw new CHttpException(404, "Думите, които опитвате да редактирате, липсват в речника на този превод.");
 
 		if($dict->book_id != $book->id) throw new CHttpException(403, "Опитвате се да премахнете дума от друг превод. Това не е хубаво.");
 

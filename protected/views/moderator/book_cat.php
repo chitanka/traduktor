@@ -80,7 +80,7 @@ $(T.init);
 		echo "<td>";
 		echo "<select name='cat_id[{$book->id}]'>";
 		echo "<option value='0'></option>";
-		echo "<option value='-1'>Вне каталога</option>";
+		echo "<option value='-1'>Извън каталога</option>";
 		foreach($categories[$book->typ] as $cat) {
 			echo "<option value='{$cat->id}'" . ($cat->id == $book->cat_id ? " selected" : "") . (!$cat->available ? " disabled" : "") . ">{$cat->title}</option>";
 		}

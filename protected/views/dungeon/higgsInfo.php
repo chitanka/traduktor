@@ -5,7 +5,7 @@
 	$maxUsers = $last["stay"] + $last["left"];
  */
 
-	$this->pageTitle = "Статистика использования интерфейсов";
+	$this->pageTitle = "Статистика на използване на интерфейси";
 ?>
 <style type="text/css">
 #graph { width:800px; height:400px; }
@@ -35,7 +35,7 @@
 .bars p {display:block; width:100%; position:absolute; bottom:10px; font-size:10px; margin:0;}
 </style>
 
-<h1>Статистика использования того или иного интерфейса</h1>
+<h1>Статистика на изпозлване на един или друг интерфейс</h1>
 
 <div class="bars">
 <?php
@@ -43,7 +43,7 @@
 	$s = [0 => 0, 1 => 0];
 	foreach($higgsStat as $uid => $iface) $s[$iface]++;
 	$n = $s[0] + $s[1];
-	$titles = [1 => "Пользуются новым интерфейсом", 0 => "Пользуются старым интерфейсом"];
+	$titles = [1 => "Използване на новия интерфейс", 0 => "Използват стар интерфейс"];
 	$bgs = [
 		1 => "http://s0.tchkcdn.com/g2-YZRz499x09ztrOPemU-Mng/news/640x0/w/1/1-9-7-9-25979/8f1844ac309a05520b968908bab3be88_2012_07_04t073720z_400716851_gm1e87417br01_rtrmadp_3_science_higgs.jpg",
 		0 => "http://cds.cern.ch/record/1277689/files/dirac-at-cern-by-sandra-hoogeboom_06(1)_image.jpg?subformat=icon"
@@ -61,7 +61,7 @@
 </div>
 
 <?php if(0): ?>
-<h2>Статистика использования переключателя:</h2>
+<h2>Статистика за изпозлване на превключването:</h2>
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="graph">
     <line x1="40" y1="0" x2="40" y2="360" stroke-width="2" stroke="rgb(0,0,0)" />
@@ -88,7 +88,7 @@
 	?>
 </svg>
 
-<p style="color:rgb(0,200,0)">Попробовали и остались: <b><?php printf("%d (%d%%)", $last["stay"], round($last["stay"] / $maxUsers * 100)); ?></b></p>
-<p style="color:rgb(0,0,200)">Попробовали и вернулись: <b><?php printf("%d (%d%%)", $last["left"], round($last["left"] / $maxUsers * 100)); ?></b></p>
+<p style="color:rgb(0,200,0)">Опитали и останали: <b><?php printf("%d (%d%%)", $last["stay"], round($last["stay"] / $maxUsers * 100)); ?></b></p>
+<p style="color:rgb(0,0,200)">Опитали и върнали се: <b><?php printf("%d (%d%%)", $last["left"], round($last["left"] / $maxUsers * 100)); ?></b></p>
 
 <?php endif; ?>

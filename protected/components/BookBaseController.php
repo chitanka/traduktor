@@ -7,10 +7,10 @@ class BookBaseController extends Controller {
 		if($this->book === null) {
 			$this->book = $class::model()->with("owner", "membership", "cat")->findByPk($book_id);
 		}
-		if(!$this->book) throw new CHttpException(404, "Такого перевода не существует. Возможно, он удалён или вы неправильно набрали адрес. Попробуйте воспользоваться <a href='/search'>поиском</a>, например.");
+		if(!$this->book) throw new CHttpException(404, "Такъв превод не съществува. Възможно е изтрит или сте въвели грешен адрес. Пробвайте с <a href='/search'>търсене</a>, например.");
 
 		if($this->book->typ == "P") {
-			throw new CHttpException(410, "Извините, раздел перевода фраз временно отключен для переосмысления. Следите за <a href='/blog?topic=64'>нашим блогом</a>, если хотите первыми узнать, когда он снова будет запущен.");
+			throw new CHttpException(410, "Извинете, разделът за превод на фрази е времено изключен за преосмисляне. Следете <a href='/blog?topic=64'>нашия блог</a>, ако искате първи да разберете, кога е заработил отново.");
 		}
 
 		if($this->book->opts_get(Book::OPTS_BAN_COPYRIGHT)) {
@@ -23,7 +23,7 @@ class BookBaseController extends Controller {
 			if(!$reason) $reason = new BookBanReason();
 
 			if(!$this->book->can("read")) {
-				$html = "Сожалеем, но этот перевод заблокирован по заявке правообладателя";
+				$html = "Съжаляваме, но този превод е блокиран по заявка на правообладателя";
 				if($reason->url != "") $html .= " <a href='{$reason->url}' rel='nofollow'>{$reason->title}</a>";
 				elseif($reason->title != "") $html .= " {$reason->title}";
 				if($reason->email != "") $html .= " (<a href='mailto:{$reason->email}'>{$reason->email}</a>)";
@@ -47,7 +47,7 @@ class BookBaseController extends Controller {
 							$msg .= $this->renderPartial("//book/_join", array("book" => $this->book), true);
 						} elseif($this->book->facecontrol == Book::FC_INVITE) {
 							if($this->book->user_invited(Yii::app()->user->id)) {
-								$msg .= "<br /><br />И, кстати, это приглашение у вас есть.<br /><br />" .
+								$msg .= "<br /><br />И, между другото, имате тази покана.<br /><br />" .
 									"<a href='" . $this->book->getUrl("invite_accept")  . "' class='btn btn-success'><i class='icon-ok icon-white'></i> Приемане</a> " .
 									"<a href='" . $this->book->getUrl("invite_decline") . "' class='btn btn-inverse'><i class='icon-remove-sign icon-white'></i> Отказ</a>";
 							}
@@ -57,7 +57,7 @@ class BookBaseController extends Controller {
 
 				$msg .= "<br /><br /><a href='/search?t=" . urlencode($this->book->s_title) . "'>Търсене на подобни преводи</a> | ";
 				$msg .= "<a href='" . $this->book->owner->getUrl("books") . "'>Други преводи от {$this->book->owner->login}</a> | ";
-				if(!Yii::app()->user->isGuest) $msg .= "<a href='/mail/write?to=" . urlencode($this->book->owner->login) . "'>Написать письмо {$this->book->owner->login}</a> ";
+				if(!Yii::app()->user->isGuest) $msg .= "<a href='/mail/write?to=" . urlencode($this->book->owner->login) . "'>Напиши писмо {$this->book->owner->login}</a> ";
 			}
 
 			throw new CHttpException(403, $msg);

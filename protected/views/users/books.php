@@ -54,7 +54,7 @@ if($groups_dp->totalItemCount):
 		echo "<td>";
 		if($group->status == GroupMember::MODERATOR) echo "<i class='icon-briefcase' title='Модератор'></i> ";
 		echo "<a href='{$group->book->url}' title='" . Yii::app()->params["book_types"][$group->book->typ] . " " . Yii::app()->langs->from_to($group->book->s_lang, $group->book->t_lang) . "'>{$group->book->fullTitle}</a>";
-		if($group->book->owner_id == $user->id) echo " (создатель)";
+		if($group->book->owner_id == $user->id) echo " (създате;)";
 		echo "</td>";
 
 		echo "<td>{$group->book->ready}</td>";

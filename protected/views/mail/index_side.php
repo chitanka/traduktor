@@ -17,11 +17,11 @@
 		<input type="hidden" name="folder" value="<?=$folder; ?>" />
 		<label class="checkbox">
 			<input type="checkbox" name="new" value="1" onclick="this.form.submit()" <?php if(isset($_GET["new"])) echo "checked"; ?>/>
-			только непрочитанные
+			само непрочетени
 		</label>
 	</form>
 
 	<p>
-		<a href="/my/mail/write" class="btn btn-success"><i class="icon-envelope icon-white"></i> Написать письмо</a>
+		<a href="/my/mail/write" class="btn btn-success"><i class="icon-envelope icon-white"></i> Напиши писмо</a>
 	</p>
 </div>

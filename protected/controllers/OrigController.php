@@ -40,7 +40,7 @@ class OrigController extends Controller {
 		/** @var Chapter $chap */
 		$chap = Chapter::model()->with("book.membership")->findByPk($chap_id);
 
-		if(!$chap) throw new CHttpException(404, "Главы не существует. Возможно, она была удалена. <a href='/book/{$book_id}/'>Вернуться к оглавлению перевода</a>.");
+		if(!$chap) throw new CHttpException(404, "Главата не съществува. Възможно е била изтрита. <a href='/book/{$book_id}/'>Връщане към съдържанието на превода.</a>.");
 		if($chap->book->id != $book_id) $this->redirect($chap->book->getUrl($chap_id));
 
 		// ac_read для всего перевода. Если нельзя в весь перевод, редиректим в оглавление перевода, пусть контроллер Book объясняет, почему да как.
@@ -49,7 +49,7 @@ class OrigController extends Controller {
 		// ac_read для этой главы
 		if(!$chap->can("read")) {
 			$msg = $chap->deniedWhy;
-			$msg .= "<br /><br /><a href='{$chap->book->url}'>Вернуться к оглавлению</a>.";
+			$msg .= "<br /><br /><a href='{$chap->book->url}'>Връщане към съдържанието.</a>.";
 			throw new CHttpException(403, $msg);
 		}
 
@@ -80,7 +80,7 @@ class OrigController extends Controller {
 					"params" => array(":chap_id" => $chap_id, ":book_id" => $book_id)
 				)
 		);
-		if(!$orig) throw new CHttpException(404, "Фрагмент оригинала, увы, удалён. Вернуться к <a href='/book/{$book_id}/{$chap_id}'>переводу главы</a> или <a href='/book/{$book_id}'>оглавлению перевода</a>.");
+		if(!$orig) throw new CHttpException(404, "Част от оригинала, уви, е изтрита. Връщане към <a href='/book/{$book_id}/{$chap_id}'>превода на главата</a> или <a href='/book/{$book_id}'>съдържанието на превода</a>.");
 
 		// ac_read для всего перевода. Если нельзя в весь перевод, редиректим в оглавление перевода, пусть контроллер Book объясняет, почему да как.
 		if(!$orig->chap->book->can("read")) $this->redirect($orig->chap->book->url);
@@ -88,7 +88,7 @@ class OrigController extends Controller {
 		// ac_read для этой главы
 		if(!$orig->chap->can("read")) {
 			$msg = $orig->chap->deniedWhy;
-			$msg .= "<br /><br /><a href='{$orig->chap->book->url}'>Вернуться к оглавлению</a>.";
+			$msg .= "<br /><br /><a href='{$orig->chap->book->url}'>Връщане към съдържанието.</a>.";
 			throw new CHttpException(403, $msg);
 		}
 
@@ -145,12 +145,12 @@ class OrigController extends Controller {
 		$orig = $this->loadOrig($book_id, $chap_id, $orig_id);
 		$comment_id = (int) $comment_id;
 
-		if(!$orig->chap->can("comment")) throw new CHttpException(403, "Вы не можете комментировать этот перевод. " . $orig->chap->getWhoCanDoIt("comment", false));
+		if(!$orig->chap->can("comment")) throw new CHttpException(403, "Не можете да коментирате този превод. " . $orig->chap->getWhoCanDoIt("comment", false));
 		if(!isset($_POST["Comment"])) $this->redirect($orig->chap->url);
 
 		if($comment_id) {
 			$parent = Comment::model()->with("author")->findByPk($comment_id);
-			if(!$parent) throw new CHttpException(404, "Вы пытаетесь ответить на несуществующий комментарий.");
+			if(!$parent) throw new CHttpException(404, "Опитвате се да отговорите на несъществуващ коментар.");
 		} else {
 			$parent = new Comment();
 		}
@@ -193,15 +193,15 @@ class OrigController extends Controller {
 		// Загружаем удаляемый комментарий вместе с постом
 		$comment = Comment::model()->with("orig.chap.book.membership")->findByPk($comment_id);
 		if(!$comment) {
-			$json["error"] = "Вы пытаетесь удалить несуществующий комментарий. Бросьте, пустое.";
+			$json["error"] = "Опитвате да изтриете несъществуващ коментар. Зарежете.";
 		} else {
 			// Права доступа: свой комментарий, в моём посте, модератор блога
 			if(!$comment->can("delete")) {
-				$json["error"] = "Вы не можете удалить этот комментарий.";
+				$json["error"] = "Не можете да изтриете този коментар.";
 			} else if($comment->delete()) {
 				$comment->orig->afterCommentRm($comment);
 			} else {
-				$json["error"] = "Не получилось удалить комментарий :(";
+				$json["error"] = "Изтриването на коментара не се получи :(";
 			}
 		}
 
@@ -217,8 +217,8 @@ class OrigController extends Controller {
 		$comment = Comment::model()->findByPk($comment_id);
 		$comment->orig = $orig;
 
-		if(!$comment) throw new CHttpException(404, "Комментарий, вероятно, удалён.");
-		if(!$comment->can("edit")) throw new CHttpException(403, "Свои комментарии можно редактировать только в течение часа после их написания. Вероятно, время вышло.");
+		if(!$comment) throw new CHttpException(404, "Коментарът, вероятно, е изтрит.");
+		if(!$comment->can("edit")) throw new CHttpException(403, "Собствените коментари могат да се редактират в рамките час след постването им. Вероятно, времето е изминало.");
 
 		if(isset($_POST["C"])) {
 			unset($_POST["pid"]); // на всякий случай
@@ -232,15 +232,15 @@ class OrigController extends Controller {
 
 	public function actionComment_rate($book_id, $chap_id, $orig_id, $comment_id) {
 		$orig = $this->loadOrig($book_id, $chap_id, $orig_id);
-		if(!$orig->chap->can("comment")) throw new CHttpException(403, "Вы не можете оценивать комментарии в этом переводе.");
+		if(!$orig->chap->can("comment")) throw new CHttpException(403, "Не можете да оценявате коментарите в този превод.");
 
 		if(!Yii::app()->request->isPostRequest) throw new CHttpException(400, "");
 
 		/** @var Comment $comment */
 		$comment = Comment::model()->with("orig")->findByPk($comment_id);
-		if(!$comment) throw new CHttpException(404, "Комментарий удалён.");
+		if(!$comment) throw new CHttpException(404, "Коментарът е изтрит.");
 		if($comment->orig_id != $orig_id) throw new CHttpException(400, "");
-		if(!$comment->can("rate")) throw new CHttpException(403, "Вы не можете оценивать этот комментарий.");
+		if(!$comment->can("rate")) throw new CHttpException(403, "Не можете да дадете оценка на този коментар.");
 
 		$comment->rate((int) $_POST["mark"]);
 
@@ -257,7 +257,7 @@ class OrigController extends Controller {
 		$ajax = $p_ajax || $g_ajax;
 
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Вы не можете редактировать оригинал в этом переводе.");
+		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Не можете да редактирате оригинала в този превод.");
 
 		/** @var Orig $orig */
 		if($orig_id == 0) {
@@ -268,7 +268,7 @@ class OrigController extends Controller {
 
 		} else {
 			$orig = Orig::model()->findByPk((int) $orig_id, array("condition" => "chap_id = :chap_id", "params" => array(":chap_id" => $chap->id)));
-			if(!$orig) throw new CHttpException(404, "Фрагмента оригинала не существует. Вероятно, его кто-то удалил.");
+			if(!$orig) throw new CHttpException(404, "Част от оригинала не съществува. Вероятно, някой го е изтрил.");
 			$orig->chap = $chap;
 		}
 		$orig->setScenario("edit_{$chap->book->typ}");
@@ -315,18 +315,18 @@ class OrigController extends Controller {
 
 	public function actionRemove($book_id, $chap_id, $orig_id) {
 		$chap = $this->loadChapter($book_id, $chap_id);
-		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Вы не можете редактировать оригинал в этом переводе.");
+		if(!$chap->book->can("chap_edit")) throw new CHttpException(403, "Не можете да редактирате оригинала в този превод.");
 
 		/** @var Orig $orig */
 		$orig = Orig::model()->findByPk((int) $orig_id, array("condition" => "chap_id = :chap_id", "params" => array(":chap_id" => $chap->id)));
-		if(!$orig) throw new CHttpException(404, "Фрагмента оригинала не существует. Вероятно, его кто-то уже удалил.");
+		if(!$orig) throw new CHttpException(404, "Част от оригинала не съществува. Вероятно, някой го е изтрил.");
 		$orig->chap = $chap;
 
 		/** @var Translation[] $trs все переводы, которые сейчас будут удалены */
 		$trs = Translation::model()->chapter($chap->id)->findAllByAttributes(array("orig_id" => $orig->id));
 		$n_trs = count($trs);
 
-		if(!$orig->delete()) throw new CHttpException(500, "Не получилось удалить фрагмент оригинала.");
+		if(!$orig->delete()) throw new CHttpException(500, "Изтриването на част от оригинала не се получи.");
 
 		$chap->setModified();
 
@@ -364,7 +364,7 @@ class OrigController extends Controller {
 		if($DEBUG) $ajax = 1;
 
 		$orig = $this->loadOrig($book_id, $chap_id, $orig_id, array("chap.book.membership"));
-		if(!$orig->chap->can("tr")) throw new CHttpException(403, "Вы не можете добавлять свои версии в этом переводе. " . $orig->chap->getWhoCanDoIt("tr"));
+		if(!$orig->chap->can("tr")) throw new CHttpException(403, "Не можете да добавяте свои версии в този превод. " . $orig->chap->getWhoCanDoIt("tr"));
 
         $tr_id = isset($_GET["tr_id"]) ? (int)$_GET["tr_id"] : 0;
 
@@ -382,7 +382,7 @@ class OrigController extends Controller {
 				"condition" => "chap_id = :chap_id AND book_id = :book_id AND orig_id = :orig_id",
 				"params" => array(":chap_id" => $orig->chap->id, ":book_id" => $orig->chap->book->id, ":orig_id" => $orig->id,
 			)));
-			if(!$tr) throw new CHttpException(404, "Версия перевода, которую вы пытаетесь отредактировать, кем-то уже удалена.");
+			if(!$tr) throw new CHttpException(404, "Версията на превода, която опитвате да редактирате, вече е изтрита от някого.");
 
 			if($orig->chap->book->membership->status != GroupMember::MODERATOR) {
 				if($tr->user_id == Yii::app()->user->id) {
@@ -390,7 +390,7 @@ class OrigController extends Controller {
 					$tr->n_votes = 0;
 					$tr->removeMarks();
 				} else {
-					throw new CHttpException(403, "Только модераторы могут редактировать чужие версии перевода.");
+					throw new CHttpException(403, "Само модератори могат да редактират чужди версии на превода.");
 				}
 			}
 		}
@@ -461,11 +461,11 @@ class OrigController extends Controller {
 		$trId = isset($_GET['tr_id']) ? (int) $_GET['tr_id'] : 0;
 
 		if ($trId == 0) {
-			throw new CHttpException(400, "Не указана версия перевода.");
+			throw new CHttpException(400, "Не е указана версията на превода.");
 		}
 
         $orig = $this->loadOrig($book_id, $chap_id, $orig_id, array("chap.book.membership"));
-        if(!$orig->chap->can("tr")) throw new CHttpException(403, "Вы не можете добавлять свои версии в этом переводе. " . $orig->chap->getWhoCanDoIt("tr"));
+        if(!$orig->chap->can("tr")) throw new CHttpException(403, "Не можете да добавяте свои версии в този превод. " . $orig->chap->getWhoCanDoIt("tr"));
 
 		$translation = $this->loadTranslation($book_id, $chap_id, $orig_id, $trId);
 		echo json_encode($translation->body);
@@ -493,7 +493,7 @@ class OrigController extends Controller {
 		);
 
 		if (!$translation) {
-			throw new CHttpException(404, "Версия перевода, которую вы пытаетесь отредактировать, кем-то уже удалена.");
+			throw new CHttpException(404, "Версията на превода, която опитвате да редактирате, вече е изтрита от някого.");
 		}
 
 		return $translation;
@@ -506,11 +506,11 @@ class OrigController extends Controller {
 
 		/** @var Translation $tr  */
 		$tr = Translation::model()->findByPk((int) $_POST["tr_id"], array("condition" => "chap_id = :chap_id AND book_id = :book_id", "params" => array(":chap_id" => $chap->id, ":book_id" => $chap->book_id)));
-		if(!$tr) throw new CHttpException(404, "Этот вариант перевода уже удалили.");
+		if(!$tr) throw new CHttpException(404, "Този вариант на превода вече е изтрит.");
 		$tr->chap = $chap;
 
 		if($tr->user_id != $user->id && $chap->book->membership->status != GroupMember::MODERATOR)
-			throw new CHttpException(403, "Только модераторы могут удалять чужие переводы.");
+			throw new CHttpException(403, "Само модератори могат да трият чужди преводи.");
 
 		if($tr->delete()) {
 			$chap->setModified();

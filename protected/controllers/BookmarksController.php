@@ -54,7 +54,7 @@ class BookmarksController extends Controller {
 
 	public function actionEdit() {
 		$bm = $this->loadBookmark();
-		if(!$bm) throw new CHttpException(404, "Закладки не существует. Возможно, она уже удалена.");
+		if(!$bm) throw new CHttpException(404, "Отметката не съществува. Възможно, вече е изтрита.");
 
 		$bm->setAttributes($_POST);
 		if(!$bm->save()) throw new CHttpException(500, $bm->getErrorsString());
@@ -99,9 +99,9 @@ class BookmarksController extends Controller {
 
 	public function actionRemove() {
 		$bm = $this->loadBookmark();
-		if(!$bm) throw new CHttpException(404, "Закладки не существует. Вероятно, она уже удалена.");
+		if(!$bm) throw new CHttpException(404, "Отметката не съществува. Възможно, вече е изтрита.");
 
-		if(!$bm->delete()) throw new CHttpException(500, "Не получилось удалить закладку. Попробуйте попозже.");
+		if(!$bm->delete()) throw new CHttpException(500, "Отметката не се изтри. Пробвайте отново по-късно.");
 
 		echo json_encode(array("book_id" => (int) $bm->book_id, "orig_id" => (int) $bm->orig_id, "status" => "rm"));
 	}

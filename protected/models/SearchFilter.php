@@ -5,11 +5,11 @@ class SearchFilter extends CFormModel {
 	public $category = null;
 
 	public static $sortOptions = array(
-		0 => "По степени готовности",
-		1 => "По названию на языке оригинала",
-		2 => "По названию на языке перевода",
-		3 => "По дате создания",
-		4 => "По дате последней активности",
+		0 => "По степен на завършеност",
+		1 => "По името на оригинала",
+		2 => "По името на езика на превода",
+		3 => "По дата на създаване",
+		4 => "По дата на последна активност",
 	);
 
 	public static $sortSQL = array(
@@ -30,13 +30,13 @@ class SearchFilter extends CFormModel {
 
 	public function getFilterTitle($attr) {
 		$html = array(
-			"t" => "<a>Название или описание содержит текст</a>",
-			"cat" => '<a href="#" onclick="return S.catChoose()">Из раздела каталога</a>',
+			"t" => "<a>Названието или описанието съдържа текст</a>",
+			"cat" => '<a href="#" onclick="return S.catChoose()">От раздела на каталога</a>',
 			"s_lang" => "<a>Език на оригинала</a>",
 			"t_lang" => "<a>Език на превода</a>",
-			"ready" => "<a>100% готовые</a>",
-			"gen" => "<a>Доступные для скачивания</a>",
-			"tr" => "<a>Доступные для перевода</a>",
+			"ready" => "<a>100% готови</a>",
+			"gen" => "<a>Достъпни за сваляне</a>",
+			"tr" => "<a>Достъпни за превод</a>",
 		);
 		return $html[$attr];
 	}
@@ -44,16 +44,16 @@ class SearchFilter extends CFormModel {
 	public function getFilterHtml($attr) {
 		if($attr == "cat") {
 			if(!$this->category) return "";
-			return '<input type="hidden" name="cat" value="' . $this->category->id . '" />Из раздела каталога &laquo;<span class="name">' . $this->category->title . '</span>&raquo;';
+			return '<input type="hidden" name="cat" value="' . $this->category->id . '" />От раздела на каталога &laquo;<span class="name">' . $this->category->title . '</span>&raquo;';
 		}
 		$html = array(
 			't' => '<input type="text" name="t" class="span8" />',
-			'cat' => '<input type="hidden" name="cat" />Из раздела каталога &laquo;<span class="name"></span>&raquo;',
+			'cat' => '<input type="hidden" name="cat" /От раздела на каталога &laquo;<span class="name"></span>&raquo;',
 			's_lang' => 'Език на оригинала: <select name="t_lang">' . Yii::app()->langs->options(Langs::FORM_INF) . '</select>',
 			't_lang' => 'Език на превода: <select name="t_lang">' . Yii::app()->langs->options(Langs::FORM_INF) . '</select>',
-			'ready' => '<label><input type="checkbox" name="ready" value="1" checked /> готовые на 100%</label>',
-			'gen' => '<label><input type="checkbox" name="gen" value="1" checked /> доступные для скачивания</label>',
-			'tr' => '<label><input type="checkbox" name="tr" value="1" checked /> доступные для перевода</label>',
+			'ready' => '<label><input type="checkbox" name="ready" value="1" checked /> Готови на 100%</label>',
+			'gen' => '<label><input type="checkbox" name="gen" value="1" checked /> Достъпни за сваляне</label>',
+			'tr' => '<label><input type="checkbox" name="tr" value="1" checked /> Достъпни за превод</label>',
 		);
 		return $html[$attr];
 	}

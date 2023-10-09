@@ -15,7 +15,7 @@ class KarmaMark extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			"mark" => "Оценка",
-			"note" => "Комментарий"
+			"note" => "Коментар"
 		);
 	}
 

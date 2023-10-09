@@ -9,7 +9,7 @@ $mail = $mail_dp->getData();
 
 Yii::app()->getClientScript()->registerScriptFile("/js/mail.js", CClientScript::POS_END);
 
-$this->pageTitle = "Почта: " . Mail::$folders[$folder];
+$this->pageTitle = "Поща: " . Mail::$folders[$folder];
 ?>
 <style type="text/css">
 #Mail td {white-space:nowrap;}
@@ -23,7 +23,7 @@ $this->pageTitle = "Почта: " . Mail::$folders[$folder];
 <?php
 if($mail_dp->getTotalItemCount() == 0):
 	echo "<div class='alert alert-info'>";
-	echo "У вас нет " . (isset($_GET["new"]) && $_GET["new"] ? "непрочитанных " : "") . "сообщений в папке &laquo;" . Mail::$folders[$folder] . "&raquo;";
+	echo "У вас нет " . (isset($_GET["new"]) && $_GET["new"] ? "непрочетени " : "") . "съобщения в папката &laquo;" . Mail::$folders[$folder] . "&raquo;";
 	echo "</div>";
 	return;
 endif
@@ -37,7 +37,7 @@ endif
 <tr>
 	<th><input type='checkbox' id='cb-check-all'></th>
 	<th>Дата</th>
-	<th>Собеседник</th>
+	<th>Събеседник</th>
 	<th>Тема</th>
 </tr>
 </thead>
@@ -55,10 +55,10 @@ endif
 ?>
 </table>
 <div id="mass-actions">
-	Выбранные:
+	Избрани:
 	<select name="act">
-		<option value="seen">считать прочитанными</option>
-		<option value="rm">удалить</option>
+		<option value="seen">смятат се за прочетени</option>
+		<option value="rm">изтриване</option>
 	</select>
 
 	<button type="submit" class="btn"><i class="icon-fire"></i> Ok</button>

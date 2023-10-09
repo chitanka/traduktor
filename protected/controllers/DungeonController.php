@@ -87,7 +87,7 @@ class DungeonController extends Controller {
 			->createCommand("select u.id # 24772 as user_id, u.cdate as user_cdate, u.n_trs, u.rate_t, u.rate_u, u.n_comments, a.q_id, a.cdate, a.ip, a.answer from poll_answers a left join users u on a.user_id = u.id")
 			->queryAll();
 
-		$header = ["ID пользователя", "Дата регистрации", "Количество переводов пользователя", "Рейтинг переводов пользователя", "Карма пользователя", "Количество комментариев пользователя", "Номер вопроса", "Время ответа", "IP", "Ответ"];
+		$header = ["ID пользователя", "Дата на регистрация", "Количество преводи на потребителя", "Рейтинг рейтинг на преводите на потребителя", "Карма на потребителя", "Количество коментари на потребителя", "Номер на въпроса", "Време за отговор", "IP", "Отговор"];
 		$data = join(";", $header) . "\r\n";
 
 		foreach($res as $row) {

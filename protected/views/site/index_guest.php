@@ -18,12 +18,12 @@
 	form a { text-align: right; color: #777; text-decoration: underline; }
 </style>
 <p class="first">
-	Секретный клуб переводчиков
+	Секретен клуб на преводачите
 	<em>&laquo;Notabenoid&raquo;</em>
 	им. С. Я. Маршака
 </p>
 <p>
-	Вход только для членов клуба.
+	Вход само за членове на клуба.
 </p>
 <?php
 foreach(Yii::app()->user->getFlashes() as $key => $message) {
@@ -33,11 +33,11 @@ foreach(Yii::app()->user->getFlashes() as $key => $message) {
 <form method="post" action="/">
 	<input type="text" name="login[login]" placeholder="Логин" class="form-control" autofocus
 		   value="<?=CHtml::encode(isset($_POST["login"]["login"]) ? $_POST["login"]["login"] : Yii::app()->user->getState("loginAs")); ?>"><br>
-	<input type="password" name="login[pass]" placeholder="Пароль" class="form-control"><br>
-	<a href="/register/remind">забыли?</a>
+	<input type="password" name="login[pass]" placeholder="Парола" class="form-control"><br>
+	<a href="/register/remind">Забравена парола?</a>
 	<button type="submit" class="btn btn-success"><i class="icon icon-ok-circle icon-white"></i></button>
 </form>
 <p class="how">
-	Если у вас был аккаунт на notabenoid.com и вы успели там перевести более 500 фрагментов, не заработав при этом
-	отрицательного рейтинга или кармы, вы, скорее всего, уже являетесь членом клуба.
+	Ако сте имали акаунт в notabenoid.com и сте успели да преведете 500 фрагмента там, без при това да 
+	получите отрицателен рейтинг или карма, вие, най-вероятно, вече сте член на клуба.
 </p>
