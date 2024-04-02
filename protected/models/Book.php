@@ -236,6 +236,9 @@ class Book extends CActiveRecord {
 	{
 		// владельцу можно всё
 		if ($this->isCurrentUserTheOwner()) return true;
+		if ($this->isCurrentUserAnAdmin()) {
+			return true;
+		}
 
 		if($what == "owner") return $this->isCurrentUserTheOwner();
 
@@ -267,6 +270,14 @@ class Book extends CActiveRecord {
 	public function isCurrentUserTheOwner()
 	{
 		return $this->owner_id == Yii::app()->user->id;
+	}
+
+	private function isCurrentUserAnAdmin(): bool {
+		return $this->currentUser()->can(User::CAN_ADMIN);
+	}
+
+	private function currentUser(): WebUser {
+		return Yii::app()->user;
 	}
 
 	/**
